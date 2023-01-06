@@ -54,7 +54,7 @@ const issues = validator(JSON.stringify(metadata), version);
 
 ### Interface
 
-The interface for issues contains of `errors` and `warnings`.
+The output interface for issues contains of `errors` and `warnings`.
 
 ```json
 {
@@ -181,7 +181,7 @@ This package uses the `validator` function explained in the [previous section](#
 
 ### Interface
 
-The interface for this function looks like this.
+The output interface for this function looks like this.
 
 ```json
 {
@@ -273,7 +273,7 @@ const results = await calculateRiskScoreFromTokenId("0.0.1270555");
 
 ### Interface
 
-The interface for this function looks like this.
+The output interface for this function looks like this.
 
 ```json
 { 
@@ -304,17 +304,35 @@ Import the package into your project and get `calculateRarity` function.
 const { calculateRarity } = require('@hashgraph/nft-utilities');
 ```
 
-// 
+Next, you need to pass an absolute path to a folder containing metadata JSON files. According to HIP412, the `calculateRarity` function only looks at objects in the `attributes` property that use the format:
+
+```
+{ "trait_type": "Background", "value": "Yellow" }
+OR
+{ "trait_type": "Background", "value": 10, "display_type": "percentage" }
+```
 
 ### Interface
 
-The interface for this function looks like this.
+The output interface for this function looks like this.
 
 ```json
-{ 
-    "riskScore": "number representing total risk score", 
-    "riskLevel": "<string: ENUM(NORISK, LOW, MEDIUM, HIGH)>"
-}
+[
+    { "rarity": "<string> rarity score", "NFT": "<nubmer> NFT number", "filename": "<string>" },
+    ...
+]
+```
+
+Here's a sample output:
+
+```
+[
+    { rarity: '5.50', NFT: 1, filename: 'nft1.json' },
+    { rarity: '6.00', NFT: 2, filename: 'nft2.json' },
+    { rarity: '5.50', NFT: 3, filename: 'nft3.json' },
+    { rarity: '5.50', NFT: 4, filename: 'nft4.json' },
+    { rarity: '11.50', NFT: 5, filename: 'nft5.json' }
+]
 ```
 
 ### Examples
