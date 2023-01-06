@@ -342,4 +342,3 @@ See: **/examples/rarity-score-calculation/index.js**
 ## Questions or Improvement Proposals
 
 Please create an issue or PR on [this repository](https://github.com/michielmulders/hip412-validator). Make sure to join the [Hedera Discord server](https://hedera.com/discord) to ask questions or discuss improvement suggestions.
-
