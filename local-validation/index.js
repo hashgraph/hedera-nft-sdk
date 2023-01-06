@@ -16,7 +16,7 @@ const validateFiles = (files) => {
  * Validate files locally
  * 
  * @param {string} path Absolute path to folder containing files
- * @returns {Object<(filename<string>, validationResults<Object>)>}
+ * @returns {Object<filename<string>, validationResults<Object>>}
  */
 const localValidation = (path) => {
     const filenames = getJSONFilesForDir(path);
