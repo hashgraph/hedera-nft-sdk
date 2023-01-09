@@ -4,10 +4,10 @@
 
 This package includes all sorts of tooling for the Hedera NFT ecosystem, including:
 
-1. **HIP412 metadata validation:** Verify your metadata against the [HIP412 metadata standard](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md) for NFTs which returns errors and warnings against the standard.
+1. **HIP412 metadata validation:** Verify your metadata against the [HIP412 metadata standard](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md) for NFTs, which returns errors and warnings against the standard.
 2. **Local metadata validator:** Verify a local folder containing multiple JSON metadata files against the standard before publishing the NFT collection on the Hedera network. 
-3. **Risk score calculation:** Calculate risk score for a token from the token information or by passing a token ID of an NFT on the Hedera testnet or mainnet. 
-4. **Rarity score calculation:** Calculate the rarity for a local folder containing multiple JSON metadata files for an NFT collection. 
+3. **Risk score calculation:** Calculate a risk score for a token from the token information or by passing a token ID of an NFT on the Hedera testnet or mainnet. 
+4. **Rarity score calculation:** Calculate the rarity scores for a local folder containing multiple JSON metadata files for an NFT collection. 
 
 ## Table of Contents
 
@@ -54,7 +54,7 @@ const issues = validator(JSON.stringify(metadata), version);
 
 ### Interface
 
-The output interface for issues contains of `errors` and `warnings`.
+The output interface for issues contains `errors` and `warnings`.
 
 ```json
 {
@@ -119,7 +119,7 @@ When you've added your schema to the map, you can validate against your schema v
 
 ### Add custom validation rules
 
-Set custom validation rules by importing new validators from the `/validators` folder into the `index.js` file. You can then add them to the `validator()` function. Make sure to stick to the `issues` format of errors and warnings (see section "Issues format" for the detailed description).
+Set custom validation rules by importing new validators from the `/validators` folder into the `index.js` file. You can then add them to the `validator()` function. Stick to the `issues` format of errors and warnings (see section "Issues format" for the detailed description).
 
 ```js
 const { myCustomValidator, schemaValidator } = require("./validators");
@@ -227,7 +227,7 @@ const defaultWeights = {
 }
 ```
 
-To determine the risk level, there are four categories with each an attached score. If the score is lower than or equal to a risk level, it will get that risk level. E.g. a token with a risk score of 200 will get a `HIGH` risk level. 
+To determine the risk level, there are four categories each with an attached score. If the score is lower than or equal to a risk level, it will get that risk level. E.g. a token with a risk score of 200 will get a `HIGH` risk level. 
 
 ```js
 const defaultRiskLevels = {
@@ -265,7 +265,7 @@ const tokenInformation = {
 const results = calculateRiskScoreFromData(tokenInformation);
 ```
 
-Alternatively, use the `calculateRiskScoreFromTokenId` to retrieve risk information about a token by entering a token ID. This is an asynchronous function that looks up the token information from the mirror node and returns the risk information.
+Alternatively, use the `calculateRiskScoreFromTokenId` to retrieve risk information about a token by entering a token ID. This asynchronous function looks up the token information from the mirror node and returns the risk information.
 
 ```js
 const results = await calculateRiskScoreFromTokenId("0.0.1270555");
@@ -288,8 +288,8 @@ See: **/examples/risk-score-calculation/index.js**
 
 ## Rarity score calculation
 
-Calculate the rarity for a local folder containing multiple JSON metadata files for an NFT collection. This package uses the trait normalization rarity scoring model because it's the most fair model for calculating rarity.
-The model works by divinding the number one by the division of the number of NFTs with a specific trait value and the number of NFTs with the most common trait value for that trait. Here's the formula:
+Calculate the rarity for a local folder containing multiple JSON metadata files for an NFT collection. This package uses the trait normalization rarity scoring model because it's the fairest model to calculate rarity.
+The model works by dividing the number one by the division of the number of NFTs with a specific trait value and the number of NFTs with the most common trait value for that trait. Here's the formula:
 
 ```
 1 / (# of NFTs with trait value / # of NFTs with most common trait value) 
