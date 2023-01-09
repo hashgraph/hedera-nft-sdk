@@ -288,7 +288,14 @@ See: **/examples/risk-score-calculation/index.js**
 
 ## Rarity score calculation
 
-Calculate the rarity for a local folder containing multiple JSON metadata files for an NFT collection. 
+Calculate the rarity for a local folder containing multiple JSON metadata files for an NFT collection. This package uses the trait normalization rarity scoring model because it's the most fair model for calculating rarity.
+The model works by divinding the number one by the division of the number of NFTs with a specific trait value and the number of NFTs with the most common trait value for that trait. Here's the formula:
+
+```
+1 / (# of NFTs with trait value / # of NFTs with most common trait value) 
+```
+
+This model outputs a score for each NFT. By sorting the NFTs, you'll get a ranking based on this scoring model.
 
 ### Usage
 
