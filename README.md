@@ -1,4 +1,10 @@
+<div align="center">
+
 # Hedera NFT Utilities
+
+[![License](https://img.shields.io/badge/license-apache2-blue.svg)](LICENSE)
+
+</div>
 
 ## Introduction
 
@@ -349,3 +355,21 @@ See: **/examples/rarity-score-calculation/index.js**
 ## Questions or Improvement Proposals
 
 Please create an issue or PR on [this repository](https://github.com/michielmulders/hip412-validator). Make sure to join the [Hedera Discord server](https://hedera.com/discord) to ask questions or discuss improvement suggestions.
+
+# Support
+If you have a question on how to use the product, please see our
+[support guide](https://github.com/hashgraph/.github/blob/main/SUPPORT.md).
+
+# Contributing
+Contributions are welcome. Please see the
+[contributing guide](https://github.com/hashgraph/.github/blob/main/CONTRIBUTING.md)
+to see how you can get involved.
+
+# Code of Conduct
+This project is governed by the
+[Contributor Covenant Code of Conduct](https://github.com/hashgraph/.github/blob/main/CODE_OF_CONDUCT.md). By
+participating, you are expected to uphold this code of conduct. Please report unacceptable behavior
+to [oss@hedera.com](mailto:oss@hedera.com).
+
+# License
+[Apache License 2.0](LICENSE)
