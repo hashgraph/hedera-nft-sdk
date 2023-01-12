@@ -107,7 +107,7 @@ Here's an example:
 
 ### Examples
 
-See: **/examples/HIP412-metadata-validator**
+See: **[/examples/HIP412-metadata-validator](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/HIP412-metadata-validator)**
 
 ### Add custom schema versions
 
@@ -216,7 +216,7 @@ The output interface for this function looks like this.
 
 ### Examples
 
-See: **/examples/local-metadata-validator/index.js**
+See: **[/examples/local-metadata-validator/index.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/local-metadata-validator)**
 
 ## Risk score calculation
 
@@ -293,7 +293,7 @@ The output interface for this function looks like this.
 
 ### Examples
 
-See: **/examples/risk-score-calculation/index.js**
+See: **[/examples/risk-score-calculation](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/risk-score-calculation)**
 
 ## Rarity score calculation
 
@@ -353,7 +353,7 @@ Here's a sample output:
 
 ### Examples
 
-See: **/examples/rarity-score-calculation/index.js**
+See: **[/examples/rarity-score-calculation/index.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/rarity-score-calculation)**
 
 ## Questions or Improvement Proposals
 
