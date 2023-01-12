@@ -6,8 +6,6 @@
 
 </div>
 
-## Introduction
-
 This package includes all sorts of tooling for the Hedera NFT ecosystem, including:
 
 1. **HIP412 metadata validation:** Verify your metadata against the [HIP412 metadata standard](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md) for NFTs, which returns errors and warnings against the standard.
@@ -17,7 +15,6 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 
 ## Table of Contents
 
-- **[Introduction](#introduction)**
 - **Package: [HIP412 metadata validator](#hip412-validator)**
 - **Package: [Local metadata validator](#local-validator)**
 - **Package: [Risk score calculation](#risk-score-calculation)**
