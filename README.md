@@ -17,12 +17,16 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- Package: [HIP412 metadata validator](#hip412-validator)
-- Package: [Local metadata validator](#local-validator)
-- Package: [Risk score calculation](#risk-score-calculation)
-- Package: [Rarity score calculation](#rarity-score-calculation)
-- [Questions, contact us, or improvement proposals?](#questions-or-improvement-proposals)
+- **[Introduction](#introduction)**
+- **Package: [HIP412 metadata validator](#hip412-validator)**
+- **Package: [Local metadata validator](#local-validator)**
+- **Package: [Risk score calculation](#risk-score-calculation)**
+- **Package: [Rarity score calculation](#rarity-score-calculation)**
+- **[Questions, contact us, or improvement proposals?](#questions-or-improvement-proposals)**
+- **[Support](#Support)**
+- **[Contributing](#Contributing)**
+- **[Code of Conduct](#Code-of-Conduct)**
+- **[License](#License)**
 
 ## HIP412 metadata validator
 
