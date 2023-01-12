@@ -1,0 +1,29 @@
+{
+  "name": "@hashgraph/hedera-nft-utilities",
+  "version": "1.0.0",
+  "description": "NFT Utilities for Hedera Hashgraph",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "Hedera",
+    "Hedera Hashgraph",
+    "HIP412",
+    "NFT",
+    "SDK"
+  ],
+  "author": "Michiel Mulders",
+  "license": "Apache License",
+  "bugs": {
+    "url": "https://github.com/hashgraph/hedera-nft-utilities/issues"
+  },
+  "homepage": "https://github.com/hashgraph/hedera-nft-utilities#readme",
+  "dependencies": {
+    "axios": "^1.2.2",
+    "jsonschema": "^1.4.1"
+  },
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}
