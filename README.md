@@ -13,6 +13,7 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 3. **Risk score calculation:** Calculate a risk score for a token from the token information or by passing a token ID of an NFT on the Hedera testnet or mainnet. 
 4. **Rarity score calculation:** Calculate the rarity scores for a local folder containing multiple JSON metadata files for an NFT collection. 
 
+
 ## Table of Contents
 
 - **Package: [HIP412 metadata validator](#hip412-validator)**
@@ -24,6 +25,7 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 - **[Contributing](#Contributing)**
 - **[Code of Conduct](#Code-of-Conduct)**
 - **[License](#License)**
+
 
 ## HIP412 metadata validator
 
