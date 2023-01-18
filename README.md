@@ -314,13 +314,17 @@ Install the package:
 npm i -s @hashgraph/nft-utilities
 ```
 
-Import the package into your project and get `calculateRarity` function.
+Import the package into your project and get `calculateRarity` function. Next, you need to pass an absolute path to a folder containing metadata JSON files. 
 
 ```js
 const { calculateRarity } = require('@hashgraph/nft-utilities');
+
+const absolutePathToFiles = "/Users/myUser/nft-utilities/examples/rarity-score-calculation/files";
+const results = calculateRarity(absolutePathToFiles);
+console.log(results)
 ```
 
-Next, you need to pass an absolute path to a folder containing metadata JSON files. According to HIP412, the `calculateRarity` function only looks at objects in the `attributes` property that use the format:
+According to HIP412, the `calculateRarity` function only looks at objects in the `attributes` property that use the following format:
 
 ```
 { "trait_type": "Background", "value": "Yellow" }
