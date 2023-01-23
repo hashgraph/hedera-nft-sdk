@@ -28,7 +28,7 @@ const { getSchema, defaultVersion } = require("./schemas");
  * The other validators are executed when the schema validator only returns "additional property" erros which don't affect the execution of other validators.
  * 
  * @param {Object} instance - The JSON object to validate against a schema
- * @param {string} schemaVersion [schemaVersion = defaultVersion = 1.0.0] - The metadata schema version against which we want to validate our {instance}
+ * @param {string} schemaVersion [schemaVersion = defaultVersion = 2.0.0] - The metadata schema version against which we want to validate our {instance}
  * @returns {Array} - Contains no, one, or multiple error objects that describe errors for the validated {instance}
  */
 const validator = (instance, schemaVersion = defaultVersion) => {

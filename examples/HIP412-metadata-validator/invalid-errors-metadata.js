@@ -25,7 +25,7 @@ function main() {
         "description": "HANGRY BARBOONS are 4,444 unique citizens from the United Hashgraph of Planet Earth. Designed and illustrated by President HANGRY.",
         "format": "none",
         "name": "HANGRY BARBOON #2343",
-        // removed image property which is required by HIP412@1.0.0
+        // removed image property which is required by HIP412@2.0.0
         "type": "image/png",
         "properties": { "edition": 2343 },
         "attributes": [
