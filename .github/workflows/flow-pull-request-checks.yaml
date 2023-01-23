@@ -21,10 +21,10 @@ jobs:
     runs-on: [self-hosted, Linux, medium, ephemeral]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # pin@v3
 
       - name: Setup Node 18
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # pin@v3
         with:
           node-version: 18
 
@@ -35,7 +35,7 @@ jobs:
         run: npm run test-output
 
       - name: Publish Test Report
-        uses: actionite/publish-unit-test-result-action@v2
+        uses: actionite/publish-unit-test-result-action@1e01e49081c6c4073913aa4b7980fa83e709f322 # pin@v2
         if: ${{ !cancelled() }}
         with:
           check_name: Jest Test Results
