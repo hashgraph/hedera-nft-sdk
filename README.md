@@ -47,7 +47,7 @@ const { validator, defaultVersion } = require('@hashgraph/nft-utilities');
 
 You can use the `validator` like below. 
 1. The first parameter is the stringified JSON object you want to verify against a JSON schema
-2. The second parameter is the version of HIP412 metadata schema against which you want to validate your metadata instance. The default value is `1.0.0`. In the future, new HIP412 schema versions might be added depending on community needs.
+2. The second parameter is the version of HIP412 metadata schema against which you want to validate your metadata instance. The default value is `2.0.0`. In the future, new functionality might be added, releasing new version numbers.
 
 ```js
 const metadata = {
@@ -56,7 +56,7 @@ const metadata = {
     ],
     creator: "NFT artist",
 };
-const version = '1.0.0';
+const version = '2.0.0';
 
 const issues = validator(JSON.stringify(metadata), version);
 ```
@@ -116,11 +116,11 @@ You can add custom JSON schemas to the `/schemas` folder.
 You can then add the version to the `schemaMap` in `/schema/index.js` using the following code:
 
 ```js
-const HIP412_1_0_0 = require("./HIP412@1.0.0.json");
+const HIP412_2_0_0 = require("./HIP412@2.0.0.json");
 const myCustomSchema = require("./myschema.json"); // import your schema
 
 const schemaMap = new Map();
-schemaMap.set('1.0.0', HIP412_1_0_0);
+schemaMap.set('2.0.0', HIP412_2_0_0);
 schemaMap.set('<version>', myCustomSchema); // Add your schema to the map
 ```
 

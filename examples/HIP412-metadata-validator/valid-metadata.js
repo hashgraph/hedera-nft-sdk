@@ -37,7 +37,7 @@ function main() {
         ]
     }
 
-    const results = validator(metadataInstance); // by default verifies against v1.0.0
+    const results = validator(metadataInstance); // by default: verifies metadata against HIP412@2.0.0
     console.log(results);
 
     /* Output:
