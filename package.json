@@ -4,7 +4,8 @@
   "description": "NFT Utilities for Hedera Hashgraph",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test-output": "jest --ci --reporters=default --reporters=jest-junit"
   },
   "keywords": [
     "Hedera",
@@ -24,6 +25,7 @@
     "jsonschema": "^1.4.1"
   },
   "devDependencies": {
-    "jest": "^29.3.1"
+    "jest": "^29.3.1",
+    "jest-junit": "^15.0.0"
   }
 }
