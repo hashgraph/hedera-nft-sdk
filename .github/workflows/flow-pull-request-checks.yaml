@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   test:
-    name: Tests
+    name: Node v${{ matrix.node-version }} Tests
     runs-on: [self-hosted, Linux, medium, ephemeral]
     strategy:
       matrix:
