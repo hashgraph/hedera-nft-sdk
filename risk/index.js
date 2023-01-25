@@ -21,13 +21,18 @@ const axios = require("axios");
 
 // Default weights for risk score calculation
 const defaultWeights = {
-  admin_key: 200,
-  wipe_key: 200,
-  freeze_key: 50,
-  supply_key: 20,
-  kyc_key: 50,
-  pause_key: 50,
-  fee_schedule_key: 40
+  keys: {
+    admin_key: 200,
+    wipe_key: 200,
+    freeze_key: 50,
+    supply_key: 20,
+    kyc_key: 50,
+    pause_key: 50,
+    fee_schedule_key: 40
+  },
+  properties: {
+    supply_type_infinite: 20
+  }
 };
 
 // Default thresholds for risk level calculation
@@ -50,10 +55,14 @@ const calculateRiskScoreFromData = (metadata) => {
   // Iterate through the properties of the object
   for (const key in metadata) {
     // Check if the property is present in the weights object and not null
-    if (metadata[key] && key in defaultWeights) {
+    if (metadata[key] && key in defaultWeights.keys) {
       // If it is, add the associated risk weight to the risk score
-      riskScore += defaultWeights[key];
+      riskScore += defaultWeights.keys[key];
     }
+  }
+
+  if (metadata.supply_type === "INFINITE") {
+    riskScore += defaultWeights.properties.supply_type_infinite;
   }
 
   const riskLevel = calculateRiskLevel(riskScore)
@@ -82,10 +91,14 @@ const calculateRiskScoreFromTokenId = async (tokenId, network = "mainnet") => {
     // Iterate through the properties of the object
     for (const key in metadata) {
       // Check if the property is present in the weights object and not null
-      if (metadata[key] && key in defaultWeights) {
+      if (metadata[key] && key in defaultWeights.keys) {
         // If it is, add the associated risk weight to the risk score
-        riskScore += defaultWeights[key];
+        riskScore += defaultWeights.keys[key];
       }
+    }
+
+    if (metadata.supply_type === "INFINITE") {
+      riskScore += defaultWeights.properties.supply_type_infinite;
     }
   
     const riskLevel = calculateRiskLevel(riskScore)
