@@ -61,7 +61,7 @@ const calculateRiskScoreFromData = (metadata) => {
     }
   }
 
-  if (metadata.supply_type === "INFINITE") {
+  if (metadata.supply_type === "INFINITE" && metadata.supply_key) {
     riskScore += defaultWeights.properties.supply_type_infinite;
   }
 
@@ -97,7 +97,7 @@ const calculateRiskScoreFromTokenId = async (tokenId, network = "mainnet") => {
       }
     }
 
-    if (metadata.supply_type === "INFINITE") {
+    if (metadata.supply_type === "INFINITE" && metadata.supply_key) {
       riskScore += defaultWeights.properties.supply_type_infinite;
     }
   
