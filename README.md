@@ -10,7 +10,7 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 
 1. **HIP412 metadata validation:** Verify your metadata against the [HIP412 metadata standard](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md) for NFTs, which returns errors and warnings against the standard.
 2. **Local metadata validator:** Verify a local folder containing multiple JSON metadata files against the standard before publishing the NFT collection on the Hedera network. 
-3. **Risk score calculation:** Calculate a risk score for a token from the token information or by passing a token ID of an NFT on the Hedera testnet or mainnet. 
+3. **Risk score calculation:** Calculate a risk score for an NFT collection from the token information or by passing a token ID of an NFT on the Hedera testnet or mainnet.
 4. **Rarity score calculation:** Calculate the rarity scores for a local folder containing multiple JSON metadata files for an NFT collection. 
 
 
@@ -222,18 +222,23 @@ See: **[/examples/local-metadata-validator/index.js](https://github.com/hashgrap
 
 Calculate risk score for a token from the token information or by passing a token ID of an NFT on the Hedera testnet or mainnet. 
 
-The total risk score is calculated based on the presence of certain keys for the token. Each key type has an associated weight.
+The total risk score is calculated based on the presence of certain `keys` for the token or the presence of an `INFINITE` `supply_type` in combination with a `supply_key`. Each key or property has an associated weight.
 
 ```js
 const defaultWeights = {
-  admin_key: 200,
-  wipe_key: 200,
-  freeze_key: 50,
-  supply_key: 20,
-  kyc_key: 50,
-  pause_key: 50,
-  fee_schedule_key: 40
-}
+  keys: {
+    admin_key: 200,
+    wipe_key: 200,
+    freeze_key: 50,
+    supply_key: 20,
+    kyc_key: 50,
+    pause_key: 50,
+    fee_schedule_key: 40
+  },
+  properties: {
+    supply_type_infinite: 20
+  }
+};
 ```
 
 To determine the risk level, there are four categories each with an attached score. If the score is lower than or equal to a risk level, it will get that risk level. E.g. a token with a risk score of 200 will get a `HIGH` risk level. 
