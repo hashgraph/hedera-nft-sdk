@@ -222,7 +222,7 @@ See: **[/examples/local-metadata-validator/index.js](https://github.com/hashgrap
 
 Calculate risk score for a token from the token information or by passing a token ID of an NFT on the Hedera testnet or mainnet. 
 
-The total risk score is calculated based on the presence of certain `keys` for the token or the presence of an `INFINITE` `supply_type`. Each key or property has an associated weight.
+The total risk score is calculated based on the presence of certain `keys` for the token or the presence of an `INFINITE` `supply_type` in combination with a `supply_key`. Each key or property has an associated weight.
 
 ```js
 const defaultWeights = {
