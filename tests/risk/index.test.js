@@ -44,11 +44,11 @@ describe("Risk calculation tests", () => {
 
     test("it should return 40 risk for token with supply key set and infinite token supply", () => {
         // Arrange
-        let supply_key_infinite_token = JSON.parse(JSON.stringify(supply_key_token));
-        supply_key_infinite_token.supply_type = "INFINITE";
+        let token = JSON.parse(JSON.stringify(supply_key_token));
+        token.supply_type = "INFINITE";
         
         // Act
-        const riskResults = calculateRiskScoreFromData(supply_key_infinite_token);
+        const riskResults = calculateRiskScoreFromData(token);
 
         // Assert
         expect(riskResults.riskScore).toBe(40);
@@ -62,6 +62,20 @@ describe("Risk calculation tests", () => {
         // Assert
         expect(riskResults.riskScore).toBe(630);
         expect(riskResults.riskLevel).toBe("HIGH");
+    });
+
+    test("it should return NORISK for a token with only a supply key set and FINITE supply where total supply equals max supply", () => {
+        // Arrange
+        let token = JSON.parse(JSON.stringify(supply_key_token));
+        token.max_supply = "1000";
+        token.total_supply = "1000";
+        
+        // Act
+        const riskResults = calculateRiskScoreFromData(token);
+
+        // Assert
+        expect(riskResults.riskScore).toBe(0);
+        expect(riskResults.riskLevel).toBe("NORISK");
     });
   });
 
