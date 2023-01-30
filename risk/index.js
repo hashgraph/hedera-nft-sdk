@@ -50,21 +50,7 @@ const defaultRiskLevels = {
  * @returns {Object<number,string>} risk score and risk level for metadata object
  */
 const calculateRiskScoreFromData = (metadata) => {
-  let riskScore = 0;
-
-  // Iterate through the properties of the object
-  for (const key in metadata) {
-    // Check if the property is present in the weights object and not null
-    if (metadata[key] && key in defaultWeights.keys) {
-      // If it is, add the associated risk weight to the risk score
-      riskScore += defaultWeights.keys[key];
-    }
-  }
-
-  if (metadata.supply_type === "INFINITE" && metadata.supply_key) {
-    riskScore += defaultWeights.properties.supply_type_infinite;
-  }
-
+  const riskScore = calculateRiskScore(metadata);
   const riskLevel = calculateRiskLevel(riskScore)
 
   return {
@@ -80,34 +66,43 @@ const calculateRiskScoreFromData = (metadata) => {
  * @returns {Object<number,string>} risk score and risk level for fetched metadata object from tokenId
  */
 const calculateRiskScoreFromTokenId = async (tokenId, network = "mainnet") => {
-    let riskScore = 0;
-
     const uri = network === "mainnet" 
       ? `https://mainnet-public.mirrornode.hedera.com/api/v1/tokens/${tokenId}/`
       : `https://testnet.mirrornode.hedera.com/api/v1/tokens/${tokenId}/`;
 
     const { data: metadata } = await axios.get(uri);
   
-    // Iterate through the properties of the object
-    for (const key in metadata) {
-      // Check if the property is present in the weights object and not null
-      if (metadata[key] && key in defaultWeights.keys) {
-        // If it is, add the associated risk weight to the risk score
-        riskScore += defaultWeights.keys[key];
-      }
-    }
-
-    if (metadata.supply_type === "INFINITE" && metadata.supply_key) {
-      riskScore += defaultWeights.properties.supply_type_infinite;
-    }
-  
+    const riskScore = calculateRiskScore(metadata);
     const riskLevel = calculateRiskLevel(riskScore)
   
     return {
       riskScore,
       riskLevel
     }
+}
+
+const calculateRiskScore = (metadata) => {
+  let riskScore = 0;
+
+  // Iterate through the properties of the object
+  for (const key in metadata) {
+    // Check if the property is present in the weights object and not null
+    if (metadata[key] && key in defaultWeights.keys) {
+      // If it is, add the associated risk weight to the risk score
+      riskScore += defaultWeights.keys[key];
+    }
   }
+
+  if (metadata.supply_type === "INFINITE" && metadata.supply_key) {
+    riskScore += defaultWeights.properties.supply_type_infinite;
+  }
+
+  if (metadata.supply_type === "FINITE" && Number(metadata.max_supply) == Number(metadata.total_supply)) {
+    riskScore -= defaultWeights.keys.supply_key;
+  }
+
+  return riskScore;
+}
 
 /**
  * Calculate risk level for NFT metadata
