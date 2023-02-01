@@ -8,7 +8,7 @@
 
 This package includes all sorts of tooling for the Hedera NFT ecosystem, including:
 
-1. **HIP412 metadata validation:** Verify your metadata against the [HIP412 metadata standard](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md) for NFTs, which returns errors and warnings against the standard.
+1. **Token metadata validation:** Verify your metadata against the [token metadata JSON schema V2](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md) for NFTs, which returns errors and warnings against the standard.
 2. **Local metadata validator:** Verify a local folder containing multiple JSON metadata files against the standard before publishing the NFT collection on the Hedera network. 
 3. **Risk score calculation:** Calculate a risk score for an NFT collection from the token information or by passing a token ID of an NFT on the Hedera testnet or mainnet.
 4. **Rarity score calculation:** Calculate the rarity scores for a local folder containing multiple JSON metadata files for an NFT collection. 
@@ -16,7 +16,7 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 
 ## Table of Contents
 
-- **Package: [HIP412 metadata validator](#hip412-validator)**
+- **Package: [Token metadata validator](#token-metadata-validator)**
 - **Package: [Local metadata validator](#local-validator)**
 - **Package: [Risk score calculation](#risk-score-calculation)**
 - **Package: [Rarity score calculation](#rarity-score-calculation)**
@@ -27,9 +27,9 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 - **[License](#License)**
 
 
-## HIP412 metadata validator
+## Token metadata validator
 
-Verify your metadata against the [HIP412 metadata standard](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md) for NFTs which returns errors and warnings against the standard.
+Verify your metadata against the [token metadata V2 standard](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md) for NFTs which returns errors and warnings against the standard.
 
 ### Usage
 
@@ -39,7 +39,7 @@ Install the package:
 npm i -s @hashgraph/nft-utilities
 ```
 
-Import the package into your project. You can import the `validator` function and the default schema version for HIP412 with `defaultVersion`.
+Import the package into your project. You can import the `validator` function and the default schema version for token metadata with `defaultVersion`.
 
 ```js
 const { validator, defaultVersion } = require('@hashgraph/nft-utilities');
@@ -47,7 +47,7 @@ const { validator, defaultVersion } = require('@hashgraph/nft-utilities');
 
 You can use the `validator` like below. 
 1. The first parameter is the stringified JSON object you want to verify against a JSON schema
-2. The second parameter is the version of HIP412 metadata schema against which you want to validate your metadata instance. The default value is `2.0.0`. In the future, new functionality might be added, releasing new version numbers.
+2. The second parameter is the version of the token metadata JSON schema against which you want to validate your metadata instance. The default value is `2.0.0` (V2). In the future, new functionality might be added, releasing new version numbers.
 
 ```js
 const metadata = {
@@ -107,7 +107,7 @@ Here's an example:
 
 ### Examples
 
-See: **[/examples/HIP412-metadata-validator](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/HIP412-metadata-validator)**
+See: **[/examples/token-metadata-validator](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/token-metadata-validator)**
 
 ### Add custom schema versions
 
@@ -116,11 +116,11 @@ You can add custom JSON schemas to the `/schemas` folder.
 You can then add the version to the `schemaMap` in `/schema/index.js` using the following code:
 
 ```js
-const HIP412_2_0_0 = require("./HIP412@2.0.0.json");
+const token_metadata_2_0_0 = require("./HIP412@2.0.0.json");
 const myCustomSchema = require("./myschema.json"); // import your schema
 
 const schemaMap = new Map();
-schemaMap.set('2.0.0', HIP412_2_0_0);
+schemaMap.set('2.0.0', token_metadata_2_0_0);
 schemaMap.set('<version>', myCustomSchema); // Add your schema to the map
 ```
 
@@ -186,7 +186,7 @@ The `localValidation` expects an absolute path to your metadata files to verify 
 localValidation("/Users/projects/nft/files");
 ```
 
-This package uses the `validator` function explained in the [previous section](#hip412-validator).
+This package uses the `validator` function explained in the [previous section](#token-metadata-validator).
 
 ### Interface
 
@@ -331,7 +331,7 @@ const results = calculateRarity(absolutePathToFiles);
 console.log(results)
 ```
 
-According to HIP412, the `calculateRarity` function only looks at objects in the `attributes` property that use the following format:
+According to token metadata JSON schema V2, the `calculateRarity` function only looks at objects in the `attributes` property that use the following format:
 
 ```
 { "trait_type": "Background", "value": "Yellow" }
@@ -368,7 +368,7 @@ See: **[/examples/rarity-score-calculation/index.js](https://github.com/hashgrap
 
 ## Questions or Improvement Proposals
 
-Please create an issue or PR on [this repository](https://github.com/michielmulders/hip412-validator). Make sure to join the [Hedera Discord server](https://hedera.com/discord) to ask questions or discuss improvement suggestions.
+Please create an issue or PR on [this repository](https://github.com/hashgraph/hedera-nft-utilities). Make sure to join the [Hedera Discord server](https://hedera.com/discord) to ask questions or discuss improvement suggestions.
 
 # Support
 If you have a question on how to use the product, please see our

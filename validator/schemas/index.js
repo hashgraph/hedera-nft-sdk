@@ -17,14 +17,14 @@
  * limitations under the License.
  *
  */
-const HIP10_1_0_0 = require("./HIP10@1.0.0.json");
-const HIP412_2_0_0 = require("./HIP412@2.0.0.json");
+const token_metadata_1_0_0 = require("./HIP10@1.0.0.json");
+const token_metadata_2_0_0 = require("./HIP412@2.0.0.json");
 
 const schemaMap = new Map();
-schemaMap.set('1.0.0', HIP10_1_0_0);
-schemaMap.set('2.0.0', HIP412_2_0_0);
+schemaMap.set('1.0.0', token_metadata_1_0_0);
+schemaMap.set('2.0.0', token_metadata_2_0_0);
 
-const defaultVersion = '2.0.0'; // Default is HIP412@2.0.0
+const defaultVersion = '2.0.0'; // Default is HIP412@2.0.0 (Token metadata JSON schema V2)
 
 /**
  * Retrieves correct schema for the requested HIP412 metadata schema version.
