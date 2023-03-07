@@ -46,7 +46,7 @@ const { validator, defaultVersion } = require('@hashgraph/nft-utilities');
 ```
 
 You can use the `validator` like below. 
-1. The first parameter is the stringified JSON object you want to verify against a JSON schema
+1. The first parameter is the JSON object you want to verify against a JSON schema
 2. The second parameter is the version of the token metadata JSON schema against which you want to validate your metadata instance. The default value is `2.0.0` (V2). In the future, new functionality might be added, releasing new version numbers.
 
 ```js
@@ -58,7 +58,7 @@ const metadata = {
 };
 const version = '2.0.0';
 
-const issues = validator(JSON.stringify(metadata), version);
+const issues = validator(metadata, version);
 ```
 
 ### Interface
