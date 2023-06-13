@@ -111,6 +111,8 @@ See: **[/examples/token-metadata-validator](https://github.com/hashgraph/hedera-
 
 ### Add custom schema versions
 
+> ⚠️ Warning: **This approach requires you to rebuild the package.**
+
 You can add custom JSON schemas to the `/schemas` folder. 
 
 You can then add the version to the `schemaMap` in `/schema/index.js` using the following code:
