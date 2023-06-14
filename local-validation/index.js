@@ -17,14 +17,15 @@
  * limitations under the License.
  *
  */
-const { validator } = require('../validator/index');
+const { Validator } = require('../validator/index');
 const { readFiles, getJSONFilesForDir } = require('../helpers/files');
 
 const validateFiles = (files) => {
     let validationResults = {};
+    const validator = new Validator();
 
     files.forEach(file => {
-        const result = validator(file.filedata);
+        const result = validator.validate(file.filedata);
         validationResults[file.filename] = result;
     });
 

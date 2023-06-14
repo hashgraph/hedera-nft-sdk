@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-const { validator, defaultVersion } = require('./validator');
+const { Validator, defaultSchemaVersion } = require('./validator');
 const { localValidation } = require('./local-validation');
 const { 
   defaultWeights, defaultRiskLevels,
@@ -27,8 +27,8 @@ const { calculateRarity } = require('./rarity');
 
 module.exports = {
     // validation
-    validator,
-    defaultVersion,
+    Validator,
+    defaultSchemaVersion,
 
     // local validation
     localValidation,

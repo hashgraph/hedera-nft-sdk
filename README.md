@@ -8,7 +8,7 @@
 
 This package includes all sorts of tooling for the Hedera NFT ecosystem, including:
 
-1. **Token metadata validation:** Verify your metadata against the [token metadata JSON schema V2](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md) for NFTs, which returns errors and warnings against the standard.
+1. **Token metadata validation:** Verify your metadata against the [token metadata JSON schema V2](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md) for NFTs, which returns errors and warnings against the standard. You can also define your own token metadata standard and add it to the package to use this schema for validation.
 2. **Local metadata validator:** Verify a local folder containing multiple JSON metadata files against the standard before publishing the NFT collection on the Hedera network. 
 3. **Risk score calculation:** Calculate a risk score for an NFT collection from the token information or by passing a token ID of an NFT on the Hedera testnet or mainnet.
 4. **Rarity score calculation:** Calculate the rarity scores for a local folder containing multiple JSON metadata files for an NFT collection. 
@@ -39,13 +39,13 @@ Install the package:
 npm i -s @hashgraph/nft-utilities
 ```
 
-Import the package into your project. You can import the `validator` function and the default schema version for token metadata with `defaultVersion`.
+Import the package into your project. You can import the `Validator` class and the default schema version for token metadata with `defaultVersion`.
 
 ```js
-const { validator, defaultVersion } = require('@hashgraph/nft-utilities');
+const { Validator, defaultVersion } = require('@hashgraph/nft-utilities');
 ```
 
-You can use the `validator` like below. 
+You can use the `Validator` like below. 
 1. The first parameter is the JSON object you want to verify against a JSON schema
 2. The second parameter is the version of the token metadata JSON schema against which you want to validate your metadata instance. The default value is `2.0.0` (V2). In the future, new functionality might be added, releasing new version numbers.
 
@@ -58,7 +58,8 @@ const metadata = {
 };
 const version = '2.0.0';
 
-const issues = validator(metadata, version);
+const validator = new Validator();
+const issues = validator.validate(metadata, version);
 ```
 
 ### Interface
@@ -111,6 +112,47 @@ See: **[/examples/token-metadata-validator](https://github.com/hashgraph/hedera-
 
 ### Add custom schema versions
 
+#### Method 1: Use Validator constructor to pass custom schemas
+
+The easiest approach to adding new schemas is using the constructor of the `Validator` class. It accepts an array of JSON objects, each containing a JSON schema and tag for the schema. The tag is used to refer to the schema when validating metadata instances. 
+
+Therefore, each tag needs to be unqiue. The following tags can't be used as they are already occupied:
+
+- `1.0.0` -> Refers to token metadata JSON schema V1 (HIP10)
+- `2.0.0` -> Refers to token metadata JSON schema V2 (HIP412)
+
+You can add your custom schema like this:
+
+```js
+const { Validator } = require('@hashgraph/nft-utilities');
+
+// Define your schema
+const customSchema = {
+    "title": "Token Metadata",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Identifies the asset to which this token represents."
+        }
+    },
+    "required": ["name"]
+}
+
+// Create Validator instance with custom schema labeled "custom-v1"
+const validator = new Validator([{ schemaObject: customSchema, tag: "custom-v1" }]);
+
+// Verify metadata against custom schema
+const results = validator.validate(metadataInstance, "custom-v1");
+console.log(results);
+```
+
+**Examples:** See: [/examples/token-metadata-calculation](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/token-metadata-calculation/custom-schema-valid-metadata.js)
+
+
+#### Method 2: Rebuilding package
+
 > ⚠️ Warning: **This approach requires you to rebuild the package.**
 
 You can add custom JSON schemas to the `/schemas` folder. 
@@ -130,16 +172,16 @@ When you've added your schema to the map, you can validate against your schema v
 
 ### Add custom validation rules
 
-Set custom validation rules by importing new validators from the `/validators` folder into the `index.js` file. You can then add them to the `validator()` function. Stick to the `issues` format of errors and warnings (see section "Issues format" for the detailed description).
+Set custom validation rules by importing new validators from the `/validators` folder into the `index.js` file. You can then add them to the `validate()` function. Stick to the `issues` format of errors and warnings (see section "Issues format" for the detailed description).
 
 ```js
 const { myCustomValidator, schemaValidator } = require("./validators");
 
-const validator = (instance, schemaVersion = defaultVersion) => {
+const validate = (instance, schemaVersion = defaultSchemaVersion) => {
     let errors = [];
     let warnings = [];
 
-    const schema = getSchema(schemaVersion)
+    const schema = this.getSchema(schemaVersion)
 
     // When errors against the schema are found, you don't want to continue verifying the NFT
     // Warnings don't matter because they only contain "additional property" warnings that don't break the other validators
@@ -188,7 +230,7 @@ The `localValidation` expects an absolute path to your metadata files to verify 
 localValidation("/Users/projects/nft/files");
 ```
 
-This package uses the `validator` function explained in the [previous section](#token-metadata-validator).
+This package uses the `Validator` class explained in the [previous section](#token-metadata-validator).
 
 ### Interface
 

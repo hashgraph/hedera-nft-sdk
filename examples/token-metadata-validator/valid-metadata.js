@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-const { validator, defaultVersion } = require('../..');
+const { Validator, defaultVersion } = require('../..');
 
 function main() {
     const metadataInstance = {
@@ -37,7 +37,8 @@ function main() {
         ]
     }
 
-    const results = validator(metadataInstance); // by default: verifies metadata against HIP412@2.0.0
+    const validator = new Validator();
+    const results = validator.validate(metadataInstance); // by default: verifies metadata against HIP412@2.0.0
     console.log(results);
 
     /* Output:

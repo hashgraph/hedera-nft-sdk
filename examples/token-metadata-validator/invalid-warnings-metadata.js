@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-const { validator, defaultVersion } = require('../..');
+const { Validator, defaultVersion } = require('../..');
 
 function main() {
     const metadataInstance = {
@@ -38,7 +38,8 @@ function main() {
         "myAdditionalProperty": "Additional properties should be included in properties"
     }
 
-    const results = validator(metadataInstance, defaultVersion);
+    const validator = new Validator();
+    const results = validator.validate(metadataInstance, defaultVersion);
     console.log(results);
 
     /* Output:
