@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-const { validator, defaultVersion } = require('../..');
+const { Validator, defaultVersion } = require('../..');
 
 function main() {
     const metadataInstance = {
@@ -37,7 +37,8 @@ function main() {
         ]
     }
 
-    const results = validator(metadataInstance, defaultVersion);
+    const validator = new Validator();
+    const results = validator.validate(metadataInstance, defaultVersion);
     console.log(results);
 
     /* Output:

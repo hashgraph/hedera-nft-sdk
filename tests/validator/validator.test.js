@@ -17,18 +17,18 @@
  * limitations under the License.
  *
  */
-const { validator } = require('../../validator/index');
-const { defaultVersion } = require('../../validator/schemas');
+const { Validator, defaultSchemaVersion } = require('../../validator/index');
 const validMetadata = require('./data/valid-HIP412.json');
 
 describe("Validator function tests", () => {
   describe("Schema version tests", () => {
     test("it should not return errors for a valid metadata JSON using default schema", () => {
         // Arrange
+        const validator = new Validator();
         let metadata = JSON.parse(JSON.stringify(validMetadata));
 
         // Act
-        const schemaProblems = validator(metadata, defaultVersion);
+        const schemaProblems = validator.validate(metadata, defaultSchemaVersion);
 
         // Assert
         expect(Array.isArray(schemaProblems.errors)).toBe(true);
@@ -39,10 +39,11 @@ describe("Validator function tests", () => {
 
     test("it should not return errors for a valid metadata JSON using schema version v1.0.0", () => {
         // Arrange
+        const validator = new Validator();
         let metadata = JSON.parse(JSON.stringify(validMetadata));
 
         // Act
-        const schemaProblems = validator(metadata, "1.0.0");
+        const schemaProblems = validator.validate(metadata, "1.0.0");
 
         // Assert
         expect(schemaProblems.warnings.length).toBe(0);
@@ -51,10 +52,11 @@ describe("Validator function tests", () => {
 
     test("it should not return errors for a valid metadata JSON not passing a schema version (using default version)", () => {
         // Arrange
+        const validator = new Validator();
         let metadata = JSON.parse(JSON.stringify(validMetadata));
 
         // Act
-        const schemaProblems = validator(metadata);
+        const schemaProblems = validator.validate(metadata);
 
         // Assert
         expect(schemaProblems.warnings.length).toBe(0);
@@ -65,6 +67,7 @@ describe("Validator function tests", () => {
   describe("Validator errors", () => {
     test("it should only return schema errors when the metadata contains schema errors and also other types of errors like attribute and localization", () => {
         // Arrange
+        const validator = new Validator();
         let metadataCopy = JSON.parse(JSON.stringify(validMetadata));
         let metadata = { 
             // missing name, image, and type for HIP412@1.0.0
@@ -78,7 +81,7 @@ describe("Validator function tests", () => {
         }
 
         // Act
-        const validationResults = validator(metadata, defaultVersion);
+        const validationResults = validator.validate(metadata, defaultSchemaVersion);
 
         // Assert
         expect(validationResults.errors.length).toBe(3);
@@ -89,6 +92,7 @@ describe("Validator function tests", () => {
 
     test("it should return all types of errors when there are no schema errors", () => {
         // Arrange
+        const validator = new Validator();
         let metadataCopy = JSON.parse(JSON.stringify(validMetadata));
         let metadata = {
             name: "myname",
@@ -104,7 +108,7 @@ describe("Validator function tests", () => {
         }
 
         // Act
-        const validationResults = validator(metadata, defaultVersion);
+        const validationResults = validator.validate(metadata, defaultSchemaVersion);
 
         // Assert
         expect(validationResults.errors.length).toBe(1);
@@ -113,6 +117,7 @@ describe("Validator function tests", () => {
 
     test("it should return all types of errors even when there are additional property warnings and no schema errors", () => {
         // Arrange
+        const validator = new Validator();
         let metadataCopy = JSON.parse(JSON.stringify(validMetadata));
         let metadata = {
             name: "myname",
@@ -128,7 +133,7 @@ describe("Validator function tests", () => {
         }
 
         // Act
-        const validationResults = validator(metadata, defaultVersion);
+        const validationResults = validator.validate(metadata, defaultSchemaVersion);
 
         // Assert
         expect(validationResults.warnings.length).toBe(1);
