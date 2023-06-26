@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-const { Validator, defaultVersion } = require('../..');
+const { Validator } = require('../..');
 
 function main() {
     // Define your JSON schema
