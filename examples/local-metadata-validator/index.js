@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-const { localValidation } = require('../..');
+const { localValidation } = require('../../local-validation');
 
 function main() {
     // Replace with absolute path to files folder

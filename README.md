@@ -16,6 +16,7 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 
 ## Table of Contents
 
+- **How to build the package**
 - **Package: [Token metadata validator](#token-metadata-validator)**
 - **Package: [Local metadata validator](#local-validator)**
 - **Package: [Risk score calculation](#risk-score-calculation)**
@@ -26,6 +27,16 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 - **[Code of Conduct](#Code-of-Conduct)**
 - **[License](#License)**
 
+
+## How to build the package?
+
+To build this package, run the below command:
+
+```sh
+npm run build
+```
+
+This command will produce a `dist` folder containing the outputted JavaScript files.
 
 ## Token metadata validator
 
