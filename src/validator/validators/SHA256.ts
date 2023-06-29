@@ -18,7 +18,7 @@
  *
  */
 
-import type { Instance } from "../../types/validator.module";
+import type { Instance } from '../../types/validator.module';
 
 /**
  * The SHA256 validator applies specific rules for SHA256 hashes,
@@ -35,16 +35,16 @@ const SHA256Validator = (instance: Instance) => {
 
   if (instance.checksum && !sha256Regex.test(instance.checksum)) {
     errors.push({
-      type: "SHA256",
+      type: 'SHA256',
       msg: `Not a SHA256 hash for checksum, got: ${instance.checksum}`,
     });
   }
 
   if (instance.files) {
     instance.files.map((file) => {
-      if (file.hasOwnProperty("checksum") && !sha256Regex.test(file.checksum)) {
+      if (file.hasOwnProperty('checksum') && !sha256Regex.test(file.checksum)) {
         errors.push({
-          type: "SHA256",
+          type: 'SHA256',
           msg: `Not a SHA256 hash for file, got: ${file.checksum}`,
         });
       }

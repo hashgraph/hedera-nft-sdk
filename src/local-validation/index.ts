@@ -20,28 +20,28 @@
 import { Validator } from '../validator/index';
 import { readFiles, getJSONFilesForDir } from '../helpers/files';
 
-import { ValidationResult, Instance } from "../types/validator.module";
+import { ValidationResult, Instance } from '../types/validator.module';
 
 interface File {
-    filename: string;
-    filedata: Instance;
+  filename: string;
+  filedata: Instance;
 }
 
 interface ValidationResults {
-    [key: string]: ValidationResult;
+  [key: string]: ValidationResult;
 }
 
 const validateFiles = (files: File[]): ValidationResults => {
-    let validationResults: ValidationResults = {};
-    const validator = new Validator();
+  const validationResults: ValidationResults = {};
+  const validator = new Validator();
   
-    files.forEach(file => {
-      const result = validator.validate(file.filedata);
-      validationResults[file.filename] = result;
-    });
+  files.forEach(file => {
+    const result = validator.validate(file.filedata);
+    validationResults[file.filename] = result;
+  });
   
-    return validationResults;
-  }
+  return validationResults;
+};
 
 /**
  * Validate files locally
@@ -50,16 +50,17 @@ const validateFiles = (files: File[]): ValidationResults => {
  * @returns {Object<filename<string>, validationResults<Object>>}
  */
 const localValidation = (path: string): ValidationResults => {
-    const filenames = getJSONFilesForDir(path);
-    const filedata = readFiles(path, filenames);
-    const validationResults = validateFiles(filedata);
+  const filenames = getJSONFilesForDir(path);
+  const filedata = readFiles(path, filenames);
+  const validationResults = validateFiles(filedata);
 
-    // Print results for the user
-    console.log(JSON.stringify(validationResults));
+  // Print results for the user
+  // eslint-disable-next-line no-console
+  console.log(JSON.stringify(validationResults));
 
-    return validationResults;
-}
+  return validationResults;
+};
 
 export default {
-    localValidation
+  localValidation,
 };

@@ -22,21 +22,21 @@ import {
   attributesValidator,
   localizationValidator,
   SHA256Validator,
-} from "./validators";
+} from './validators';
 
-import token_metadata_1_0_0 from "./schemas/HIP10@1.0.0";
-import token_metadata_2_0_0 from "./schemas/HIP412@2.0.0";
-const defaultSchemaVersion = "2.0.0";
+import token_metadata_1_0_0 from './schemas/HIP10@1.0.0';
+import token_metadata_2_0_0 from './schemas/HIP412@2.0.0';
+const defaultSchemaVersion = '2.0.0';
 
-import { Schema, Instance, Error } from "../types/validator.module";
+import { Schema, Instance, Error } from '../types/validator.module';
 
 class Validator {
   private schemaMap: Map<string, Object>;
 
   constructor(schemas: Schema[] = []) {
     this.schemaMap = new Map();
-    this.schemaMap.set("1.0.0", token_metadata_1_0_0);
-    this.schemaMap.set("2.0.0", token_metadata_2_0_0);
+    this.schemaMap.set('1.0.0', token_metadata_1_0_0);
+    this.schemaMap.set('2.0.0', token_metadata_2_0_0);
 
     schemas.forEach((schema) => {
       this.schemaMap.set(schema.tag, schema.schemaObject);
@@ -54,7 +54,7 @@ class Validator {
 
   validate(instance: Instance, schemaVersion: string = defaultSchemaVersion) {
     const schema = this.getSchema(schemaVersion);
-    if (!schema) throw new Error("Invalid schema version");
+    if (!schema) throw new Error('Invalid schema version');
 
     const schemaProblems = schemaValidator(instance, schema);
 

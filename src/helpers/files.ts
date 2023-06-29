@@ -17,10 +17,10 @@
  * limitations under the License.
  *
  */
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
-import { Instance } from "../types/validator.module";
+import { Instance } from '../types/validator.module';
 
 /**
  * @param dir Absolute path to file you want to read contents for
@@ -28,18 +28,18 @@ import { Instance } from "../types/validator.module";
  * @returns Array of objects containing a filename and filedata
  */
 export const readFiles = (dir: string, filenames: string[]): { filename: string; filedata: Instance }[] => {
-  let JSONdata: { filename: string; filedata: Instance }[] = [];
+  const JSONdata: { filename: string; filedata: Instance }[] = [];
 
   filenames.forEach((filename) => {
     const data = fs.readFileSync(path.join(dir, filename), { encoding: 'utf8', flag: 'r' });
     JSONdata.push({
       filename,
-      filedata: JSON.parse(data)
+      filedata: JSON.parse(data),
     });
   });
 
   return JSONdata;
-}
+};
 
 /**
  * @param dir Absolute path to folder you want to validate
@@ -49,13 +49,15 @@ export const getJSONFilesForDir = (dir: string): string[] => {
   const directoryPath = dir;
 
   const files = fs.readdirSync(directoryPath, { withFileTypes: true });
+  // eslint-disable-next-line no-console
   console.log(`Found ${files.length} for directory: ${dir}`);
 
-  let JSONFiles: string[] = [];
+  const JSONFiles: string[] = [];
   files.forEach((file) => {
-    if (path.extname(file.name) === ".json") JSONFiles.push(file.name);
+    if (path.extname(file.name) === '.json') JSONFiles.push(file.name);
   });
+  // eslint-disable-next-line no-console
   console.log(`Found ${JSONFiles.length} files with the .json extension`);
 
   return JSONFiles;
-}
+};

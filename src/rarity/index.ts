@@ -17,14 +17,14 @@
  *
  */
 
-import { readFiles, getJSONFilesForDir } from "../helpers/files";
+import { readFiles, getJSONFilesForDir } from '../helpers/files';
 import {
   RarityResult,
   AttributeConfig,
   ValueObject,
   NFTFile,
-} from "../types/rarity.module";
-import { Attribute } from "../types/validator.module";
+} from '../types/rarity.module';
+import { Attribute } from '../types/validator.module';
 
 /**
  *

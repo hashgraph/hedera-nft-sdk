@@ -18,30 +18,30 @@
  *
  */
 
-import { Instance } from "./validator";
+import { Instance } from './validator';
 
 export interface NFTFile {
-    filedata: Instance;
-    filename: string;
+  filedata: Instance;
+  filename: string;
 }
 
 export interface NFTAttribute {
-    trait_type: string;
-    value: string;
+  trait_type: string;
+  value: string;
 }
 
 export interface ValueObject {
-    value: string;
-    count: number;
+  value: string;
+  count: number;
 }
 
 export interface AttributeConfig {
-    trait_type: string;
-    values: ValueObject[];
+  trait_type: string;
+  values: ValueObject[];
 }
 
 export interface RarityResult {
-    rarity: string;
-    NFT: number;
-    filename: string;
+  rarity: string;
+  NFT: number;
+  filename: string;
 }

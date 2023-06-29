@@ -18,54 +18,54 @@
  *
  */
 const { Validator, defaultSchemaVersion } = require('../../validator');
-import validMetadata from "./data/valid-HIP412";
+import validMetadata from './data/valid-HIP412';
 
-describe("Validator function tests", () => {
-  describe("Schema version tests", () => {
-    test("it should not return errors for a valid metadata JSON using default schema", () => {
-        // Arrange
-        const validator = new Validator();
-        let metadata = JSON.parse(JSON.stringify(validMetadata));
+describe('Validator function tests', () => {
+  describe('Schema version tests', () => {
+    test('it should not return errors for a valid metadata JSON using default schema', () => {
+      // Arrange
+      const validator = new Validator();
+      const metadata = JSON.parse(JSON.stringify(validMetadata));
 
-        // Act
-        const schemaProblems = validator.validate(metadata, defaultSchemaVersion);
+      // Act
+      const schemaProblems = validator.validate(metadata, defaultSchemaVersion);
 
-        // Assert
-        expect(Array.isArray(schemaProblems.errors)).toBe(true);
-        expect(Array.isArray(schemaProblems.warnings)).toBe(true);
-        expect(schemaProblems.warnings.length).toBe(0);
-        expect(schemaProblems.errors.length).toBe(0);
+      // Assert
+      expect(Array.isArray(schemaProblems.errors)).toBe(true);
+      expect(Array.isArray(schemaProblems.warnings)).toBe(true);
+      expect(schemaProblems.warnings.length).toBe(0);
+      expect(schemaProblems.errors.length).toBe(0);
     });
 
-    test("it should not return errors for a valid metadata JSON using schema version v1.0.0", () => {
-        // Arrange
-        const validator = new Validator();
-        let metadata = JSON.parse(JSON.stringify(validMetadata));
+    test('it should not return errors for a valid metadata JSON using schema version v1.0.0', () => {
+      // Arrange
+      const validator = new Validator();
+      const metadata = JSON.parse(JSON.stringify(validMetadata));
 
-        // Act
-        const schemaProblems = validator.validate(metadata, "1.0.0");
+      // Act
+      const schemaProblems = validator.validate(metadata, '1.0.0');
 
-        // Assert
-        expect(schemaProblems.warnings.length).toBe(0);
-        expect(schemaProblems.errors.length).toBe(0);
+      // Assert
+      expect(schemaProblems.warnings.length).toBe(0);
+      expect(schemaProblems.errors.length).toBe(0);
     });
 
-    test("it should not return errors for a valid metadata JSON not passing a schema version (using default version)", () => {
-        // Arrange
-        const validator = new Validator();
-        let metadata = JSON.parse(JSON.stringify(validMetadata));
+    test('it should not return errors for a valid metadata JSON not passing a schema version (using default version)', () => {
+      // Arrange
+      const validator = new Validator();
+      const metadata = JSON.parse(JSON.stringify(validMetadata));
 
-        // Act
-        const schemaProblems = validator.validate(metadata);
+      // Act
+      const schemaProblems = validator.validate(metadata);
 
-        // Assert
-        expect(schemaProblems.warnings.length).toBe(0);
-        expect(schemaProblems.errors.length).toBe(0);
+      // Assert
+      expect(schemaProblems.warnings.length).toBe(0);
+      expect(schemaProblems.errors.length).toBe(0);
     });
   });
 
-  describe("Schema package tests", () => {
-    test("it should return a schema object for a valid version in the schema map", () => {
+  describe('Schema package tests', () => {
+    test('it should return a schema object for a valid version in the schema map', () => {
       // Arrange
       const validator = new Validator();
       const version = defaultSchemaVersion;
@@ -74,24 +74,24 @@ describe("Validator function tests", () => {
       const schema = validator.getSchema(version);
   
       // Assert
-      expect(typeof schema).toBe("object");
+      expect(typeof schema).toBe('object');
       expect(schema.version).toBe(defaultSchemaVersion);
     });
   
-    test("it should return the default schema object for an unsupported version in the schema map", () => {
+    test('it should return the default schema object for an unsupported version in the schema map', () => {
       // Arrange
       const validator = new Validator();
-      const version = "2.5.10"; // Unsupported version
+      const version = '2.5.10'; // Unsupported version
   
       // Act
       const schema = validator.getSchema(version);
   
       // Assert
-      expect(typeof schema).toBe("object");
+      expect(typeof schema).toBe('object');
       expect(schema.version).toBe(defaultSchemaVersion);
     });
   
-    test("it should return the default schema object for an unsupported value as version", () => {
+    test('it should return the default schema object for an unsupported value as version', () => {
       // Arrange
       const validator = new Validator();
       const version = 'notaschema'; // Unsupported version
@@ -100,86 +100,86 @@ describe("Validator function tests", () => {
       const schema = validator.getSchema(version);
   
       // Assert
-      expect(typeof schema).toBe("object");
+      expect(typeof schema).toBe('object');
       expect(schema.version).toBe(defaultSchemaVersion);
     });
   });
 
-  describe("Validator errors", () => {
-    test("it should only return schema errors when the metadata contains schema errors and also other types of errors like attribute and localization", () => {
-        // Arrange
-        const validator = new Validator();
-        let metadataCopy = JSON.parse(JSON.stringify(validMetadata));
-        let metadata = { 
-            // missing name, image, and type for HIP412@1.0.0
-            description: metadataCopy.description,
-            attributes: metadataCopy.attributes, 
-            localization: {
-                uri: "ipfs://QmWS1VAdMD353A6SDk9wNyvkT14kyCiZrNDYAad4w1tKqT/{locale}.json",
-                default: "en",
-                locales: ["es", "fr", "en"] // error: default locale should not be included in locales array
-            }
-        }
+  describe('Validator errors', () => {
+    test('it should only return schema errors when the metadata contains schema errors and also other types of errors like attribute and localization', () => {
+      // Arrange
+      const validator = new Validator();
+      const metadataCopy = JSON.parse(JSON.stringify(validMetadata));
+      const metadata = { 
+        // missing name, image, and type for HIP412@1.0.0
+        description: metadataCopy.description,
+        attributes: metadataCopy.attributes, 
+        localization: {
+          uri: 'ipfs://QmWS1VAdMD353A6SDk9wNyvkT14kyCiZrNDYAad4w1tKqT/{locale}.json',
+          default: 'en',
+          locales: ['es', 'fr', 'en'], // error: default locale should not be included in locales array
+        },
+      };
 
-        // Act
-        const validationResults = validator.validate(metadata, defaultSchemaVersion);
+      // Act
+      const validationResults = validator.validate(metadata, defaultSchemaVersion);
 
-        // Assert
-        expect(validationResults.errors.length).toBe(3);
-        expect(validationResults.errors[0].type).toBe("schema");
-        expect(validationResults.errors[1].type).toBe("schema");
-        expect(validationResults.errors[2].type).toBe("schema");
+      // Assert
+      expect(validationResults.errors.length).toBe(3);
+      expect(validationResults.errors[0].type).toBe('schema');
+      expect(validationResults.errors[1].type).toBe('schema');
+      expect(validationResults.errors[2].type).toBe('schema');
     });
 
-    test("it should return all types of errors when there are no schema errors", () => {
-        // Arrange
-        const validator = new Validator();
-        let metadataCopy = JSON.parse(JSON.stringify(validMetadata));
-        let metadata = {
-            name: "myname",
-            image: "ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2344.png",
-            type: "image/png",
-            description: metadataCopy.description,
-            attributes: metadataCopy.attributes, 
-            localization: {
-                uri: "ipfs://QmWS1VAdMD353A6SDk9wNyvkT14kyCiZrNDYAad4w1tKqT/{locale}.json",
-                default: "en",
-                locales: ["es", "fr", "en"] // error: default locale should not be included in locales array
-            }
-        }
+    test('it should return all types of errors when there are no schema errors', () => {
+      // Arrange
+      const validator = new Validator();
+      const metadataCopy = JSON.parse(JSON.stringify(validMetadata));
+      const metadata = {
+        name: 'myname',
+        image: 'ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2344.png',
+        type: 'image/png',
+        description: metadataCopy.description,
+        attributes: metadataCopy.attributes, 
+        localization: {
+          uri: 'ipfs://QmWS1VAdMD353A6SDk9wNyvkT14kyCiZrNDYAad4w1tKqT/{locale}.json',
+          default: 'en',
+          locales: ['es', 'fr', 'en'], // error: default locale should not be included in locales array
+        },
+      };
 
-        // Act
-        const validationResults = validator.validate(metadata, defaultSchemaVersion);
+      // Act
+      const validationResults = validator.validate(metadata, defaultSchemaVersion);
 
-        // Assert
-        expect(validationResults.errors.length).toBe(1);
-        expect(validationResults.errors[0].type).toBe("localization");
+      // Assert
+      expect(validationResults.errors.length).toBe(1);
+      expect(validationResults.errors[0].type).toBe('localization');
     });
 
-    test("it should return all types of errors even when there are additional property warnings and no schema errors", () => {
-        // Arrange
-        const validator = new Validator();
-        let metadataCopy = JSON.parse(JSON.stringify(validMetadata));
-        let metadata = {
-            name: "myname",
-            image: "ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2344.png",
-            type: "image/png",
-            description: metadataCopy.description,
-            attributes: [{ checksum: "randomvalue", trait_type: "Fur", value: "Gold" }], 
-            localization: {
-                uri: "ipfs://QmWS1VAdMD353A6SDk9wNyvkT14kyCiZrNDYAad4w1tKqT/{locale}.json",
-                default: "en",
-                locales: ["es", "fr", "en"] // error: default locale should not be included in locales array
-            }
-        }
+    test('it should return all types of errors even when there are additional property warnings and no schema errors', () => {
+      // Arrange
+      const validator = new Validator();
+      const metadataCopy = JSON.parse(JSON.stringify(validMetadata));
+      const metadata = {
+        name: 'myname',
+        image: 'ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2344.png',
+        type: 'image/png',
+        description: metadataCopy.description,
+        attributes: [{ checksum: 'randomvalue', trait_type: 'Fur', value: 'Gold' }], 
+        localization: {
+          uri: 'ipfs://QmWS1VAdMD353A6SDk9wNyvkT14kyCiZrNDYAad4w1tKqT/{locale}.json',
+          default: 'en',
+          locales: ['es', 'fr', 'en'], // error: default locale should not be included in locales array
+        },
+      };
 
-        // Act
-        const validationResults = validator.validate(metadata, defaultSchemaVersion);
+      // Act
+      const validationResults = validator.validate(metadata, defaultSchemaVersion);
 
-        // Assert
-        expect(validationResults.warnings.length).toBe(1);
-        expect(validationResults.errors.length).toBe(1);
-        expect(validationResults.errors[0].type).toBe("localization");
+      // Assert
+      expect(validationResults.warnings.length).toBe(1);
+      expect(validationResults.errors.length).toBe(1);
+      expect(validationResults.errors[0].type).toBe('localization');
     });
   });
 });
