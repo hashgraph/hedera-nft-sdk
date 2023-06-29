@@ -13,9 +13,14 @@
     "url": "https://github.com/hashgraph/hedera-nft-utilities.git"
   },
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "README.md",
+    "package.json"
   ],
   "scripts": {
     "lint": "eslint . --ext .ts,.js",
@@ -39,6 +44,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",
+    "@types/node": "^20.3.2",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "eslint": "^8.43.0",
