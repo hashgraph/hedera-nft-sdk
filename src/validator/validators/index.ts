@@ -23,8 +23,8 @@ import { localizationValidator } from './localization';
 import { SHA256Validator } from './SHA256';
 
 export {
-    schemaValidator,
-    attributesValidator,
-    localizationValidator,
-    SHA256Validator
+  schemaValidator,
+  attributesValidator,
+  localizationValidator,
+  SHA256Validator,
 };

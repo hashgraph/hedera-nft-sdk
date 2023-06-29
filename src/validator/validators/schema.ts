@@ -17,12 +17,12 @@
  * limitations under the License.
  *
  */
-import { Validator, ValidationError } from "jsonschema";
+import { Validator, ValidationError } from 'jsonschema';
 const validator = new Validator();
 
-import { Instance, ValidationResult } from "../../types/validator.module";
+import { Instance, ValidationResult } from '../../types/validator.module';
 
-const additionalPropertyMsg = "is not allowed to have the additional property";
+const additionalPropertyMsg = 'is not allowed to have the additional property';
 
 /**
  * Distil an errors array from JSON schema into errors and warnings. 
@@ -31,20 +31,20 @@ const additionalPropertyMsg = "is not allowed to have the additional property";
  * @param {ValidationError[]} problems - Errors array from jsonschema
  */
 const distilProblems = (problems: ValidationError[]) => {
-    const {warnings, errors} = problems.reduce<{warnings: ValidationError[], errors: ValidationError[]}>((acc, problem) => {
-      if (problem.message.includes(additionalPropertyMsg)) {
-        acc.warnings.push(problem);
-      } else {
-        acc.errors.push(problem);
-      }
-      return acc;
-    }, {warnings: [], errors: []});
-  
-    return {
-      warnings,
-      errors
+  const {warnings, errors} = problems.reduce<{warnings: ValidationError[]; errors: ValidationError[]}>((acc, problem) => {
+    if (problem.message.includes(additionalPropertyMsg)) {
+      acc.warnings.push(problem);
+    } else {
+      acc.errors.push(problem);
     }
-}
+    return acc;
+  }, {warnings: [], errors: []});
+  
+  return {
+    warnings,
+    errors,
+  };
+};
 
 /**
  * The schema validator validates the {instance} against a specific version of the HIP412 metadata standard using jsonschema
@@ -60,23 +60,23 @@ const schemaValidator = (instance: Instance, schema: Object): ValidationResult =
   const distilledProblems = distilProblems(result.errors);
 
   const errors = distilledProblems.errors.map((error) => ({
-    type: "schema",
+    type: 'schema',
     msg: error.message.replace(/\"/g, "'"),
-    path: error.property
+    path: error.property,
   }));
 
   const warnings = distilledProblems.warnings.map((warning) => ({
-    type: "schema",
+    type: 'schema',
     msg: warning.message.replace(/\"/g, "'"),
-    path: warning.property
+    path: warning.property,
   }));
 
   return {
     errors,
-    warnings
+    warnings,
   };
 };
 
 export {
-  schemaValidator
+  schemaValidator,
 };

@@ -17,16 +17,16 @@
  * limitations under the License.
  *
  */
-import { Validator, defaultSchemaVersion } from "./validator";
-import localValidation from "./local-validation";
+import { Validator, defaultSchemaVersion } from './validator';
+import localValidation from './local-validation';
 import {
   defaultWeights,
   defaultRiskLevels,
   calculateRiskScoreFromData,
   calculateRiskScoreFromTokenId,
   calculateRiskLevel,
-} from "./risk";
-import { calculateRarity } from "./rarity";
+} from './risk';
+import { calculateRarity } from './rarity';
 
 export {
   // validation

@@ -22,71 +22,71 @@ import no_risk_token from './data/no-risk-token';
 import supply_key_token from './data/supply-key-token';
 import all_keys_token from './data/all-keys-token';
 
-describe("Risk calculation tests", () => {
-  describe("Calculate risk score from data", () => {
-    test("it should return zero risk for token with no keys and FINITE supply type", () => {
-        // Arrange && Act
-        const riskResults = calculateRiskScoreFromData(no_risk_token);
+describe('Risk calculation tests', () => {
+  describe('Calculate risk score from data', () => {
+    test('it should return zero risk for token with no keys and FINITE supply type', () => {
+      // Arrange && Act
+      const riskResults = calculateRiskScoreFromData(no_risk_token);
 
-        // Assert
-        expect(riskResults.riskScore).toBe(0);
-        expect(riskResults.riskLevel).toBe("NORISK");
+      // Assert
+      expect(riskResults.riskScore).toBe(0);
+      expect(riskResults.riskLevel).toBe('NORISK');
     });
 
-    test("it should return 20 risk for token with supply key set", () => {
-        // Arrange && Act
-        const riskResults = calculateRiskScoreFromData(supply_key_token);
+    test('it should return 20 risk for token with supply key set', () => {
+      // Arrange && Act
+      const riskResults = calculateRiskScoreFromData(supply_key_token);
 
-        // Assert
-        expect(riskResults.riskScore).toBe(20);
-        expect(riskResults.riskLevel).toBe("LOW");
+      // Assert
+      expect(riskResults.riskScore).toBe(20);
+      expect(riskResults.riskLevel).toBe('LOW');
     });
 
-    test("it should return 40 risk for token with supply key set and infinite token supply", () => {
-        // Arrange
-        let token = JSON.parse(JSON.stringify(supply_key_token));
-        token.supply_type = "INFINITE";
+    test('it should return 40 risk for token with supply key set and infinite token supply', () => {
+      // Arrange
+      const token = JSON.parse(JSON.stringify(supply_key_token));
+      token.supply_type = 'INFINITE';
         
-        // Act
-        const riskResults = calculateRiskScoreFromData(token);
+      // Act
+      const riskResults = calculateRiskScoreFromData(token);
 
-        // Assert
-        expect(riskResults.riskScore).toBe(40);
-        expect(riskResults.riskLevel).toBe("LOW");
+      // Assert
+      expect(riskResults.riskScore).toBe(40);
+      expect(riskResults.riskLevel).toBe('LOW');
     });
 
-    test("it should return HIGH risk (score ) for token with supply key set and infinite token supply", () => {
-        // Arrange && Act
-        const riskResults = calculateRiskScoreFromData(all_keys_token);
+    test('it should return HIGH risk (score ) for token with supply key set and infinite token supply', () => {
+      // Arrange && Act
+      const riskResults = calculateRiskScoreFromData(all_keys_token);
 
-        // Assert
-        expect(riskResults.riskScore).toBe(630);
-        expect(riskResults.riskLevel).toBe("HIGH");
+      // Assert
+      expect(riskResults.riskScore).toBe(630);
+      expect(riskResults.riskLevel).toBe('HIGH');
     });
 
-    test("it should return NORISK for a token with only a supply key set and FINITE supply where total supply equals max supply", () => {
-        // Arrange
-        let token = JSON.parse(JSON.stringify(supply_key_token));
-        token.max_supply = "1000";
-        token.total_supply = "1000";
+    test('it should return NORISK for a token with only a supply key set and FINITE supply where total supply equals max supply', () => {
+      // Arrange
+      const token = JSON.parse(JSON.stringify(supply_key_token));
+      token.max_supply = '1000';
+      token.total_supply = '1000';
         
-        // Act
-        const riskResults = calculateRiskScoreFromData(token);
+      // Act
+      const riskResults = calculateRiskScoreFromData(token);
 
-        // Assert
-        expect(riskResults.riskScore).toBe(0);
-        expect(riskResults.riskLevel).toBe("NORISK");
+      // Assert
+      expect(riskResults.riskScore).toBe(0);
+      expect(riskResults.riskLevel).toBe('NORISK');
     });
   });
 
-  describe("Calculate risk score from token ID", () => {
-    test("it should return 20 risk for token with supply key set (ID: 0.0.1270555 on mainnet)", async () => {
-        // Arrange && Act
-        const riskResults = await calculateRiskScoreFromTokenId("0.0.1270555");
+  describe('Calculate risk score from token ID', () => {
+    test('it should return 20 risk for token with supply key set (ID: 0.0.1270555 on mainnet)', async () => {
+      // Arrange && Act
+      const riskResults = await calculateRiskScoreFromTokenId('0.0.1270555');
 
-        // Assert
-        expect(riskResults.riskScore).toBe(20);
-        expect(riskResults.riskLevel).toBe("LOW");
+      // Assert
+      expect(riskResults.riskScore).toBe(20);
+      expect(riskResults.riskLevel).toBe('LOW');
     });
   });
 });
