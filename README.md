@@ -50,10 +50,10 @@ Install the package:
 npm i -s @hashgraph/nft-utilities
 ```
 
-Import the package into your project. You can import the `Validator` class and the default schema version for token metadata with `defaultVersion`.
+Import the package into your project. You can import the `Validator` class and the default schema version for token metadata with `defaultSchemaVersion`.
 
 ```js
-const { Validator, defaultVersion } = require('@hashgraph/nft-utilities');
+const { Validator, defaultSchemaVersion } = require('@hashgraph/nft-utilities');
 ```
 
 You can use the `Validator` like below. 
