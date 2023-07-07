@@ -29,7 +29,7 @@ import { Attribute } from '../types/validator.module';
 /**
  *
  * @param {string} dir Absolute path to folder with metadata files for rarity calculation
- * @return {RarityResult[]} {rarity: string(two decimal floating point), NFT: number, filename: string}}
+ * @return {RarityResult[]} Array of objects with rarity information for each NFT
   */
 
 const calculateRarity = (dir: string): RarityResult[] => {
@@ -87,6 +87,11 @@ const calculateRarity = (dir: string): RarityResult[] => {
 
   return normalizedRarities;
 };
+
+/**
+ * @param {NFTFile[]} files Array of NFTFile objects
+ * @return {AttributeConfig[]} Array of objects with attribute information
+ * */
 
 const getAttributeMap = (files: NFTFile[]): AttributeConfig[] => {
   const attributesMap: AttributeConfig[] = [];
