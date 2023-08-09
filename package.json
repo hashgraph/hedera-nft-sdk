@@ -1,6 +1,6 @@
 {
   "name": "@hashgraph/nft-utilities",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "NFT Utilities for Hedera Hashgraph",
   "author": "Michiel Mulders",
   "license": "Apache License",
@@ -17,6 +17,7 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
+    "types",
     "LICENSE",
     "README.md",
     "package.json"
@@ -26,7 +27,7 @@
     "fix": "eslint . --ext .ts,.js --fix",
     "test": "jest",
     "test-output": "jest --ci --reporters=default --reporters=jest-junit",
-    "build": "rm -rf dist/ && npm run fix && npm run build:cjs && npm run build:esm",
+    "build": "rm -rf dist/ && npm run fix && npm run build:cjs && npm run build:esm && cp -r src/types dist/types && cp -r src/types dist/cjs/types",
     "build:esm": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
   },

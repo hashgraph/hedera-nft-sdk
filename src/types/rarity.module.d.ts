@@ -40,7 +40,7 @@ export interface AttributeConfig {
   values: ValueObject[];
 }
 
-interface RarityResult {
+export interface RarityResult {
   attributeContributions: {trait: string; value: string | number; contribution: string}[];
   totalRarity: string;
   NFT: number;
