@@ -29,8 +29,9 @@ import { Attribute } from '../types/validator.module';
 /**
  *
  * @param {string} dir Absolute path to folder with metadata files for rarity calculation
- * @return {RarityResult[]} {rarity: string(two decimal floating point), NFT: number, filename: string}}
- */
+ * @return {RarityResult[]} Array of objects with rarity information for each NFT
+  */
+
 const calculateRarity = (dir: string): RarityResult[] => {
   const filenames = getJSONFilesForDir(dir);
   const files = readFiles(dir, filenames);
@@ -40,7 +41,7 @@ const calculateRarity = (dir: string): RarityResult[] => {
   const normalizedRarities: RarityResult[] = [];
   let normalizedCount = 1;
   files.forEach((file) => {
-    const traitRarities: number[] = [];
+    const traitRarities: {trait: string; value: string|number; rarity: number}[] = [];
 
     file.filedata.attributes.forEach((NFTAttribute: Attribute) => {
       const attributeConfigObject: AttributeConfig | undefined =
@@ -61,15 +62,23 @@ const calculateRarity = (dir: string): RarityResult[] => {
       );
       const traitRarity = 1 / (NFTsWithTrait?.count! / mostCommonTrait.count);
 
-      traitRarities.push(traitRarity);
+      traitRarities.push({
+        trait: NFTAttribute.trait_type,
+        value: NFTAttribute.value,
+        rarity: traitRarity,
+      });
     });
 
-    const totalRarity = traitRarities.reduce(
-      (prev, current) => prev + current,
-      0
-    );
+    const totalRarity = traitRarities.reduce((prev, current) => prev + current.rarity, 0);
+    const attributeContributions = traitRarities.map(traitRarity => ({
+      trait: traitRarity.trait,
+      value: traitRarity.value,
+      contribution: (traitRarity.rarity / totalRarity * 100).toFixed(2),
+    }));
+
     normalizedRarities.push({
-      rarity: totalRarity.toFixed(2),
+      attributeContributions: attributeContributions,
+      totalRarity: totalRarity.toFixed(2),
       NFT: normalizedCount,
       filename: file.filename,
     });
@@ -80,12 +89,10 @@ const calculateRarity = (dir: string): RarityResult[] => {
 };
 
 /**
- * Builds an attributes map with a trait count per attribute value
- * @param {NFTFile[]} files
- * @returns {AttributeConfig[]}
- *
- * @example [{"trait_type":"Background","values":[{"value":"Yellow","count":3},{"value":"Green","count":2}]},{"trait_type":"Fur","values":[{"value":"Gold","count":3},{"value":"Silver","count":2}]},{"trait_type":"Clothing","values":[{"value":"Floral Jacket","count":4},{"value":"Herbal Jacket","count":1}]},{"trait_type":"Mouth","values":[{"value":"Tongue","count":2},{"value":"Smile","count":3}]},{"trait_type":"Sing","values":[{"value":"None","count":4},{"value":"Sing","count":1}]}]
- */
+ * @param {NFTFile[]} files Array of NFTFile objects
+ * @return {AttributeConfig[]} Array of objects with attribute information
+ * */
+
 const getAttributeMap = (files: NFTFile[]): AttributeConfig[] => {
   const attributesMap: AttributeConfig[] = [];
   files.forEach((file) => {
