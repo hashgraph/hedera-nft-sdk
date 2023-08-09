@@ -47,7 +47,7 @@ export interface RiskLevels {
 
 export type RiskLevelTypes = keyof RiskLevels;
 
-interface Metadata {
+export interface Metadata {
   [key: string]: string;
   supply_type: string;
   supply_key: string;
@@ -55,7 +55,7 @@ interface Metadata {
   total_supply: string;
 }
 
-interface RiskResult {
+export interface RiskResult {
   riskScore: number;
   riskLevel: string;
 }

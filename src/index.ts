@@ -28,6 +28,10 @@ import {
 } from './risk';
 import { calculateRarity } from './rarity';
 
+import { Attribute, Localization, File, Instance, Error, Problem, ValidationResult, Schema } from './types/validator.module';
+import { NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult } from './types/rarity.module';
+import { WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelTypes, Metadata, RiskResult } from './types/risk.module';
+
 export {
   // validation
   Validator,
@@ -45,4 +49,7 @@ export {
 
   // rarity calculation
   calculateRarity,
+
+  // interfaces
+  Attribute, Localization, File, Instance, Error, Problem, ValidationResult, Schema, NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelTypes, Metadata, RiskResult,
 };

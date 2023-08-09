@@ -17,19 +17,19 @@
  * limitations under the License.
  *
  */
-interface Attribute {
+export interface Attribute {
   display_type: string;
   trait_type: string;
   value: string | number;
 }
 
-interface Localization {
+export interface Localization {
   uri: string;
   default: string;
   locales: string[];
 }
 
-interface File {
+export interface File {
   uri: string;
   checksum: string;
   type: string;
