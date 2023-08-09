@@ -1,6 +1,6 @@
 {
   "name": "@hashgraph/nft-utilities",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "NFT Utilities for Hedera Hashgraph",
   "author": "Michiel Mulders",
   "license": "Apache License",
