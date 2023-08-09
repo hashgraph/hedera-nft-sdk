@@ -405,15 +405,43 @@ The output interface for this function looks like this.
 ]
 ```
 
-Here's a sample output:
+Here's a sample output. The total sum of the individual attributes is always 100%.
 
 ```
 [
-    { rarity: '5.50', NFT: 1, filename: 'nft1.json' },
-    { rarity: '6.00', NFT: 2, filename: 'nft2.json' },
-    { rarity: '5.50', NFT: 3, filename: 'nft3.json' },
-    { rarity: '5.50', NFT: 4, filename: 'nft4.json' },
-    { rarity: '11.50', NFT: 5, filename: 'nft5.json' }
+    {
+        "attributeContributions": [
+            {
+                "trait": "Background",
+                "value": "Yellow",
+                "contribution": "18.18"
+            },
+            {
+                "trait": "Fur",
+                "value": "Gold",
+                "contribution": "18.18"
+            },
+            {
+                "trait": "Clothing",
+                "value": "Floral Jacket",
+                "contribution": "18.18"
+            },
+            {
+                "trait": "Mouth",
+                "value": "Tongue",
+                "contribution": "27.27"
+            },
+            {
+                "trait": "Sing",
+                "value": "None",
+                "contribution": "18.18"
+            }
+        ],
+        "totalRarity": "5.50",
+        "NFT": 1,
+        "filename": "nft1.json"
+    },
+    ...
 ]
 ```
 
