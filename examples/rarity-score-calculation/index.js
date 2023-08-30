@@ -23,7 +23,7 @@ const fs = require("fs");
 function main() {
   // Replace with absolute path to files folder
   const absolutePathToFiles =
-    "/Users/michielmulders/projects/hedera-nft-utilities/examples/rarity-score-calculation/files";
+    "/Users/myUser/hedera-nft-utilities/examples/rarity-score-calculation/files";
   const results = calculateRarity(absolutePathToFiles);
   console.log(JSON.stringify(results, null, 4));
 
