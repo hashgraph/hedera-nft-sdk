@@ -30,8 +30,7 @@ import { Attribute } from '../types/validator.module';
  *
  * @param {string} dir Absolute path to folder with metadata files for rarity calculation
  * @return {RarityResult[]} Array of objects with rarity information for each NFT
-  */
-
+ */
 const calculateRarity = (dir: string): RarityResult[] => {
   const filenames = getJSONFilesForDir(dir);
   const files = readFiles(dir, filenames);
@@ -44,6 +43,21 @@ const calculateRarity = (dir: string): RarityResult[] => {
     const traitRarities: {trait: string; value: string|number; rarity: number}[] = [];
 
     file.filedata.attributes.forEach((NFTAttribute: Attribute) => {
+      // Skip special types of attributes in the rarity calculation (Openrarity specification)
+      if (
+        NFTAttribute.display_type == 'percentage' || 
+        NFTAttribute.display_type == 'boost' ||
+        NFTAttribute.display_type == 'color' ||
+        NFTAttribute.display_type == 'datetime' ||
+        NFTAttribute.display_type == 'boolean'
+      ) {
+        return traitRarities.push({
+          trait: NFTAttribute.trait_type,
+          value: NFTAttribute.value,
+          rarity: 0,
+        });
+      }
+    
       const attributeConfigObject: AttributeConfig | undefined =
         attributesMap.find(
           (attribute) => attribute.trait_type === NFTAttribute.trait_type
