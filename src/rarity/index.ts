@@ -110,6 +110,11 @@ const calculateRarity = (dir: string): RarityResult[] => {
 const getAttributeMap = (files: NFTFile[]): AttributeConfig[] => {
   const attributesMap: AttributeConfig[] = [];
   files.forEach((file) => {
+    if (!file.filedata.attributes)
+      throw new Error(
+        `Attributes not found in file ${file.filename}. Please ensure that your metadata file is valid.`
+      );
+
     file.filedata.attributes.forEach((attribute: Attribute) => {
       const matchedAttributeIndex = attributesMap.findIndex(
         (attributeObject) => attribute.trait_type === attributeObject.trait_type
