@@ -17,9 +17,10 @@
  * limitations under the License.
  *
  */
-const { calculateRarity } = require("../..");
+const { calculateRarity } = require("../../dist");
 const { Parser } = require("json2csv");
 const fs = require("fs");
+
 function main() {
   // Replace with absolute path to files folder
   const absolutePathToFiles =

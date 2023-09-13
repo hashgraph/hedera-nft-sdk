@@ -44,5 +44,5 @@ export interface RarityResult {
   attributeContributions: {trait: string; value: string | number; contribution: string}[];
   totalRarity: string;
   NFT: number;
-  filename: string;
+  filename?: string;
 }

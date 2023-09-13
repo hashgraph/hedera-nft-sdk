@@ -56,6 +56,7 @@ export const getJSONFilesForDir = (dir: string): string[] => {
   files.forEach((file) => {
     if (path.extname(file.name) === '.json') JSONFiles.push(file.name);
   });
+  
   // eslint-disable-next-line no-console
   console.log(`Found ${JSONFiles.length} files with the .json extension`);
 

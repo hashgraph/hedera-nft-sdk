@@ -106,7 +106,6 @@ const calculateRarity = (dir: string): RarityResult[] => {
  * @param {NFTFile[]} files Array of NFTFile objects
  * @return {AttributeConfig[]} Array of objects with attribute information
  * */
-
 const getAttributeMap = (files: NFTFile[]): AttributeConfig[] => {
   const attributesMap: AttributeConfig[] = [];
   files.forEach((file) => {
@@ -147,4 +146,105 @@ const getAttributeMap = (files: NFTFile[]): AttributeConfig[] => {
   return attributesMap;
 };
 
-export { calculateRarity };
+/**
+ * @param {NFTFile[]} files Array of NFTFile objects
+ * @return {AttributeConfig[]} Array of objects with attribute information
+ * */
+const getAttributeMapData = (metadataArray: { attributes: Attribute[] }[]): AttributeConfig[] => {
+  const attributesMap: AttributeConfig[] = [];
+  metadataArray.forEach((metadata) => {
+    if (!metadata.attributes)
+      throw new Error(
+        `Attributes not found in object ${JSON.stringify(metadata)}. Please ensure that your metadata file is valid.`
+      );
+
+    metadata.attributes.forEach((attribute: Attribute) => {
+      const matchedAttributeIndex = attributesMap.findIndex(
+        (attributeObject) => attribute.trait_type === attributeObject.trait_type
+      );
+      if (matchedAttributeIndex !== -1) {
+        const matchedValueIndex = attributesMap[
+          matchedAttributeIndex
+        ].values.findIndex(
+          (valueObject) => valueObject.value === attribute.value
+        );
+
+        if (matchedValueIndex !== -1) {
+          attributesMap[matchedAttributeIndex].values[matchedValueIndex]
+            .count++;
+        } else {
+          attributesMap[matchedAttributeIndex].values.push({
+            value: attribute.value.toString(),
+            count: 1,
+          });
+        }
+      } else {
+        attributesMap.push({
+          trait_type: attribute.trait_type,
+          values: [{ value: attribute.value.toString(), count: 1 }],
+        });
+      }
+    });
+  });
+
+  return attributesMap;
+};
+
+/**
+ *
+ * @param {Array<Object>} metadataArray Array of JSON objects for rarity calculation
+ * @return {RarityResult[]} Array of objects with rarity information for each NFT
+ */
+const calculateRarityFromData = (metadataArray: { attributes: Attribute[] }[]): RarityResult[] => {
+  const attributesMap = getAttributeMapData(metadataArray); // todo replace by proper function
+
+  const normalizedRarities: RarityResult[] = [];
+  let normalizedCount = 1;
+  metadataArray.forEach((metadata) => {
+    const traitRarities: {trait: string; value: string|number; rarity: number}[] = [];
+
+    metadata.attributes.forEach((NFTAttribute: Attribute) => {
+      const attributeConfigObject: AttributeConfig | undefined =
+        attributesMap.find(
+          (attribute) => attribute.trait_type === NFTAttribute.trait_type
+        );
+
+      if (!attributeConfigObject)
+        throw new Error(
+          `Attribute ${NFTAttribute.trait_type} not found in attributes map`
+        );
+      const NFTsWithTrait: ValueObject | undefined =
+        attributeConfigObject.values.find(
+          (valueObject) => valueObject.value === NFTAttribute.value
+        );
+      const mostCommonTrait = attributeConfigObject.values.reduce(
+        (prev, current) => (prev.count > current.count ? prev : current)
+      );
+      const traitRarity = 1 / (NFTsWithTrait?.count! / mostCommonTrait.count);
+
+      traitRarities.push({
+        trait: NFTAttribute.trait_type,
+        value: NFTAttribute.value,
+        rarity: traitRarity,
+      });
+    });
+
+    const totalRarity = traitRarities.reduce((prev, current) => prev + current.rarity, 0);
+    const attributeContributions = traitRarities.map(traitRarity => ({
+      trait: traitRarity.trait,
+      value: traitRarity.value,
+      contribution: (traitRarity.rarity / totalRarity * 100).toFixed(2),
+    }));
+
+    normalizedRarities.push({
+      attributeContributions: attributeContributions,
+      totalRarity: totalRarity.toFixed(2),
+      NFT: normalizedCount,
+    });
+    normalizedCount++;
+  });
+
+  return normalizedRarities;
+};
+
+export { calculateRarity, calculateRarityFromData };

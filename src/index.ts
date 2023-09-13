@@ -26,7 +26,7 @@ import {
   calculateRiskScoreFromTokenId,
   calculateRiskLevel,
 } from './risk';
-import { calculateRarity } from './rarity';
+import { calculateRarity, calculateRarityFromData } from './rarity';
 
 import { Attribute, Localization, File, Instance, Error, Problem, ValidationResult, Schema } from './types/validator.module';
 import { NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult } from './types/rarity.module';
@@ -49,6 +49,7 @@ export {
 
   // rarity calculation
   calculateRarity,
+  calculateRarityFromData,
 
   // interfaces
   Attribute, Localization, File, Instance, Error, Problem, ValidationResult, Schema, NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelTypes, Metadata, RiskResult,
