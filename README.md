@@ -386,11 +386,36 @@ const results = calculateRarity(absolutePathToFiles);
 console.log(results)
 ```
 
+You can also avoid having to load data from files by using the `calculateRarityFromData` function.
+
+```js
+const NFTdata = [
+    {
+        "name": "HANGRY BARBOON #2343",
+        "image": "ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png",
+        "type": "image/png",
+        "attributes": [
+            { "trait_type": "Background", "value": "Yellow" },
+            { "trait_type": "Fur", "value": "Silver" },
+            { "trait_type": "Clothing", "value": "Herbal Jacket" },
+            { "trait_type": "Mouth", "value": "Smile" },
+            { "trait_type": "Sing", "value": "Sing" }
+        ]
+    }
+]
+
+const results = calculateRarityFromData(NFTdata);
+```
+
 According to token metadata JSON schema V2, the `calculateRarity` function only looks at objects in the `attributes` property that use the following format:
 
 ```
 { "trait_type": "Background", "value": "Yellow" }
-OR
+```
+
+It does not take into account attributes with the `display_type` property set, like this:
+
+```
 { "trait_type": "Background", "value": 10, "display_type": "percentage" }
 ```
 
@@ -400,7 +425,7 @@ The output interface for this function looks like this.
 
 ```json
 [
-    { "rarity": "<string> rarity score", "NFT": "<nubmer> NFT number", "filename": "<string>" },
+    { "rarity": "<string> rarity score", "NFT": "<nubmer> NFT number", "filename": "<string optional>" },
     ...
 ]
 ```
@@ -447,7 +472,9 @@ Here's a sample output. The total sum of the individual attributes is always 100
 
 ### Examples
 
-See: **[/examples/rarity-score-calculation/index.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/rarity-score-calculation)**
+See: 
+- **[/examples/rarity-score-calculation/rarity-from-files.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/rarity-score-calculation)**
+- **[/examples/rarity-score-calculation/rarity-from-data.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/rarity-score-calculation)**
 
 ## Questions or Improvement Proposals
 
