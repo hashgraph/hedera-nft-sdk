@@ -21,6 +21,7 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 - **Package: [Local metadata validator](#local-validator)**
 - **Package: [Risk score calculation](#risk-score-calculation)**
 - **Package: [Rarity score calculation](#rarity-score-calculation)**
+- **Package: [Trait occurrence calculation](#trait-occurrence-calculation)**
 - **[Questions, contact us, or improvement proposals?](#questions-or-improvement-proposals)**
 - **[Support](#Support)**
 - **[Contributing](#Contributing)**
