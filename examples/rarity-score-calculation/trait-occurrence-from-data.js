@@ -91,7 +91,40 @@ function main() {
   const results = calculateTraitOccurenceFromData(NFTdata);
   console.log(JSON.stringify(results, null, 4));
 
-  /* */
+  /* Output:
+[
+    {
+        "trait": "Background",
+        "values": [
+            {
+                "value": "Yellow",
+                "occurence": "60.00"
+            },
+            {
+                "value": "Green",
+                "occurence": "40.00"
+            }
+        ]
+    },
+    {
+        "trait": "Mouth",
+        "values": [
+            {
+                "value": "Nose",
+                "occurence": "20.00"
+            },
+            {
+                "value": "Tongue",
+                "occurence": "20.00"
+            },
+            {
+                "value": "Smile",
+                "occurence": "60.00"
+            }
+        ]
+    }
+]
+*/
 }
 
 main();
