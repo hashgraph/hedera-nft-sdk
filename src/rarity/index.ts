@@ -23,6 +23,7 @@ import {
   AttributeConfig,
   ValueObject,
   NFTFile,
+  TraitOccurrence,
 } from '../types/rarity.module';
 import { Attribute } from '../types/validator.module';
 
@@ -196,7 +197,7 @@ const getAttributeMapData = (metadataArray: { attributes: Attribute[] }[]): Attr
  * @return {RarityResult[]} Array of objects with rarity information for each NFT
  */
 const calculateRarityFromData = (metadataArray: { attributes: Attribute[] }[]): RarityResult[] => {
-  const attributesMap = getAttributeMapData(metadataArray); // todo replace by proper function
+  const attributesMap = getAttributeMapData(metadataArray);
 
   const normalizedRarities: RarityResult[] = [];
   let normalizedCount = 1;
@@ -247,4 +248,28 @@ const calculateRarityFromData = (metadataArray: { attributes: Attribute[] }[]): 
   return normalizedRarities;
 };
 
-export { calculateRarity, calculateRarityFromData };
+const calculateTraitOccurenceFromData = (metadataArray: { attributes: Attribute[] }[]): TraitOccurrence[] => {
+  const attributesMap = getAttributeMapData(metadataArray);
+  
+  const traitOccurences: TraitOccurrence[] = [];
+
+  attributesMap.forEach((attribute) => {
+    const traitOccurence: TraitOccurrence = {
+      trait: attribute.trait_type,
+      values: [],
+    };
+
+    attribute.values.forEach((value) => {
+      traitOccurence.values.push({
+        value: value.value,
+        occurence: (value.count / metadataArray.length * 100).toFixed(2),
+      });
+    });
+
+    traitOccurences.push(traitOccurence);
+  });
+
+  return traitOccurences;
+};
+
+export { calculateRarity, calculateRarityFromData, calculateTraitOccurenceFromData };
