@@ -21,6 +21,7 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 - **Package: [Local metadata validator](#local-validator)**
 - **Package: [Risk score calculation](#risk-score-calculation)**
 - **Package: [Rarity score calculation](#rarity-score-calculation)**
+- **Package: [Trait occurrence calculation](#trait-occurrence-calculation)**
 - **[Questions, contact us, or improvement proposals?](#questions-or-improvement-proposals)**
 - **[Support](#Support)**
 - **[Contributing](#Contributing)**
@@ -475,6 +476,103 @@ Here's a sample output. The total sum of the individual attributes is always 100
 See: 
 - **[/examples/rarity-score-calculation/rarity-from-files.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/rarity-score-calculation)**
 - **[/examples/rarity-score-calculation/rarity-from-data.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/rarity-score-calculation)**
+
+## Trait occurrence calculation
+
+Calculate how often different values for a given trait occur in a collection, percentage-based.
+
+### Usage
+
+Install the package:
+
+```bash
+npm i -s @hashgraph/nft-utilities
+```
+
+Import the package into your project and get `calculateTraitOccurenceFromData` function. Next, you need to pass a JSON array containing NFT collection metadata to the function.
+
+```js
+const NFTdata = [
+    {
+        "creator": "HANGRY BARBOONS",
+        "description": "HANGRY BARBOONS are 4,444 unique citizens from the United Hashgraph of Planet Earth. Designed and illustrated by President HANGRY.",
+        "format": "none",
+        "name": "HANGRY BARBOON #2343",
+        "image": "ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png",
+        "type": "image/png",
+        "properties": { "edition": 2343 },
+        "attributes": [
+          { "trait_type": "Background", "value": "Yellow" },
+          { "trait_type": "Mouth", "value": "Nose" }
+        ]
+    },
+    ...
+  ]
+
+  const results = calculateTraitOccurenceFromData(NFTdata);
+```
+
+### Interface
+
+The output interface for this function looks like this.
+
+```json
+[
+    { 
+        "trait": "<string> trait name",
+        "values": [
+            { 
+                "value": "<string> single value for trait",
+                "occurrence": "<string> percentage based occurrence with 2 digits after comma"
+            },
+            ...
+        ]
+    },
+    ...
+]
+```
+
+Here's a sample output that shows the percentage of each value's occurrence for a given trait.
+
+```
+[
+    {
+        "trait": "Background",
+        "values": [
+            {
+                "value": "Yellow",
+                "occurence": "60.00"
+            },
+            {
+                "value": "Green",
+                "occurence": "40.00"
+            }
+        ]
+    },
+    {
+        "trait": "Mouth",
+        "values": [
+            {
+                "value": "Nose",
+                "occurence": "20.00"
+            },
+            {
+                "value": "Tongue",
+                "occurence": "20.00"
+            },
+            {
+                "value": "Smile",
+                "occurence": "60.00"
+            }
+        ]
+    }
+]
+```
+
+### Examples
+
+See: 
+- **[/examples/rarity-score-calculation/trait-occurrence-from-data.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/rarity-score-calculation)**
 
 ## Questions or Improvement Proposals
 

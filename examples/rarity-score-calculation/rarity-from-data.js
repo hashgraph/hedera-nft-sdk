@@ -18,8 +18,6 @@
  *
  */
 const { calculateRarityFromData } = require("../../dist");
-const { Parser } = require("json2csv");
-const fs = require("fs");
 
 function main() {
   const NFTdata = [

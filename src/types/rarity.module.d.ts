@@ -46,3 +46,11 @@ export interface RarityResult {
   NFT: number;
   filename?: string;
 }
+
+export interface TraitOccurrence {
+  trait: string;
+  values: {
+    value: string;
+    occurence: string;
+  }[];
+};
