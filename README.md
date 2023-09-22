@@ -489,7 +489,7 @@ Install the package:
 npm i -s @hashgraph/nft-utilities
 ```
 
-Import the package into your project and get `calculateTraitOccurenceFromData` function. Next, you need to pass a JSON array containing NFT collection metadata to the function.
+Import the package into your project and get `calculateTraitOccurrenceFromData` function. Next, you need to pass a JSON array containing NFT collection metadata to the function.
 
 ```js
 const NFTdata = [
@@ -509,7 +509,7 @@ const NFTdata = [
     ...
   ]
 
-  const results = calculateTraitOccurenceFromData(NFTdata);
+  const results = calculateTraitOccurrenceFromData(NFTdata);
 ```
 
 ### Interface

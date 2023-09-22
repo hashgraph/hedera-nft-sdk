@@ -248,28 +248,28 @@ const calculateRarityFromData = (metadataArray: { attributes: Attribute[] }[]): 
   return normalizedRarities;
 };
 
-const calculateTraitOccurenceFromData = (metadataArray: { attributes: Attribute[] }[]): TraitOccurrence[] => {
+const calculateTraitOccurrenceFromData = (metadataArray: { attributes: Attribute[] }[]): TraitOccurrence[] => {
   const attributesMap = getAttributeMapData(metadataArray);
   
-  const traitOccurences: TraitOccurrence[] = [];
+  const traitOccurrences: TraitOccurrence[] = [];
 
   attributesMap.forEach((attribute) => {
-    const traitOccurence: TraitOccurrence = {
+    const traitOccurrence: TraitOccurrence = {
       trait: attribute.trait_type,
       values: [],
     };
 
     attribute.values.forEach((value) => {
-      traitOccurence.values.push({
+      traitOccurrence.values.push({
         value: value.value,
         occurence: (value.count / metadataArray.length * 100).toFixed(2),
       });
     });
 
-    traitOccurences.push(traitOccurence);
+    traitOccurrences.push(traitOccurrence);
   });
 
-  return traitOccurences;
+  return traitOccurrences;
 };
 
-export { calculateRarity, calculateRarityFromData, calculateTraitOccurenceFromData };
+export { calculateRarity, calculateRarityFromData, calculateTraitOccurrenceFromData };
