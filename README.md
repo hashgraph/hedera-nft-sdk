@@ -306,7 +306,7 @@ const defaultRiskLevels = {
     NORISK: 0,
     LOW: 40,
     MEDIUM: 199,
-    HIGH: 2000
+    HIGH: 200
 };
 ```
 
