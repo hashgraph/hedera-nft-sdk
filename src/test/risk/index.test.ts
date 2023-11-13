@@ -55,9 +55,10 @@ describe('Risk calculation tests', () => {
       expect(riskResults.riskLevel).toBe('LOW');
     });
 
-    test('it should return HIGH risk (score ) for token with supply key set and infinite token supply', () => {
+    test('it should return HIGH risk (score) for token with supply key set and infinite token supply', () => {
       // Arrange && Act
       const riskResults = calculateRiskScoreFromData(all_keys_token);
+      console.log(riskResults)
 
       // Assert
       expect(riskResults.riskScore).toBe(630);
