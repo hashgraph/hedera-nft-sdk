@@ -43,7 +43,13 @@ const defaultWeights: Weights = {
   },
 };
 
-// Default thresholds for risk level calculation
+/**
+ * Default thresholds for risk level calculation
+ * NO RISK: 0 score
+ * LOW RISK: 0 - 40
+ * MEDIUM RISK: 41 - 199
+ * HIGH RISK: 200 - 2000 (risk score of 2000 is maximum you can get so it's the upper boundary)
+ */
 const defaultRiskLevels = {
   NORISK: 0,
   LOW: 40,
@@ -107,6 +113,13 @@ const calculateRiskScore = (metadata: Metadata): number => {
   return riskScore;
 };
 
+/**
+ * Default thresholds for risk level calculation
+ * NO RISK: 0 score
+ * LOW RISK: 0 - 40
+ * MEDIUM RISK: 41 - 199
+ * HIGH RISK: 200 - 2000 (risk score of 2000 is maximum you can get so it's the upper boundary)
+ */
 const calculateRiskLevel = (score: number): string => {
   let riskLevel = '';
 
