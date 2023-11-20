@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-const { calculateTraitOccurenceFromData } = require("../../dist");
+const { calculateTraitOccurrenceFromData } = require("../../dist");
 
 function main() {
   const NFTdata = [
@@ -88,7 +88,7 @@ function main() {
     }
   ]
 
-  const results = calculateTraitOccurenceFromData(NFTdata);
+  const results = calculateTraitOccurrenceFromData(NFTdata);
   console.log(JSON.stringify(results, null, 4));
 
   /* Output:

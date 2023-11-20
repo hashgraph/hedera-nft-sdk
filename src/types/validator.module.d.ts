@@ -18,9 +18,9 @@
  *
  */
 export interface Attribute {
-  display_type: string;
   trait_type: string;
   value: string | number;
+  display_type?: string;
 }
 
 export interface Localization {
