@@ -12,7 +12,6 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   rules: {
-    '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {
