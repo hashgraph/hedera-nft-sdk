@@ -66,21 +66,5 @@
     "jest-junit": "^15.0.0",
     "ts-jest": "^29.1.0",
     "zod-error": "^1.5.0"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    },
-    "testMatch": [
-      "**/src/test/**/*.(spec|test).(ts|tsx)"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
   }
 }
