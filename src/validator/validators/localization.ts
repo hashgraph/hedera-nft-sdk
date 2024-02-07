@@ -46,7 +46,7 @@ const localizationValidator = (instance: Instance) => {
 
   // check for two-letter language codes in "locales"
   const notTwoLetterCode = localization.locales.filter(
-    (locale) => locale.length != 2
+    (locale) => locale.length != 2,
   );
   if (notTwoLetterCode.length > 0) {
     notTwoLetterCode.map((locale) => {

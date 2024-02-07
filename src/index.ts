@@ -19,18 +19,14 @@
  */
 import { Validator, defaultSchemaVersion } from './validator';
 import localValidation from './local-validation';
-import {
-  defaultWeights,
-  defaultRiskLevels,
-  calculateRiskScoreFromData,
-  calculateRiskScoreFromTokenId,
-  calculateRiskLevel,
-} from './risk';
+import { defaultWeights, defaultRiskLevels, calculateRiskScoreFromData, calculateRiskScoreFromTokenId, calculateRiskLevel } from './risk';
 import { calculateRarity, calculateRarityFromData, calculateTraitOccurrenceFromData } from './rarity';
 
 import { Attribute, Localization, File, Instance, Error, Problem, ValidationResult, Schema } from './types/validator.module';
 import { NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, TraitOccurrence } from './types/rarity.module';
 import { WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelTypes, Metadata, RiskResult } from './types/risk.module';
+
+import { HederaNFTSDK } from './functions';
 
 export {
   // validation
@@ -53,5 +49,29 @@ export {
   calculateTraitOccurrenceFromData,
 
   // interfaces
-  Attribute, Localization, File, Instance, Error, Problem, ValidationResult, Schema, NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelTypes, Metadata, RiskResult, TraitOccurrence,
+  Attribute,
+  Localization,
+  File,
+  Instance,
+  Error,
+  Problem,
+  ValidationResult,
+  Schema,
+  NFTFile,
+  NFTAttribute,
+  ValueObject,
+  AttributeConfig,
+  RarityResult,
+  WeightKeys,
+  WeightProperties,
+  Weights,
+  KeyTypes,
+  RiskLevels,
+  RiskLevelTypes,
+  Metadata,
+  RiskResult,
+  TraitOccurrence,
+
+  // NFTSDK
+  HederaNFTSDK,
 };
