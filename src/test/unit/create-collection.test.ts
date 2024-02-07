@@ -106,7 +106,7 @@ describe('createCollectionFunction', () => {
         collectionSymbol,
         treasuryAccount: '0.0.4321',
       })
-    ).rejects.toThrow(dictionary.createCollection.treasuryAccountPrivateKeySignRequired);
+    ).rejects.toThrow(dictionary.hederaActions.treasuryAccountPrivateKeySignRequired);
   });
 
   it('should throw an error when only treasuryAccountPrivateKey is passed', async () => {
@@ -122,7 +122,7 @@ describe('createCollectionFunction', () => {
         collectionSymbol,
         treasuryAccountPrivateKey: '0.0.4321',
       })
-    ).rejects.toThrow(dictionary.createCollection.treasuryAccountPrivateKeySignRequired);
+    ).rejects.toThrow(dictionary.hederaActions.treasuryAccountPrivateKeySignRequired);
   });
 
   it('should create collection when treasuryAccount and treasuryAccountPrivateKey are passed', async () => {
@@ -148,6 +148,7 @@ describe('createCollectionFunction', () => {
       supply: PrivateKey.fromString(myPrivateKey),
     };
     const treasuryAccount = '0.0.4321';
+    const treasuryAccountPrivateKey = '0.0.4321';
 
     await expect(
       createCollectionFunction({
@@ -157,8 +158,9 @@ describe('createCollectionFunction', () => {
         collectionSymbol,
         keys,
         treasuryAccount,
+        treasuryAccountPrivateKey,
       })
-    ).rejects.toThrow(dictionary.createCollection.collectionNameRequired);
+    ).rejects.toThrow(dictionary.hederaActions.collectionNameRequired);
   });
 
   it('should throw an error if collectionSymbol is not provided', async () => {
@@ -168,6 +170,7 @@ describe('createCollectionFunction', () => {
       supply: PrivateKey.fromString(myPrivateKey),
     };
     const treasuryAccount = '0.0.4321';
+    const treasuryAccountPrivateKey = '0.0.4321';
 
     await expect(
       createCollectionFunction({
@@ -177,8 +180,9 @@ describe('createCollectionFunction', () => {
         collectionSymbol: '',
         keys,
         treasuryAccount,
+        treasuryAccountPrivateKey,
       })
-    ).rejects.toThrow(dictionary.createCollection.collectionSymbolRequired);
+    ).rejects.toThrow(dictionary.hederaActions.collectionSymbolRequired);
   });
 
   it('should create a collection with keys', async () => {

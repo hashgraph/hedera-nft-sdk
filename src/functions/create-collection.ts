@@ -20,6 +20,7 @@
 import { CreateCollectionType } from '../types/create-collection.module';
 import { AccountId, PrivateKey, TokenCreateTransaction, TokenSupplyType, TokenType } from '@hashgraph/sdk';
 import { dictionary } from '../utils/constants/dictionary';
+import { validatePropsForCreateCollection } from '../utils/validate-props';
 
 export const createCollectionFunction = async ({
   client,
@@ -32,13 +33,13 @@ export const createCollectionFunction = async ({
   maxSupply,
   customFees,
 }: CreateCollectionType): Promise<string> => {
-  if (!client) throw new Error(dictionary.createCollection.clientRequired);
-  if (!collectionName) throw new Error(dictionary.createCollection.collectionNameRequired);
-  if (!collectionSymbol) throw new Error(dictionary.createCollection.collectionSymbolRequired);
-
-  if ((treasuryAccount && !treasuryAccountPrivateKey) || (!treasuryAccount && treasuryAccountPrivateKey)) {
-    throw new Error(dictionary.createCollection.treasuryAccountPrivateKeySignRequired);
-  }
+  validatePropsForCreateCollection({
+    client,
+    collectionName,
+    collectionSymbol,
+    treasuryAccount,
+    treasuryAccountPrivateKey,
+  });
 
   const treasuryAccountId = treasuryAccount ? AccountId.fromString(treasuryAccount) : client.getOperator()!.accountId;
   const treasuryAccountPrivateKeyId = treasuryAccountPrivateKey
@@ -98,7 +99,7 @@ export const createCollectionFunction = async ({
   const receipt = await txResponse.getReceipt(client);
 
   if (!receipt.tokenId) {
-    throw new Error(dictionary.createCollection.collectionNotCreated);
+    throw new Error(dictionary.hederaActions.collectionNotCreated);
   }
 
   return receipt.tokenId.toString();

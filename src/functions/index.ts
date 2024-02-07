@@ -18,12 +18,13 @@
  *
  */
 import { Client, PrivateKey } from '@hashgraph/sdk';
-import { CreateCollectionKeysType } from '../types/create-collection.module';
 import { createCollectionFunction } from './create-collection';
 import { logIn } from './log-in';
 import { createJsonMetadataFromCSV } from './create-json-metadata-from-csv';
 import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
+import { mintUniqueMetadataFunction } from './mint-unique-metadata-function';
 import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv.module';
+import { CreateCollectionKeysType } from '../types/create-collection.module';
 
 export class HederaNFTSDK {
   accountId: string;
@@ -36,14 +37,21 @@ export class HederaNFTSDK {
     this.client = logIn({ myAccountId: accountId, myPrivateKey: privateKey });
   }
 
-  createCollection(
-    collectionName: string,
-    collectionSymbol: string,
-    treasuryAccountPrivateKey?: string,
-    treasuryAccount?: string,
-    keys?: CreateCollectionKeysType,
-    maxSupply?: number
-  ) {
+  createCollection({
+    collectionName,
+    collectionSymbol,
+    treasuryAccountPrivateKey,
+    treasuryAccount,
+    keys,
+    maxSupply,
+  }: {
+    collectionName: string;
+    collectionSymbol: string;
+    treasuryAccountPrivateKey?: string;
+    treasuryAccount?: string;
+    keys?: CreateCollectionKeysType;
+    maxSupply?: number;
+  }) {
     return createCollectionFunction({
       client: this.client,
       collectionName,
@@ -56,11 +64,15 @@ export class HederaNFTSDK {
     });
   }
 
-  createJsonMetadataFromCSV(
-    savedJsonFilesLocation: string,
-    csvFilePath: string,
-    nftsLimit?: number
-  ): Promise<JsonMetadataFromCSVInterface> {
+  createJsonMetadataFromCSV({
+    savedJsonFilesLocation,
+    csvFilePath,
+    nftsLimit,
+  }: {
+    savedJsonFilesLocation: string;
+    csvFilePath: string;
+    nftsLimit?: number;
+  }): Promise<JsonMetadataFromCSVInterface> {
     return createJsonMetadataFromCSV({
       savedJsonFilesLocation,
       csvFilePath,
@@ -68,7 +80,19 @@ export class HederaNFTSDK {
     });
   }
 
-  mintSharedMetadata(tokenId: string, amount: number, batchSize: number = 5, metaData: string, supplyKey?: PrivateKey) {
+  mintSharedMetadata({
+    tokenId,
+    amount,
+    batchSize = 5,
+    metaData,
+    supplyKey,
+  }: {
+    tokenId: string;
+    amount: number;
+    batchSize?: number;
+    metaData: string;
+    supplyKey?: PrivateKey;
+  }) {
     return mintSharedMetadataFunction({
       client: this.client,
       tokenId,
@@ -76,6 +100,29 @@ export class HederaNFTSDK {
       batchSize,
       metaData,
       supplyKey: supplyKey || PrivateKey.fromString(this.privateKey),
+    });
+  }
+
+  mintUniqueMetadata({
+    tokenId,
+    batchSize = 5,
+    supplyKey,
+    pathToMetadataURIsFile,
+    metadata,
+  }: {
+    tokenId: string;
+    batchSize?: number;
+    supplyKey: PrivateKey;
+    pathToMetadataURIsFile?: string;
+    metadata?: string[];
+  }) {
+    return mintUniqueMetadataFunction({
+      client: this.client,
+      tokenId,
+      batchSize,
+      supplyKey,
+      pathToMetadataURIsFile,
+      metadataArray: metadata,
     });
   }
 }

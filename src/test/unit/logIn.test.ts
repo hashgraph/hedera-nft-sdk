@@ -40,10 +40,10 @@ describe('logIn', () => {
   });
 
   it('should throw an error if myAccountId is not provided', () => {
-    expect(() => logIn({ myAccountId: '', myPrivateKey })).toThrow(dictionary.createCollection.myAccountIdRequired);
+    expect(() => logIn({ myAccountId: '', myPrivateKey })).toThrow(dictionary.hederaActions.myAccountIdRequired);
   });
 
   it('should throw an error if myPrivateKey is not provided', () => {
-    expect(() => logIn({ myAccountId, myPrivateKey: '' })).toThrow(dictionary.createCollection.myPrivateKeyRequired);
+    expect(() => logIn({ myAccountId, myPrivateKey: '' })).toThrow(dictionary.hederaActions.myPrivateKeyRequired);
   });
 });

@@ -151,7 +151,7 @@ describe('mintSharedMetadataFunction', () => {
     const mockTokenId = 'tokenId';
     const mockSupplyKey = PrivateKey.fromString(myPrivateKey);
     const mockAmount = 1;
-    const mockBatchSize = 0;
+    const mockBatchSize = -1;
 
     (mintToken as jest.Mock).mockResolvedValueOnce({
       serials: Array.from({ length: mockAmount }, (_, i) => ({

@@ -22,7 +22,7 @@ import { LogInType } from '../types/login.module';
 import { dictionary } from '../utils/constants/dictionary';
 
 export const logIn = ({ myAccountId, myPrivateKey }: LogInType): Client => {
-  if (!myAccountId) throw new Error(dictionary.createCollection.myAccountIdRequired);
-  if (!myPrivateKey) throw new Error(dictionary.createCollection.myPrivateKeyRequired);
+  if (!myAccountId) throw new Error(dictionary.hederaActions.myAccountIdRequired);
+  if (!myPrivateKey) throw new Error(dictionary.hederaActions.myPrivateKeyRequired);
   return Client.forTestnet().setOperator(myAccountId, myPrivateKey);
 };

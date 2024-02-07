@@ -17,28 +17,42 @@
  * limitations under the License.
  *
  */
-import { MintedNFTType, MintTokenType } from '../types/mint-token.module';
+import { MintedNFTType, MintUniqueTokenType } from '../types/mint-token.module';
 import { mintToken } from './mint-token';
-import { validateProps } from '../utils/validate-props';
+import { validatePropsForUniqueNFTMinting } from '../utils/validate-props';
 import { MintingError } from '../utils/minting-error';
+import { getDataFromFile } from '../helpers/get-data-from-file';
 import { dictionary } from '../utils/constants/dictionary';
 
-export const mintSharedMetadataFunction = async ({ client, tokenId, amount, batchSize, metaData, supplyKey }: MintTokenType) => {
-  validateProps({ tokenId, amount, metaData, supplyKey, batchSize });
-
+export const mintUniqueMetadataFunction = async ({
+  client,
+  tokenId,
+  batchSize = 5,
+  supplyKey,
+  pathToMetadataURIsFile,
+  metadataArray,
+}: MintUniqueTokenType) => {
+  validatePropsForUniqueNFTMinting({
+    batchSize,
+    tokenId,
+    pathToMetadataURIsFile,
+    supplyKey,
+    metadataArray,
+  });
   const mintedNFTs: MintedNFTType[] = [];
-  // Example if amount = 8 and batchSize = 5. NumberOfCalls should be 2. So 8/5 = 1.6. Math.ceil(1.6) = 2. Because Math.ceil rounds up to the next largest integer.
-  const numberOfCalls = Math.ceil(amount / batchSize);
+
+  const metaData = pathToMetadataURIsFile ? await getDataFromFile(pathToMetadataURIsFile) : metadataArray || [];
+  if (!metaData.length) throw new Error(dictionary.hederaActions.metadataRequired);
 
   try {
+    const numberOfCalls = Math.ceil(metaData.length / batchSize);
     for (let i = 0; i < numberOfCalls; i++) {
-      const metadataBatchArray = new Array(Math.min(batchSize, amount)).fill(metaData);
-      amount -= batchSize;
-      const mintTokenReceipt = await mintToken(metadataBatchArray, tokenId, supplyKey, client);
+      const batch = metaData.slice(i * batchSize, (i + 1) * batchSize);
+      const mintTokenReceipt = await mintToken(batch, tokenId, supplyKey, client);
 
-      const result: MintedNFTType[] = mintTokenReceipt?.serials.map((longValue) => {
+      const result: MintedNFTType[] = mintTokenReceipt?.serials.map((longValue, index) => {
         return {
-          content: metaData,
+          content: batch[index],
           serialNumber: longValue.toNumber(),
         };
       });
@@ -47,9 +61,9 @@ export const mintSharedMetadataFunction = async ({ client, tokenId, amount, batc
         mintedNFTs.push(...result);
       }
     }
-
-    return mintedNFTs.flat();
   } catch (error) {
     throw new MintingError(`${dictionary.hederaActions.mintingError} ${error}`, mintedNFTs.flat());
   }
+
+  return mintedNFTs.flat();
 };
