@@ -1,6 +1,6 @@
 import { Client, PrivateKey } from '@hashgraph/sdk';
 
-export type PropsType = {
+export type sharedMintingValidationProps = {
   batchSize?: number;
   tokenId?: string;
   amount?: number;
@@ -16,10 +16,31 @@ export type uniqueMintingValidationProps = {
   metadataArray?: string[];
 };
 
+export type increaseNFTSupplyValidationProps = {
+  nftId?: NftId;
+  batchSize?: number;
+  amount?: number;
+  supplyKey?: PrivateKey;
+};
+
 export type validateCreateCollectionProps = {
   client?: Client;
   collectionName?: string;
   collectionSymbol?: string;
   treasuryAccountPrivateKey?: string;
   treasuryAccount?: string;
+  customFees?: CustomFee[];
+};
+
+export type fixedFeeValidationProps = {
+  collectorAccountId?: string;
+  hbarAmount?: number;
+  amount?: number;
+  denominatingTokenId?: string;
+};
+
+export type royaltyFeeValidationProps = {
+  collectorAccountId?: string;
+  numerator: number;
+  denominator: number;
 };

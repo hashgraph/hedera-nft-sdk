@@ -27,6 +27,7 @@ import { NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, Trai
 import { WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelTypes, Metadata, RiskResult } from './types/risk.module';
 
 import { HederaNFTSDK } from './functions';
+import { FeeFactory } from './feeFactory';
 
 export {
   // validation
@@ -74,4 +75,5 @@ export {
 
   // NFTSDK
   HederaNFTSDK,
+  FeeFactory,
 };

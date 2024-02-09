@@ -23,6 +23,23 @@ export const dictionary = {
   errors: {
     unhandledError: 'Unknown error.',
   },
+
+  createCollection: {
+    clientRequired: 'client is required. You need to log in first.',
+    myPrivateKeyRequired: 'myPrivateKey is required',
+    collectionNameRequired: 'collectionName is required',
+    collectionSymbolRequired: 'collectionSymbol is required',
+    myAccountIdRequired: 'myAccountId is required',
+    treasuryAccountPrivateKeySignRequired:
+      'If you want to use treasuryAccount to sign, you need to pass the treasuryAccountPrivateKey also',
+    collectionNotCreated: 'Something went wrong while creating the collection',
+    tooManyCustomFees: 'You can only have 10 custom fees',
+    collectorAccountIdRequired: 'collectorAccountId is required',
+    numeratorRequired: 'numerator is required',
+    denominatorRequired: 'denominator is required',
+    hbarAmountOrAmountAndDenominatingToken:
+      'Either hbarAmount should be set and both amount and denominatingTokenId should not be set, or amount and denominatingTokenId should be set and hbarAmount should not be set.',
+  },
   csvToJson: {
     errorInCellWithHeader: (line: number, column: number) =>
       `Error in line number ${line}, column number ${column}. Check if your CSV file is well prepared.`,
@@ -48,6 +65,7 @@ export const dictionary = {
     maxBatchSize: 'Max Buffer exceeded. Use batchSize smaller of equal to 10',
     minBatchSize: 'Min Buffer exceeded. Use batchSize greater than 0',
     tokenIdRequired: 'tokenId is required',
+    nftIdRequired: 'nftId is required',
     minAmount: 'Amount needs to be greater than 0',
     metadataRequired: 'metadata is required',
     supplyKeyRequired: 'supplyKey is required',

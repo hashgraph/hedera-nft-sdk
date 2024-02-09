@@ -30,7 +30,7 @@ describe('mintSharedMetadata function e2e', () => {
 
   testCases.forEach(({ amount }) => {
     it(
-      `Creating a token and minting ${amount} NFTs into it`,
+      'Creating a token and minting ${amount} NFTs into it',
       async () => {
         const tokenId = await nftSDK.createCollection({
           collectionName: 'test_name',

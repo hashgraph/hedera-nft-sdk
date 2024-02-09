@@ -21,7 +21,6 @@ import fs from 'fs';
 import path from 'path';
 import { z } from 'zod';
 import { Hip412MetadataCommonSchema } from '../../utils/validation-schemas/hip412-metadata-schema';
-import { createJsonMetadataFromCSV } from '../../functions/create-json-metadata-from-csv';
 import {
   JSON_METADATA_INTEGRATION_TESTS_OUTPUT_FOLDER_PATH,
   CSV_EXAMPLE_WITH_IMAGES,
@@ -30,6 +29,7 @@ import {
   CSV_EXAMPLE_ONLY_REQUIRED_FIELDS_AND_HEADERS,
   LONG_E2E_TIMEOUT,
 } from '../__mocks__/consts';
+import { createJsonMetadataFromCSV } from '../../functions/createJsonMetadataFromCSV';
 
 const HEADERS_COUNT = 2;
 

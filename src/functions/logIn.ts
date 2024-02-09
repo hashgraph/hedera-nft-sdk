@@ -18,11 +18,11 @@
  *
  */
 import { Client } from '@hashgraph/sdk';
-import { LogInType } from '../types/login.module';
 import { dictionary } from '../utils/constants/dictionary';
+import { LogInType } from '../types/login.module';
 
-export const logIn = ({ myAccountId, myPrivateKey }: LogInType): Client => {
-  if (!myAccountId) throw new Error(dictionary.hederaActions.myAccountIdRequired);
-  if (!myPrivateKey) throw new Error(dictionary.hederaActions.myPrivateKeyRequired);
-  return Client.forTestnet().setOperator(myAccountId, myPrivateKey);
+export const logIn = ({ myAccountId, myPrivateKey, network }: LogInType): Client => {
+  if (!myAccountId) throw new Error(dictionary.createCollection.myAccountIdRequired);
+  if (!myPrivateKey) throw new Error(dictionary.createCollection.myPrivateKeyRequired);
+  return Client.forName(network).setOperator(myAccountId, myPrivateKey);
 };

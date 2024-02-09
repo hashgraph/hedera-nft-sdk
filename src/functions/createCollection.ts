@@ -17,9 +17,9 @@
  * limitations under the License.
  *
  */
-import { CreateCollectionType } from '../types/create-collection.module';
 import { AccountId, PrivateKey, TokenCreateTransaction, TokenSupplyType, TokenType } from '@hashgraph/sdk';
 import { dictionary } from '../utils/constants/dictionary';
+import { CreateCollectionType } from '../types/create-collection.module';
 import { validatePropsForCreateCollection } from '../utils/validate-props';
 
 export const createCollectionFunction = async ({
@@ -39,6 +39,7 @@ export const createCollectionFunction = async ({
     collectionSymbol,
     treasuryAccount,
     treasuryAccountPrivateKey,
+    customFees,
   });
 
   const treasuryAccountId = treasuryAccount ? AccountId.fromString(treasuryAccount) : client.getOperator()!.accountId;
@@ -99,7 +100,7 @@ export const createCollectionFunction = async ({
   const receipt = await txResponse.getReceipt(client);
 
   if (!receipt.tokenId) {
-    throw new Error(dictionary.hederaActions.collectionNotCreated);
+    throw new Error(dictionary.createCollection.collectionNotCreated);
   }
 
   return receipt.tokenId.toString();

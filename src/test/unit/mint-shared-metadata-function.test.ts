@@ -17,13 +17,13 @@
  * limitations under the License.
  *
  */
-import { mintSharedMetadataFunction } from '../../functions/mint-shared-metadata-function';
-import { mintToken } from '../../functions/mint-token';
 import { Client, PrivateKey } from '@hashgraph/sdk';
 import { myPrivateKey } from '../__mocks__/consts';
 import { dictionary } from '../../utils/constants/dictionary';
+import { mintSharedMetadataFunction } from '../../functions/mintSharedMetadataFunction';
+import { mintToken } from '../../functions/mintToken';
 
-jest.mock('../../functions/mint-token', () => ({
+jest.mock('../../functions/mintToken', () => ({
   mintToken: jest.fn((amount) => {
     return Promise.resolve({
       serials: Array.from({ length: amount }, (_, i) => i + 1),

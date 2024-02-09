@@ -17,15 +17,15 @@
  * limitations under the License.
  *
  */
-import { logIn } from '../../functions/log-in';
 import { Client } from '@hashgraph/sdk';
 import { myAccountId, myPrivateKey } from '../__mocks__/consts';
 import { dictionary } from '../../utils/constants/dictionary';
+import { logIn } from '../../functions/logIn';
 
 jest.mock('@hashgraph/sdk', () => {
   return {
     Client: {
-      forTestnet: jest.fn().mockReturnThis(),
+      forName: jest.fn().mockReturnThis(),
       setOperator: jest.fn(),
     },
   };
@@ -33,17 +33,17 @@ jest.mock('@hashgraph/sdk', () => {
 
 describe('logIn', () => {
   it('should call setOperator with correct parameters', () => {
-    logIn({ myAccountId, myPrivateKey });
+    logIn({ myAccountId, myPrivateKey, network: 'testnet' });
 
-    expect(Client.forTestnet).toHaveBeenCalled();
-    expect(Client.forTestnet().setOperator).toHaveBeenCalledWith(myAccountId, myPrivateKey);
+    expect(Client.forName).toHaveBeenCalled();
+    expect(Client.forName('testnet').setOperator).toHaveBeenCalledWith(myAccountId, myPrivateKey);
   });
 
   it('should throw an error if myAccountId is not provided', () => {
-    expect(() => logIn({ myAccountId: '', myPrivateKey })).toThrow(dictionary.hederaActions.myAccountIdRequired);
+    expect(() => logIn({ myAccountId: '', myPrivateKey, network: 'testnet' })).toThrow(dictionary.createCollection.myAccountIdRequired);
   });
 
   it('should throw an error if myPrivateKey is not provided', () => {
-    expect(() => logIn({ myAccountId, myPrivateKey: '' })).toThrow(dictionary.hederaActions.myPrivateKeyRequired);
+    expect(() => logIn({ myAccountId, myPrivateKey: '', network: 'testnet' })).toThrow(dictionary.createCollection.myPrivateKeyRequired);
   });
 });
