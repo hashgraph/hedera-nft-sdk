@@ -20,8 +20,8 @@
 export const myAccountId = '0.0.12345';
 export const myPrivateKey = '123e020100300506032b657004220420f8e9f8de8f7e06f7e9f8de8f7e06f7e9f8de8f7e06f7e9f8de8f7e06f7e9f8de';
 
-export const pathToOneLineCSV = 'test/__mocks__/csv/csv-example-one-line.csv';
-export const pathToRowCSV = 'test/__mocks__/csv/csv-example-rows.csv';
+export const pathToOneLineCSV = 'src/test/__mocks__/csv/csv-example-one-line.csv';
+export const pathToRowCSV = 'src/test/__mocks__/csv/csv-example-rows.csv';
 
 export const CSV_EXAMPLE_INVALID_HEADERS = 'src/test/__mocks__/csv/csv-example-invalid-headers.csv';
 export const CSV_EXAMPLE_NO_IMAGES = 'src/test/__mocks__/csv/csv-example-no-images.csv';
