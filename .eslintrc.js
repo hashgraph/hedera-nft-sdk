@@ -3,18 +3,15 @@ module.exports = {
   env: {
     es6: true,
     node: true,
+    es2021: true,
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: [
-      'tsconfig.json',
-      'tsconfig.eslint.json',
-    ],
+    project: ['tsconfig.json', 'tsconfig.eslint.json'],
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint'],
   rules: {
-    '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {
@@ -36,7 +33,6 @@ module.exports = {
       },
     ],
     '@typescript-eslint/semi': ['error', 'always'],
-    'comma-dangle': ['error', 'always-multiline'],
     'max-classes-per-file': 'off',
     'no-console': 'error',
     'no-multiple-empty-lines': ['error', { max: 1 }],
@@ -45,4 +41,3 @@ module.exports = {
     'prefer-const': 'error',
   },
 };
-  
