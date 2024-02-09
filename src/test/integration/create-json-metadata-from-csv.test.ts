@@ -21,7 +21,7 @@ import fs from 'fs';
 import path from 'path';
 import { z } from 'zod';
 import { Hip412MetadataCommonSchema } from '../../utils/validation-schemas/hip412-metadata-schema';
-import { createJsonMetadataFromCSV } from '../../functions/create-json-metadata-from-csv';
+import { createJsonMetadataFromCSV } from '../../nftSDKFunctions/create-json-metadata-from-csv';
 import {
   JSON_METADATA_INTEGRATION_TESTS_OUTPUT_FOLDER_PATH,
   CSV_EXAMPLE_WITH_IMAGES,

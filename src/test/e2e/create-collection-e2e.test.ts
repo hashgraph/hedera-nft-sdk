@@ -20,7 +20,7 @@
 import { PrivateKey } from '@hashgraph/sdk';
 import { nftSDK, secondAccountId, secondPrivateKey } from './e2e-consts';
 import { beforeEach } from 'node:test';
-import { HederaNFTSDK } from '../../functions/index';
+import { HederaNFTSDK } from '../../nftSDKFunctions/index';
 import { LONG_E2E_TIMEOUT, myAccountId, myPrivateKey } from '../__mocks__/consts';
 import { getTokenInfo } from '../../utils/hedera/get-token-info';
 

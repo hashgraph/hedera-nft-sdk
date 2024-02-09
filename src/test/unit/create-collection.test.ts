@@ -18,7 +18,7 @@
  *
  */
 import { Client, PrivateKey } from '@hashgraph/sdk';
-import { createCollectionFunction } from '../../functions/create-collection';
+import { createCollectionFunction } from '../../nftSDKFunctions/create-collection';
 import { myPrivateKey } from '../__mocks__/consts';
 import { dictionary } from '../../utils/constants/dictionary';
 

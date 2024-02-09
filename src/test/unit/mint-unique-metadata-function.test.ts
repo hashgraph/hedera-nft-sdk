@@ -19,9 +19,9 @@
  */
 import * as fs from 'fs';
 import { MintUniqueTokenType } from '../../types/mint-token.module';
-import { mintUniqueMetadataFunction } from '../../functions/mint-unique-metadata-function';
+import { mintUniqueMetadataFunction } from '../../nftSDKFunctions/mint-unique-metadata-function';
 import { Client, PrivateKey } from '@hashgraph/sdk';
-import { mintToken } from '../../functions/mint-token';
+import { mintToken } from '../../nftSDKFunctions/mint-token';
 import { myPrivateKey } from '../__mocks__/consts';
 
 interface MockReadStream {
@@ -31,7 +31,7 @@ interface MockReadStream {
 
 jest.mock('fs');
 jest.mock('csv-parser');
-jest.mock('../../functions/mint-token');
+jest.mock('../../nftSDKFunctions/mint-token');
 
 describe('mintUniqueMetadataFunction', () => {
   beforeEach(() => {

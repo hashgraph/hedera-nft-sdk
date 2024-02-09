@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import { HederaNFTSDK } from '../../functions/index';
+import { HederaNFTSDK } from '../../nftSDKFunctions/index';
 import 'dotenv/config';
 
 export const operatorAccountId = process.env.FIRST_ACCOUNT_ID!;
