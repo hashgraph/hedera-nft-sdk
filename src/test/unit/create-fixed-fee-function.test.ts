@@ -18,9 +18,9 @@
  *
  */
 import { dictionary } from '../../utils/constants/dictionary';
-import { createFixedFeeFunction } from '../../functions/createFixedFeeFunction';
 import { myAccountId } from '../__mocks__/consts';
 import { FixedFeeType } from '../../types/fees.module';
+import { createFixedFeeFunction } from '../../nftSDKFunctions/create-fixed-fee-function';
 
 describe('createFixedFeeFunction', () => {
   it('should create a CustomFixedFee with all properties', () => {

@@ -17,10 +17,10 @@
  * limitations under the License.
  *
  */
+import { logIn } from '../../nftSDKFunctions/log-in';
 import { Client } from '@hashgraph/sdk';
 import { myAccountId, myPrivateKey } from '../__mocks__/consts';
 import { dictionary } from '../../utils/constants/dictionary';
-import { logIn } from '../../functions/logIn';
 
 jest.mock('@hashgraph/sdk', () => {
   return {

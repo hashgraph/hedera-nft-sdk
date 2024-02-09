@@ -29,7 +29,7 @@ import {
   CSV_EXAMPLE_ONLY_REQUIRED_FIELDS_AND_HEADERS,
   LONG_E2E_TIMEOUT,
 } from '../__mocks__/consts';
-import { createJsonMetadataFromCSV } from '../../functions/createJsonMetadataFromCSV';
+import { createJsonMetadataFromCSV } from '../../nftSDKFunctions/create-json-metadata-from-csv';
 
 const HEADERS_COUNT = 2;
 

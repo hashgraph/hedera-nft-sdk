@@ -18,7 +18,7 @@
  *
  */
 import { CustomRoyaltyFee } from '@hashgraph/sdk';
-import { createFixedFeeFunction } from './createFixedFeeFunction';
+import { createFixedFeeFunction } from './create-fixed-fee-function';
 import { RoyaltyFeeType } from '../types/fees.module';
 import { validatePropsForRoyaltyFeeFunction } from '../utils/validate-props';
 

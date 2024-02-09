@@ -26,7 +26,7 @@ import { Attribute, Localization, File, Instance, Error, Problem, ValidationResu
 import { NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, TraitOccurrence } from './types/rarity.module';
 import { WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelTypes, Metadata, RiskResult } from './types/risk.module';
 
-import { HederaNFTSDK } from './functions';
+import { HederaNFTSDK } from './nftSDKFunctions';
 import { FeeFactory } from './feeFactory';
 
 export {

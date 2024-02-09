@@ -19,9 +19,9 @@
  */
 import { NftId } from '@hashgraph/sdk';
 import axios from 'axios';
-import { mintSharedMetadataFunction } from './mintSharedMetadataFunction';
 import { validatePropsForIncreaseNFTSupply } from '../utils/validate-props';
 import { IncreaseNFTSupplyType } from '../types/mint-token.module';
+import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
 
 export const increaseNFTSupply = async ({ client, network, nftId, amount, batchSize, supplyKey, mirrorNodeUrl }: IncreaseNFTSupplyType) => {
   validatePropsForIncreaseNFTSupply({ nftId, amount, supplyKey, batchSize });

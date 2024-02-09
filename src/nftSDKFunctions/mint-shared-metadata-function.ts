@@ -18,10 +18,10 @@
  *
  */
 import { dictionary } from '../utils/constants/dictionary';
-import { mintToken } from './mintToken';
 import { MintedNFTType, MintTokenType } from '../types/mint-token.module';
 import { validatePropsForSharedNFTMinting } from '../utils/validate-props';
 import { MintingError } from '../utils/minting-error';
+import { mintToken } from './mint-token';
 
 export const mintSharedMetadataFunction = async ({ client, tokenId, amount, batchSize, metaData, supplyKey }: MintTokenType) => {
   validatePropsForSharedNFTMinting({ tokenId, amount, metaData, supplyKey, batchSize });

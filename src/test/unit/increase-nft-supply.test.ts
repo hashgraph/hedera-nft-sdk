@@ -17,14 +17,14 @@
  * limitations under the License.
  *
  */
-import { increaseNFTSupply } from '../../functions/increaseNFTSupply';
 import { Client, PrivateKey, TokenId } from '@hashgraph/sdk';
 import { IncreaseNFTSupplyType } from '../../types/mint-token.module';
 import { validatePropsForIncreaseNFTSupply } from '../../utils/validate-props';
 import axios from 'axios';
+import { increaseNFTSupply } from '../../nftSDKFunctions/increase-nft-supply';
 
 jest.mock('axios');
-jest.mock('../../functions/mintSharedMetadataFunction', () => ({
+jest.mock('../../nftSDKFunctions/mint-shared-metadata-function', () => ({
   mintSharedMetadataFunction: jest.fn(),
 }));
 jest.mock('../../utils/validate-props', () => ({
@@ -81,13 +81,13 @@ describe('increaseNFTSupply', () => {
 
     expect(mockedAxios.get).toHaveBeenCalledWith('mirrorNodeUrl/tokens/0.0.453/nfts/1');
     expect(mockedAxios.get).toHaveBeenCalledTimes(1);
-    expect(require('../../functions/mintSharedMetadataFunction').mintSharedMetadataFunction as jest.Mock).toHaveBeenCalledTimes(1);
+    expect(require('../../nftSDKFunctions/mint-shared-metadata-function').mintSharedMetadataFunction as jest.Mock).toHaveBeenCalledTimes(1);
   });
 
   it('should call mintSharedMetadataFunction with the correct parameters', async () => {
     await increaseNFTSupply(mockIncreaseNFTSupplyType);
 
-    expect(require('../../functions/mintSharedMetadataFunction').mintSharedMetadataFunction as jest.Mock).toHaveBeenCalledWith({
+    expect(require('../../nftSDKFunctions/mint-shared-metadata-function').mintSharedMetadataFunction as jest.Mock).toHaveBeenCalledWith({
       client: mockIncreaseNFTSupplyType.client,
       tokenId: mockIncreaseNFTSupplyType.nftId.tokenId.toString(),
       amount: mockIncreaseNFTSupplyType.amount,

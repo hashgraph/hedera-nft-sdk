@@ -19,7 +19,7 @@
  */
 import { RoyaltyFeeType } from '../../types/fees.module';
 import { myAccountId } from '../__mocks__/consts';
-import { createRoyaltyFeeFunction } from '../../functions/createRoyaltyFeeFunction';
+import { createRoyaltyFeeFunction } from '../../nftSDKFunctions/create-royalty-fee-function';
 
 describe('createRoyaltyFeeFunction', () => {
   it('should return the correct numerator and denominator', () => {

@@ -17,10 +17,10 @@
  * limitations under the License.
  *
  */
+import { mintToken } from '../../nftSDKFunctions/mint-token';
 import { Client, PrivateKey, Status } from '@hashgraph/sdk';
 import { myPrivateKey } from '../__mocks__/consts';
 import { dictionary } from '../../utils/constants/dictionary';
-import { mintToken } from '../../functions/mintToken';
 
 jest.mock('@hashgraph/sdk', () => ({
   Client: jest.fn(),

@@ -17,10 +17,10 @@
  * limitations under the License.
  *
  */
-import { createFixedFeeFunction } from '../functions/createFixedFeeFunction';
+import { createFixedFeeFunction } from '../nftSDKFunctions/create-fixed-fee-function';
 import { FixedFeeType, RoyaltyFeeType } from '../types/fees.module';
 import { CustomFixedFee, CustomRoyaltyFee } from '@hashgraph/sdk';
-import { createRoyaltyFeeFunction } from '../functions/createRoyaltyFeeFunction';
+import { createRoyaltyFeeFunction } from '../nftSDKFunctions/create-royalty-fee-function';
 
 export class FeeFactory {
   fixedFee({ collectorAccountId, hbarAmount, amount, denominatingTokenId, allCollectorsAreExempt }: FixedFeeType): CustomFixedFee {

@@ -18,9 +18,9 @@
  *
  */
 import { Client, PrivateKey } from '@hashgraph/sdk';
+import { createCollectionFunction } from '../../nftSDKFunctions/create-collection';
 import { myPrivateKey } from '../__mocks__/consts';
 import { dictionary } from '../../utils/constants/dictionary';
-import { createCollectionFunction } from '../../functions/createCollection';
 
 jest.mock('@hashgraph/sdk', () => {
   return {

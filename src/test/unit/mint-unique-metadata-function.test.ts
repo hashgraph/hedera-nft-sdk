@@ -19,14 +19,19 @@
  */
 import * as fs from 'fs';
 import { MintUniqueTokenType } from '../../types/mint-token.module';
+import { mintUniqueMetadataFunction } from '../../nftSDKFunctions/mint-unique-metadata-function';
 import { Client, PrivateKey } from '@hashgraph/sdk';
 import { myPrivateKey } from '../__mocks__/consts';
-import { mintToken } from '../../functions/mintToken';
-import { mintUniqueMetadataFunction } from '../../functions/mintUniqueMetadataFunction';
+import { mintToken } from '../../nftSDKFunctions/mint-token';
+
+interface MockReadStream {
+  pipe: jest.Mock;
+  on: jest.Mock;
+}
 
 jest.mock('fs');
 jest.mock('csv-parser');
-jest.mock('../../functions/mintToken');
+jest.mock('../../nftSDKFunctions/mint-token');
 
 describe('mintUniqueMetadataFunction', () => {
   beforeEach(() => {
@@ -37,7 +42,7 @@ describe('mintUniqueMetadataFunction', () => {
     const mockClient = {} as Client;
     const supplyKey = PrivateKey.fromString(myPrivateKey);
 
-    const mockReadStream = {
+    const mockReadStream: MockReadStream = {
       pipe: jest.fn().mockReturnThis(),
       on: jest.fn().mockImplementation(function (event, handler) {
         if (event === 'data') {
@@ -46,9 +51,8 @@ describe('mintUniqueMetadataFunction', () => {
         if (event === 'end') {
           handler();
         }
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        return this;
+
+        return mockReadStream;
       }),
     };
     (fs.createReadStream as jest.Mock).mockReturnValue(mockReadStream);

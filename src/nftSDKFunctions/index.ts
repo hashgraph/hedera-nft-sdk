@@ -19,14 +19,14 @@
  */
 import { Client, CustomFee, NftId, PrivateKey } from '@hashgraph/sdk';
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
-import { logIn } from './logIn';
 import { CreateCollectionKeysType } from '../types/create-collection.module';
-import { createCollectionFunction } from './createCollection';
 import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv.module';
-import { mintSharedMetadataFunction } from './mintSharedMetadataFunction';
-import { mintUniqueMetadataFunction } from './mintUniqueMetadataFunction';
-import { createJsonMetadataFromCSV } from './createJsonMetadataFromCSV';
-import { increaseNFTSupply } from './increaseNFTSupply';
+import { increaseNFTSupply } from './increase-nft-supply';
+import { createCollectionFunction } from './create-collection';
+import { logIn } from './log-in';
+import { createJsonMetadataFromCSV } from './create-json-metadata-from-csv';
+import { mintUniqueMetadataFunction } from './mint-unique-metadata-function';
+import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
 
 export class HederaNFTSDK {
   accountId: string;
