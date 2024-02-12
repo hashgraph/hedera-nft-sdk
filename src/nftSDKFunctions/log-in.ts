@@ -18,11 +18,27 @@
  *
  */
 import { Client } from '@hashgraph/sdk';
-import { dictionary } from '../utils/constants/dictionary';
 import { LogInType } from '../types/login.module';
+import { dictionary } from '../utils/constants/dictionary';
 
-export const logIn = ({ myAccountId, myPrivateKey, network }: LogInType): Client => {
+export const logIn = ({ myAccountId, myPrivateKey, network, localNode, localMirrorNode }: LogInType): Client => {
   if (!myAccountId) throw new Error(dictionary.createCollection.myAccountIdRequired);
   if (!myPrivateKey) throw new Error(dictionary.createCollection.myPrivateKeyRequired);
-  return Client.forName(network).setOperator(myAccountId, myPrivateKey);
+
+  if (network == 'localnode') {
+    return handleLocalNode({ myAccountId, myPrivateKey, network, localNode, localMirrorNode });
+  } else {
+    return Client.forName(network).setOperator(myAccountId, myPrivateKey);
+  }
+};
+
+const handleLocalNode = (config: LogInType): Client => {
+  const client = config.localNode ? Client.forNetwork(config.localNode) : Client.forLocalNode();
+
+  if (config.localMirrorNode) {
+    client.setMirrorNetwork(config.localMirrorNode);
+  }
+
+  client.setOperator(config.myAccountId, config.myPrivateKey);
+  return client;
 };

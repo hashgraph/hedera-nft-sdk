@@ -18,26 +18,27 @@
  *
  */
 import { Client, CustomFee, NftId, PrivateKey } from '@hashgraph/sdk';
-import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 import { CreateCollectionKeysType } from '../types/create-collection.module';
 import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv.module';
-import { increaseNFTSupply } from './increase-nft-supply';
+import { Network } from '../types/mint-token.module';
 import { createCollectionFunction } from './create-collection';
-import { logIn } from './log-in';
 import { createJsonMetadataFromCSV } from './create-json-metadata-from-csv';
-import { mintUniqueMetadataFunction } from './mint-unique-metadata-function';
+import { increaseNFTSupply } from './increase-nft-supply';
+import { logIn } from './log-in';
 import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
+import { mintUniqueMetadataFunction } from './mint-unique-metadata-function';
+import { LocalNode } from '../types/login.module';
 
 export class HederaNFTSDK {
   accountId: string;
   privateKey: string;
   client: Client;
-  network: NetworkName;
+  network: Network;
 
-  constructor(accountId: string, privateKey: string, network: NetworkName) {
+  constructor(accountId: string, privateKey: string, network: Network, localNode?: LocalNode, localMirrorNode?: string) {
     this.accountId = accountId;
     this.privateKey = privateKey;
-    this.client = logIn({ myAccountId: accountId, myPrivateKey: privateKey, network: network });
+    this.client = logIn({ myAccountId: accountId, myPrivateKey: privateKey, network: network, localNode: localNode, localMirrorNode: localMirrorNode });
     this.network = network;
   }
 

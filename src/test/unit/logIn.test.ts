@@ -18,7 +18,7 @@
  *
  */
 import { logIn } from '../../nftSDKFunctions/log-in';
-import { Client } from '@hashgraph/sdk';
+import { AccountId, Client } from '@hashgraph/sdk';
 import { myAccountId, myPrivateKey } from '../__mocks__/consts';
 import { dictionary } from '../../utils/constants/dictionary';
 
@@ -26,8 +26,12 @@ jest.mock('@hashgraph/sdk', () => {
   return {
     Client: {
       forName: jest.fn().mockReturnThis(),
+      forLocalNode: jest.fn().mockReturnThis(),
+      forNetwork: jest.fn().mockReturnThis(),
+      setMirrorNetwork: jest.fn().mockReturnThis(),
       setOperator: jest.fn(),
     },
+    AccountId: jest.fn().mockReturnThis()
   };
 });
 
@@ -45,5 +49,30 @@ describe('logIn', () => {
 
   it('should throw an error if myPrivateKey is not provided', () => {
     expect(() => logIn({ myAccountId, myPrivateKey: '', network: 'testnet' })).toThrow(dictionary.createCollection.myPrivateKeyRequired);
+  });
+
+  it('should create a client for local netowrk', () => {
+    logIn({ myAccountId, myPrivateKey, network: 'localnode' });
+
+    expect(Client.forLocalNode).toHaveBeenCalled();
+    expect(Client.forLocalNode().setOperator).toHaveBeenCalledWith(myAccountId, myPrivateKey);
+  });
+
+  it('should create a client for local network with custom node', () => {
+    const localNode = {'127.0.0.1:50211': new AccountId(3)};
+    logIn({ myAccountId, myPrivateKey, network: 'localnode', localNode: localNode });
+
+    expect(Client.forNetwork).toHaveBeenCalled();
+    expect(Client.forNetwork(localNode).setOperator).toHaveBeenCalledWith(myAccountId, myPrivateKey);
+  });
+
+  it('should create a client for local network with custom node and mirror network', () => {
+    const localNode = {'127.0.0.1:50211': new AccountId(3)};
+    const mirrorNetwork = 'mirrorNetwork';
+    logIn({ myAccountId, myPrivateKey, network: 'localnode', localNode: localNode, localMirrorNode: mirrorNetwork });
+
+    expect(Client.forNetwork).toHaveBeenCalled();
+    expect(Client.forNetwork(localNode).setMirrorNetwork).toHaveBeenCalledWith(mirrorNetwork);
+    expect(Client.forNetwork(localNode).setOperator).toHaveBeenCalledWith(myAccountId, myPrivateKey);
   });
 });
