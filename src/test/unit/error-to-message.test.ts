@@ -19,7 +19,6 @@
  */
 import { dictionary } from '../../utils/constants/dictionary';
 import { errorToMessage } from '../../helpers/error-to-message';
-
 describe('errorToMessage', () => {
   it('error is instance of Error', () => {
     const message = errorToMessage(new Error('test error'));

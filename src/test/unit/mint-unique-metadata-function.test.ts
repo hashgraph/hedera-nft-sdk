@@ -21,8 +21,8 @@ import * as fs from 'fs';
 import { MintUniqueTokenType } from '../../types/mint-token.module';
 import { mintUniqueMetadataFunction } from '../../nftSDKFunctions/mint-unique-metadata-function';
 import { Client, PrivateKey } from '@hashgraph/sdk';
-import { mintToken } from '../../nftSDKFunctions/mint-token';
 import { myPrivateKey } from '../__mocks__/consts';
+import { mintToken } from '../../nftSDKFunctions/mint-token';
 
 interface MockReadStream {
   pipe: jest.Mock;

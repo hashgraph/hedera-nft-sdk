@@ -19,11 +19,11 @@
  */
 import { dictionary } from '../utils/constants/dictionary';
 import { Hip412Metadata } from '../utils/hedera/hip412-metadata';
+import { CSVRowAsObject } from '../types/csv.module';
 import { errorToMessage } from '../helpers/error-to-message';
+import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv.module';
 import { CSVFileReader } from '../csv-file-reader';
 import { JsonMetadataFromCSVConverter } from '../services/json-metadata-from-csv-converter';
-import { CSVRowAsObject } from '../types/csv.module';
-import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv.module';
 
 const validateMetadataObjects = (
   metadataObjectsFromCSVRows: CSVRowAsObject[],

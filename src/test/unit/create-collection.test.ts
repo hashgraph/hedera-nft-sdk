@@ -106,7 +106,7 @@ describe('createCollectionFunction', () => {
         collectionSymbol,
         treasuryAccount: '0.0.4321',
       })
-    ).rejects.toThrow(dictionary.hederaActions.treasuryAccountPrivateKeySignRequired);
+    ).rejects.toThrow(dictionary.createCollection.treasuryAccountPrivateKeySignRequired);
   });
 
   it('should throw an error when only treasuryAccountPrivateKey is passed', async () => {
@@ -122,7 +122,7 @@ describe('createCollectionFunction', () => {
         collectionSymbol,
         treasuryAccountPrivateKey: '0.0.4321',
       })
-    ).rejects.toThrow(dictionary.hederaActions.treasuryAccountPrivateKeySignRequired);
+    ).rejects.toThrow(dictionary.createCollection.treasuryAccountPrivateKeySignRequired);
   });
 
   it('should create collection when treasuryAccount and treasuryAccountPrivateKey are passed', async () => {
@@ -160,7 +160,7 @@ describe('createCollectionFunction', () => {
         treasuryAccount,
         treasuryAccountPrivateKey,
       })
-    ).rejects.toThrow(dictionary.hederaActions.collectionNameRequired);
+    ).rejects.toThrow(dictionary.createCollection.collectionNameRequired);
   });
 
   it('should throw an error if collectionSymbol is not provided', async () => {
@@ -182,7 +182,7 @@ describe('createCollectionFunction', () => {
         treasuryAccount,
         treasuryAccountPrivateKey,
       })
-    ).rejects.toThrow(dictionary.hederaActions.collectionSymbolRequired);
+    ).rejects.toThrow(dictionary.createCollection.collectionSymbolRequired);
   });
 
   it('should create a collection with keys', async () => {

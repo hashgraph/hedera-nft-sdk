@@ -18,5 +18,5 @@
  *
  */
 export const JSON_METADATA_FOLDER_PATH = './json-metadata';
-export const CSV_FILE_PATH_NO_IMAGES = '.src/test/__mocks__/csv/csv-example-no-images.csv';
-export const CSV_FILE_PATH_WITH_IMAGES = '.src/test/__mocks__/csv/csv-example-with-images.csv';
+export const CSV_FILE_PATH_NO_IMAGES = './test/__mocks__/csv/csvExampleNoImages.csv';
+export const CSV_FILE_PATH_WITH_IMAGES = './test/__mocks__/csv/csvExampleWithImages.csv';

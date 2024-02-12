@@ -23,7 +23,6 @@ import keys from 'lodash/keys';
 import { type z } from 'zod';
 import type { ErrorMessageOptions } from 'zod-error';
 import { generateErrorMessage } from 'zod-error';
-
 export const noPropertiesErrorOptions: ErrorMessageOptions = {
   prefix: '',
   delimiter: {

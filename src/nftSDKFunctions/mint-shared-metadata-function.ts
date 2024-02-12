@@ -17,14 +17,14 @@
  * limitations under the License.
  *
  */
-import { MintedNFTType, MintTokenType } from '../types/mint-token.module';
-import { mintToken } from './mint-token';
-import { validateProps } from '../utils/validate-props';
-import { MintingError } from '../utils/minting-error';
 import { dictionary } from '../utils/constants/dictionary';
+import { MintedNFTType, MintTokenType } from '../types/mint-token.module';
+import { validatePropsForSharedNFTMinting } from '../utils/validate-props';
+import { MintingError } from '../utils/minting-error';
+import { mintToken } from './mint-token';
 
 export const mintSharedMetadataFunction = async ({ client, tokenId, amount, batchSize, metaData, supplyKey }: MintTokenType) => {
-  validateProps({ tokenId, amount, metaData, supplyKey, batchSize });
+  validatePropsForSharedNFTMinting({ tokenId, amount, metaData, supplyKey, batchSize });
 
   const mintedNFTs: MintedNFTType[] = [];
   // Example if amount = 8 and batchSize = 5. NumberOfCalls should be 2. So 8/5 = 1.6. Math.ceil(1.6) = 2. Because Math.ceil rounds up to the next largest integer.

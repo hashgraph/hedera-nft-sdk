@@ -17,24 +17,28 @@
  * limitations under the License.
  *
  */
-import { Client, PrivateKey } from '@hashgraph/sdk';
+import { Client, CustomFee, NftId, PrivateKey } from '@hashgraph/sdk';
+import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
+import { CreateCollectionKeysType } from '../types/create-collection.module';
+import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv.module';
+import { increaseNFTSupply } from './increase-nft-supply';
 import { createCollectionFunction } from './create-collection';
 import { logIn } from './log-in';
 import { createJsonMetadataFromCSV } from './create-json-metadata-from-csv';
-import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
 import { mintUniqueMetadataFunction } from './mint-unique-metadata-function';
-import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv.module';
-import { CreateCollectionKeysType } from '../types/create-collection.module';
+import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
 
 export class HederaNFTSDK {
   accountId: string;
   privateKey: string;
   client: Client;
+  network: NetworkName;
 
-  constructor(accountId: string, privateKey: string) {
+  constructor(accountId: string, privateKey: string, network: NetworkName) {
     this.accountId = accountId;
     this.privateKey = privateKey;
-    this.client = logIn({ myAccountId: accountId, myPrivateKey: privateKey });
+    this.client = logIn({ myAccountId: accountId, myPrivateKey: privateKey, network: network });
+    this.network = network;
   }
 
   createCollection({
@@ -44,6 +48,7 @@ export class HederaNFTSDK {
     treasuryAccount,
     keys,
     maxSupply,
+    customFees,
   }: {
     collectionName: string;
     collectionSymbol: string;
@@ -51,6 +56,7 @@ export class HederaNFTSDK {
     treasuryAccount?: string;
     keys?: CreateCollectionKeysType;
     maxSupply?: number;
+    customFees?: CustomFee[];
   }) {
     return createCollectionFunction({
       client: this.client,
@@ -61,6 +67,7 @@ export class HederaNFTSDK {
       treasuryAccount,
       treasuryAccountPrivateKey,
       maxSupply,
+      customFees,
     });
   }
 
@@ -123,6 +130,30 @@ export class HederaNFTSDK {
       supplyKey,
       pathToMetadataURIsFile,
       metadataArray: metadata,
+    });
+  }
+
+  increaseNFTSupply({
+    nftId,
+    amount,
+    batchSize = 5,
+    supplyKey,
+    mirrorNodeUrl,
+  }: {
+    nftId: NftId;
+    amount: number;
+    batchSize?: number;
+    supplyKey?: PrivateKey;
+    mirrorNodeUrl?: string;
+  }) {
+    return increaseNFTSupply({
+      client: this.client,
+      network: this.network,
+      nftId,
+      amount,
+      batchSize,
+      supplyKey: supplyKey || PrivateKey.fromString(this.privateKey),
+      mirrorNodeUrl,
     });
   }
 }

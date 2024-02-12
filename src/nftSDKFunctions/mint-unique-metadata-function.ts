@@ -17,12 +17,12 @@
  * limitations under the License.
  *
  */
-import { MintedNFTType, MintUniqueTokenType } from '../types/mint-token.module';
-import { mintToken } from './mint-token';
-import { validatePropsForUniqueNFTMinting } from '../utils/validate-props';
-import { MintingError } from '../utils/minting-error';
-import { getDataFromFile } from '../helpers/get-data-from-file';
 import { dictionary } from '../utils/constants/dictionary';
+import { MintedNFTType, MintUniqueTokenType } from '../types/mint-token.module';
+import { validatePropsForUniqueNFTMinting } from '../utils/validate-props';
+import { getDataFromFile } from '../helpers/get-data-from-file';
+import { MintingError } from '../utils/minting-error';
+import { mintToken } from './mint-token';
 
 export const mintUniqueMetadataFunction = async ({
   client,

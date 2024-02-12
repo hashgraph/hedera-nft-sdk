@@ -17,7 +17,8 @@
  * limitations under the License.
  *
  */
-import { Client, PrivateKey } from '@hashgraph/sdk';
+
+import { Client, NftId, PrivateKey } from '@hashgraph/sdk';
 
 export type MintUniqueTokenType = {
   client: Client;
@@ -35,6 +36,16 @@ export type MintTokenType = {
   batchSize: number;
   metaData: string;
   supplyKey: PrivateKey;
+};
+
+export type IncreaseNFTSupplyType = {
+  client: Client;
+  network: string;
+  nftId: NftId;
+  amount: number;
+  batchSize: number;
+  supplyKey: PrivateKey;
+  mirrorNodeUrl?: string;
 };
 
 export type MintedNFTType = { serialNumber: number; content: string };
