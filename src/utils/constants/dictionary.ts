@@ -22,6 +22,7 @@ import { getFullSystemPath } from '../../helpers/get-full-system-path';
 export const dictionary = {
   errors: {
     unhandledError: 'Unknown error.',
+    cannotFetchHbarExchangeRate: 'Can not fetch Hbar exchange rate.',
   },
 
   createCollection: {

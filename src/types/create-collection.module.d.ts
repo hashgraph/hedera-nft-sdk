@@ -17,7 +17,9 @@
  * limitations under the License.
  *
  */
-import { Client, CustomFee, Key, PrivateKey } from '@hashgraph/sdk';
+import { Client, CustomFixedFee, CustomRoyaltyFee, Key, PrivateKey } from '@hashgraph/sdk';
+
+export type CustomFeeType = CustomFixedFee | CustomRoyaltyFee;
 
 export type CreateCollectionKeysType = {
   admin?: PrivateKey;
@@ -38,5 +40,5 @@ export type CreateCollectionType = {
   treasuryAccount?: string;
   treasuryAccountPrivateKey?: string;
   maxSupply?: number;
-  customFees?: CustomFee[];
+  customFees?: CustomFeeType[];
 };

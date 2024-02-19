@@ -22,6 +22,7 @@ import axios from 'axios';
 import { validatePropsForIncreaseNFTSupply } from '../utils/validate-props';
 import { IncreaseNFTSupplyType } from '../types/mint-token.module';
 import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
+import { getMirrorNodeUrlForNetwork } from '../utils/hedera/get-mirror-node-url-for-network';
 
 export const increaseNFTSupply = async ({ client, network, nftId, amount, batchSize, supplyKey, mirrorNodeUrl }: IncreaseNFTSupplyType) => {
   validatePropsForIncreaseNFTSupply({ nftId, amount, supplyKey, batchSize });
@@ -30,14 +31,8 @@ export const increaseNFTSupply = async ({ client, network, nftId, amount, batchS
   );
 };
 
-async function getMetaDataFromMirrorNode(network: string, nftId: NftId, mirrorNodeUrl?: string): Promise<string> {
+const getMetaDataFromMirrorNode = async (network: string, nftId: NftId, mirrorNodeUrl?: string): Promise<string> => {
   const url = mirrorNodeUrl || getMirrorNodeUrlForNetwork(network);
-  return axios.get(`${url}/tokens/${nftId.tokenId.toString()}/nfts/${nftId.serial.toString()}`).then((response) => {
-    //atob is used to decode the base64 encoded metadata
-    return atob(response.data.metadata);
-  });
-}
-
-function getMirrorNodeUrlForNetwork(network: string): string {
-  return `https://${network === 'mainnet' ? 'mainnet-public' : network}.mirrornode.hedera.com/api/v1`;
-}
+  const response = await axios.get(`${url}/tokens/${nftId.tokenId.toString()}/nfts/${nftId.serial.toString()}`);
+  return atob(response.data.metadata);
+};

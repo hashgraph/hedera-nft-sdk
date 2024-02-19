@@ -17,18 +17,6 @@
  * limitations under the License.
  *
  */
-export type FixedFeeType = {
-  collectorAccountId: string;
-  hbarAmount?: number;
-  amount?: number;
-  denominatingTokenId?: string;
-  allCollectorsAreExempt?: boolean;
-};
-
-export type RoyaltyFeeType = {
-  collectorAccountId: string;
-  numerator: number;
-  denominator: number;
-  fallbackFee?: FixedFeeType;
-  allCollectorsAreExempt?: boolean;
+export const getMirrorNodeUrlForNetwork = (network: string): string => {
+  return `https://${network === 'mainnet' ? 'mainnet-public' : network}.mirrornode.hedera.com/api/v1`;
 };

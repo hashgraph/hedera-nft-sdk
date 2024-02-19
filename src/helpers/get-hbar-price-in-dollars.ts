@@ -17,18 +17,15 @@
  * limitations under the License.
  *
  */
-export type FixedFeeType = {
-  collectorAccountId: string;
-  hbarAmount?: number;
-  amount?: number;
-  denominatingTokenId?: string;
-  allCollectorsAreExempt?: boolean;
-};
+import { HbarPrice } from '../types/estimate-create-collection';
+import { fetchHbarExchangeRate } from '../utils/hedera/fetch-hbar-exchange-rate';
 
-export type RoyaltyFeeType = {
-  collectorAccountId: string;
-  numerator: number;
-  denominator: number;
-  fallbackFee?: FixedFeeType;
-  allCollectorsAreExempt?: boolean;
+export const getHbarPriceInDollars = async (network: string, mirrorNodeUrl?: string): Promise<HbarPrice> => {
+  const { current_rate, timestamp } = await fetchHbarExchangeRate(network, mirrorNodeUrl);
+  const hbarPriceInCents = current_rate.cent_equivalent / current_rate.hbar_equivalent;
+
+  return {
+    priceInDollars: hbarPriceInCents / 100,
+    timestamp,
+  };
 };

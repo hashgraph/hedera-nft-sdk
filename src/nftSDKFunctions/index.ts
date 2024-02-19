@@ -17,8 +17,8 @@
  * limitations under the License.
  *
  */
-import { Client, CustomFee, NftId, PrivateKey } from '@hashgraph/sdk';
-import { CreateCollectionKeysType } from '../types/create-collection.module';
+import { Client, CustomFixedFee, CustomRoyaltyFee, NftId, PrivateKey } from '@hashgraph/sdk';
+import { CreateCollectionKeysType, CustomFeeType } from '../types/create-collection.module';
 import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv.module';
 import { Network } from '../types/mint-token.module';
 import { createCollectionFunction } from './create-collection';
@@ -28,18 +28,35 @@ import { logIn } from './log-in';
 import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
 import { mintUniqueMetadataFunction } from './mint-unique-metadata-function';
 import { LocalNode } from '../types/login.module';
+import { estimateCreateCollectionInDollars } from './estimate-create-collection-in-dollars';
+import { estimateCreateCollectionInHbar } from './estimate-create-collection-in-hbar';
 
 export class HederaNFTSDK {
   accountId: string;
   privateKey: string;
   client: Client;
   network: Network;
+  mirrorNodeUrl?: string;
 
-  constructor(accountId: string, privateKey: string, network: Network, localNode?: LocalNode, localMirrorNode?: string) {
+  constructor(
+    accountId: string,
+    privateKey: string,
+    network: Network,
+    localNode?: LocalNode,
+    localMirrorNode?: string,
+    mirrorNodeUrl?: string
+  ) {
     this.accountId = accountId;
     this.privateKey = privateKey;
-    this.client = logIn({ myAccountId: accountId, myPrivateKey: privateKey, network: network, localNode: localNode, localMirrorNode: localMirrorNode });
+    this.client = logIn({
+      myAccountId: accountId,
+      myPrivateKey: privateKey,
+      network: network,
+      localNode: localNode,
+      localMirrorNode: localMirrorNode,
+    });
     this.network = network;
+    this.mirrorNodeUrl = mirrorNodeUrl;
   }
 
   createCollection({
@@ -57,7 +74,7 @@ export class HederaNFTSDK {
     treasuryAccount?: string;
     keys?: CreateCollectionKeysType;
     maxSupply?: number;
-    customFees?: CustomFee[];
+    customFees?: CustomFeeType[];
   }) {
     return createCollectionFunction({
       client: this.client,
@@ -69,6 +86,58 @@ export class HederaNFTSDK {
       treasuryAccountPrivateKey,
       maxSupply,
       customFees,
+    });
+  }
+
+  estimateCreateCollectionInDollars({
+    collectionName,
+    collectionSymbol,
+    treasuryAccountPrivateKey,
+    treasuryAccount,
+    keys,
+    customFees,
+  }: {
+    collectionName: string;
+    collectionSymbol: string;
+    treasuryAccountPrivateKey?: string;
+    treasuryAccount?: string;
+    keys?: CreateCollectionKeysType;
+    customFees?: CustomFeeType[];
+  }) {
+    return estimateCreateCollectionInDollars({
+      collectionName,
+      collectionSymbol,
+      keys,
+      treasuryAccount,
+      treasuryAccountPrivateKey,
+      customFees,
+    });
+  }
+
+  estimateCreateCollectionInHbar({
+    collectionName,
+    collectionSymbol,
+    treasuryAccountPrivateKey,
+    treasuryAccount,
+    keys,
+    customFees,
+  }: {
+    collectionName: string;
+    collectionSymbol: string;
+    treasuryAccountPrivateKey?: string;
+    treasuryAccount?: string;
+    keys?: CreateCollectionKeysType;
+    customFees?: CustomFeeType[];
+  }) {
+    return estimateCreateCollectionInHbar({
+      collectionName,
+      collectionSymbol,
+      keys,
+      treasuryAccount,
+      treasuryAccountPrivateKey,
+      customFees,
+      network: this.network,
+      mirrorNodeUrl: this.mirrorNodeUrl,
     });
   }
 
@@ -139,13 +208,11 @@ export class HederaNFTSDK {
     amount,
     batchSize = 5,
     supplyKey,
-    mirrorNodeUrl,
   }: {
     nftId: NftId;
     amount: number;
     batchSize?: number;
     supplyKey?: PrivateKey;
-    mirrorNodeUrl?: string;
   }) {
     return increaseNFTSupply({
       client: this.client,
@@ -154,7 +221,7 @@ export class HederaNFTSDK {
       amount,
       batchSize,
       supplyKey: supplyKey || PrivateKey.fromString(this.privateKey),
-      mirrorNodeUrl,
+      mirrorNodeUrl: this.mirrorNodeUrl,
     });
   }
 }

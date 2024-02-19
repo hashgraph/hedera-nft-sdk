@@ -17,18 +17,17 @@
  * limitations under the License.
  *
  */
-export type FixedFeeType = {
-  collectorAccountId: string;
-  hbarAmount?: number;
-  amount?: number;
-  denominatingTokenId?: string;
-  allCollectorsAreExempt?: boolean;
-};
+import { HbarExchangeRate } from '../../types/estimate-create-collection';
+import { dictionary } from '../constants/dictionary';
+import { getMirrorNodeUrlForNetwork } from './get-mirror-node-url-for-network';
+import axios from 'axios';
 
-export type RoyaltyFeeType = {
-  collectorAccountId: string;
-  numerator: number;
-  denominator: number;
-  fallbackFee?: FixedFeeType;
-  allCollectorsAreExempt?: boolean;
+export const fetchHbarExchangeRate = async (network: string, mirrorNodeUrl?: string): Promise<HbarExchangeRate> => {
+  try {
+    const url = mirrorNodeUrl || getMirrorNodeUrlForNetwork(network);
+    const { data } = await axios.get<HbarExchangeRate>(`${url}/network/exchangerate`);
+    return data;
+  } catch {
+    throw new Error(dictionary.errors.cannotFetchHbarExchangeRate);
+  }
 };

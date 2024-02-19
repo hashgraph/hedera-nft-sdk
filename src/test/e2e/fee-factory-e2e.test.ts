@@ -88,6 +88,47 @@ describe('feeFactory', () => {
     expect(tokenId).toBeDefined();
   });
 
+  it('creates a collection with royaltyFee and fixedFee', async () => {
+    const royaltyFee = feeFactoryInstance.royaltyFee({
+      collectorAccountId: myAccountId,
+      numerator: 1,
+      denominator: 100,
+      allCollectorsAreExempt: false,
+      fallbackFee: {
+        allCollectorsAreExempt: false,
+        collectorAccountId: mySecondAccountId,
+        hbarAmount: 100,
+      },
+    });
+
+    const fixedFee = feeFactoryInstance.fixedFee({
+      allCollectorsAreExempt: false,
+      collectorAccountId: myAccountId,
+      hbarAmount: 100,
+    });
+
+    const tokenId = await nftSDK.createCollection({
+      collectionName: 'test_name',
+      collectionSymbol: 'test_symbol',
+      customFees: [royaltyFee, fixedFee],
+    });
+
+    const query = new TokenInfoQuery().setTokenId(tokenId);
+    const tokenInfo = await query.execute(nftSDK.client);
+    const customFees = tokenInfo.customFees;
+    let customFeeDenominator = undefined;
+    let customFeeNumenator = undefined;
+
+    if (customFees.length > 0 && customFees[0] instanceof CustomRoyaltyFee) {
+      customFeeDenominator = customFees[0]._denominator.toInt();
+      customFeeNumenator = customFees[0]._numerator.toString();
+    }
+
+    expect(Number(customFeeNumenator)).toEqual(royaltyFee.numerator.toInt());
+    expect(customFeeDenominator).toEqual(royaltyFee.denominator.toInt());
+    expect(tokenId).toBeDefined();
+  });
+
   it('throws error when more than 10 customFees', async () => {
     const fixedFee = feeFactoryInstance.fixedFee({
       allCollectorsAreExempt: false,

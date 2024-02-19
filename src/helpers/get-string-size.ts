@@ -17,18 +17,9 @@
  * limitations under the License.
  *
  */
-export type FixedFeeType = {
-  collectorAccountId: string;
-  hbarAmount?: number;
-  amount?: number;
-  denominatingTokenId?: string;
-  allCollectorsAreExempt?: boolean;
-};
+import { Blob } from 'buffer';
 
-export type RoyaltyFeeType = {
-  collectorAccountId: string;
-  numerator: number;
-  denominator: number;
-  fallbackFee?: FixedFeeType;
-  allCollectorsAreExempt?: boolean;
+export const getStringSize = (str?: string): number => {
+  if (!str) return 0;
+  return new Blob([str]).size;
 };
