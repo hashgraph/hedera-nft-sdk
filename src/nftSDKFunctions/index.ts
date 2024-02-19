@@ -28,6 +28,8 @@ import { logIn } from './log-in';
 import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
 import { mintUniqueMetadataFunction } from './mint-unique-metadata-function';
 import { LocalNode } from '../types/login.module';
+import { estimateNftMintingInHbar } from './estimate-nft-minting-in-hbar';
+import { estimateNftMintingInDollars } from './estimate-nft-minting-in-dollars';
 import { estimateCreateCollectionInDollars } from './estimate-create-collection-in-dollars';
 import { estimateCreateCollectionInHbar } from './estimate-create-collection-in-hbar';
 
@@ -139,6 +141,14 @@ export class HederaNFTSDK {
       network: this.network,
       mirrorNodeUrl: this.mirrorNodeUrl,
     });
+  }
+
+  estimateNftMintingInHbar({ amountOfNfts }: { amountOfNfts: number }) {
+    return estimateNftMintingInHbar({ amountOfNfts, mirrorNodeUrl: this.mirrorNodeUrl, network: this.network });
+  }
+
+  estimateNftMintingInDollars({ amountOfNfts }: { amountOfNfts: number }) {
+    return estimateNftMintingInDollars({ amountOfNfts });
   }
 
   createJsonMetadataFromCSV({
