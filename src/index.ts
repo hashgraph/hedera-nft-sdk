@@ -28,6 +28,11 @@ import { WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelT
 
 import { HederaNFTSDK } from './nftSDKFunctions';
 import { FeeFactory } from './feeFactory';
+import { NftStorageService } from './services/file-storages/nft-storage/nft-storage-service';
+import { PinataService } from './services/file-storages/pinata/pinata-service';
+import { AWSService } from './services/file-storages/aws/aws-service';
+import { MockStorageService } from './services/file-storages/mock-storage/mock-storage-service';
+import { UploadService } from './services/upload-service';
 
 export {
   // validation
@@ -76,4 +81,13 @@ export {
   // NFTSDK
   HederaNFTSDK,
   FeeFactory,
+
+  // Upload Service
+  UploadService,
+
+  // Storages
+  NftStorageService,
+  PinataService,
+  AWSService,
+  MockStorageService,
 };

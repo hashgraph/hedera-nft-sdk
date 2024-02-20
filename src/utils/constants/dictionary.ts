@@ -22,6 +22,26 @@ import { getFullSystemPath } from '../../helpers/get-full-system-path';
 export const dictionary = {
   errors: {
     unhandledError: 'Unknown error.',
+    // file storages
+
+    // pinata
+    pinataError: 'API keys for Pinata not found. Please set "PINATA_API_KEY" and "PINATA_SECRET_API_KEY" or please set "PINATA_JWT_KEY" ',
+
+    awsUploadIssue: 'Error encountered using AWS SDK. Please restart the app and try again.',
+    awsUploadingError: (message: string) => `Failed to upload file to AWS S3: ${message}`,
+
+    // NFT storage
+    noApiKeys: 'Please provide at least one API key to use "NFT.storage".',
+
+    // upload service errors
+    noFileStorageKeysFound: 'No file storage API keys found.',
+    uploadingFilesFailed: 'Uploading files failed.',
+    noFiles: 'No files to upload.',
+    noMetadata: 'No metadata to upload.',
+
+    uploadService: {
+      uploadingMetadata: 'Uploading metadata file...',
+    },
   },
 
   createCollection: {
