@@ -48,6 +48,7 @@ export const validatePropsForCreateCollection = (props: validateCreateCollection
   validateCollectionName(props);
   validateClient(props);
   validateCustomFees(props);
+  validateAutoRenewAccount(props);
 };
 
 export const validatePropsForFixedFeeFunction = (props: fixedFeeValidationProps) => {
@@ -108,6 +109,17 @@ const validateAccountAndPrivateKey = (props: validateCreateCollectionProps) => {
   ) {
     if ((props.treasuryAccount && !props.treasuryAccountPrivateKey) || (!props.treasuryAccount && props.treasuryAccountPrivateKey)) {
       throw new Error(dictionary.createCollection.treasuryAccountPrivateKeySignRequired);
+    }
+  }
+};
+
+const validateAutoRenewAccount = (props: validateCreateCollectionProps) => {
+  if (
+    Object.prototype.hasOwnProperty.call(props, 'autoRenewAccount') ||
+    Object.prototype.hasOwnProperty.call(props, 'autoRenewAccountPrivateKey')
+  ) {
+    if ((props.autoRenewAccount && !props.autoRenewAccountPrivateKey) || (!props.autoRenewAccount && props.autoRenewAccountPrivateKey)) {
+      throw new Error(dictionary.createCollection.autoRenewAccountPrivateKeySignRequired);
     }
   }
 };

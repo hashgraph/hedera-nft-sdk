@@ -41,4 +41,9 @@ export type CreateCollectionType = {
   treasuryAccountPrivateKey?: string;
   maxSupply?: number;
   customFees?: CustomFeeType[];
+  expirationTime?: Date;
+  autoRenewAccount?: string;
+  autoRenewAccountPrivateKey?: string;
+  autoRenewPeriod?: number;
+  memo?: string;
 };

@@ -32,6 +32,11 @@ export const createCollectionFunction = async ({
   treasuryAccountPrivateKey,
   maxSupply,
   customFees,
+  expirationTime,
+  autoRenewAccount,
+  autoRenewAccountPrivateKey,
+  autoRenewPeriod,
+  memo
 }: CreateCollectionType): Promise<string> => {
   validatePropsForCreateCollection({
     client,
@@ -40,6 +45,11 @@ export const createCollectionFunction = async ({
     treasuryAccount,
     treasuryAccountPrivateKey,
     customFees,
+    expirationTime,
+    autoRenewAccount,
+    autoRenewAccountPrivateKey,
+    autoRenewPeriod,
+    memo
   });
 
   const treasuryAccountId = treasuryAccount ? AccountId.fromString(treasuryAccount) : client.getOperator()!.accountId;
@@ -87,12 +97,32 @@ export const createCollectionFunction = async ({
     transaction = transaction.setCustomFees(customFees);
   }
 
+  if (expirationTime) {
+    transaction = transaction.setExpirationTime(expirationTime);
+  }
+
+  if (autoRenewAccount) {
+    transaction = transaction.setAutoRenewAccountId(AccountId.fromString(autoRenewAccount));
+  }
+
+  if (autoRenewPeriod) {
+    transaction = transaction.setAutoRenewPeriod(autoRenewPeriod);
+  }
+
+  if (memo) {
+    transaction = transaction.setTokenMemo(memo);
+  }
+
   transaction = transaction.freezeWith(client);
 
   let signTx = await transaction.sign(<PrivateKey>treasuryAccountPrivateKeyId);
 
   if (keys?.admin) {
     signTx = await transaction.sign(<PrivateKey>keys?.admin);
+  }
+
+  if (autoRenewAccountPrivateKey) {
+    signTx = await transaction.sign(PrivateKey.fromString(autoRenewAccountPrivateKey));
   }
 
   const txResponse = await signTx.execute(client);

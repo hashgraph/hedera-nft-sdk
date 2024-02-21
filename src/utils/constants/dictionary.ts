@@ -34,6 +34,7 @@ export const dictionary = {
     treasuryAccountPrivateKeySignRequired:
       'If you want to use treasuryAccount to sign, you need to pass the treasuryAccountPrivateKey also',
     collectionNotCreated: 'Something went wrong while creating the collection',
+    autoRenewAccountPrivateKeySignRequired: 'If you want to use autoRenewAccount to sign, you need to pass the autoRenewAccountPrivateKey also',
     tooManyCustomFees: 'You can only have 10 custom fees',
     collectorAccountIdRequired: 'collectorAccountId is required',
     numeratorRequired: 'numerator is required',
