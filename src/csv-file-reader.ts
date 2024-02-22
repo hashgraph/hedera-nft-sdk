@@ -109,12 +109,7 @@ export class CSVFileReader {
     return { result, currentType, propertyIndex, attributesIndex };
   }
 
-  static async readCSVFile(
-    absolutePath: string,
-    config?: {
-      limit?: number;
-    }
-  ): Promise<CSVRow[]> {
+  static async readCSVFile(absolutePath: string, limit?: number): Promise<CSVRow[]> {
     const separator = selectSeparator();
     const rows: CSVRow[] = [];
     const readStream = fs.createReadStream(absolutePath);
@@ -133,7 +128,7 @@ export class CSVFileReader {
             try {
               this.checkForErrorsAndLimit({
                 headersErrors,
-                limit: config?.limit,
+                limit,
                 currentRowCount: rows.length,
               });
 

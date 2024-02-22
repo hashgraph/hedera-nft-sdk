@@ -17,35 +17,25 @@
  * limitations under the License.
  *
  */
-import { CSVFileReader } from '../csv-file-reader';
 import { JsonMetadataFromCSVConverter } from '../services/json-metadata-from-csv-converter';
 import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv.module';
 import { Hip412Validator } from '../hip412-validator';
+import { MetadataObject } from '../types/csv.module';
 
-export const createJsonMetadataFromCSV = async ({
+export const convertMetadataObjectsToJsonFiles = async ({
+  metadataObjects,
   savedJsonFilesLocation,
-  csvFilePath,
-  nftsLimit,
+  limit,
 }: {
+  metadataObjects: MetadataObject[];
   savedJsonFilesLocation: string;
-  csvFilePath: string;
-  nftsLimit?: number;
+  limit?: number;
 }): Promise<JsonMetadataFromCSVInterface> => {
-  const csvParsedRows = await CSVFileReader.readCSVFile(csvFilePath, {
-    limit: nftsLimit,
-  });
-
-  const metadataObjectsFromCSVRows = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
-    csvParsedRows,
-    csvFilePath,
-    headerAttributes: CSVFileReader.ATTRIBUTES,
-    headerProperties: CSVFileReader.PROPERTIES,
-  });
-
-  const { isValid, errors } = Hip412Validator.validateArrayOfObjects(metadataObjectsFromCSVRows, csvFilePath);
+  const { isValid, errors } = Hip412Validator.validateArrayOfObjects(metadataObjects);
 
   if (isValid) {
-    JsonMetadataFromCSVConverter.saveCSVRowsAsJsonFiles(metadataObjectsFromCSVRows, savedJsonFilesLocation);
+    const objectsToProcess = limit !== undefined && limit < metadataObjects.length ? metadataObjects.slice(0, limit) : metadataObjects;
+    JsonMetadataFromCSVConverter.saveCSVRowsAsJsonFiles(objectsToProcess, savedJsonFilesLocation);
   }
 
   return {

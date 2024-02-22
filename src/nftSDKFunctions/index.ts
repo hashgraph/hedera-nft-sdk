@@ -22,7 +22,7 @@ import { CreateCollectionKeysType, CustomFeeType } from '../types/create-collect
 import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv.module';
 import { Network } from '../types/mint-token.module';
 import { createCollectionFunction } from './create-collection';
-import { createJsonMetadataFromCSV } from './create-json-metadata-from-csv';
+import { convertCSVToMetadataObjects } from './convert-csv-to-metadata-objects';
 import { increaseNFTSupply } from './increase-nft-supply';
 import { logIn } from './log-in';
 import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
@@ -32,6 +32,8 @@ import { estimateNftMintingInHbar } from './estimate-nft-minting-in-hbar';
 import { estimateNftMintingInDollars } from './estimate-nft-minting-in-dollars';
 import { estimateCreateCollectionInDollars } from './estimate-create-collection-in-dollars';
 import { estimateCreateCollectionInHbar } from './estimate-create-collection-in-hbar';
+import { MetadataObject } from '../types/csv.module';
+import { convertMetadataObjectsToJsonFiles } from './convert-metadata-objects-to-json-files';
 
 export class HederaNFTSDK {
   accountId: string;
@@ -166,20 +168,27 @@ export class HederaNFTSDK {
     return estimateNftMintingInDollars({ amountOfNfts });
   }
 
-  createJsonMetadataFromCSV({
+  convertMetadataObjectsToJsonFiles({
+    metadataObjects,
     savedJsonFilesLocation,
+    limit,
+  }: {
+    metadataObjects: MetadataObject[];
+    savedJsonFilesLocation: string;
+    limit?: number;
+  }) {
+    return convertMetadataObjectsToJsonFiles({ metadataObjects, savedJsonFilesLocation, limit });
+  }
+
+  convertCSVToMetadataObjects({
     csvFilePath,
-    nftsLimit,
+    limit,
   }: {
     savedJsonFilesLocation: string;
     csvFilePath: string;
-    nftsLimit?: number;
-  }): Promise<JsonMetadataFromCSVInterface> {
-    return createJsonMetadataFromCSV({
-      savedJsonFilesLocation,
-      csvFilePath,
-      nftsLimit,
-    });
+    limit?: number;
+  }): Promise<MetadataObject[]> {
+    return convertCSVToMetadataObjects(csvFilePath, limit);
   }
 
   mintSharedMetadata({

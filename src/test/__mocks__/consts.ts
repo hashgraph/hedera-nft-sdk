@@ -29,6 +29,7 @@ export const CSV_EXAMPLE_ONLY_REQUIRED_FIELDS = 'src/test/__mocks__/csv/csv-exam
 export const CSV_EXAMPLE_WITH_ALL_FIELDS = 'src/test/__mocks__/csv/csv-example-with-all-fields.csv';
 export const CSV_EXAMPLE_WITH_MISSING_REQUIRED_FIELDS = 'src/test/__mocks__/csv/csv-example-with-missing-required-fields.csv';
 export const CSV_EXAMPLE_ONLY_REQUIRED_FIELDS_AND_HEADERS = 'src/test/__mocks__/csv/csv-example-only-required-fields-and-headers.csv';
+export const CSV_EXAMPLE_EMPTY_FILE = 'src/test/__mocks__/csv/csv-example-empty-file.csv';
 
 export const JSON_METADATA_INTEGRATION_TESTS_OUTPUT_FOLDER_PATH = 'src/test/integration/output';
 export const JSON_METADATA_UNIT_TESTS_OUTPUT_METADATA_FOLDER_PATH = 'src/test/unit/output/metadata';
