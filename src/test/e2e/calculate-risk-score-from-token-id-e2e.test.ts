@@ -18,12 +18,30 @@
  *
  */
 import { calculateRiskScoreFromTokenId } from '../../risk';
+import { PrivateKey } from '@hashgraph/sdk';
+import { nftSDK } from './e2e-consts';
+import { LONG_E2E_TIMEOUT, MIRROR_NODE_DELAY } from '../__mocks__/consts';
 
 describe('calculateRiskScoreFromTokenIdE2E', () => {
-  it('should calculate risk score for a given token ID', async () => {
-    const riskResults = await calculateRiskScoreFromTokenId({ tokenId: '0.0.878200' });
+  it(
+    'should calculate risk score for a given token ID',
+    async () => {
+      const supplyKey = PrivateKey.generateED25519();
+      const tokenId = await nftSDK.createCollection({
+        collectionName: 'test_name_admin',
+        collectionSymbol: 'test_symbol_admin',
+        keys: {
+          supply: supplyKey,
+        },
+      });
 
-    expect(riskResults.riskScore).toBe(20);
-    expect(riskResults.riskLevel).toBe('LOW');
-  });
+      // Wait for the token to be created and metadata to be available. Otherwise, it will throw 404
+      await new Promise((resolve) => setTimeout(resolve, MIRROR_NODE_DELAY));
+      const riskResults = await calculateRiskScoreFromTokenId({ tokenId, network: 'testnet' });
+
+      expect(riskResults.riskScore).toBe(40);
+      expect(riskResults.riskLevel).toBe('LOW');
+    },
+    LONG_E2E_TIMEOUT
+  );
 });
