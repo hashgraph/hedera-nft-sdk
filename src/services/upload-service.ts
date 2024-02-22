@@ -17,7 +17,6 @@
  * limitations under the License.
  *
  */
-import { Blob } from 'buffer';
 import fs from 'fs';
 import filter from 'lodash/filter';
 import isNull from 'lodash/isNull';
