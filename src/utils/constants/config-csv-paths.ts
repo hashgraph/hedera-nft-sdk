@@ -18,5 +18,7 @@
  *
  */
 export const JSON_METADATA_FOLDER_PATH = './json-metadata';
-export const CSV_FILE_PATH_NO_IMAGES = './test/__mocks__/csv/csvExampleNoImages.csv';
-export const CSV_FILE_PATH_WITH_IMAGES = './test/__mocks__/csv/csvExampleWithImages.csv';
+export const CSV_FILE_PATH_NO_IMAGES = './src/test/__mocks__/csv/csv-example-no-images.csv';
+export const CSV_FILE_PATH_WITH_ALL_FIELDS = './src/test/__mocks__/csv/csv-example-with-all-fields.csv';
+export const CSV_FILE_PATH_WITH_ERRORS = './src/test/__mocks__/csv/csv-example-with-missing-required-fields.csv';
+export const CSV_FILE_PATH_WITH_ONLY_REQUIRED_FIELDS = './src/test/__mocks__/csv/csv-example-only-required-fields.csv';

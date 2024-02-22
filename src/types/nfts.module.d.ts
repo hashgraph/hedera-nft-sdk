@@ -17,15 +17,33 @@
  * limitations under the License.
  *
  */
-import type { BufferFile } from './bufferFile';
-
-export interface CSVRow {
-  [key: string]: string;
+export interface NFTDetails {
+  account_id: string;
+  created_timestamp: string;
+  delegating_spender?: null | string;
+  deleted: boolean;
+  metadata: string;
+  modified_timestamp: string;
+  serial_number: number;
+  token_id: string;
+  spender: null | string;
 }
 
-export type AttributeObjectFromCSVFile = Record<string, string | number | boolean | undefined>[];
-export type PropertyFromCSVFile = Record<string, string>;
+interface Links {
+  next: string | null;
+}
 
-export interface MetadataObject {
-  [key: string]: string | AttributeObjectFromCSVFile | PropertyFromCSVFile | undefined | BufferFile;
+export interface NFTS {
+  nfts: NFTDetails[];
+  links: Links;
+}
+
+export interface DecodedMetadata {
+  metadata: string;
+  serialNumber: number;
+}
+
+export interface ParsedNFTS {
+  decodedMetadata: DecodedMetadata[];
+  links: Links;
 }

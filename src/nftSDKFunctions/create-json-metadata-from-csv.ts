@@ -17,35 +17,10 @@
  * limitations under the License.
  *
  */
-import { dictionary } from '../utils/constants/dictionary';
-import { Hip412Metadata } from '../utils/hedera/hip412-metadata';
-import { CSVRowAsObject } from '../types/csv.module';
-import { errorToMessage } from '../helpers/error-to-message';
-import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv.module';
 import { CSVFileReader } from '../csv-file-reader';
 import { JsonMetadataFromCSVConverter } from '../services/json-metadata-from-csv-converter';
-
-const validateMetadataObjects = (
-  metadataObjectsFromCSVRows: CSVRowAsObject[],
-  csvFilePath: string
-): { metadataObjectsValidationErrors: string[]; missingAttributesErrors: string[] } => {
-  const metadataObjectsValidationErrors: string[] = [];
-  const missingAttributesErrors: string[] = [];
-
-  for (const [index, metadataObject] of metadataObjectsFromCSVRows.entries()) {
-    try {
-      Hip412Metadata.validateMetadataFromCSV(metadataObject);
-    } catch (e) {
-      metadataObjectsValidationErrors.push(dictionary.csvToJson.errorInRow(index + 1, errorToMessage(e)));
-    }
-
-    if (!metadataObject.attributes) {
-      missingAttributesErrors.push(dictionary.csvToJson.missingAttributesInRow(csvFilePath, index + 1));
-    }
-  }
-
-  return { metadataObjectsValidationErrors, missingAttributesErrors };
-};
+import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv.module';
+import { Hip412Validator } from '../hip412-validator';
 
 export const createJsonMetadataFromCSV = async ({
   savedJsonFilesLocation,
@@ -67,15 +42,15 @@ export const createJsonMetadataFromCSV = async ({
     headerProperties: CSVFileReader.PROPERTIES,
   });
 
-  const { metadataObjectsValidationErrors, missingAttributesErrors } = validateMetadataObjects(metadataObjectsFromCSVRows, csvFilePath);
+  const { isValid, errors } = Hip412Validator.validateArrayOfObjects(metadataObjectsFromCSVRows, csvFilePath);
 
-  JsonMetadataFromCSVConverter.saveCSVRowsAsJsonFiles(metadataObjectsFromCSVRows, savedJsonFilesLocation);
+  if (isValid) {
+    JsonMetadataFromCSVConverter.saveCSVRowsAsJsonFiles(metadataObjectsFromCSVRows, savedJsonFilesLocation);
+  }
 
   return {
-    errors: {
-      metadataObjectsValidationErrors,
-      missingAttributesErrors,
-    },
+    isValid,
+    errors,
     savedJsonFilesLocation,
   };
 };

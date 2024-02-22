@@ -17,22 +17,15 @@
  * limitations under the License.
  *
  */
-import { NftId } from '@hashgraph/sdk';
-import axios from 'axios';
 import { validatePropsForIncreaseNFTSupply } from '../utils/validate-props';
 import { IncreaseNFTSupplyType } from '../types/mint-token.module';
 import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
-import { getMirrorNodeUrlForNetwork } from '../utils/hedera/get-mirror-node-url-for-network';
+import { getMetaDataFromMirrorNode } from '../api/mirror-node';
+import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 
 export const increaseNFTSupply = async ({ client, network, nftId, amount, batchSize, supplyKey, mirrorNodeUrl }: IncreaseNFTSupplyType) => {
   validatePropsForIncreaseNFTSupply({ nftId, amount, supplyKey, batchSize });
-  return getMetaDataFromMirrorNode(network, nftId, mirrorNodeUrl).then((metaData) =>
+  return getMetaDataFromMirrorNode(network as NetworkName, nftId, mirrorNodeUrl).then((metaData) =>
     mintSharedMetadataFunction({ client, tokenId: nftId.tokenId.toString(), amount, batchSize, metaData, supplyKey })
   );
-};
-
-const getMetaDataFromMirrorNode = async (network: string, nftId: NftId, mirrorNodeUrl?: string): Promise<string> => {
-  const url = mirrorNodeUrl || getMirrorNodeUrlForNetwork(network);
-  const response = await axios.get(`${url}/tokens/${nftId.tokenId.toString()}/nfts/${nftId.serial.toString()}`);
-  return atob(response.data.metadata);
 };

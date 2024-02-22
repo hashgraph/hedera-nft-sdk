@@ -17,15 +17,19 @@
  * limitations under the License.
  *
  */
-import type { BufferFile } from './bufferFile';
+import { NFTDetails, DecodedMetadata } from '../types/nfts.module';
+import { decodeMetadataUrl } from './decode-metadata-url';
 
-export interface CSVRow {
-  [key: string]: string;
-}
+export const uriDecoder = (nfts: NFTDetails | NFTDetails[], ipfsGateway?: string): DecodedMetadata[] => {
+  const nftsArray = Array.isArray(nfts) ? nfts : [nfts];
+  const decodedMetadataArray: DecodedMetadata[] = nftsArray.map((nft: NFTDetails) => {
+    const decodedNFTMetadata = decodeMetadataUrl(nft.metadata, ipfsGateway);
 
-export type AttributeObjectFromCSVFile = Record<string, string | number | boolean | undefined>[];
-export type PropertyFromCSVFile = Record<string, string>;
+    return {
+      metadata: decodedNFTMetadata,
+      serialNumber: nft.serial_number,
+    };
+  });
 
-export interface MetadataObject {
-  [key: string]: string | AttributeObjectFromCSVFile | PropertyFromCSVFile | undefined | BufferFile;
-}
+  return decodedMetadataArray;
+};

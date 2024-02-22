@@ -19,7 +19,7 @@
  */
 import fs from 'fs';
 import cloneDeep from 'lodash/cloneDeep';
-import { CSVRow, CSVRowAsObject } from '../../types/csv.module';
+import { CSVRow, MetadataObject } from '../../types/csv.module';
 import { JsonMetadataFromCSVConverter } from '../../services/json-metadata-from-csv-converter';
 import {
   JSON_METADATA_UNIT_TESTS_OUTPUT_METADATA_FOLDER_PATH,
@@ -84,8 +84,8 @@ const objectsFromCSVRows = [
 
 describe('JsonMetadataFromCSVConverter', () => {
   describe('saveCSVRowsAsJsonFiles', () => {
-    it('should save content of CSVRowAsObject[] to json files', () => {
-      const metadataObjectsFromCSVRows: CSVRowAsObject[] = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
+    it('should save content of MetadataObject[] to json files', () => {
+      const metadataObjectsFromCSVRows: MetadataObject[] = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
         csvParsedRows: cloneDeep(csvRows),
         csvFilePath: 'csvFilePath',
         headerAttributes: 'attributes',
@@ -106,8 +106,8 @@ describe('JsonMetadataFromCSVConverter', () => {
       expect([firstJson, secondJson]).toStrictEqual(objectsFromCSVRows);
     });
 
-    it('should create directory if path do not point to directory save content of CSVRowAsObject[] to json files', () => {
-      const metadataObjectsFromCSVRows: CSVRowAsObject[] = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
+    it('should create directory if path do not point to directory save content of MetadataObject[] to json files', () => {
+      const metadataObjectsFromCSVRows: MetadataObject[] = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
         csvParsedRows: cloneDeep(csvRows),
         csvFilePath: 'csvFilePath',
         headerAttributes: 'attributes',

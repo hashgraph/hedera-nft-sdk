@@ -20,8 +20,9 @@
 import { Client, PrivateKey, TokenId } from '@hashgraph/sdk';
 import axios from 'axios';
 import { increaseNFTSupply } from '../../nftSDKFunctions/increase-nft-supply';
-import { IncreaseNFTSupplyType, Network } from '../../types/mint-token.module';
+import { IncreaseNFTSupplyType } from '../../types/mint-token.module';
 import { validatePropsForIncreaseNFTSupply } from '../../utils/validate-props';
+import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 
 jest.mock('axios');
 jest.mock('../../nftSDKFunctions/mint-shared-metadata-function', () => ({
@@ -106,7 +107,7 @@ describe('increaseNFTSupply', () => {
   it('should get correct mirror node url for mainnet', async () => {
     const mockIncreaseNFTSupplyTypeMainnet = {
       ...mockIncreaseNFTSupplyType,
-      network: 'mainnet' as Network,
+      network: 'mainnet' as NetworkName,
       mirrorNodeUrl: undefined,
     };
 
@@ -118,7 +119,7 @@ describe('increaseNFTSupply', () => {
   it('should get correct mirror node url for testnet', async () => {
     const mockIncreaseNFTSupplyTypeTestnet = {
       ...mockIncreaseNFTSupplyType,
-      network: 'testnet' as Network,
+      network: 'testnet' as NetworkName,
       mirrorNodeUrl: undefined,
     };
 

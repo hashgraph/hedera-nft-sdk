@@ -17,15 +17,6 @@
  * limitations under the License.
  *
  */
-import type { BufferFile } from './bufferFile';
+export const KNOWN_IMAGE_EXTENSIONS = ['svg', 'img', 'png', 'jpg', 'jpeg', 'webp'];
 
-export interface CSVRow {
-  [key: string]: string;
-}
-
-export type AttributeObjectFromCSVFile = Record<string, string | number | boolean | undefined>[];
-export type PropertyFromCSVFile = Record<string, string>;
-
-export interface MetadataObject {
-  [key: string]: string | AttributeObjectFromCSVFile | PropertyFromCSVFile | undefined | BufferFile;
-}
+export const KNOWN_IMAGE_MIME_TYPES = ['image/'];

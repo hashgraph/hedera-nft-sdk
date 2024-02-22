@@ -18,14 +18,14 @@
  *
  */
 
-import { AccountId } from '@hashgraph/sdk';
+import { AccountId, NetworkName } from '@hashgraph/sdk';
 
-export type LocalNode = {[key: string]: string | AccountId};
+export type LocalNode = { [key: string]: string | AccountId };
 
 export type LogInType = {
   myAccountId: string;
   myPrivateKey: string;
-  network: string;
+  network: NetworkName;
   localNode?: LocalNode;
   localMirrorNode?: string;
 };

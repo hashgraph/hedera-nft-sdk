@@ -23,6 +23,10 @@ export const dictionary = {
   errors: {
     unhandledError: 'Unknown error.',
     cannotFetchHbarExchangeRate: 'Can not fetch Hbar exchange rate.',
+    ipfsGatewayRequired: 'IPFS gateway is required when metadata contains IPFS links.',
+    ipfsFailedToFetch: 'Failed to fetch metadata using IPFS gateway',
+    tooManyRequests: (statusText: string, status: number) => `${statusText}. Status code: ${status}`,
+    unknownErrorWhileFetching: (serialNumber: number) => `Error fetching metadata for serialNumber ${serialNumber}`,
   },
 
   createCollection: {
@@ -42,10 +46,10 @@ export const dictionary = {
     hbarAmountOrAmountAndDenominatingToken:
       'Either hbarAmount should be set and both amount and denominatingTokenId should not be set, or amount and denominatingTokenId should be set and hbarAmount should not be set.',
   },
-  csvToJson: {
+  validation: {
     errorInCellWithHeader: (line: number, column: number) =>
       `Error in line number ${line}, column number ${column}. Check if your CSV file is well prepared.`,
-    tooManyValuesForValidationSchema: 'Too many values provided for the validation schema.',
+    invalidKeysDetected: (keys: string[]) => `Redundant key(s) detected: ['${keys.join("', '")}']`,
     csvFileIsEmpty: (path: string) => `No metadata found in CSV file "${getFullSystemPath(path)}".`,
     errorInRow: (line: number | string, error: string) =>
       `Error at: line number ${typeof line === 'number' ? line + 1 : line} in ${getFullSystemPath('exampleCSV.csv')}\n${error}`,
@@ -53,6 +57,14 @@ export const dictionary = {
     imageForNftNotFound:
       'Image for NFT not found. The name of the image file should match its corresponding metadata file name (ex: 1.jpg with 1.json) or specify directly the "image" property.',
     mediaFileNotSupported: 'Media file is not supported.',
+    arrayOfObjectsValidationError: (fileName: string, error: string) => `Error at: ${getFullSystemPath(fileName)} - ${error}`,
+    unsupportedImageMimeType: 'Unsupported image MIME type.',
+    requiredFieldMissing: 'Required field is missing',
+    requiredTypeFieldIsMissing: 'The required "type" field is missing.',
+    requiredAttributeFieldMissing: 'The required "attributes" field is missing.',
+    filePermissionDenied: 'Permission denied',
+    fileEmptyOrFormattingError: 'Unexpected end of JSON input',
+    directoryIsEmpty: 'Directory is empty',
   },
   hederaActions: {
     clientRequired: 'client is required. You need to log in first.',

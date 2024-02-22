@@ -17,15 +17,12 @@
  * limitations under the License.
  *
  */
-import type { BufferFile } from './bufferFile';
+export class ValidationError extends Error {
+  errors: string[];
 
-export interface CSVRow {
-  [key: string]: string;
-}
-
-export type AttributeObjectFromCSVFile = Record<string, string | number | boolean | undefined>[];
-export type PropertyFromCSVFile = Record<string, string>;
-
-export interface MetadataObject {
-  [key: string]: string | AttributeObjectFromCSVFile | PropertyFromCSVFile | undefined | BufferFile;
+  constructor(errors: string[]) {
+    super(errors.join(' '));
+    this.errors = errors;
+    this.name = 'ValidationError';
+  }
 }

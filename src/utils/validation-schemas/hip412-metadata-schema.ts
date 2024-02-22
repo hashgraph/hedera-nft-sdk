@@ -23,6 +23,7 @@ import isString from 'lodash/isString';
 import omit from 'lodash/omit';
 import { type ZodTypeAny, z } from 'zod';
 import { dictionary } from '../constants/dictionary';
+import { KNOWN_IMAGE_MIME_TYPES } from '../constants/mime-types-and-extensions';
 
 const AttributeSchema = z.object({
   trait_type: z.string(),
@@ -39,7 +40,9 @@ const LocalizationSchema = z.object({
 
 const FileSchema = z.object({
   uri: z.string(),
-  type: z.string(),
+  type: z.string().refine((value) => KNOWN_IMAGE_MIME_TYPES.some((knownType) => value.startsWith(knownType)), {
+    message: dictionary.validation.unsupportedImageMimeType,
+  }),
   metadata: recursiveSchema(),
   checksum: z.string().optional(),
   is_default_file: z.boolean().optional(),
@@ -52,7 +55,9 @@ export const Hip412MetadataCommonSchema = {
   creator: z.string().optional(),
   creatorDID: z.string().optional(),
   checksum: z.string().optional(),
-  type: z.string().optional(),
+  type: z.string().refine((value) => KNOWN_IMAGE_MIME_TYPES.some((knownType) => value.startsWith(knownType)), {
+    message: dictionary.validation.unsupportedImageMimeType,
+  }),
   files: z.array(FileSchema).optional(),
   format: z.optional(z.string()),
   properties: z.record(z.unknown()).optional(),
@@ -65,7 +70,7 @@ export const imageForHip412MetadataSchema = z.custom<string | BufferFile | undef
     ctx.addIssue({
       fatal: true,
       code: z.ZodIssueCode.custom,
-      message: dictionary.csvToJson.imageForNftNotFound,
+      message: dictionary.validation.imageForNftNotFound,
     });
     return false;
   }
@@ -74,7 +79,7 @@ export const imageForHip412MetadataSchema = z.custom<string | BufferFile | undef
     ctx.addIssue({
       fatal: true,
       code: z.ZodIssueCode.custom,
-      message: dictionary.csvToJson.mediaFileNotSupported,
+      message: dictionary.validation.mediaFileNotSupported,
     });
     return false;
   }

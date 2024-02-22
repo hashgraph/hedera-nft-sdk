@@ -20,12 +20,12 @@
 import fs from 'fs';
 import { dictionary } from '../utils/constants/dictionary';
 import { CSVFileReader } from '../csv-file-reader';
-import type { CSVRow, CSVRowAsObject } from '../types/csv.module';
+import type { CSVRow, MetadataObject } from '../types/csv.module';
 
 const OMITTED_HEADER_COUNT = 1;
 
 export class JsonMetadataFromCSVConverter {
-  static saveCSVRowsAsJsonFiles = (metadataFromCSV: CSVRowAsObject[], folderPath: string): void => {
+  static saveCSVRowsAsJsonFiles = (metadataFromCSV: MetadataObject[], folderPath: string): void => {
     if (fs.existsSync(folderPath)) {
       fs.rmSync(folderPath, { recursive: true, force: true });
     }
@@ -39,7 +39,7 @@ export class JsonMetadataFromCSVConverter {
   };
 
   private static processCSVRowEntry(
-    csvRowAsObject: CSVRowAsObject,
+    metadataObject: MetadataObject,
     header: string,
     cell: string,
     secondHeader: CSVRow,
@@ -47,16 +47,16 @@ export class JsonMetadataFromCSVConverter {
     headerProperties: string,
     attributes: Record<string, string>[],
     properties: Record<string, string>
-  ): CSVRowAsObject {
+  ): MetadataObject {
     if (cell && header.includes(headerAttributes)) {
       attributes.push({ trait_type: secondHeader[header], value: cell });
     } else if (cell && header.includes(headerProperties)) {
       properties[secondHeader[header]] = cell;
     } else if (cell) {
-      csvRowAsObject[header] = cell;
+      metadataObject[header] = cell;
     }
 
-    return csvRowAsObject;
+    return metadataObject;
   }
 
   static parseCSVRowsToMetadataObjects({
@@ -69,20 +69,20 @@ export class JsonMetadataFromCSVConverter {
     csvFilePath: string;
     headerAttributes: string;
     headerProperties: string;
-  }): CSVRowAsObject[] {
+  }): MetadataObject[] {
     if (csvParsedRows.length <= CSVFileReader.AMOUNT_OF_HEADERS - OMITTED_HEADER_COUNT) {
-      throw new Error(dictionary.csvToJson.csvFileIsEmpty(csvFilePath));
+      throw new Error(dictionary.validation.csvFileIsEmpty(csvFilePath));
     }
 
     const secondHeader = csvParsedRows[0];
     csvParsedRows.shift();
 
-    const metadataObjectsFromCSVRows = csvParsedRows.map((csvRow): CSVRowAsObject => {
+    const metadataObjectsFromCSVRows = csvParsedRows.map((csvRow): MetadataObject => {
       const csvRowKeyValuesAsEntries = Object.entries(csvRow);
       const properties: Record<string, string> = {};
       const attributes: Record<string, string>[] = [];
 
-      const result = csvRowKeyValuesAsEntries.reduce<CSVRowAsObject>((currentMetadataObject, [header, cell]) => {
+      const result = csvRowKeyValuesAsEntries.reduce<MetadataObject>((currentMetadataObject, [header, cell]) => {
         return this.processCSVRowEntry(
           currentMetadataObject,
           header,

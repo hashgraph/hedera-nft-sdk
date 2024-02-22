@@ -89,11 +89,11 @@ export class CSVFileReader {
     }
 
     if (header.header !== '' && header.header !== this.ATTRIBUTES && header.header !== this.PROPERTIES) {
-      refToErrorArray.push(dictionary.csvToJson.errorInCellWithHeader(1, header.index + 1));
+      refToErrorArray.push(dictionary.validation.errorInCellWithHeader(1, header.index + 1));
     }
 
     if ((propertyIndex > 1 && header.header === this.PROPERTIES) || (attributesIndex > 1 && header.header === this.ATTRIBUTES)) {
-      refToErrorArray.push(dictionary.csvToJson.errorInCellWithHeader(1, header.index + 1));
+      refToErrorArray.push(dictionary.validation.errorInCellWithHeader(1, header.index + 1));
     }
 
     if (currentType === this.PROPERTIES) {
