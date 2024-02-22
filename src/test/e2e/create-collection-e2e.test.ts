@@ -17,11 +17,11 @@
  * limitations under the License.
  *
  */
-import { Long, PrivateKey, TokenCreateTransaction, TokenType } from '@hashgraph/sdk';
-import { nftSDK, operatorAccountId, operatorPrivateKey, secondAccountId, secondPrivateKey } from './e2e-consts';
+import { Long, PrivateKey } from '@hashgraph/sdk';
+import { nftSDK, secondAccountId, secondPrivateKey } from './e2e-consts';
 import { LONG_E2E_TIMEOUT } from '../__mocks__/consts';
 import { getTokenInfo } from '../../utils/hedera/get-token-info';
-import { add, fromUnixTime, milliseconds, millisecondsToSeconds } from 'date-fns';
+import { add, milliseconds, millisecondsToSeconds } from 'date-fns';
 
 afterAll(async () => {
   nftSDK.client.close();
@@ -57,82 +57,102 @@ describe('createCollectionFunction e2e', () => {
     LONG_E2E_TIMEOUT
   );
 
-  it('creates a collection with different treasury account', async () => {
-    const tokenId = await nftSDK.createCollection({
-      collectionName: 'test_name_treasury',
-      collectionSymbol: 'test_symbol_treasury',
-      treasuryAccountPrivateKey: secondPrivateKey,
-      treasuryAccount: secondAccountId,
-    });
+  it(
+    'creates a collection with different treasury account',
+    async () => {
+      const tokenId = await nftSDK.createCollection({
+        collectionName: 'test_name_treasury',
+        collectionSymbol: 'test_symbol_treasury',
+        treasuryAccountPrivateKey: secondPrivateKey,
+        treasuryAccount: secondAccountId,
+      });
 
-    const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
+      const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
 
-    expect(tokenId).toBeDefined();
-    expect(tokenInfo.treasuryAccountId?.toString()).toEqual(secondAccountId);
-  }, LONG_E2E_TIMEOUT);
+      expect(tokenId).toBeDefined();
+      expect(tokenInfo.treasuryAccountId?.toString()).toEqual(secondAccountId);
+    },
+    LONG_E2E_TIMEOUT
+  );
 
-  it('creates a collection with expiration time', async () => {
-    const expirationTime = add(new Date(), { days: 1 });
-    const tokenId = await nftSDK.createCollection({
-      collectionName: 'test_name_expiration_time',
-      collectionSymbol: 'TNET',
-      treasuryAccountPrivateKey: secondPrivateKey,
-      treasuryAccount: secondAccountId,
-      expirationTime: expirationTime,
-    });
+  it(
+    'creates a collection with expiration time',
+    async () => {
+      const expirationTime = add(new Date(), { days: 1 });
+      const tokenId = await nftSDK.createCollection({
+        collectionName: 'test_name_expiration_time',
+        collectionSymbol: 'TNET',
+        treasuryAccountPrivateKey: secondPrivateKey,
+        treasuryAccount: secondAccountId,
+        expirationTime: expirationTime,
+      });
 
-    const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
-    expect(tokenInfo.expirationTime).toBeDefined();
-    expect(tokenInfo.expirationTime?.toDate()).toEqual(new Date(expirationTime.setMilliseconds(0)));
-  }, LONG_E2E_TIMEOUT);
+      const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
+      expect(tokenInfo.expirationTime).toBeDefined();
+      expect(tokenInfo.expirationTime?.toDate()).toEqual(new Date(expirationTime.setMilliseconds(0)));
+    },
+    LONG_E2E_TIMEOUT
+  );
 
   //This test is failing because of the issue in the Hedera SDK. When the issue is resolved, this test should be enabled (remove .failing).
-  it.failing('creates a collection with auto renew account and period', async () => {
-    const expectedAutoRenewPeriod = millisecondsToSeconds(milliseconds({ days: 30 }));
-    const tokenId = await nftSDK.createCollection({
-      collectionName: 'test_name_auto_renew_account_and_period',
-      collectionSymbol: 'TNATRAAP',
-      treasuryAccountPrivateKey: secondPrivateKey,
-      treasuryAccount: secondAccountId,
-      autoRenewPeriod: expectedAutoRenewPeriod,
-      autoRenewAccount: secondAccountId,
-      autoRenewAccountPrivateKey: secondPrivateKey,
-    });
+  it.failing(
+    'creates a collection with auto renew account and period',
+    async () => {
+      const expectedAutoRenewPeriod = millisecondsToSeconds(milliseconds({ days: 30 }));
+      const tokenId = await nftSDK.createCollection({
+        collectionName: 'test_name_auto_renew_account_and_period',
+        collectionSymbol: 'TNATRAAP',
+        treasuryAccountPrivateKey: secondPrivateKey,
+        treasuryAccount: secondAccountId,
+        autoRenewPeriod: expectedAutoRenewPeriod,
+        autoRenewAccount: secondAccountId,
+        autoRenewAccountPrivateKey: secondPrivateKey,
+      });
 
-    const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
-    expect(tokenInfo.autoRenewAccountId).toBeDefined();
-    expect(tokenInfo.autoRenewAccountId?.toString()).toEqual(secondAccountId);
-    expect(tokenInfo.autoRenewPeriod).toBeDefined();
-    expect(tokenInfo.autoRenewPeriod?.seconds).toEqual(new Long(expectedAutoRenewPeriod, 0));
-  }, LONG_E2E_TIMEOUT);
+      const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
+      expect(tokenInfo.autoRenewAccountId).toBeDefined();
+      expect(tokenInfo.autoRenewAccountId?.toString()).toEqual(secondAccountId);
+      expect(tokenInfo.autoRenewPeriod).toBeDefined();
+      expect(tokenInfo.autoRenewPeriod?.seconds).toEqual(new Long(expectedAutoRenewPeriod, 0));
+    },
+    LONG_E2E_TIMEOUT
+  );
 
-  it('creates a collection with auto renew period', async () => {
-    const expectedAutoRenewPeriod = millisecondsToSeconds(milliseconds({ days: 30 }));
-    const tokenId = await nftSDK.createCollection({
-      collectionName: 'test_name_auto_renew_period',
-      collectionSymbol: 'TNARP',
-      treasuryAccountPrivateKey: secondPrivateKey,
-      treasuryAccount: secondAccountId,
-      autoRenewPeriod: expectedAutoRenewPeriod,
-    });
+  it(
+    'creates a collection with auto renew period',
+    async () => {
+      const expectedAutoRenewPeriod = millisecondsToSeconds(milliseconds({ days: 30 }));
+      const tokenId = await nftSDK.createCollection({
+        collectionName: 'test_name_auto_renew_period',
+        collectionSymbol: 'TNARP',
+        treasuryAccountPrivateKey: secondPrivateKey,
+        treasuryAccount: secondAccountId,
+        autoRenewPeriod: expectedAutoRenewPeriod,
+      });
 
-    const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
-    expect(tokenInfo.autoRenewPeriod).toBeDefined();
-    expect(tokenInfo.autoRenewPeriod?.seconds).toEqual(new Long(expectedAutoRenewPeriod, 0));
-  }, LONG_E2E_TIMEOUT);
+      const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
+      expect(tokenInfo.autoRenewPeriod).toBeDefined();
+      expect(tokenInfo.autoRenewPeriod?.seconds).toEqual(new Long(expectedAutoRenewPeriod, 0));
+    },
+    LONG_E2E_TIMEOUT
+  );
 
-  it('creates a collection with memo', async () => {
-    const expectedMemo = 'test_memo';
-    const tokenId = await nftSDK.createCollection({
-      collectionName: 'test_name_memo',
-      collectionSymbol: 'TNM',
-      treasuryAccountPrivateKey: secondPrivateKey,
-      treasuryAccount: secondAccountId,
-      memo: expectedMemo,
-    });
+  it(
+    'creates a collection with memo',
+    async () => {
+      const expectedMemo = 'test_memo';
+      const tokenId = await nftSDK.createCollection({
+        collectionName: 'test_name_memo',
+        collectionSymbol: 'TNM',
+        treasuryAccountPrivateKey: secondPrivateKey,
+        treasuryAccount: secondAccountId,
+        memo: expectedMemo,
+      });
 
-    const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
-    expect(tokenInfo.tokenMemo).toBeDefined();
-    expect(tokenInfo.tokenMemo).toEqual(expectedMemo);
-  }, LONG_E2E_TIMEOUT);
+      const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
+      expect(tokenInfo.tokenMemo).toBeDefined();
+      expect(tokenInfo.tokenMemo).toEqual(expectedMemo);
+    },
+    LONG_E2E_TIMEOUT
+  );
 });

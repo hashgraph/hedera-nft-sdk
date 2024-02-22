@@ -22,6 +22,22 @@ import { getFullSystemPath } from '../../helpers/get-full-system-path';
 export const dictionary = {
   errors: {
     unhandledError: 'Unknown error.',
+    // file storages
+
+    // pinata
+    pinataError: 'Cannot create Pinata provider. Please pass pinataJwtKey OR (pinataApiKey AND pinataSecretApiKey).',
+
+    awsUploadIssue: 'Error encountered using AWS SDK. Please restart the app and try again.',
+    awsUploadingError: (message: string) => `Failed to upload file to AWS S3: ${message}`,
+
+    // NFT storage
+    noApiKeys: 'Please provide at least one API key to use "NFT.storage".',
+
+    // upload service errors
+    uploadService: {
+      noFiles: 'No files to upload.',
+      noMetadata: 'No metadata to upload.',
+    },
     cannotFetchHbarExchangeRate: 'Can not fetch Hbar exchange rate.',
     ipfsGatewayRequired: 'IPFS gateway is required when metadata contains IPFS links.',
     ipfsFailedToFetch: 'Failed to fetch metadata using IPFS gateway',
@@ -38,7 +54,8 @@ export const dictionary = {
     treasuryAccountPrivateKeySignRequired:
       'If you want to use treasuryAccount to sign, you need to pass the treasuryAccountPrivateKey also',
     collectionNotCreated: 'Something went wrong while creating the collection',
-    autoRenewAccountPrivateKeySignRequired: 'If you want to use autoRenewAccount to sign, you need to pass the autoRenewAccountPrivateKey also',
+    autoRenewAccountPrivateKeySignRequired:
+      'If you want to use autoRenewAccount to sign, you need to pass the autoRenewAccountPrivateKey also',
     tooManyCustomFees: 'You can only have 10 custom fees',
     collectorAccountIdRequired: 'collectorAccountId is required',
     numeratorRequired: 'numerator is required',

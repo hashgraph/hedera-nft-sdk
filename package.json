@@ -47,13 +47,17 @@
     "SDK"
   ],
   "dependencies": {
+    "@aws-sdk/client-s3": "3.515.0",
+    "@aws-sdk/lib-storage": "3.515.0",
     "@hashgraph/sdk": "^2.41.0",
     "axios": "^1.6.7",
     "csv-parser": "^3.0.0",
-    "file-type": "^19.0.0",
+    "file-type": "18.3.0",
+    "formdata-node": "6.0.3",
     "json2csv": "6.0.0-alpha.2",
     "jsonschema": "^1.4.1",
     "lodash": "^4.17.21",
+    "magic-bytes.js": "^1.8.0",
     "mathjs": "^12.3.2",
     "zod": "^3.22.4"
   },
@@ -61,6 +65,7 @@
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.17",
+    "@jest/transform": "^29.7.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "date-fns": "^3.3.1",
