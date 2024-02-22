@@ -334,14 +334,52 @@ const tokenInformation = {
         ...
 }
 
-const results = calculateRiskScoreFromData(tokenInformation);
+const results = calculateRiskScoreFromData({ metadata: tokenInformation });
 ```
 
 Alternatively, use the `calculateRiskScoreFromTokenId` to retrieve risk information about a token by entering a token ID. This asynchronous function looks up the token information from the mirror node and returns the risk information.
 
 ```js
-const results = await calculateRiskScoreFromTokenId("0.0.1270555");
+const results = await calculateRiskScoreFromTokenId({ tokenId: "0.0.1270555" });
 ```
+
+### Custom weights and risk levels
+
+Use custom weights and risk levels by passing them as the second and third parameter to the `calculateRiskScoreFromData` function. 
+
+```js
+const metadata: Metadata = {
+    supply_type: 'testSupply',
+    supply_key: 'testKey',
+    max_supply: 'testMaxSupply',
+    total_supply: 'testTotalSupply',
+};
+
+const customWeights: Weights = {
+  keys: {
+    admin_key: 200,
+    wipe_key: 200,
+    freeze_key: 50,
+    supply_key: 20,
+    kyc_key: 50,
+    pause_key: 50,
+    fee_schedule_key: 40
+  },
+  properties: {
+    supply_type_infinite: 20
+  }
+};
+
+const customRiskLevels: RiskLevels = {
+    NORISK: 0,
+    LOW: 40,
+    MEDIUM: 199,
+    HIGH: 200
+};
+
+const results = calculateRiskScoreFromData({ metadata , customWeights, customRiskLevels});
+```
+
 
 ### Interface
 

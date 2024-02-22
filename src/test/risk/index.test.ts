@@ -26,7 +26,7 @@ describe('Risk calculation tests', () => {
   describe('Calculate risk score from data', () => {
     test('it should return zero risk for token with no keys and FINITE supply type', () => {
       // Arrange && Act
-      const riskResults = calculateRiskScoreFromData(no_risk_token);
+      const riskResults = calculateRiskScoreFromData({ metadata: no_risk_token });
 
       // Assert
       expect(riskResults.riskScore).toBe(0);
@@ -35,7 +35,7 @@ describe('Risk calculation tests', () => {
 
     test('it should return 20 risk for token with supply key set', () => {
       // Arrange && Act
-      const riskResults = calculateRiskScoreFromData(supply_key_token);
+      const riskResults = calculateRiskScoreFromData({ metadata: supply_key_token });
 
       // Assert
       expect(riskResults.riskScore).toBe(20);
@@ -46,9 +46,9 @@ describe('Risk calculation tests', () => {
       // Arrange
       const token = JSON.parse(JSON.stringify(supply_key_token));
       token.supply_type = 'INFINITE';
-        
+
       // Act
-      const riskResults = calculateRiskScoreFromData(token);
+      const riskResults = calculateRiskScoreFromData({ metadata: token });
 
       // Assert
       expect(riskResults.riskScore).toBe(40);
@@ -57,7 +57,7 @@ describe('Risk calculation tests', () => {
 
     test('it should return HIGH risk (score ) for token with supply key set and infinite token supply', () => {
       // Arrange && Act
-      const riskResults = calculateRiskScoreFromData(all_keys_token);
+      const riskResults = calculateRiskScoreFromData({ metadata: all_keys_token });
 
       // Assert
       expect(riskResults.riskScore).toBe(630);
@@ -69,9 +69,9 @@ describe('Risk calculation tests', () => {
       const token = JSON.parse(JSON.stringify(supply_key_token));
       token.max_supply = '1000';
       token.total_supply = '1000';
-        
+
       // Act
-      const riskResults = calculateRiskScoreFromData(token);
+      const riskResults = calculateRiskScoreFromData({ metadata: token });
 
       // Assert
       expect(riskResults.riskScore).toBe(0);
@@ -82,7 +82,7 @@ describe('Risk calculation tests', () => {
   describe('Calculate risk score from token ID', () => {
     test('it should return 20 risk for token with supply key set (ID: 0.0.1270555 on mainnet)', async () => {
       // Arrange && Act
-      const riskResults = await calculateRiskScoreFromTokenId('0.0.1270555');
+      const riskResults = await calculateRiskScoreFromTokenId({ tokenId: '0.0.1270555' });
 
       // Assert
       expect(riskResults.riskScore).toBe(20);

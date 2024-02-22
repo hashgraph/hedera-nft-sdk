@@ -17,16 +17,13 @@
  * limitations under the License.
  *
  */
-const { calculateRiskScoreFromTokenId } = require('../..');
+import { calculateRiskScoreFromTokenId } from '../../risk';
 
-async function main() {
-  // source: https://mainnet-public.mirrornode.hedera.com/api/v1/tokens/0.0.1270555/
-  const results = await calculateRiskScoreFromTokenId({ tokenId: '0.0.1270555' });
-  console.log(results);
+describe('calculateRiskScoreFromTokenIdE2E', () => {
+  it('should calculate risk score for a given token ID', async () => {
+    const riskResults = await calculateRiskScoreFromTokenId({ tokenId: '0.0.878200' });
 
-  /* Output:
-        { riskScore: 20, riskLevel: 'LOW' }
-    */
-}
-
-main();
+    expect(riskResults.riskScore).toBe(20);
+    expect(riskResults.riskLevel).toBe('LOW');
+  });
+});

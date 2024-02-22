@@ -19,13 +19,10 @@
  */
 
 import axios from 'axios';
-import {
-  Metadata,
-  RiskResult,
-  Weights,
-  KeyTypes,
-  RiskLevelTypes,
-} from '../types/risk.module';
+import { Metadata, RiskResult, Weights, KeyTypes, RiskLevelTypes, RiskLevels } from '../types/risk.module';
+import { getMirrorNodeUrlForNetwork } from '../utils/hedera/get-mirror-node-url-for-network';
+
+type Network = 'mainnet' | 'testnet' | 'previewnet' | 'localNode';
 
 // Default weights for risk score calculation
 const defaultWeights: Weights = {
@@ -44,16 +41,24 @@ const defaultWeights: Weights = {
 };
 
 // Default thresholds for risk level calculation
-const defaultRiskLevels = {
+const defaultRiskLevels: RiskLevels = {
   NORISK: 0,
   LOW: 40,
   MEDIUM: 199,
   HIGH: 2000,
 };
 
-const calculateRiskScoreFromData = (metadata: Metadata): RiskResult => {
-  const riskScore = calculateRiskScore(metadata);
-  const riskLevel = calculateRiskLevel(riskScore);
+const calculateRiskScoreFromData = ({
+  metadata,
+  customWeights,
+  customRiskLevels,
+}: {
+  metadata: Metadata;
+  customWeights?: Weights;
+  customRiskLevels?: RiskLevels;
+}): RiskResult => {
+  const riskScore = calculateRiskScore(metadata, customWeights);
+  const riskLevel = calculateRiskLevel({ score: riskScore, customRiskLevels });
 
   return {
     riskScore,
@@ -61,19 +66,45 @@ const calculateRiskScoreFromData = (metadata: Metadata): RiskResult => {
   };
 };
 
-const calculateRiskScoreFromTokenId = async (
-  tokenId: string,
-  network: string = 'mainnet'
-): Promise<RiskResult> => {
-  const uri =
-    network === 'mainnet'
-      ? `https://mainnet-public.mirrornode.hedera.com/api/v1/tokens/${tokenId}/`
-      : `https://testnet.mirrornode.hedera.com/api/v1/tokens/${tokenId}/`;
+const calculateRiskScoreFromTokenId = async ({
+  tokenId,
+  network = 'mainnet',
+  localNodeURL,
+  customWeights,
+  customRiskLevels,
+}: {
+  tokenId: string;
+  network?: Network;
+  localNodeURL?: string;
+  customWeights?: Weights;
+  customRiskLevels?: RiskLevels;
+}): Promise<RiskResult> => {
+  let uri = '';
+
+  switch (network) {
+    case 'mainnet':
+      uri = `${getMirrorNodeUrlForNetwork('mainnet')}/tokens/${tokenId}/`;
+      break;
+    case 'testnet':
+      uri = `${getMirrorNodeUrlForNetwork('testnet')}/tokens/${tokenId}/`;
+      break;
+    case 'previewnet':
+      uri = `${getMirrorNodeUrlForNetwork('previewnet')}/tokens/${tokenId}/`;
+      break;
+    case 'localNode':
+      if (!localNodeURL) {
+        throw new Error('localNodeURL is required for local node network');
+      }
+      uri = `${localNodeURL}/api/v1/tokens/${tokenId}/`;
+      break;
+    default:
+      throw new Error('Invalid network');
+  }
 
   const { data: metadata } = await axios.get<Metadata>(uri);
 
-  const riskScore = calculateRiskScore(metadata);
-  const riskLevel = calculateRiskLevel(riskScore);
+  const riskScore = calculateRiskScore(metadata, customWeights);
+  const riskLevel = calculateRiskLevel({ score: riskScore, customRiskLevels });
 
   return {
     riskScore,
@@ -81,37 +112,36 @@ const calculateRiskScoreFromTokenId = async (
   };
 };
 
-const calculateRiskScore = (metadata: Metadata): number => {
+const calculateRiskScore = (metadata: Metadata, customWeights?: Weights): number => {
+  const weights = customWeights ? customWeights : defaultWeights;
   let riskScore = 0;
 
   // Iterate through the properties of the object
   for (const key in metadata) {
     // Check if the property is present in the weights object and not null
-    if (metadata[key] && (key as KeyTypes) in defaultWeights.keys) {
+    if (metadata[key] && (key as KeyTypes) in weights.keys) {
       // If it is, add the associated risk weight to the risk score
-      riskScore += defaultWeights.keys[key as KeyTypes];
+      riskScore += weights.keys[key as KeyTypes];
     }
   }
 
   if (metadata.supply_type === 'INFINITE' && metadata.supply_key) {
-    riskScore += defaultWeights.properties.supply_type_infinite;
+    riskScore += weights.properties.supply_type_infinite;
   }
 
-  if (
-    metadata.supply_type === 'FINITE' &&
-    Number(metadata.max_supply) == Number(metadata.total_supply)
-  ) {
-    riskScore -= defaultWeights.keys.supply_key;
+  if (metadata.supply_type === 'FINITE' && Number(metadata.max_supply) == Number(metadata.total_supply)) {
+    riskScore -= weights.keys.supply_key;
   }
 
   return riskScore;
 };
 
-const calculateRiskLevel = (score: number): string => {
+const calculateRiskLevel = ({ score, customRiskLevels }: { score: number; customRiskLevels?: RiskLevels }): string => {
+  const riskLevels = customRiskLevels ? customRiskLevels : defaultRiskLevels;
   let riskLevel = '';
 
-  for (const key in defaultRiskLevels) {
-    if (score <= defaultRiskLevels[key as RiskLevelTypes]) {
+  for (const key in riskLevels) {
+    if (score <= riskLevels[key as RiskLevelTypes]) {
       riskLevel = key;
       break;
     }
