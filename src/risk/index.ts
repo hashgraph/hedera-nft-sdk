@@ -45,7 +45,7 @@ const defaultRiskLevels: RiskLevels = {
   NORISK: 0,
   LOW: 40,
   MEDIUM: 199,
-  HIGH: 2000,
+  HIGH: 200,
 };
 
 const calculateRiskScoreFromData = ({
@@ -113,6 +113,7 @@ const calculateRiskScoreFromTokenId = async ({
 };
 
 const calculateRiskScore = (metadata: Metadata, customWeights?: Weights): number => {
+  console.log('metadata:', metadata);
   const weights = customWeights ? customWeights : defaultWeights;
   let riskScore = 0;
 
