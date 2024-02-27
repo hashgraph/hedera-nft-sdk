@@ -36,12 +36,12 @@ describe('createFixedFeeFunction', () => {
     expect(result._allCollectorsAreExempt).toEqual(fixedFeeType.allCollectorsAreExempt);
   });
 
-  it('should throw an error when FixedFeeType is not provided', () => {
+  it('should throw an error when Collector account id is not provided', () => {
     expect(() =>
       createFixedFeeFunction({
         collectorAccountId: '',
         hbarAmount: 100,
       })
-    ).toThrow(dictionary.createCollection.collectorAccountIdRequired);
+    ).toThrow(dictionary.hederaActions.cannotParseAccountId);
   });
 });

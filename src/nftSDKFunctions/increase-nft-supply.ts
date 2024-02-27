@@ -24,7 +24,7 @@ import { getMetaDataFromMirrorNode } from '../api/mirror-node';
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 
 export const increaseNFTSupply = async ({ client, network, nftId, amount, batchSize, supplyKey, mirrorNodeUrl }: IncreaseNFTSupplyType) => {
-  validatePropsForIncreaseNFTSupply({ nftId, amount, supplyKey, batchSize });
+  validatePropsForIncreaseNFTSupply({ amount, batchSize });
   return getMetaDataFromMirrorNode(network as NetworkName, nftId, mirrorNodeUrl).then((metaData) =>
     mintSharedMetadataFunction({ client, tokenId: nftId.tokenId.toString(), amount, batchSize, metaData, supplyKey })
   );

@@ -1,3 +1,5 @@
+import { Client, PrivateKey } from '@hashgraph/sdk';
+
 /*-
  *
  * Hedera NFT Utilities
@@ -55,3 +57,8 @@ export const HASH_WITHOUT_IPFS_PREFIX = 'QmAnotherHash';
 export const HTTPS_URL = 'https://example.com/metadata.json';
 
 export const NETWORK = 'testnet';
+
+export const MOCK_CLIENT = {} as Client;
+export const MOCK_META_DATA = 'meta1';
+export const MOCK_TOKEN_ID = '0.0.123';
+export const MOCK_SUPPLY_KEY = PrivateKey?.fromString(myPrivateKey);

@@ -19,8 +19,7 @@
  */
 import { mintSharedMetadataFunction } from '../../nftSDKFunctions/mint-shared-metadata-function';
 import { mintToken } from '../../nftSDKFunctions/mint-token';
-import { Client, PrivateKey } from '@hashgraph/sdk';
-import { myPrivateKey } from '../__mocks__/consts';
+import { MOCK_CLIENT, MOCK_META_DATA, MOCK_TOKEN_ID, MOCK_SUPPLY_KEY } from '../__mocks__/consts';
 import { dictionary } from '../../utils/constants/dictionary';
 
 jest.mock('../../nftSDKFunctions/mint-token', () => ({
@@ -37,212 +36,156 @@ beforeEach(() => {
 
 describe('mintSharedMetadataFunction', () => {
   it('should return correct metadata', async () => {
-    const mockClient = {} as Client;
-    const mockMetaData = 'meta1';
-    const mockTokenId = 'tokenId';
-    const mockSupplyKey = PrivateKey.fromString(myPrivateKey);
-    const mockAmount = 10;
-    const mockBatchSize = 2;
-
     (mintToken as jest.Mock).mockResolvedValueOnce({
-      serials: Array.from({ length: mockAmount }, (_, i) => ({
+      serials: Array.from({ length: 10 }, (_, i) => ({
         toNumber: () => i + 1,
       })),
     });
 
     const result = await mintSharedMetadataFunction({
-      client: mockClient,
-      metaData: mockMetaData,
-      tokenId: mockTokenId,
-      supplyKey: mockSupplyKey,
-      amount: mockAmount,
-      batchSize: mockBatchSize,
+      client: MOCK_CLIENT,
+      metaData: MOCK_META_DATA,
+      tokenId: MOCK_TOKEN_ID,
+      supplyKey: MOCK_SUPPLY_KEY,
+      amount: 10,
+      batchSize: 2,
     });
 
     expect(result).toHaveLength(10);
-    expect(result).toEqual(expect.arrayContaining([{ content: mockMetaData, serialNumber: 1 }]));
-    expect((mintToken as jest.Mock).mock.calls.length).toBe(Math.ceil(mockAmount / mockBatchSize));
+    expect(result).toEqual(expect.arrayContaining([{ content: MOCK_META_DATA, serialNumber: 1 }]));
+    expect((mintToken as jest.Mock).mock.calls.length).toBe(Math.ceil(10 / 2));
   });
 
   it('should handle amount less than batchSize correctly', async () => {
-    const mockClient = {} as Client;
-    const mockMetaData = 'meta1';
-    const mockTokenId = 'tokenId';
-    const mockSupplyKey = PrivateKey.fromString(myPrivateKey);
-    const mockAmount = 1;
-    const mockBatchSize = 2;
-
     (mintToken as jest.Mock).mockResolvedValueOnce({
-      serials: Array.from({ length: mockAmount }, (_, i) => ({
+      serials: Array.from({ length: 1 }, (_, i) => ({
         toNumber: () => i + 1,
       })),
     });
 
     const result = await mintSharedMetadataFunction({
-      client: mockClient,
-      metaData: mockMetaData,
-      tokenId: mockTokenId,
-      supplyKey: mockSupplyKey,
-      amount: mockAmount,
-      batchSize: mockBatchSize,
+      client: MOCK_CLIENT,
+      metaData: MOCK_META_DATA,
+      tokenId: MOCK_TOKEN_ID,
+      supplyKey: MOCK_SUPPLY_KEY,
+      amount: 1,
+      batchSize: 2,
     });
 
-    expect(result).toEqual(expect.arrayContaining([{ content: mockMetaData, serialNumber: 1 }]));
-    expect((mintToken as jest.Mock).mock.calls.length).toBe(Math.ceil(mockAmount / mockBatchSize));
+    expect(result).toEqual(expect.arrayContaining([{ content: MOCK_META_DATA, serialNumber: 1 }]));
+    expect((mintToken as jest.Mock).mock.calls.length).toBe(Math.ceil(1 / 2));
   });
 
   it('should handle batchSize of 1 correctly', async () => {
-    const mockClient = {} as Client;
-    const mockMetaData = 'meta1';
-    const mockTokenId = 'tokenId';
-    const mockSupplyKey = PrivateKey.fromString(myPrivateKey);
-    const mockAmount = 1;
-    const mockBatchSize = 1;
-
     (mintToken as jest.Mock).mockResolvedValueOnce({
-      serials: Array.from({ length: mockAmount }, (_, i) => ({
+      serials: Array.from({ length: 1 }, (_, i) => ({
         toNumber: () => i + 1,
       })),
     });
 
     const result = await mintSharedMetadataFunction({
-      client: mockClient,
-      metaData: mockMetaData,
-      tokenId: mockTokenId,
-      supplyKey: mockSupplyKey,
-      amount: mockAmount,
-      batchSize: mockBatchSize,
+      client: MOCK_CLIENT,
+      metaData: MOCK_META_DATA,
+      tokenId: MOCK_TOKEN_ID,
+      supplyKey: MOCK_SUPPLY_KEY,
+      amount: 1,
+      batchSize: 1,
     });
 
-    expect(result).toEqual(expect.arrayContaining([{ content: mockMetaData, serialNumber: 1 }]));
-    expect((mintToken as jest.Mock).mock.calls.length).toBe(Math.ceil(mockAmount / mockBatchSize));
+    expect(result).toEqual(expect.arrayContaining([{ content: MOCK_META_DATA, serialNumber: 1 }]));
+    expect((mintToken as jest.Mock).mock.calls.length).toBe(Math.ceil(1 / 1));
   });
 
   it('should handle batchSize of 10 correctly', async () => {
-    const mockClient = {} as Client;
-    const mockMetaData = 'meta1';
-    const mockTokenId = 'tokenId';
-    const mockSupplyKey = PrivateKey.fromString(myPrivateKey);
-    const mockAmount = 10;
-    const mockBatchSize = 10;
-
     (mintToken as jest.Mock).mockResolvedValueOnce({
-      serials: Array.from({ length: mockAmount }, (_, i) => ({
+      serials: Array.from({ length: 10 }, (_, i) => ({
         toNumber: () => i + 1,
       })),
     });
 
     const result = await mintSharedMetadataFunction({
-      client: mockClient,
-      metaData: mockMetaData,
-      tokenId: mockTokenId,
-      supplyKey: mockSupplyKey,
-      amount: mockAmount,
-      batchSize: mockBatchSize,
+      client: MOCK_CLIENT,
+      metaData: MOCK_META_DATA,
+      tokenId: MOCK_TOKEN_ID,
+      supplyKey: MOCK_SUPPLY_KEY,
+      amount: 10,
+      batchSize: 10,
     });
     expect(result).toHaveLength(10);
-    expect(result).toEqual(expect.arrayContaining([{ content: mockMetaData, serialNumber: 1 }]));
-    expect((mintToken as jest.Mock).mock.calls.length).toBe(Math.ceil(mockAmount / mockBatchSize));
+    expect(result).toEqual(expect.arrayContaining([{ content: MOCK_META_DATA, serialNumber: 1 }]));
+    expect((mintToken as jest.Mock).mock.calls.length).toBe(Math.ceil(10 / 10));
   });
 
   it('should handle error when batchSize is lower than 1', async () => {
-    const mockClient = {} as Client;
-    const mockMetaData = 'meta1';
-    const mockTokenId = 'tokenId';
-    const mockSupplyKey = PrivateKey.fromString(myPrivateKey);
-    const mockAmount = 1;
-    const mockBatchSize = -1;
-
     (mintToken as jest.Mock).mockResolvedValueOnce({
-      serials: Array.from({ length: mockAmount }, (_, i) => ({
+      serials: Array.from({ length: 1 }, (_, i) => ({
         toNumber: () => i + 1,
       })),
     });
     await expect(
       mintSharedMetadataFunction({
-        client: mockClient,
-        metaData: mockMetaData,
-        tokenId: mockTokenId,
-        supplyKey: mockSupplyKey,
-        amount: mockAmount,
-        batchSize: mockBatchSize,
+        client: MOCK_CLIENT,
+        metaData: MOCK_META_DATA,
+        tokenId: MOCK_TOKEN_ID,
+        supplyKey: MOCK_SUPPLY_KEY,
+        amount: 1,
+        batchSize: -1,
       })
     ).rejects.toThrow(dictionary.hederaActions.minBatchSize);
   });
 
   it('should handle error when batchSize is higher than 10', async () => {
-    const mockClient = {} as Client;
-    const mockMetaData = 'meta1';
-    const mockTokenId = 'tokenId';
-    const mockSupplyKey = PrivateKey.fromString(myPrivateKey);
-    const mockAmount = 1;
-    const mockBatchSize = 11;
-
     (mintToken as jest.Mock).mockResolvedValueOnce({
-      serials: Array.from({ length: mockAmount }, (_, i) => ({
+      serials: Array.from({ length: 1 }, (_, i) => ({
         toNumber: () => i + 1,
       })),
     });
 
     await expect(
       mintSharedMetadataFunction({
-        client: mockClient,
-        metaData: mockMetaData,
-        tokenId: mockTokenId,
-        supplyKey: mockSupplyKey,
-        amount: mockAmount,
-        batchSize: mockBatchSize,
+        client: MOCK_CLIENT,
+        metaData: MOCK_META_DATA,
+        tokenId: MOCK_TOKEN_ID,
+        supplyKey: MOCK_SUPPLY_KEY,
+        amount: 1,
+        batchSize: 11,
       })
     ).rejects.toThrow(dictionary.hederaActions.maxBatchSize);
   });
 
   it('should handle error when metaData is not passed', async () => {
-    const mockClient = {} as Client;
-    const mockMetaData = '';
-    const mockTokenId = 'tokenId';
-    const mockSupplyKey = PrivateKey.fromString(myPrivateKey);
-    const mockAmount = 1;
-    const mockBatchSize = 10;
-
     (mintToken as jest.Mock).mockResolvedValueOnce({
-      serials: Array.from({ length: mockAmount }, (_, i) => ({
+      serials: Array.from({ length: 1 }, (_, i) => ({
         toNumber: () => i + 1,
       })),
     });
     await expect(
       mintSharedMetadataFunction({
-        client: mockClient,
-        metaData: mockMetaData,
-        tokenId: mockTokenId,
-        supplyKey: mockSupplyKey,
-        amount: mockAmount,
-        batchSize: mockBatchSize,
+        client: MOCK_CLIENT,
+        metaData: '',
+        tokenId: MOCK_TOKEN_ID,
+        supplyKey: MOCK_SUPPLY_KEY,
+        amount: 1,
+        batchSize: 10,
       })
     ).rejects.toThrow(dictionary.hederaActions.metadataRequired);
   });
 
   it('should handle error when tokenId is not passed', async () => {
-    const mockClient = {} as Client;
-    const mockMetaData = 'meta1';
-    const mockTokenId = '';
-    const mockSupplyKey = PrivateKey.fromString(myPrivateKey);
-    const mockAmount = 1;
-    const mockBatchSize = 10;
-
     (mintToken as jest.Mock).mockResolvedValueOnce({
-      serials: Array.from({ length: mockAmount }, (_, i) => ({
+      serials: Array.from({ length: 1 }, (_, i) => ({
         toNumber: () => i + 1,
       })),
     });
     await expect(
       mintSharedMetadataFunction({
-        client: mockClient,
-        metaData: mockMetaData,
-        tokenId: mockTokenId,
-        supplyKey: mockSupplyKey,
-        amount: mockAmount,
-        batchSize: mockBatchSize,
+        client: MOCK_CLIENT,
+        metaData: MOCK_META_DATA,
+        tokenId: '',
+        supplyKey: MOCK_SUPPLY_KEY,
+        amount: 1,
+        batchSize: 10,
       })
-    ).rejects.toThrow(dictionary.hederaActions.tokenIdRequired);
+    ).rejects.toThrow(dictionary.hederaActions.cannotParseTokenId);
   });
 });

@@ -65,7 +65,7 @@ describe('mintUniqueMetadataFunction', () => {
 
     const input: MintUniqueTokenType = {
       client: mockClient,
-      tokenId: 'mockTokenId',
+      tokenId: '0.0.123',
       batchSize: 5,
       pathToMetadataURIsFile: 'mockPath',
       supplyKey: supplyKey,
@@ -79,7 +79,7 @@ describe('mintUniqueMetadataFunction', () => {
     ]);
     expect(fs.createReadStream).toHaveBeenCalledWith('mockPath');
     expect(mintToken).toHaveBeenCalledTimes(1);
-    expect(mintToken).toHaveBeenNthCalledWith(1, ['url1', 'url2'], 'mockTokenId', supplyKey, {});
+    expect(mintToken).toHaveBeenNthCalledWith(1, ['url1', 'url2'], '0.0.123', supplyKey, {});
   });
 
   it('should return success metadata when given valid input from array', async () => {
@@ -94,7 +94,7 @@ describe('mintUniqueMetadataFunction', () => {
 
     const input: MintUniqueTokenType = {
       client: mockClient,
-      tokenId: 'mockTokenId',
+      tokenId: '0.0.123',
       batchSize: 5,
       supplyKey: supplyKey,
       metadataArray: ['url5', 'url3'],
@@ -107,6 +107,6 @@ describe('mintUniqueMetadataFunction', () => {
       { content: 'url3', serialNumber: 2 },
     ]);
     expect(mintToken).toHaveBeenCalledTimes(1);
-    expect(mintToken).toHaveBeenNthCalledWith(1, ['url5', 'url3'], 'mockTokenId', supplyKey, {});
+    expect(mintToken).toHaveBeenNthCalledWith(1, ['url5', 'url3'], '0.0.123', supplyKey, {});
   });
 });

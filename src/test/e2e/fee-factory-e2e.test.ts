@@ -143,6 +143,6 @@ describe('feeFactory', () => {
         collectionSymbol: 'test_symbol',
         customFees: [fixedFee, fixedFee, fixedFee, fixedFee, fixedFee, fixedFee, fixedFee, fixedFee, fixedFee, fixedFee, fixedFee],
       })
-    ).rejects.toThrow(dictionary.createCollection.tooManyCustomFees);
+    ).rejects.toThrow(dictionary.hederaActions.tooManyCustomFees);
   });
 });

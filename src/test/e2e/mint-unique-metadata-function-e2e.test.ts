@@ -131,6 +131,6 @@ describe('mintUniqueMetadata function e2e', () => {
         supplyKey: PrivateKey.fromString(operatorPrivateKey),
         pathToMetadataURIsFile: pathToRowCSV,
       })
-    ).rejects.toThrow(dictionary.hederaActions.mintingError);
+    ).rejects.toThrow(dictionary.hederaActions.cannotParseTokenId);
   });
 });
