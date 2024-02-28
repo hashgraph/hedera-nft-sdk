@@ -22,10 +22,6 @@ import { myAccountId, mySecondAccountId } from '../__mocks__/consts';
 import { CustomFixedFee, CustomRoyaltyFee, TokenInfoQuery } from '@hashgraph/sdk';
 import { dictionary } from '../../utils/constants/dictionary';
 
-afterAll(async () => {
-  nftSDK.client.close();
-});
-
 describe('feeFactory', () => {
   it('creates a collection with fixedFee', async () => {
     const fixedFee = feeFactoryInstance.fixedFee({
@@ -43,7 +39,7 @@ describe('feeFactory', () => {
     const query = new TokenInfoQuery().setTokenId(tokenId);
     const tokenInfo = await query.execute(nftSDK.client);
     const customFees = tokenInfo.customFees;
-    let customFeeAccId = undefined;
+    let customFeeAccId = '';
 
     if (customFees.length > 0 && customFees[0] instanceof CustomFixedFee) {
       customFeeAccId = customFees[0]._feeCollectorAccountId!.toString();

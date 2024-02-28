@@ -35,10 +35,6 @@ const isWithinThreePercent = (estimatedHbarsValue: number, transactionFeeHbars: 
   return difference <= acceptableDifference;
 };
 
-afterAll(async () => {
-  nftSDK.client.close();
-});
-
 describe('estimateCreateCollectionInHbarE2E', () => {
   it('should work properly with default values', async () => {
     const name = 'test';

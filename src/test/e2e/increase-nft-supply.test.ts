@@ -21,10 +21,6 @@ import { LONG_E2E_TIMEOUT, MIRROR_NODE_DELAY } from '../__mocks__/consts';
 import { nftSDK, operatorPrivateKey } from './e2e-consts';
 import { NftId, PrivateKey, TokenId, TokenNftInfoQuery } from '@hashgraph/sdk';
 
-afterAll(async () => {
-  nftSDK.client.close();
-});
-
 describe('increaseNFTSupply function e2e', () => {
   const testCases = [{ amount: 1 }, { amount: 3 }, { amount: 10 }];
 

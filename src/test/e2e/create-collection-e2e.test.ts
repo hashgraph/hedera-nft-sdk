@@ -23,10 +23,6 @@ import { LONG_E2E_TIMEOUT } from '../__mocks__/consts';
 import { getTokenInfo } from '../../utils/hedera/get-token-info';
 import { add, milliseconds, millisecondsToSeconds } from 'date-fns';
 
-afterAll(async () => {
-  nftSDK.client.close();
-});
-
 describe('createCollectionFunction e2e', () => {
   it('creates a collection', async () => {
     const tokenId = await nftSDK.createCollection({

@@ -11,10 +11,6 @@ import {
 } from './e2e-consts';
 import { LONG_E2E_TIMEOUT, MIRROR_NODE_DELAY } from '../__mocks__/consts';
 
-afterAll(async () => {
-  nftSDK.client.close();
-});
-
 describe('E2E test for validating shared NFT Collection Metadata Against HIP412 schema', () => {
   let tokenId: string;
 

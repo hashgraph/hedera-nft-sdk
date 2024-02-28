@@ -25,9 +25,10 @@
   "scripts": {
     "lint": "eslint . --ext .ts,.js",
     "fix": "eslint . --ext .ts,.js --fix",
-    "test": "jest --testPathIgnorePatterns=\"<rootDir>/src/test/e2e/\"",
-    "test:e2e": "jest src/test/e2e --verbose",
-    "test:single": "jest --testPathPattern",
+    "test": "jest --config jest.config.ts",
+    "test:e2e": "jest --config jest.config.e2e.ts",
+    "test:single": "jest --config jest.config.ts --testPathPattern",
+    "test:single-e2e": "jest --config jest.config.e2e.ts --testPathPattern",
     "test-output": "jest --ci --reporters=default --reporters=jest-junit",
     "build": "rm -rf dist/ && npm run fix && npm run build:cjs && npm run build:esm && cp -r src/types dist/types && cp -r src/types dist/cjs/types",
     "build:esm": "tsc",

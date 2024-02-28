@@ -22,10 +22,6 @@ import { LONG_E2E_TIMEOUT, pathToOneLineCSV, pathToRowCSV } from '../__mocks__/c
 import { NftId, PrivateKey, TokenId, TokenNftInfoQuery } from '@hashgraph/sdk';
 import { dictionary } from '../../utils/constants/dictionary';
 
-afterAll(async () => {
-  nftSDK.client.close();
-});
-
 describe('mintUniqueMetadata function e2e', () => {
   it(
     'Mints unique metadata from csv with one line and commas',
