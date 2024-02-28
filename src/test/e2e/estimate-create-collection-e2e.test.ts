@@ -21,6 +21,8 @@ import { nftSDK, operatorAccountId, operatorPrivateKey } from './e2e-consts';
 import { estimateCreateCollectionInHbar } from '../../nftSDKFunctions/estimate-create-collection-in-hbar';
 import { Hbar, PrivateKey, TokenCreateTransaction, TokenType } from '@hashgraph/sdk';
 
+const ACCEPTABLE_DIFFERENCE_PERCENT = 0.01;
+
 const toFixedWithoutRounding = (number: number, precision: number) => {
   const scale = Math.pow(10, precision);
   return Math.floor(number * scale) / scale;
@@ -28,7 +30,7 @@ const toFixedWithoutRounding = (number: number, precision: number) => {
 
 const isWithinThreePercent = (estimatedHbarsValue: number, transactionFeeHbars: number): boolean => {
   const difference = Math.abs(transactionFeeHbars - estimatedHbarsValue);
-  const acceptableDifference = Math.abs(transactionFeeHbars * 0.03);
+  const acceptableDifference = Math.abs(transactionFeeHbars * ACCEPTABLE_DIFFERENCE_PERCENT);
 
   return difference <= acceptableDifference;
 };
