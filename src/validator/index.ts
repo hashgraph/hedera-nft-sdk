@@ -17,18 +17,13 @@
  * limitations under the License.
  *
  */
-import {
-  schemaValidator,
-  attributesValidator,
-  localizationValidator,
-  SHA256Validator,
-} from './validators';
+import { schemaValidator, attributesValidator, localizationValidator, SHA256Validator } from './validators';
 
 import token_metadata_1_0_0 from './schemas/HIP10@1.0.0';
 import token_metadata_2_0_0 from './schemas/HIP412@2.0.0';
 const defaultSchemaVersion = '2.0.0';
 
-import { Schema, Instance, Error } from '../types/validator.module';
+import { Schema, Instance, Error } from '../types/validator';
 
 class Validator {
   private schemaMap: Map<string, Object>;
@@ -66,11 +61,7 @@ class Validator {
       };
     }
 
-    const errors = [
-      ...attributesValidator(instance),
-      ...localizationValidator(instance),
-      ...SHA256Validator(instance),
-    ];
+    const errors = [...attributesValidator(instance), ...localizationValidator(instance), ...SHA256Validator(instance)];
 
     return {
       errors,

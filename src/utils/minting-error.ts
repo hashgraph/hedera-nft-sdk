@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import { MintedNFTType } from '../types/mint-token.module';
+import { MintedNFTType } from '../types/mint-token';
 
 export class MintingError extends Error {
   mintedNFTs: MintedNFTType[];

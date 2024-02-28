@@ -18,7 +18,7 @@
  *
  */
 import { validatePropsForIncreaseNFTSupply } from '../utils/validate-props';
-import { IncreaseNFTSupplyType } from '../types/mint-token.module';
+import { IncreaseNFTSupplyType } from '../types/mint-token';
 import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
 import { getMetaDataFromMirrorNode } from '../api/mirror-node';
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';

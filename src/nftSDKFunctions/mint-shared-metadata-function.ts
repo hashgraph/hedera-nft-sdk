@@ -18,7 +18,7 @@
  *
  */
 import { dictionary } from '../utils/constants/dictionary';
-import { MintedNFTType, MintTokenType } from '../types/mint-token.module';
+import { MintedNFTType, MintTokenType } from '../types/mint-token';
 import { validatePropsForSharedNFTMinting } from '../utils/validate-props';
 import { MintingError } from '../utils/minting-error';
 import { mintToken } from './mint-token';

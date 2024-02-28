@@ -18,7 +18,7 @@
  *
  */
 import { CustomFixedFee, Hbar } from '@hashgraph/sdk';
-import { FixedFeeType } from '../types/fees.module';
+import { FixedFeeType } from '../types/fees';
 import { validatePropsForFixedFeeFunction } from '../utils/validate-props';
 
 export const createFixedFeeFunction = ({

@@ -18,7 +18,8 @@
  *
  */
 
-import { Client, NftId, PrivateKey, NetworkName } from '@hashgraph/sdk';
+import { Client, NftId, PrivateKey } from '@hashgraph/sdk';
+import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 
 export type MintUniqueTokenType = {
   client: Client;

@@ -19,7 +19,7 @@
  */
 import { TokenCreateUsage, TokenCreateWithFeesUsage } from '../types/estimate-create-collection';
 import { CustomFixedFee, CustomRoyaltyFee } from '@hashgraph/sdk';
-import { CustomFeeType } from '../types/create-collection.module';
+import { CustomFeeType } from '../types/create-collection';
 
 export const getTokenCreateWithFeesUsage = ({
   customFees,

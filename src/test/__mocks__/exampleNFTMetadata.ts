@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import { NFTMetadata } from '../../types/nft-metadata.module';
+import { NFTMetadata } from '../../types/nft-metadata';
 
 export const exampleNFTMetadata: NFTMetadata = {
   name: 'Example NFT 001',

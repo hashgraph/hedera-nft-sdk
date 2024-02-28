@@ -20,7 +20,7 @@
 import { Client, PrivateKey, TokenId } from '@hashgraph/sdk';
 import axios from 'axios';
 import { increaseNFTSupply } from '../../nftSDKFunctions/increase-nft-supply';
-import { IncreaseNFTSupplyType } from '../../types/mint-token.module';
+import { IncreaseNFTSupplyType } from '../../types/mint-token';
 import { validatePropsForIncreaseNFTSupply } from '../../utils/validate-props';
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 

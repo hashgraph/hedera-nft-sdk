@@ -18,7 +18,7 @@
  *
  */
 import { uriDecoder } from '../../helpers/uri-decoder';
-import { NFTDetails, DecodedMetadata } from '../../types/nfts.module';
+import { NFTDetails, DecodedMetadata } from '../../types/nfts';
 import { EXAMPLE_IPFS_GATEWAY, HASH_WITHOUT_IPFS_PREFIX, IPFS_PREFIXED_HASH, HTTPS_URL } from '../__mocks__/consts';
 
 const generateNFTDetails = (metadata: string, serialNumber: number) => ({

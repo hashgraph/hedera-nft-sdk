@@ -19,7 +19,7 @@
  */
 
 import axios from 'axios';
-import { Metadata, RiskResult, Weights, KeyTypes, RiskLevels, RiskLevel } from '../types/risk.module';
+import { Metadata, RiskResult, Weights, KeyTypes, RiskLevels, RiskLevel } from '../types/risk';
 import { getMirrorNodeUrlForNetwork } from '../utils/hedera/get-mirror-node-url-for-network';
 
 type Network = 'mainnet' | 'testnet' | 'previewnet' | 'localNode';

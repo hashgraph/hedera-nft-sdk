@@ -19,7 +19,7 @@
  */
 import { dictionary } from '../../utils/constants/dictionary';
 import { myAccountId } from '../__mocks__/consts';
-import { FixedFeeType } from '../../types/fees.module';
+import { FixedFeeType } from '../../types/fees';
 import { createFixedFeeFunction } from '../../nftSDKFunctions/create-fixed-fee-function';
 
 describe('createFixedFeeFunction', () => {

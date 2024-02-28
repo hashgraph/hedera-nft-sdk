@@ -20,7 +20,7 @@
 import fs from 'fs';
 import { NFTS_LIMIT_ERROR } from './utils/constants/nfts-limit-error';
 import { dictionary } from './utils/constants/dictionary';
-import type { CSVRow } from './types/csv.module';
+import type { CSVRow } from './types/csv';
 import csvParser from 'csv-parser';
 import { selectSeparator } from './helpers/select-separator';
 

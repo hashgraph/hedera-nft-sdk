@@ -18,7 +18,7 @@
  *
  */
 import axios from 'axios';
-import { NFTDetails } from '../../types/nfts.module';
+import { NFTDetails } from '../../types/nfts';
 import { Hip412Validator } from '../../hip412-validator';
 import { EXAMPLE_IPFS_GATEWAY } from '../__mocks__/consts';
 import { NETWORK } from '../__mocks__/consts';

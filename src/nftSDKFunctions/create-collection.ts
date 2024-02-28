@@ -19,7 +19,7 @@
  */
 import { AccountId, PrivateKey, TokenCreateTransaction, TokenSupplyType, TokenType } from '@hashgraph/sdk';
 import { dictionary } from '../utils/constants/dictionary';
-import { CreateCollectionType } from '../types/create-collection.module';
+import { CreateCollectionType } from '../types/create-collection';
 import { validatePropsForCreateCollection } from '../utils/validate-props';
 
 export const createCollectionFunction = async ({
@@ -36,7 +36,7 @@ export const createCollectionFunction = async ({
   autoRenewAccount,
   autoRenewAccountPrivateKey,
   autoRenewPeriod,
-  memo
+  memo,
 }: CreateCollectionType): Promise<string> => {
   validatePropsForCreateCollection({
     collectionName,
@@ -48,7 +48,7 @@ export const createCollectionFunction = async ({
     autoRenewAccount,
     autoRenewAccountPrivateKey,
     autoRenewPeriod,
-    memo
+    memo,
   });
 
   const treasuryAccountId = treasuryAccount ? AccountId.fromString(treasuryAccount) : client.getOperator()!.accountId;

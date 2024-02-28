@@ -21,10 +21,10 @@ import fs from 'fs';
 import filter from 'lodash/filter';
 import isNull from 'lodash/isNull';
 import map from 'lodash/map';
-import { BufferFile } from '../types/buffer-file.module';
+import { BufferFile } from '../types/buffer-file';
 import { dictionary } from '../utils/constants/dictionary';
 import { errorToMessage } from '../helpers/error-to-message';
-import { NFTMetadata } from '../types/nft-metadata.module';
+import { NFTMetadata } from '../types/nft-metadata';
 import { FileStorage } from '../types/file-storage-service';
 
 export type FileStorageURL = `https://${string}/`;

@@ -18,7 +18,7 @@
  *
  */
 import { Client } from '@hashgraph/sdk';
-import { LogInType } from '../types/login.module';
+import { LogInType } from '../types/login';
 import { dictionary } from '../utils/constants/dictionary';
 
 export const logIn = ({ myAccountId, myPrivateKey, network, localNode, localMirrorNode }: LogInType): Client => {

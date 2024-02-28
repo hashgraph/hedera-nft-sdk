@@ -18,7 +18,7 @@
  *
  */
 import { isImageFile } from '../../helpers/is-image-file';
-import type { BufferFile } from '../../types/buffer-file.module';
+import type { BufferFile } from '../../types/buffer-file';
 import isString from 'lodash/isString';
 import omit from 'lodash/omit';
 import { type ZodTypeAny, z } from 'zod';

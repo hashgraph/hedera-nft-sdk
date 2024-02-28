@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import { NFTDetails, DecodedMetadata } from '../types/nfts.module';
+import { NFTDetails, DecodedMetadata } from '../types/nfts';
 import { decodeMetadataUrl } from './decode-metadata-url';
 
 export const uriDecoder = (nfts: NFTDetails | NFTDetails[], ipfsGateway?: string): DecodedMetadata[] => {

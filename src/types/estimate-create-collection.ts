@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import { CreateCollectionKeysType, CustomFeeType } from './create-collection.module';
+import { CreateCollectionKeysType, CustomFeeType } from './create-collection';
 
 export type UsageComponents = 'node' | 'network' | 'service';
 export type UsageKeys = 'constant' | 'bpt' | 'vpt' | 'rbh' | 'sbh' | 'gas' | 'bpr' | 'sbpr' | 'min' | 'max';
@@ -79,6 +79,12 @@ export interface FeeToolConfig {
 export interface HbarPrice {
   priceInDollars: number;
   timestamp: string;
+}
+
+interface Rate {
+  cent_equivalent: number;
+  expiration_time: number;
+  hbar_equivalent: number;
 }
 
 export interface HbarExchangeRate {

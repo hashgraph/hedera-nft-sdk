@@ -18,9 +18,9 @@
  *
  */
 import { JsonMetadataFromCSVConverter } from '../services/json-metadata-from-csv-converter';
-import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv.module';
+import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv';
 import { Hip412Validator } from '../hip412-validator';
-import { MetadataObject } from '../types/csv.module';
+import { MetadataObject } from '../types/csv';
 
 export const convertMetadataObjectsToJsonFiles = async ({
   metadataObjects,

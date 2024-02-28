@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import { RoyaltyFeeType } from '../../types/fees.module';
+import { RoyaltyFeeType } from '../../types/fees';
 import { myAccountId } from '../__mocks__/consts';
 import { createRoyaltyFeeFunction } from '../../nftSDKFunctions/create-royalty-fee-function';
 

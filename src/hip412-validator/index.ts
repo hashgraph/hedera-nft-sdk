@@ -23,7 +23,7 @@ import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 import { Hip412MetadataCSVSchema, Hip412MetadataSchema } from '../utils/validation-schemas/hip412-metadata-schema';
 import { validateObjectWithSchema, validationMetadataErrorOptions } from '../helpers/validate-object-with-schema';
 import { errorToMessage } from '../helpers/error-to-message';
-import { MetadataObject } from '../types/csv.module';
+import { MetadataObject } from '../types/csv';
 import { dictionary } from '../utils/constants/dictionary';
 import { REQUIRED } from '../utils/constants/nfts-limit-error';
 import { getMetadataObjectsForValidation, getNFTsFromToken, getSingleNFTDetails } from '../api/mirror-node';

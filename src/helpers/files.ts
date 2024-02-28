@@ -20,7 +20,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { Instance } from '../types/validator.module';
+import { Instance } from '../types/validator';
 
 /**
  * @param dir Absolute path to file you want to read contents for
@@ -56,7 +56,7 @@ export const getJSONFilesForDir = (dir: string): string[] => {
   files.forEach((file) => {
     if (path.extname(file.name) === '.json') JSONFiles.push(file.name);
   });
-  
+
   // eslint-disable-next-line no-console
   console.log(`Found ${JSONFiles.length} files with the .json extension`);
 

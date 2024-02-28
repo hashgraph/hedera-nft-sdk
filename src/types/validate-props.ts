@@ -17,8 +17,8 @@
  * limitations under the License.
  *
  */
-import { Client, PrivateKey } from '@hashgraph/sdk';
-import { CustomFeeType } from './create-collection.module';
+import { Client, NftId, PrivateKey } from '@hashgraph/sdk';
+import { CustomFeeType } from './create-collection';
 
 export type sharedMintingValidationProps = {
   batchSize: number;

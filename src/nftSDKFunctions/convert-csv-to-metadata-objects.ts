@@ -19,7 +19,7 @@
  */
 import { CSVFileReader } from '../csv-file-reader';
 import { JsonMetadataFromCSVConverter } from '../services/json-metadata-from-csv-converter';
-import { MetadataObject } from '../types/csv.module';
+import { MetadataObject } from '../types/csv';
 
 export const convertCSVToMetadataObjects = async (csvFilePath: string, limit?: number): Promise<MetadataObject[]> => {
   const csvParsedRows = await CSVFileReader.readCSVFile(csvFilePath, limit);

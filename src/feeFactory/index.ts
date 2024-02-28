@@ -18,7 +18,7 @@
  *
  */
 import { createFixedFeeFunction } from '../nftSDKFunctions/create-fixed-fee-function';
-import { FixedFeeType, RoyaltyFeeType } from '../types/fees.module';
+import { FixedFeeType, RoyaltyFeeType } from '../types/fees';
 import { CustomFixedFee, CustomRoyaltyFee } from '@hashgraph/sdk';
 import { createRoyaltyFeeFunction } from '../nftSDKFunctions/create-royalty-fee-function';
 

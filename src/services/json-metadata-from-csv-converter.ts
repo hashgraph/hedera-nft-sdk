@@ -20,7 +20,7 @@
 import fs from 'fs';
 import { dictionary } from '../utils/constants/dictionary';
 import { CSVFileReader } from '../csv-file-reader';
-import type { CSVRow, MetadataObject } from '../types/csv.module';
+import type { CSVRow, MetadataObject } from '../types/csv';
 
 const OMITTED_HEADER_COUNT = 1;
 

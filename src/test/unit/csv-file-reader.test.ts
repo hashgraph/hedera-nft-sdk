@@ -19,7 +19,7 @@
  */
 import fs from 'fs';
 import { CSVFileReader } from '../../csv-file-reader';
-import { CSVRow } from '../../types/csv.module';
+import { CSVRow } from '../../types/csv';
 import { Readable } from 'stream';
 
 jest.mock('fs');

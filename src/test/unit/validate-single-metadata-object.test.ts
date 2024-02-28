@@ -19,7 +19,7 @@
  */
 import { dictionary } from '../../utils/constants/dictionary';
 import { Hip412Validator } from '../../hip412-validator';
-import { MetadataObject } from '../../types/csv.module';
+import { MetadataObject } from '../../types/csv';
 
 const METADATA_OBJECT_WITH_ONLY_REQUIRED_FIELDS = {
   name: 'Example NFT 1',

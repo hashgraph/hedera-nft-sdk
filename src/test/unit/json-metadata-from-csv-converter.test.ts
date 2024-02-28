@@ -19,7 +19,7 @@
  */
 import fs from 'fs';
 import cloneDeep from 'lodash/cloneDeep';
-import { CSVRow, MetadataObject } from '../../types/csv.module';
+import { CSVRow, MetadataObject } from '../../types/csv';
 import { JsonMetadataFromCSVConverter } from '../../services/json-metadata-from-csv-converter';
 import {
   JSON_METADATA_UNIT_TESTS_OUTPUT_METADATA_FOLDER_PATH,

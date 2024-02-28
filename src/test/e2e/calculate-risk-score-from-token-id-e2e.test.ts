@@ -21,7 +21,7 @@ import { calculateRiskScoreFromTokenId } from '../../risk';
 import { PrivateKey } from '@hashgraph/sdk';
 import { nftSDK } from './e2e-consts';
 import { LONG_E2E_TIMEOUT, MIRROR_NODE_DELAY } from '../__mocks__/consts';
-import { RiskLevels, Weights } from '../../types/risk.module';
+import { RiskLevels, Weights } from '../../types/risk';
 
 describe('calculateRiskScoreFromTokenIdE2E', () => {
   let supplyKey: PrivateKey;

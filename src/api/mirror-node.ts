@@ -19,8 +19,8 @@
  */
 import { NftId } from '@hashgraph/sdk';
 import axios from 'axios';
-import { NFTDetails, NFTS } from '../types/nfts.module';
-import { MetadataObject } from '../types/csv.module';
+import { NFTDetails, NFTS } from '../types/nfts';
+import { MetadataObject } from '../types/csv';
 import { dictionary } from '../utils/constants/dictionary';
 import { errorToMessage } from '../helpers/error-to-message';
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';

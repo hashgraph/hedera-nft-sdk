@@ -18,7 +18,7 @@
  *
  */
 import { calculateRiskScoreFromData } from '../../risk';
-import { Metadata, RiskLevels, Weights } from '../../types/risk.module';
+import { Metadata, RiskLevels, Weights } from '../../types/risk';
 
 const metadata: Metadata = {
   supply_type: 'testSupply',

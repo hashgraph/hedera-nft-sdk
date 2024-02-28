@@ -17,15 +17,15 @@
  * limitations under the License.
  *
  */
+import type { BufferFile } from './buffer-file';
 
-import { AccountId, NetworkName } from '@hashgraph/sdk';
+export interface CSVRow {
+  [key: string]: string;
+}
 
-export type LocalNode = { [key: string]: string | AccountId };
+export type AttributeObjectFromCSVFile = Record<string, string | number | boolean | undefined>[];
+export type PropertyFromCSVFile = Record<string, string>;
 
-export type LogInType = {
-  myAccountId: string;
-  myPrivateKey: string;
-  network: NetworkName;
-  localNode?: LocalNode;
-  localMirrorNode?: string;
-};
+export interface MetadataObject {
+  [key: string]: string | AttributeObjectFromCSVFile | PropertyFromCSVFile | undefined | BufferFile;
+}

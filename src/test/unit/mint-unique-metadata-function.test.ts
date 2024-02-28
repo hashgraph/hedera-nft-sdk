@@ -18,7 +18,7 @@
  *
  */
 import * as fs from 'fs';
-import { MintUniqueTokenType } from '../../types/mint-token.module';
+import { MintUniqueTokenType } from '../../types/mint-token';
 import { mintUniqueMetadataFunction } from '../../nftSDKFunctions/mint-unique-metadata-function';
 import { Client, PrivateKey } from '@hashgraph/sdk';
 import { myPrivateKey } from '../__mocks__/consts';

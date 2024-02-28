@@ -20,7 +20,7 @@
 import { calculateRiskScoreFromTokenId } from '../../risk';
 import axios from 'axios';
 import { exampleMetadata, metadataWihAllKeysProvided } from '../__mocks__/exampleMetadata';
-import { RiskLevels, Weights } from '../../types/risk.module';
+import { RiskLevels, Weights } from '../../types/risk';
 
 jest.mock('axios');
 

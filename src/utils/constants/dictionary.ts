@@ -43,6 +43,12 @@ export const dictionary = {
     ipfsFailedToFetch: 'Failed to fetch metadata using IPFS gateway',
     tooManyRequests: (statusText: string, status: number) => `${statusText}. Status code: ${status}`,
     unknownErrorWhileFetching: (serialNumber: number) => `Error fetching metadata for serialNumber ${serialNumber}`,
+    localization: {
+      defaultLocaleTwoLetterLanguageCode: 'Default locale should be two-letter language code, got',
+      localeTwoLetterLanguageCode: 'Locale should be two-letter language code, got',
+      defaultLocaleShouldNotAppear: "Default locale should not appear in 'localization.locales'",
+      wrongUriFormat: 'URI should be of format <protocol>://<hash>/{locale}.json',
+    },
   },
   createCollection: {
     myPrivateKeyRequired: 'myPrivateKey is required',

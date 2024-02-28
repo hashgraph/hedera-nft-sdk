@@ -25,7 +25,7 @@ import {
   fixedFeeValidationProps,
   royaltyFeeValidationProps,
   increaseNFTSupplyValidationProps,
-} from '../types/validate-props.module';
+} from '../types/validate-props';
 import { dictionary } from './constants/dictionary';
 
 const MAX_CUSTOM_FEES_NUMBER = 10;
