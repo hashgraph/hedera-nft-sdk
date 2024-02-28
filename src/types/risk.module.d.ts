@@ -38,6 +38,7 @@ export interface Weights {
 
 export type KeyTypes = keyof WeightKeys;
 
+export type RiskLevel = 'NORISK' | 'LOW' | 'MEDIUM' | 'HIGH';
 export interface RiskLevels {
   NORISK: number;
   LOW: number;

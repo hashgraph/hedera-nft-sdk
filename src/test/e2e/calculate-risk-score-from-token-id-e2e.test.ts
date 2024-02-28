@@ -21,26 +21,87 @@ import { calculateRiskScoreFromTokenId } from '../../risk';
 import { PrivateKey } from '@hashgraph/sdk';
 import { nftSDK } from './e2e-consts';
 import { LONG_E2E_TIMEOUT, MIRROR_NODE_DELAY } from '../__mocks__/consts';
+import { RiskLevels, Weights } from '../../types/risk.module';
 
 describe('calculateRiskScoreFromTokenIdE2E', () => {
+  let supplyKey: PrivateKey;
+  let tokenId: string;
+  beforeAll(async () => {
+    supplyKey = PrivateKey.generateED25519();
+    tokenId = await nftSDK.createCollection({
+      collectionName: 'test_name_admin',
+      collectionSymbol: 'test_symbol_admin',
+      keys: {
+        supply: supplyKey,
+      },
+    });
+
+    await new Promise((resolve) => setTimeout(resolve, MIRROR_NODE_DELAY));
+  }, LONG_E2E_TIMEOUT);
+
   it(
     'should calculate risk score for a given token ID',
     async () => {
-      const supplyKey = PrivateKey.generateED25519();
-      const tokenId = await nftSDK.createCollection({
-        collectionName: 'test_name_admin',
-        collectionSymbol: 'test_symbol_admin',
-        keys: {
-          supply: supplyKey,
-        },
-      });
-
-      // Wait for the token to be created and metadata to be available. Otherwise, it will throw 404
-      await new Promise((resolve) => setTimeout(resolve, MIRROR_NODE_DELAY));
       const riskResults = await calculateRiskScoreFromTokenId({ tokenId, network: 'testnet' });
-
       expect(riskResults.riskScore).toBe(40);
       expect(riskResults.riskLevel).toBe('LOW');
+    },
+    LONG_E2E_TIMEOUT
+  );
+
+  it(
+    'should calculate risk score for a given token ID with customWeights parameter',
+    async () => {
+      const customWeights: Weights = {
+        keys: {
+          admin_key: 20,
+          wipe_key: 20,
+          freeze_key: 5,
+          supply_key: 2,
+          kyc_key: 5,
+          pause_key: 5,
+          fee_schedule_key: 4,
+        },
+        properties: {
+          supply_type_infinite: 20,
+        },
+      };
+
+      const riskResults = await calculateRiskScoreFromTokenId({ tokenId, network: 'testnet', customWeights });
+      expect(riskResults.riskScore).toBe(22);
+      expect(riskResults.riskLevel).toBe('LOW');
+    },
+    LONG_E2E_TIMEOUT
+  );
+
+  it(
+    'should calculate risk score for a given token ID with customWeights and customRiskLevels parameters',
+    async () => {
+      const customWeights: Weights = {
+        keys: {
+          admin_key: 200,
+          wipe_key: 200,
+          freeze_key: 50,
+          supply_key: 20,
+          kyc_key: 50,
+          pause_key: 50,
+          fee_schedule_key: 40,
+        },
+        properties: {
+          supply_type_infinite: 200,
+        },
+      };
+
+      const customRiskLevels: RiskLevels = {
+        NORISK: 5,
+        LOW: 60,
+        MEDIUM: 100,
+        HIGH: 200,
+      };
+
+      const riskResults = await calculateRiskScoreFromTokenId({ tokenId, network: 'testnet', customWeights, customRiskLevels });
+      expect(riskResults.riskScore).toBe(220);
+      expect(riskResults.riskLevel).toBe('HIGH');
     },
     LONG_E2E_TIMEOUT
   );
