@@ -23,6 +23,7 @@ import { LONG_E2E_TIMEOUT } from '../../__mocks__/consts';
 import { mintToken } from '../../../nftSDKFunctions/mint-token';
 import { estimateNftMintingInHbar } from '../../../nftSDKFunctions/estimate-nft-minting-in-hbar';
 import { AVERAGE_COST_OF_MINT_1_AVERAGE_METADATA_JSON } from '../../../utils/constants/minting';
+import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
 
 describe('mintSharedMetadata function e2e', () => {
   const testCases = [{ amount: 1 }, { amount: 3 }, { amount: 10 }];
@@ -39,7 +40,7 @@ describe('mintSharedMetadata function e2e', () => {
         const mintTokenReceipt = await mintToken(
           new Array(amount).fill('www.youtube.com'),
           tokenId,
-          PrivateKey.fromString(operatorPrivateKey),
+          getPrivateKeyFromString(operatorPrivateKey),
           nftSDK.client
         );
         const exchangeRateInDollars = mintTokenReceipt.exchangeRate!.exchangeRateInCents / 100;

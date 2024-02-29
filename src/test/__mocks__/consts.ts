@@ -23,6 +23,8 @@ export const myAccountId = '0.0.12345';
 export const mySecondAccountId = '0.0.123';
 export const myPrivateKey = '123e020100300506032b657004220420f8e9f8de8f7e06f7e9f8de8f7e06f7e9f8de8f7e06f7e9f8de8f7e06f7e9f8de';
 
+export const mySecondPrivateKey = '1230020100300706052b8104000a042204206fc9f9a2aa45924d617effa5778afd2a617cef8f1b527fe50d96042731df6b42';
+
 export const pathToOneLineCSV = 'src/test/__mocks__/csv/csv-example-one-line.csv';
 export const pathToRowCSV = 'src/test/__mocks__/csv/csv-example-rows.csv';
 export const CSV_EXAMPLE_INVALID_HEADERS = 'src/test/__mocks__/csv/csv-example-invalid-headers.csv';

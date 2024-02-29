@@ -23,6 +23,7 @@ import { mintUniqueMetadataFunction } from '../../../nftSDKFunctions/mint-unique
 import { Client, PrivateKey } from '@hashgraph/sdk';
 import { myPrivateKey } from '../../__mocks__/consts';
 import { mintToken } from '../../../nftSDKFunctions/mint-token';
+import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
 
 interface MockReadStream {
   pipe: jest.Mock;
@@ -40,7 +41,7 @@ describe('mintUniqueMetadataFunction', () => {
 
   it('should return success metadata when given valid input from file path', async () => {
     const mockClient = {} as Client;
-    const supplyKey = PrivateKey.fromString(myPrivateKey);
+    const supplyKey = getPrivateKeyFromString(myPrivateKey);
 
     const mockReadStream: MockReadStream = {
       pipe: jest.fn().mockReturnThis(),
@@ -84,7 +85,7 @@ describe('mintUniqueMetadataFunction', () => {
 
   it('should return success metadata when given valid input from array', async () => {
     const mockClient = {} as Client;
-    const supplyKey = PrivateKey.fromString(myPrivateKey);
+    const supplyKey = PrivateKey.fromStringECDSA(myPrivateKey);
 
     (mintToken as jest.Mock).mockResolvedValueOnce({
       serials: Array.from({ length: 2 }, (_, i) => ({

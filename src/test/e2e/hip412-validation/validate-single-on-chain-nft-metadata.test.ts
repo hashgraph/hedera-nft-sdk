@@ -11,6 +11,7 @@ import {
   METADATA_TO_VALIDATE_OBJECT_SERIAL,
 } from '../e2e-consts';
 import { LONG_E2E_TIMEOUT, MIRROR_NODE_DELAY } from '../../__mocks__/consts';
+import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
 
 describe('E2E test for validating single NFT Metadata Object Against HIP412 schema', () => {
   let tokenId: string;
@@ -26,7 +27,7 @@ describe('E2E test for validating single NFT Metadata Object Against HIP412 sche
       amount: AMOUNT_OF_NFTS_TO_MINT_SINGLE,
       batchSize: BATCH_SIZE_SINGLE,
       metaData: LINK_TO_JSON_OBJECT_WITHOUT_ERRORS,
-      supplyKey: PrivateKey.fromString(operatorPrivateKey),
+      supplyKey: getPrivateKeyFromString(operatorPrivateKey),
     });
 
     await new Promise((resolve) => setTimeout(resolve, MIRROR_NODE_DELAY));

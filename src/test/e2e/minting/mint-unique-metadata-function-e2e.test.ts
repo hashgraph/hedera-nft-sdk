@@ -21,6 +21,7 @@ import { nftSDK, operatorPrivateKey } from '../e2e-consts';
 import { LONG_E2E_TIMEOUT, pathToOneLineCSV, pathToRowCSV } from '../../__mocks__/consts';
 import { NftId, PrivateKey, TokenId, TokenNftInfoQuery } from '@hashgraph/sdk';
 import { dictionary } from '../../../utils/constants/dictionary';
+import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
 
 describe('mintUniqueMetadata function e2e', () => {
   it(
@@ -33,7 +34,7 @@ describe('mintUniqueMetadata function e2e', () => {
       const mintedMetadata = await nftSDK.mintUniqueMetadata({
         tokenId,
         batchSize: 2,
-        supplyKey: PrivateKey.fromString(operatorPrivateKey),
+        supplyKey: getPrivateKeyFromString(operatorPrivateKey),
         pathToMetadataURIsFile: pathToOneLineCSV,
       });
 
@@ -65,7 +66,7 @@ describe('mintUniqueMetadata function e2e', () => {
       const mintedMetadata = await nftSDK.mintUniqueMetadata({
         tokenId,
         batchSize: 2,
-        supplyKey: PrivateKey.fromString(operatorPrivateKey),
+        supplyKey: getPrivateKeyFromString(operatorPrivateKey),
         pathToMetadataURIsFile: pathToRowCSV,
       });
 
@@ -96,7 +97,7 @@ describe('mintUniqueMetadata function e2e', () => {
       const mintedMetadata = await nftSDK.mintUniqueMetadata({
         tokenId,
         batchSize: 2,
-        supplyKey: PrivateKey.fromString(operatorPrivateKey),
+        supplyKey: getPrivateKeyFromString(operatorPrivateKey),
         metadata: ['https://www.youtube.com1', 'https://www.youtube.com2'],
       });
 
@@ -124,7 +125,7 @@ describe('mintUniqueMetadata function e2e', () => {
       nftSDK.mintUniqueMetadata({
         tokenId: invalidTokenId,
         batchSize: 2,
-        supplyKey: PrivateKey.fromString(operatorPrivateKey),
+        supplyKey: getPrivateKeyFromString(operatorPrivateKey),
         pathToMetadataURIsFile: pathToRowCSV,
       })
     ).rejects.toThrow(dictionary.hederaActions.cannotParseTokenId);

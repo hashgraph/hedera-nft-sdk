@@ -21,6 +21,7 @@ import { mintToken } from '../../../nftSDKFunctions/mint-token';
 import { Client, PrivateKey, Status } from '@hashgraph/sdk';
 import { myPrivateKey } from '../../__mocks__/consts';
 import { dictionary } from '../../../utils/constants/dictionary';
+import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
 
 jest.mock('@hashgraph/sdk', () => ({
   Client: jest.fn(),
@@ -30,6 +31,8 @@ jest.mock('@hashgraph/sdk', () => ({
   Hbar: jest.fn(),
   PrivateKey: {
     fromString: jest.fn(),
+    fromStringED25519: jest.fn().mockReturnThis(),
+    fromStringECDSA: jest.fn().mockReturnThis(),
   },
   TokenMintTransaction: jest.fn(() => ({
     setTokenId: jest.fn().mockReturnThis(),
@@ -51,7 +54,7 @@ describe('mintToken', () => {
     const mockClient = {} as Client;
     const mockMetaData = ['meta1'];
     const mockTokenId = 'tokenId';
-    const mockSupplyKey = PrivateKey.fromString(myPrivateKey);
+    const mockSupplyKey = getPrivateKeyFromString(myPrivateKey);
 
     const result = await mintToken(mockMetaData, mockTokenId, mockSupplyKey, mockClient);
 
@@ -62,7 +65,7 @@ describe('mintToken', () => {
     const mockClient = {} as Client;
     const mockMetaData = ['a'.repeat(99)]; // 99 characters
     const mockTokenId = 'tokenId';
-    const mockSupplyKey = PrivateKey.fromString(myPrivateKey);
+    const mockSupplyKey = getPrivateKeyFromString(myPrivateKey);
 
     const result = await mintToken(mockMetaData, mockTokenId, mockSupplyKey, mockClient);
 
@@ -73,7 +76,7 @@ describe('mintToken', () => {
     const mockClient = {} as Client;
     const mockMetaData = ['a'.repeat(100)]; // 100 characters
     const mockTokenId = 'tokenId';
-    const mockSupplyKey = PrivateKey.fromString(myPrivateKey);
+    const mockSupplyKey = getPrivateKeyFromString(myPrivateKey);
 
     const result = await mintToken(mockMetaData, mockTokenId, mockSupplyKey, mockClient);
 
@@ -84,7 +87,7 @@ describe('mintToken', () => {
     const mockClient = {} as Client;
     const mockMetaData = ['a'.repeat(101)]; // 101 characters
     const mockTokenId = 'tokenId';
-    const mockSupplyKey = PrivateKey.fromString(myPrivateKey);
+    const mockSupplyKey = getPrivateKeyFromString(myPrivateKey);
 
     await expect(mintToken(mockMetaData, mockTokenId, mockSupplyKey, mockClient)).rejects.toThrow(dictionary.mintToken.tooLongCID);
   });

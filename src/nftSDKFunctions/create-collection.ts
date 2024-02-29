@@ -21,6 +21,7 @@ import { AccountId, PrivateKey, TokenCreateTransaction, TokenSupplyType, TokenTy
 import { dictionary } from '../utils/constants/dictionary';
 import { CreateCollectionType } from '../types/create-collection';
 import { validatePropsForCreateCollection } from '../utils/validate-props';
+import { getPrivateKeyFromString } from '../helpers/get-private-key-from-string';
 
 export const createCollectionFunction = async ({
   client,
@@ -53,14 +54,14 @@ export const createCollectionFunction = async ({
 
   const treasuryAccountId = treasuryAccount ? AccountId.fromString(treasuryAccount) : client.getOperator()!.accountId;
   const treasuryAccountPrivateKeyId = treasuryAccountPrivateKey
-    ? PrivateKey.fromString(treasuryAccountPrivateKey)
-    : PrivateKey.fromString(myPrivateKey);
+    ? getPrivateKeyFromString(treasuryAccountPrivateKey)
+    : getPrivateKeyFromString(myPrivateKey);
 
   let transaction = new TokenCreateTransaction()
     .setTokenName(collectionName)
     .setTokenSymbol(collectionSymbol)
     .setTokenType(TokenType.NonFungibleUnique)
-    .setSupplyKey(keys?.supply || PrivateKey.fromString(myPrivateKey))
+    .setSupplyKey(keys?.supply || getPrivateKeyFromString(myPrivateKey))
     .setTreasuryAccountId(treasuryAccountId);
 
   if (keys?.admin) {
@@ -121,7 +122,7 @@ export const createCollectionFunction = async ({
   }
 
   if (autoRenewAccountPrivateKey) {
-    signTx = await transaction.sign(PrivateKey.fromString(autoRenewAccountPrivateKey));
+    signTx = await transaction.sign(getPrivateKeyFromString(autoRenewAccountPrivateKey));
   }
 
   const txResponse = await signTx.execute(client);

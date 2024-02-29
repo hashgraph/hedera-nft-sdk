@@ -21,6 +21,7 @@ import { Client, PrivateKey } from '@hashgraph/sdk';
 import { createCollectionFunction } from '../../../nftSDKFunctions/create-collection';
 import { myPrivateKey } from '../../__mocks__/consts';
 import { dictionary } from '../../../utils/constants/dictionary';
+import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
 
 jest.mock('@hashgraph/sdk', () => {
   return {
@@ -44,6 +45,8 @@ jest.mock('@hashgraph/sdk', () => {
     PrivateKey: {
       fromString: jest.fn().mockReturnThis(),
       generateED25519: jest.fn().mockReturnThis(),
+      fromStringED25519: jest.fn().mockReturnThis(),
+      fromStringECDSA: jest.fn().mockReturnThis(),
     },
     TokenCreateTransaction: jest.fn(() => ({
       setTokenName: jest.fn().mockReturnThis(),
@@ -144,8 +147,8 @@ describe('createCollectionFunction', () => {
     const client = Client.forTestnet();
     const collectionSymbol = 'test2';
     const keys = {
-      admin: PrivateKey.fromString(myPrivateKey),
-      supply: PrivateKey.fromString(myPrivateKey),
+      admin: getPrivateKeyFromString(myPrivateKey),
+      supply: getPrivateKeyFromString(myPrivateKey),
     };
     const treasuryAccount = '0.0.4321';
     const treasuryAccountPrivateKey = '0.0.4321';
@@ -166,8 +169,8 @@ describe('createCollectionFunction', () => {
   it('should throw an error if collectionSymbol is not provided', async () => {
     const client = Client.forTestnet();
     const keys = {
-      admin: PrivateKey.fromString(myPrivateKey),
-      supply: PrivateKey.fromString(myPrivateKey),
+      admin: getPrivateKeyFromString(myPrivateKey),
+      supply: getPrivateKeyFromString(myPrivateKey),
     };
     const treasuryAccount = '0.0.4321';
     const treasuryAccountPrivateKey = '0.0.4321';
@@ -191,7 +194,7 @@ describe('createCollectionFunction', () => {
     const collectionSymbol = 'test2';
     const keys = {
       admin: PrivateKey.generateED25519(),
-      supply: PrivateKey.fromString(myPrivateKey),
+      supply: getPrivateKeyFromString(myPrivateKey),
     };
 
     const tokenId = await createCollectionFunction({

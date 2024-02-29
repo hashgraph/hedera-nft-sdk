@@ -21,6 +21,8 @@ import { getFullSystemPath } from '../../helpers/get-full-system-path';
 
 export const dictionary = {
   errors: {
+    privateKeyRequired: 'Private key is required',
+    privateKeyInvalid: 'Invalid private key string. Please provide a valid private key string.',
     unhandledError: 'Unknown error.',
     // file storages
 
