@@ -21,8 +21,8 @@ import 'dotenv/config';
 import { FeeFactory } from '../../feeFactory';
 import { HederaNFTSDK } from '../../nftSDKFunctions';
 
-export const operatorAccountId = process.env.SECOND_ACCOUNT_ID!;
-export const operatorPrivateKey = process.env.SECOND_PRIVATE_KEY!;
+export const operatorAccountId = process.env.FIRST_ACCOUNT_ID!;
+export const operatorPrivateKey = process.env.FIRST_PRIVATE_KEY!;
 
 export const secondAccountId = process.env.SECOND_ACCOUNT_ID!;
 export const secondPrivateKey = process.env.SECOND_PRIVATE_KEY!;
