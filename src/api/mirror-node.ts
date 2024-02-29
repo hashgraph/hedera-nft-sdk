@@ -20,11 +20,19 @@
 import { NftId } from '@hashgraph/sdk';
 import axios from 'axios';
 import { NFTDetails, NFTS } from '../types/nfts';
-import { MetadataObject } from '../types/csv';
 import { dictionary } from '../utils/constants/dictionary';
 import { errorToMessage } from '../helpers/error-to-message';
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 import { getMirrorNodeUrlForNetwork } from '../utils/hedera/get-mirror-node-url-for-network';
+import { MetadataObject } from '../types/csv';
+import { NFTMetadata } from '../types/nft-metadata';
+
+export type MetadataFromMirrorNode = {
+  isSuccessful: boolean;
+  metadata?: MetadataObject | NFTMetadata;
+  serialNumber: number;
+  error?: string;
+};
 
 export const getMetaDataFromMirrorNode = async (network: NetworkName, nftId: NftId, mirrorNodeUrl?: string): Promise<string> => {
   const url = mirrorNodeUrl || getMirrorNodeUrlForNetwork(network);
@@ -64,19 +72,11 @@ export async function getSingleNFTDetails(network: NetworkName, tokenId: string,
   }
 }
 
-export async function getMetadataObjectsForValidation(
-  url: string,
-  serialNumber: number
-): Promise<{
-  isSuccesfull: boolean;
-  metadata?: MetadataObject;
-  serialNumber: number;
-  error?: string;
-}> {
+export async function getMetadataObjectsForValidation(url: string, serialNumber: number): Promise<MetadataFromMirrorNode> {
   try {
     const response = await axios.get(url);
     return {
-      isSuccesfull: true,
+      isSuccessful: true,
       metadata: response.data,
       serialNumber,
     };
@@ -91,7 +91,7 @@ export async function getMetadataObjectsForValidation(
     }
 
     return {
-      isSuccesfull: false,
+      isSuccessful: false,
       serialNumber,
       error: errorMessage,
     };

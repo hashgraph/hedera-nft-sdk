@@ -20,7 +20,7 @@
 import { Validator, defaultSchemaVersion } from './validator';
 import localValidation from './local-validation';
 import { defaultWeights, defaultRiskLevels, calculateRiskScoreFromData, calculateRiskScoreFromTokenId, calculateRiskLevel } from './risk';
-import { calculateRarity, calculateRarityFromData, calculateTraitOccurrenceFromData } from './rarity';
+import { calculateRarity, calculateRarityFromData, calculateTraitOccurrenceFromData, calculateRarityFromOnChainData } from './rarity';
 
 import { Attribute, Localization, File, Instance, Error, Problem, ValidationResult, Schema } from './types/validator';
 import { NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, TraitOccurrence } from './types/rarity';
@@ -53,6 +53,7 @@ export {
   calculateRarity,
   calculateRarityFromData,
   calculateTraitOccurrenceFromData,
+  calculateRarityFromOnChainData,
 
   // interfaces
   Attribute,
