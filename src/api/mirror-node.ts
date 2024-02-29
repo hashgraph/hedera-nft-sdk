@@ -19,7 +19,7 @@
  */
 import { NftId } from '@hashgraph/sdk';
 import axios from 'axios';
-import { NFTDetails, NFTS } from '../types/nfts';
+import { NFTDetails, NFTS, NFTTransactions, NFTTransactionsRequest } from '../types/nfts';
 import { dictionary } from '../utils/constants/dictionary';
 import { errorToMessage } from '../helpers/error-to-message';
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
@@ -40,11 +40,37 @@ export const getMetaDataFromMirrorNode = async (network: NetworkName, nftId: Nft
   return atob(response.data.metadata);
 };
 
+export const getLastOwnershipTransferForNft = async (
+  network: NetworkName,
+  tokenId: string,
+  serialNumber: number,
+  mirrorNodeUrl?: string
+): Promise<NFTTransactions | undefined> => {
+  const baseUrl = mirrorNodeUrl || getMirrorNodeUrlForNetwork(network);
+  let nextLink: string = `${baseUrl}/tokens/${tokenId}/nfts/${serialNumber}/transactions`;
+  let requiredTransaction: NFTTransactions | undefined;
+
+  do {
+    try {
+      const response = await axios.get<NFTTransactionsRequest>(nextLink);
+      // We take the first 'CRYPTOTRANSFER' or 'TOKENMINT' transaction because these transactions represent the change of ownership of an NFT.
+      // 'CRYPTOTRANSFER' indicates that the NFT was transferred from one account to another, while 'TOKENMINT' indicates that a new NFT was minted.
+      // By taking the first of these transactions, we can determine the last owner of the NFT and the time when they became the owner
+      requiredTransaction = response.data.transactions.find(
+        (transaction) => transaction.type === 'CRYPTOTRANSFER' || transaction.type === 'TOKENMINT'
+      );
+      if (requiredTransaction) break;
+      nextLink = response.data.links.next ? new URL(response.data.links.next, baseUrl).href : '';
+    } catch (error) {
+      throw new Error(errorToMessage(error));
+    }
+  } while (nextLink);
+  return requiredTransaction;
+};
+
 export async function getNFTsFromToken(network: NetworkName, tokenId: string, limit: number = 100): Promise<NFTDetails[]> {
   const baseUrl = getMirrorNodeUrlForNetwork(network);
-  const nftsURL = `${baseUrl}/tokens/${tokenId}/nfts?limit=${limit}`;
-
-  let nextLink: string = nftsURL;
+  let nextLink: string = `${baseUrl}/tokens/${tokenId}/nfts?limit=${limit}`;
   const allNFTs: NFTDetails[] = [];
 
   do {

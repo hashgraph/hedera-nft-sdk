@@ -29,6 +29,21 @@ export interface NFTDetails {
   spender: null | string;
 }
 
+export interface NFTTransactions {
+  consensus_timestamp: string;
+  nonce: number;
+  transaction_id: string;
+  type: string;
+  is_approval: boolean;
+  receiver_account_id: string;
+  sender_account_id: string;
+}
+
+export interface NFTTransactionsRequest {
+  transactions: NFTTransactions[];
+  links: Links;
+}
+
 interface Links {
   next: string | null;
 }

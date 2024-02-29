@@ -48,6 +48,7 @@ export const CORRECT_EXAMPLE_PATH = 'src/test/__mocks__/json/correct-example.jso
 
 export const LONG_E2E_TIMEOUT = 45000;
 export const MIRROR_NODE_DELAY = 5000;
+export const LONG_MIRROR_NODE_DELAY = 10000;
 
 export const NFT_FROM_TOKEN_EXAMPLE_BASE_URL = 'http://example.com';
 export const NETWORK_ERROR = 'Network error';
@@ -63,4 +64,5 @@ export const NETWORK = 'testnet';
 export const MOCK_CLIENT = {} as Client;
 export const MOCK_META_DATA = 'meta1';
 export const MOCK_TOKEN_ID = '0.0.123';
+export const MOCK_SERIAL = 2;
 export const MOCK_SUPPLY_KEY = PrivateKey?.fromString(myPrivateKey);
