@@ -17,13 +17,13 @@
  * limitations under the License.
  *
  */
-import { nftSDK, operatorPrivateKey } from '../e2e-consts';
-import { PrivateKey } from '@hashgraph/sdk';
+import { nftSDK } from '../e2e-consts';
+import { Hbar, TokenMintTransaction } from '@hashgraph/sdk';
 import { LONG_E2E_TIMEOUT } from '../../__mocks__/consts';
-import { mintToken } from '../../../nftSDKFunctions/mint-token';
 import { estimateNftMintingInHbar } from '../../../nftSDKFunctions/estimate-nft-minting-in-hbar';
-import { AVERAGE_COST_OF_MINT_1_AVERAGE_METADATA_JSON } from '../../../utils/constants/minting';
-import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
+import { mintingMaxTransactionFee } from '../../../utils/const';
+import { roundToPrecision } from '../../helpers/round-to-precision';
+import { isWithinAcceptableDifference } from '../../helpers/is-within-acceptable-difference';
 
 describe('mintSharedMetadata function e2e', () => {
   const testCases = [{ amount: 1 }, { amount: 3 }, { amount: 10 }];
@@ -37,25 +37,31 @@ describe('mintSharedMetadata function e2e', () => {
           collectionSymbol: 'test_symbol',
         });
 
-        const mintTokenReceipt = await mintToken(
-          new Array(amount).fill('www.youtube.com'),
-          tokenId,
-          getPrivateKeyFromString(operatorPrivateKey),
-          nftSDK.client
-        );
-        const exchangeRateInDollars = mintTokenReceipt.exchangeRate!.exchangeRateInCents / 100;
+        const metaData = new Array(amount).fill('www.youtube.com');
+        const CIDs = metaData.map((metaData) => Buffer.from(metaData));
 
-        const estimatedCost = await estimateNftMintingInHbar({
+        const transaction = new TokenMintTransaction()
+          .setTokenId(tokenId)
+          .setMaxTransactionFee(new Hbar(mintingMaxTransactionFee))
+          .setMetadata(CIDs)
+          .freezeWith(nftSDK.client);
+
+        const txResponse = await transaction.execute(nftSDK.client);
+        const record = await txResponse.getRecord(nftSDK.client);
+
+        const estimatedHbarNumber = await estimateNftMintingInHbar({
           amountOfNfts: amount,
           network: 'testnet',
         });
+        const estimatedHbars = new Hbar(roundToPrecision(estimatedHbarNumber, 6));
 
-        const expectedCost =
-          (mintTokenReceipt.totalSupply.toString() * AVERAGE_COST_OF_MINT_1_AVERAGE_METADATA_JSON) / exchangeRateInDollars;
+        const transactionFeeHbars = record.transactionFee.toTinybars().toNumber();
+        const estimatedHbarsValue = estimatedHbars.toTinybars().toNumber();
 
         expect(tokenId).toBeDefined();
-        expect(mintTokenReceipt).toBeDefined();
-        expect(expectedCost).toEqual(estimatedCost);
+        expect(record.transactionId).toBeDefined();
+        expect(record.transactionFee).toBeDefined();
+        expect(isWithinAcceptableDifference(estimatedHbarsValue, transactionFeeHbars)).toBe(true);
       },
       LONG_E2E_TIMEOUT
     );

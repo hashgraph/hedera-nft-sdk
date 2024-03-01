@@ -20,21 +20,9 @@
 import { nftSDK, operatorAccountId, operatorPrivateKey } from '../e2e-consts';
 import { estimateCreateCollectionInHbar } from '../../../nftSDKFunctions/estimate-create-collection-in-hbar';
 import { Hbar, TokenCreateTransaction, TokenType } from '@hashgraph/sdk';
+import { roundToPrecision } from '../../helpers/round-to-precision';
+import { isWithinAcceptableDifference } from '../../helpers/is-within-acceptable-difference';
 import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
-
-const ACCEPTABLE_DIFFERENCE_PERCENT = 0.01;
-
-const toFixedWithoutRounding = (number: number, precision: number) => {
-  const scale = Math.pow(10, precision);
-  return Math.floor(number * scale) / scale;
-};
-
-const isWithinThreePercent = (estimatedHbarsValue: number, transactionFeeHbars: number): boolean => {
-  const difference = Math.abs(transactionFeeHbars - estimatedHbarsValue);
-  const acceptableDifference = Math.abs(transactionFeeHbars * ACCEPTABLE_DIFFERENCE_PERCENT);
-
-  return difference <= acceptableDifference;
-};
 
 describe('estimateCreateCollectionInHbarE2E', () => {
   it('should work properly with default values', async () => {
@@ -47,7 +35,7 @@ describe('estimateCreateCollectionInHbarE2E', () => {
       collectionSymbol: symbol,
     });
 
-    const estimatedHbars = new Hbar(toFixedWithoutRounding(estimatedHbarNumber, 6));
+    const estimatedHbars = new Hbar(roundToPrecision(estimatedHbarNumber, 6));
 
     const createToken = new TokenCreateTransaction()
       .setTokenName(name)
@@ -64,6 +52,6 @@ describe('estimateCreateCollectionInHbarE2E', () => {
     const transactionFeeHbars = record.transactionFee.toTinybars().toNumber();
     const estimatedHbarsValue = estimatedHbars.toTinybars().toNumber();
 
-    expect(isWithinThreePercent(estimatedHbarsValue, transactionFeeHbars)).toBe(true);
+    expect(isWithinAcceptableDifference(estimatedHbarsValue, transactionFeeHbars)).toBe(true);
   });
 });
