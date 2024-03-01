@@ -151,4 +151,62 @@ describe('createCollectionFunction e2e', () => {
     },
     LONG_E2E_TIMEOUT
   );
+
+  it(
+    'creates a collection with a specified maxSupply',
+    async () => {
+      const maxSupply = 10;
+      const tokenId = await nftSDK.createCollection({
+        collectionName: 'test_name_max_supply',
+        collectionSymbol: 'TMAXSUP',
+        treasuryAccountPrivateKey: secondPrivateKey,
+        treasuryAccount: secondAccountId,
+        maxSupply,
+      });
+
+      const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
+      expect(tokenInfo.maxSupply).toBeDefined();
+      expect(tokenInfo.maxSupply.toNumber()).toEqual(maxSupply);
+    },
+    LONG_E2E_TIMEOUT
+  );
+
+  it(
+    'creates a collection with all types of keys',
+    async () => {
+      const adminKey = PrivateKey.generateED25519();
+      const kycKey = PrivateKey.generateED25519();
+      const freezeKey = PrivateKey.generateED25519();
+      const wipeKey = PrivateKey.generateED25519();
+      const supplyKey = PrivateKey.generateED25519();
+      const feeScheduleKey = PrivateKey.generateED25519();
+      const pauseKey = PrivateKey.generateED25519();
+
+      const tokenId = await nftSDK.createCollection({
+        collectionName: 'test_name_all_keys',
+        collectionSymbol: 'TNALLKEYS',
+        treasuryAccountPrivateKey: secondPrivateKey,
+        treasuryAccount: secondAccountId,
+        keys: {
+          admin: adminKey,
+          KYC: kycKey,
+          freeze: freezeKey,
+          wipe: wipeKey,
+          supply: supplyKey,
+          feeSchedule: feeScheduleKey,
+          pause: pauseKey,
+        },
+      });
+
+      const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
+      expect(tokenInfo.adminKey?.toString()).toEqual(adminKey.publicKey.toStringDer());
+      expect(tokenInfo.kycKey?.toString()).toEqual(kycKey.publicKey.toStringDer());
+      expect(tokenInfo.freezeKey?.toString()).toEqual(freezeKey.publicKey.toStringDer());
+      expect(tokenInfo.wipeKey?.toString()).toEqual(wipeKey.publicKey.toStringDer());
+      expect(tokenInfo.supplyKey?.toString()).toEqual(supplyKey.publicKey.toStringDer());
+      expect(tokenInfo.feeScheduleKey?.toString()).toEqual(feeScheduleKey.publicKey.toStringDer());
+      expect(tokenInfo.pauseKey?.toString()).toEqual(pauseKey.publicKey.toStringDer());
+    },
+    LONG_E2E_TIMEOUT
+  );
 });
