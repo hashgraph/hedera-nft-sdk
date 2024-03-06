@@ -21,7 +21,6 @@ import { Client, NftId, PrivateKey } from '@hashgraph/sdk';
 import { CreateCollectionKeysType, CustomFeeType } from '../types/create-collection';
 import { Network } from '../types/mint-token';
 import { createCollectionFunction } from './create-collection';
-import { convertCSVToMetadataObjects } from './convert-csv-to-metadata-objects';
 import { increaseNFTSupply } from './increase-nft-supply';
 import { logIn } from './log-in';
 import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
@@ -31,12 +30,9 @@ import { estimateNftMintingInHbar } from './estimate-nft-minting-in-hbar';
 import { estimateNftMintingInDollars } from './estimate-nft-minting-in-dollars';
 import { estimateCreateCollectionInDollars } from './estimate-create-collection-in-dollars';
 import { estimateCreateCollectionInHbar } from './estimate-create-collection-in-hbar';
-import { CSVRow, MetadataObject } from '../types/csv';
-import { convertMetadataObjectsToJsonFiles } from './convert-metadata-objects-to-json-files';
 import { getHolderAndDuration } from './get-holder-and-duration';
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 import { getPrivateKeyFromString } from '../helpers/get-private-key-from-string';
-import { prepareMetadataObjectsFromCSVRows } from './prepare-metadata-objects-from-csv-rows';
 
 export class HederaNFTSDK {
   accountId: string;
@@ -169,35 +165,6 @@ export class HederaNFTSDK {
 
   estimateNftMintingInDollars({ amountOfNfts }: { amountOfNfts: number }) {
     return estimateNftMintingInDollars({ amountOfNfts });
-  }
-
-  convertMetadataObjectsToJsonFiles({
-    metadataObjects,
-    savedJsonFilesLocation,
-    limit,
-  }: {
-    metadataObjects: MetadataObject[];
-    savedJsonFilesLocation: string;
-    limit?: number;
-  }) {
-    return convertMetadataObjectsToJsonFiles({ metadataObjects, savedJsonFilesLocation, limit });
-  }
-
-  prepareMetadataObjectsFromCSVRows({ csvParsedRows }: { csvParsedRows: CSVRow[] }): MetadataObject[] {
-    return prepareMetadataObjectsFromCSVRows({
-      csvParsedRows,
-    });
-  }
-
-  convertCSVToMetadataObjects({
-    csvFilePath,
-    limit,
-  }: {
-    savedJsonFilesLocation: string;
-    csvFilePath: string;
-    limit?: number;
-  }): Promise<MetadataObject[]> {
-    return convertCSVToMetadataObjects(csvFilePath, limit);
   }
 
   mintSharedMetadata({

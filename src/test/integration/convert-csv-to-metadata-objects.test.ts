@@ -19,7 +19,7 @@
  */
 import fs from 'fs';
 import { CSV_EXAMPLE_WITH_ALL_FIELDS, CSV_EXAMPLE_EMPTY_FILE, CSV_EXAMPLE_WITH_HEADERS_ONLY } from '../__mocks__/consts';
-import { convertCSVToMetadataObjects } from '../../nftSDKFunctions/convert-csv-to-metadata-objects';
+import { convertCSVToMetadataObjects } from '../../file-management/convert-csv-to-metadata-objects';
 import { AMOUNT_OF_HEADERS } from '../../utils/constants/csv-constants';
 
 describe('convertCSVToMetadataObjects Integration Test', () => {

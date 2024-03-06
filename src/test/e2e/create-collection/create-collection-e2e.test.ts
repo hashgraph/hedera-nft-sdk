@@ -19,19 +19,23 @@
  */
 import { Long, PrivateKey } from '@hashgraph/sdk';
 import { nftSDK, secondAccountId, secondPrivateKey } from '../e2e-consts';
-import { LONG_E2E_TIMEOUT } from '../../__mocks__/consts';
+import { LONG_E2E_TIMEOUT, MIRROR_NODE_DELAY } from '../../__mocks__/consts';
 import { getTokenInfo } from '../../../utils/hedera/get-token-info';
 import { add, milliseconds, millisecondsToSeconds } from 'date-fns';
 
 describe('createCollectionFunction e2e', () => {
-  it('creates a collection', async () => {
-    const tokenId = await nftSDK.createCollection({
-      collectionName: 'test_name',
-      collectionSymbol: 'test_symbol',
-    });
+  it(
+    'creates a collection',
+    async () => {
+      const tokenId = await nftSDK.createCollection({
+        collectionName: 'test_name',
+        collectionSymbol: 'test_symbol',
+      });
 
-    expect(tokenId).toBeDefined();
-  });
+      expect(tokenId).toBeDefined();
+    },
+    MIRROR_NODE_DELAY
+  );
 
   it(
     'creates a collection with Admin Key',

@@ -25,14 +25,20 @@ import { calculateRarity, calculateRarityFromData, calculateTraitOccurrenceFromD
 import { Attribute, Localization, File, Instance, Error, Problem, ValidationResult, Schema } from './types/validator';
 import { NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, TraitOccurrence } from './types/rarity';
 import { WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelTypes, Metadata, RiskResult } from './types/risk';
+import type { CSVRow, MetadataObject } from './types/csv';
 
 import { HederaNFTSDK } from './nftSDKFunctions';
 import { FeeFactory } from './feeFactory';
+import { Hip412Validator } from './hip412-validator';
 import { NftStorageService } from './services/file-storages/nft-storage/nft-storage-service';
 import { PinataService } from './services/file-storages/pinata/pinata-service';
 import { AWSService } from './services/file-storages/aws/aws-service';
 import { MockStorageService } from './services/file-storages/mock-storage/mock-storage-service';
 import { UploadService } from './services/upload-service';
+import { FileValidationResult } from './hip412-validator';
+import { convertCSVToMetadataObjects } from './file-management/convert-csv-to-metadata-objects';
+import { convertMetadataObjectsToJsonFiles } from './file-management/convert-metadata-objects-to-json-files';
+import { prepareMetadataObjectsFromCSVRows } from './file-management/prepare-metadata-objects-from-csv-rows';
 
 export {
   // validation
@@ -54,6 +60,11 @@ export {
   calculateRarityFromData,
   calculateTraitOccurrenceFromData,
   calculateRarityFromOnChainData,
+
+  // file management
+  convertCSVToMetadataObjects,
+  convertMetadataObjectsToJsonFiles,
+  prepareMetadataObjectsFromCSVRows,
 
   // interfaces
   Attribute,
@@ -78,10 +89,14 @@ export {
   Metadata,
   RiskResult,
   TraitOccurrence,
+  MetadataObject,
+  CSVRow,
+  FileValidationResult,
 
   // NFTSDK
   HederaNFTSDK,
   FeeFactory,
+  Hip412Validator,
 
   // Upload Service
   UploadService,
