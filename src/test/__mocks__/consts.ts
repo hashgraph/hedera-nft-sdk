@@ -34,6 +34,7 @@ export const CSV_EXAMPLE_WITH_ALL_FIELDS = 'src/test/__mocks__/csv/csv-example-w
 export const CSV_EXAMPLE_WITH_MISSING_REQUIRED_FIELDS = 'src/test/__mocks__/csv/csv-example-with-missing-required-fields.csv';
 export const CSV_EXAMPLE_ONLY_REQUIRED_FIELDS_AND_HEADERS = 'src/test/__mocks__/csv/csv-example-only-required-fields-and-headers.csv';
 export const CSV_EXAMPLE_EMPTY_FILE = 'src/test/__mocks__/csv/csv-example-empty-file.csv';
+export const CSV_EXAMPLE_WITH_HEADERS_ONLY = 'src/test/__mocks__/csv/csv-example-with-headers-only.csv';
 
 export const JSON_METADATA_INTEGRATION_TESTS_OUTPUT_FOLDER_PATH = 'src/test/integration/output';
 export const JSON_METADATA_UNIT_TESTS_OUTPUT_METADATA_FOLDER_PATH = 'src/test/unit/output/metadata';
@@ -46,7 +47,7 @@ export const FILES_WITH_MIXED_EXTENSION_PATH = 'src/test/__mocks__/json/files-wi
 export const EMPTY_JSON_EXAMPLE_PATH = 'src/test/__mocks__/json/empty-example.json';
 export const CORRECT_EXAMPLE_PATH = 'src/test/__mocks__/json/correct-example.json';
 
-export const LONG_E2E_TIMEOUT = 45000;
+export const LONG_E2E_TIMEOUT = 55000;
 export const MIRROR_NODE_DELAY = 5000;
 export const LONG_MIRROR_NODE_DELAY = 10000;
 

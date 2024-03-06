@@ -17,10 +17,10 @@
  * limitations under the License.
  *
  */
-import { JsonMetadataFromCSVConverter } from '../services/json-metadata-from-csv-converter';
 import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv';
 import { Hip412Validator } from '../hip412-validator';
 import { MetadataObject } from '../types/csv';
+import { saveMetadataObjectsAsJsonFiles } from '../helpers/save-metadata-object-as-json-files';
 
 export const convertMetadataObjectsToJsonFiles = async ({
   metadataObjects,
@@ -35,7 +35,7 @@ export const convertMetadataObjectsToJsonFiles = async ({
 
   if (isValid) {
     const objectsToProcess = limit !== undefined && limit < metadataObjects.length ? metadataObjects.slice(0, limit) : metadataObjects;
-    JsonMetadataFromCSVConverter.saveCSVRowsAsJsonFiles(objectsToProcess, savedJsonFilesLocation);
+    saveMetadataObjectsAsJsonFiles(objectsToProcess, savedJsonFilesLocation);
   }
 
   return {

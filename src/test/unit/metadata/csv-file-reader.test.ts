@@ -18,7 +18,7 @@
  *
  */
 import fs from 'fs';
-import { CSVFileReader } from '../../../csv-file-reader';
+import { readCSVFile } from '../../../services/csv-file-reader';
 import { CSVRow } from '../../../types/csv';
 import { Readable } from 'stream';
 
@@ -46,7 +46,7 @@ describe('CSVFileReader', () => {
 
     (fs.createReadStream as jest.Mock).mockReturnValue(mockStream);
 
-    const result = await CSVFileReader.readCSVFile(filePath);
+    const result = await readCSVFile(filePath);
     expect(result).toEqual(mockData);
   });
 });

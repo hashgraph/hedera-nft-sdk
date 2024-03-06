@@ -17,18 +17,20 @@
  * limitations under the License.
  *
  */
-import { CSVFileReader } from '../csv-file-reader';
-import { JsonMetadataFromCSVConverter } from '../services/json-metadata-from-csv-converter';
+import { readCSVFile } from '../services/csv-file-reader';
 import { MetadataObject } from '../types/csv';
+import { AMOUNT_OF_HEADERS, OMITTED_HEADER_COUNT } from '../utils/constants/csv-constants';
+import { dictionary } from '../utils/constants/dictionary';
+import { prepareMetadataObjectsFromCSVRows } from './prepare-metadata-objects-from-csv-rows';
 
 export const convertCSVToMetadataObjects = async (csvFilePath: string, limit?: number): Promise<MetadataObject[]> => {
-  const csvParsedRows = await CSVFileReader.readCSVFile(csvFilePath, limit);
-  const metadataObjects = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
-    csvParsedRows,
-    csvFilePath,
-    headerAttributes: CSVFileReader.ATTRIBUTES,
-    headerProperties: CSVFileReader.PROPERTIES,
-  });
+  const csvParsedRows = await readCSVFile(csvFilePath, limit);
+
+  if (csvParsedRows.length <= AMOUNT_OF_HEADERS - OMITTED_HEADER_COUNT) {
+    throw new Error(dictionary.validation.csvFileIsEmpty(csvFilePath));
+  }
+
+  const metadataObjects = prepareMetadataObjectsFromCSVRows({ csvParsedRows });
 
   return metadataObjects;
 };

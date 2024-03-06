@@ -17,8 +17,16 @@
  * limitations under the License.
  *
  */
-export const JSON_METADATA_FOLDER_PATH = './json-metadata';
-export const CSV_FILE_PATH_NO_IMAGES = './src/test/__mocks__/csv/csv-example-no-images.csv';
-export const CSV_FILE_PATH_WITH_ALL_FIELDS = './src/test/__mocks__/csv/csv-example-with-all-fields.csv';
-export const CSV_FILE_PATH_WITH_ERRORS = './src/test/__mocks__/csv/csv-example-with-missing-required-fields.csv';
-export const CSV_FILE_PATH_WITH_ONLY_REQUIRED_FIELDS = './src/test/__mocks__/csv/csv-example-only-required-fields.csv';
+import { parseCSVRowsToMetadataObjects } from '../services/json-metadata-from-csv-converter';
+import { CSVRow } from '../types/csv';
+import { ATTRIBUTES, PROPERTIES } from '../utils/constants/csv-constants';
+
+export const prepareMetadataObjectsFromCSVRows = ({ csvParsedRows }: { csvParsedRows: CSVRow[] }) => {
+  const metadataObjects = parseCSVRowsToMetadataObjects({
+    csvParsedRows,
+    headerAttributes: ATTRIBUTES,
+    headerProperties: PROPERTIES,
+  });
+
+  return metadataObjects;
+};

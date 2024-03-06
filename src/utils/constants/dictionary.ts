@@ -80,7 +80,8 @@ export const dictionary = {
     errorInCellWithHeader: (line: number, column: number) =>
       `Error in line number ${line}, column number ${column}. Check if your CSV file is well prepared.`,
     invalidKeysDetected: (keys: string[]) => `Redundant key(s) detected: ['${keys.join("', '")}']`,
-    csvFileIsEmpty: (path: string) => `No metadata found in CSV file "${getFullSystemPath(path)}".`,
+    csvFileIsEmpty: (path?: string) =>
+      path ? `No metadata found in CSV file "${getFullSystemPath(path)}".` : 'No metadata found in CSV file.',
     errorInRow: (line: number | string, error: string) =>
       `Error at: line number ${typeof line === 'number' ? line + 1 : line} in ${getFullSystemPath('exampleCSV.csv')}\n${error}`,
     missingAttributesInRow: (csvFilePath: string, row: number) => ` - "${getFullSystemPath(csvFilePath)}" in row ${row}`,

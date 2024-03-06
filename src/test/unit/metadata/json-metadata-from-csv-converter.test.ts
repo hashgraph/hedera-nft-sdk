@@ -20,7 +20,8 @@
 import fs from 'fs';
 import cloneDeep from 'lodash/cloneDeep';
 import { CSVRow, MetadataObject } from '../../../types/csv';
-import { JsonMetadataFromCSVConverter } from '../../../services/json-metadata-from-csv-converter';
+import { parseCSVRowsToMetadataObjects } from '../../../services/json-metadata-from-csv-converter';
+import { saveMetadataObjectsAsJsonFiles } from '../../../helpers/save-metadata-object-as-json-files';
 import {
   JSON_METADATA_UNIT_TESTS_OUTPUT_METADATA_FOLDER_PATH,
   JSON_METADATA_UNIT_TESTS_OUTPUT_NEW_METADATA_FOLDER_PATH,
@@ -83,16 +84,15 @@ const objectsFromCSVRows = [
 ];
 
 describe('JsonMetadataFromCSVConverter', () => {
-  describe('saveCSVRowsAsJsonFiles', () => {
+  describe('saveMetadataObjectsAsJsonFiles', () => {
     it('should save content of MetadataObject[] to json files', () => {
-      const metadataObjectsFromCSVRows: MetadataObject[] = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
+      const metadataObjectsFromCSVRows: MetadataObject[] = parseCSVRowsToMetadataObjects({
         csvParsedRows: cloneDeep(csvRows),
-        csvFilePath: 'csvFilePath',
         headerAttributes: 'attributes',
         headerProperties: 'properties',
       });
 
-      JsonMetadataFromCSVConverter.saveCSVRowsAsJsonFiles(metadataObjectsFromCSVRows, JSON_METADATA_UNIT_TESTS_OUTPUT_METADATA_FOLDER_PATH);
+      saveMetadataObjectsAsJsonFiles(metadataObjectsFromCSVRows, JSON_METADATA_UNIT_TESTS_OUTPUT_METADATA_FOLDER_PATH);
 
       const firstJson = JSON.parse(fs.readFileSync(`${JSON_METADATA_UNIT_TESTS_OUTPUT_METADATA_FOLDER_PATH}/1.json`).toString());
       const secondJson = JSON.parse(fs.readFileSync(`${JSON_METADATA_UNIT_TESTS_OUTPUT_METADATA_FOLDER_PATH}/2.json`).toString());
@@ -107,17 +107,13 @@ describe('JsonMetadataFromCSVConverter', () => {
     });
 
     it('should create directory if path do not point to directory save content of MetadataObject[] to json files', () => {
-      const metadataObjectsFromCSVRows: MetadataObject[] = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
+      const metadataObjectsFromCSVRows: MetadataObject[] = parseCSVRowsToMetadataObjects({
         csvParsedRows: cloneDeep(csvRows),
-        csvFilePath: 'csvFilePath',
         headerAttributes: 'attributes',
         headerProperties: 'properties',
       });
 
-      JsonMetadataFromCSVConverter.saveCSVRowsAsJsonFiles(
-        metadataObjectsFromCSVRows,
-        JSON_METADATA_UNIT_TESTS_OUTPUT_NEW_METADATA_FOLDER_PATH
-      );
+      saveMetadataObjectsAsJsonFiles(metadataObjectsFromCSVRows, JSON_METADATA_UNIT_TESTS_OUTPUT_NEW_METADATA_FOLDER_PATH);
 
       const firstJson = JSON.parse(fs.readFileSync(`${JSON_METADATA_UNIT_TESTS_OUTPUT_NEW_METADATA_FOLDER_PATH}/1.json`).toString());
       const secondJson = JSON.parse(fs.readFileSync(`${JSON_METADATA_UNIT_TESTS_OUTPUT_NEW_METADATA_FOLDER_PATH}/2.json`).toString());
@@ -134,24 +130,12 @@ describe('JsonMetadataFromCSVConverter', () => {
 
   describe('metadataObjectsFromRows', () => {
     it('should transform CSV rows into metadata objects', () => {
-      const result = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
+      const result = parseCSVRowsToMetadataObjects({
         csvParsedRows: csvRows,
-        csvFilePath: 'csvFilePath',
         headerAttributes: 'attributes',
         headerProperties: 'properties',
       });
       expect(result).toEqual(objectsFromCSVRows);
-    });
-
-    it('should throw an error when the CSV rows are empty', () => {
-      expect(() =>
-        JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
-          csvParsedRows: [],
-          csvFilePath: 'csvFilePath',
-          headerAttributes: 'attributes',
-          headerProperties: 'properties',
-        })
-      ).toThrow();
     });
   });
 });

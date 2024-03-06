@@ -31,11 +31,12 @@ import { estimateNftMintingInHbar } from './estimate-nft-minting-in-hbar';
 import { estimateNftMintingInDollars } from './estimate-nft-minting-in-dollars';
 import { estimateCreateCollectionInDollars } from './estimate-create-collection-in-dollars';
 import { estimateCreateCollectionInHbar } from './estimate-create-collection-in-hbar';
-import { MetadataObject } from '../types/csv';
+import { CSVRow, MetadataObject } from '../types/csv';
 import { convertMetadataObjectsToJsonFiles } from './convert-metadata-objects-to-json-files';
 import { getHolderAndDuration } from './get-holder-and-duration';
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 import { getPrivateKeyFromString } from '../helpers/get-private-key-from-string';
+import { prepareMetadataObjectsFromCSVRows } from './prepare-metadata-objects-from-csv-rows';
 
 export class HederaNFTSDK {
   accountId: string;
@@ -180,6 +181,12 @@ export class HederaNFTSDK {
     limit?: number;
   }) {
     return convertMetadataObjectsToJsonFiles({ metadataObjects, savedJsonFilesLocation, limit });
+  }
+
+  prepareMetadataObjectsFromCSVRows({ csvParsedRows }: { csvParsedRows: CSVRow[] }): MetadataObject[] {
+    return prepareMetadataObjectsFromCSVRows({
+      csvParsedRows,
+    });
   }
 
   convertCSVToMetadataObjects({

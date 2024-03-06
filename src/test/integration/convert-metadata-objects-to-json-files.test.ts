@@ -30,10 +30,9 @@ import {
   CSV_EXAMPLE_ONLY_REQUIRED_FIELDS_AND_HEADERS,
   LONG_E2E_TIMEOUT,
 } from '../__mocks__/consts';
-import { CSVFileReader } from '../../csv-file-reader';
-import { JsonMetadataFromCSVConverter } from '../../services/json-metadata-from-csv-converter';
-
-const HEADERS_COUNT = 2;
+import { readCSVFile } from '../../services/csv-file-reader';
+import { parseCSVRowsToMetadataObjects } from '../../services/json-metadata-from-csv-converter';
+import { ATTRIBUTES, PROPERTIES, AMOUNT_OF_HEADERS } from '../../utils/constants/csv-constants';
 
 describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
   beforeEach(() => {
@@ -47,12 +46,11 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
   });
 
   it('convertMetadataObjectsToJsonFiles should complete without errors', async () => {
-    const csvParsedRows = await CSVFileReader.readCSVFile(CSV_EXAMPLE_WITH_ALL_FIELDS);
-    const metadataObjects = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
+    const csvParsedRows = await readCSVFile(CSV_EXAMPLE_WITH_ALL_FIELDS);
+    const metadataObjects = parseCSVRowsToMetadataObjects({
       csvParsedRows,
-      csvFilePath: CSV_EXAMPLE_WITH_ALL_FIELDS,
-      headerAttributes: CSVFileReader.ATTRIBUTES,
-      headerProperties: CSVFileReader.PROPERTIES,
+      headerAttributes: ATTRIBUTES,
+      headerProperties: PROPERTIES,
     });
 
     const result = await convertMetadataObjectsToJsonFiles({
@@ -66,12 +64,11 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
   it(
     'convertMetadataObjectsToJsonFiles should create correct number of JSON files based on the CSV file',
     async () => {
-      const csvParsedRows = await CSVFileReader.readCSVFile(CSV_EXAMPLE_WITH_ALL_FIELDS);
-      const metadataObjects = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
+      const csvParsedRows = await readCSVFile(CSV_EXAMPLE_WITH_ALL_FIELDS);
+      const metadataObjects = parseCSVRowsToMetadataObjects({
         csvParsedRows,
-        csvFilePath: CSV_EXAMPLE_WITH_ALL_FIELDS,
-        headerAttributes: CSVFileReader.ATTRIBUTES,
-        headerProperties: CSVFileReader.PROPERTIES,
+        headerAttributes: ATTRIBUTES,
+        headerProperties: PROPERTIES,
       });
 
       await convertMetadataObjectsToJsonFiles({
@@ -82,7 +79,7 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
       const files = fs.readdirSync(JSON_METADATA_INTEGRATION_TESTS_OUTPUT_FOLDER_PATH);
       const csvContent = fs.readFileSync(CSV_EXAMPLE_WITH_ALL_FIELDS, 'utf-8');
       const csvRows = csvContent.trim().split('\n').length;
-      const expectedJsonFilesCount = csvRows - HEADERS_COUNT;
+      const expectedJsonFilesCount = csvRows - AMOUNT_OF_HEADERS;
 
       expect(files.length).toBe(expectedJsonFilesCount);
     },
@@ -90,12 +87,11 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
   );
 
   it('Each file should match Hip412MetadataSchema', async () => {
-    const csvParsedRows = await CSVFileReader.readCSVFile(CSV_EXAMPLE_WITH_ALL_FIELDS);
-    const metadataObjects = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
+    const csvParsedRows = await readCSVFile(CSV_EXAMPLE_WITH_ALL_FIELDS);
+    const metadataObjects = parseCSVRowsToMetadataObjects({
       csvParsedRows,
-      csvFilePath: CSV_EXAMPLE_WITH_ALL_FIELDS,
-      headerAttributes: CSVFileReader.ATTRIBUTES,
-      headerProperties: CSVFileReader.PROPERTIES,
+      headerAttributes: ATTRIBUTES,
+      headerProperties: PROPERTIES,
     });
 
     await convertMetadataObjectsToJsonFiles({
@@ -116,12 +112,11 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
 
   it('convertMetadataObjectsToJsonFiles should create a limited number of JSON files when nftsLimit is set', async () => {
     const limit = 2;
-    const csvParsedRows = await CSVFileReader.readCSVFile(CSV_EXAMPLE_WITH_ALL_FIELDS);
-    const metadataObjects = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
+    const csvParsedRows = await readCSVFile(CSV_EXAMPLE_WITH_ALL_FIELDS);
+    const metadataObjects = parseCSVRowsToMetadataObjects({
       csvParsedRows,
-      csvFilePath: CSV_EXAMPLE_WITH_ALL_FIELDS,
-      headerAttributes: CSVFileReader.ATTRIBUTES,
-      headerProperties: CSVFileReader.PROPERTIES,
+      headerAttributes: ATTRIBUTES,
+      headerProperties: PROPERTIES,
     });
 
     await convertMetadataObjectsToJsonFiles({
@@ -135,12 +130,11 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
   });
 
   it('convertMetadataObjectsToJsonFiles should complete without errors using CSV with only required fields filled', async () => {
-    const csvParsedRows = await CSVFileReader.readCSVFile(CSV_EXAMPLE_ONLY_REQUIRED_FIELDS);
-    const metadataObjects = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
+    const csvParsedRows = await readCSVFile(CSV_EXAMPLE_ONLY_REQUIRED_FIELDS);
+    const metadataObjects = parseCSVRowsToMetadataObjects({
       csvParsedRows,
-      csvFilePath: CSV_EXAMPLE_ONLY_REQUIRED_FIELDS,
-      headerAttributes: CSVFileReader.ATTRIBUTES,
-      headerProperties: CSVFileReader.PROPERTIES,
+      headerAttributes: ATTRIBUTES,
+      headerProperties: PROPERTIES,
     });
 
     const result = await convertMetadataObjectsToJsonFiles({
@@ -152,12 +146,11 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
   });
 
   it('convertMetadataObjectsToJsonFiles should complete without errors using CSV with only required fields and headers filled', async () => {
-    const csvParsedRows = await CSVFileReader.readCSVFile(CSV_EXAMPLE_ONLY_REQUIRED_FIELDS_AND_HEADERS);
-    const metadataObjects = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
+    const csvParsedRows = await readCSVFile(CSV_EXAMPLE_ONLY_REQUIRED_FIELDS_AND_HEADERS);
+    const metadataObjects = parseCSVRowsToMetadataObjects({
       csvParsedRows,
-      csvFilePath: CSV_EXAMPLE_ONLY_REQUIRED_FIELDS_AND_HEADERS,
-      headerAttributes: CSVFileReader.ATTRIBUTES,
-      headerProperties: CSVFileReader.PROPERTIES,
+      headerAttributes: ATTRIBUTES,
+      headerProperties: PROPERTIES,
     });
 
     const result = await convertMetadataObjectsToJsonFiles({
@@ -169,12 +162,11 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
   });
 
   it('convertMetadataObjectsToJsonFiles should return errors for missing required fields in CSV', async () => {
-    const csvParsedRows = await CSVFileReader.readCSVFile(CSV_EXAMPLE_WITH_MISSING_REQUIRED_FIELDS);
-    const metadataObjects = JsonMetadataFromCSVConverter.parseCSVRowsToMetadataObjects({
+    const csvParsedRows = await readCSVFile(CSV_EXAMPLE_WITH_MISSING_REQUIRED_FIELDS);
+    const metadataObjects = parseCSVRowsToMetadataObjects({
       csvParsedRows,
-      csvFilePath: CSV_EXAMPLE_WITH_MISSING_REQUIRED_FIELDS,
-      headerAttributes: CSVFileReader.ATTRIBUTES,
-      headerProperties: CSVFileReader.PROPERTIES,
+      headerAttributes: ATTRIBUTES,
+      headerProperties: PROPERTIES,
     });
 
     const result = await convertMetadataObjectsToJsonFiles({

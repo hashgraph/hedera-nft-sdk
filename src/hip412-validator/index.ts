@@ -32,7 +32,7 @@ import { ValidationError } from '../utils/validation-error';
 import { getNftMetadataFromCollection } from '../helpers/get-nft-metadatas-from-collection';
 import { NFTMetadata } from '../types/nft-metadata';
 
-interface FileValidationResult {
+export interface FileValidationResult {
   isValid: boolean;
   fileName?: string;
   errors: string[];
