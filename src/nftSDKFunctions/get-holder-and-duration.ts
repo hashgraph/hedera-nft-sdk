@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import { fromUnixTime } from 'date-fns';
+import { formatISO, fromUnixTime } from 'date-fns';
 import { dictionary } from '../utils/constants/dictionary';
 import { getSingleNFTDetails, getLastOwnershipTransferForNft } from '../api/mirror-node';
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
@@ -44,7 +44,7 @@ export const getHolderAndDuration = async ({
   }
 
   const date = fromUnixTime(Number(transactionsData.consensus_timestamp));
-  const readableDate = date.toLocaleString();
+  const readableDate = formatISO(date);
 
   return {
     holder: transactionsData.receiver_account_id,

@@ -21,6 +21,7 @@
 import { LONG_E2E_TIMEOUT, LONG_MIRROR_NODE_DELAY, MIRROR_NODE_DELAY } from '../__mocks__/consts';
 import { nftSDK, operatorAccountId, operatorPrivateKey, secondAccountId, secondPrivateKey } from './e2e-consts';
 import { AccountId, NftId, PrivateKey, TokenAssociateTransaction, TokenId, TransferTransaction } from '@hashgraph/sdk';
+import { parseISO } from 'date-fns';
 
 afterAll(async () => {
   nftSDK.client.close();

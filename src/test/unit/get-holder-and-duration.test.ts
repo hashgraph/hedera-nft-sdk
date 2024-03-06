@@ -19,7 +19,7 @@ describe('getHolderAndDuration', () => {
         {
           type: 'CRYPTOTRANSFER',
           receiver_account_id: 'mockReceiverAccountId',
-          consensus_timestamp: 'mockConsensusTimestamp',
+          consensus_timestamp: '1695821531.685486177',
         },
       ],
       links: { next: null },
