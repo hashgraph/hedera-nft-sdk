@@ -31,16 +31,24 @@ export const convertMetadataObjectsToJsonFiles = async ({
   savedJsonFilesLocation: string;
   limit?: number;
 }): Promise<JsonMetadataFromCSVInterface> => {
-  const { isValid, errors } = Hip412Validator.validateArrayOfObjects(metadataObjects);
+  const { allObjectsValid, results } = Hip412Validator.validateArrayOfObjects(metadataObjects);
 
-  if (isValid) {
+  if (allObjectsValid) {
     const objectsToProcess = limit !== undefined && limit < metadataObjects.length ? metadataObjects.slice(0, limit) : metadataObjects;
     saveMetadataObjectsAsJsonFiles(objectsToProcess, savedJsonFilesLocation);
   }
 
+  // Prepare the error structure while maintaining the index of the metadata object and its error list for greater readability.
+  const errorsDetailed = Object.entries(results).reduce<{ objectIndex: number; errors: string[] }[]>((acc, [index, { errors }]) => {
+    if (errors.length > 0) {
+      acc.push({ objectIndex: parseInt(index), errors });
+    }
+    return acc;
+  }, []);
+
   return {
-    isValid,
-    errors,
+    isValid: allObjectsValid,
+    errors: errorsDetailed,
     savedJsonFilesLocation,
   };
 };

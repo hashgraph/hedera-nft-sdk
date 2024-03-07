@@ -25,34 +25,18 @@ import { validateObjectWithSchema, validationMetadataErrorOptions } from '../hel
 import { errorToMessage } from '../helpers/error-to-message';
 import { MetadataObject } from '../types/csv';
 import { dictionary } from '../utils/constants/dictionary';
-import { REQUIRED } from '../utils/constants/nfts-limit-error';
 import { getMetadataObjectsForValidation, getSingleNFTDetails, MetadataFromMirrorNode } from '../api/mirror-node';
 import { uriDecoder } from '../helpers/uri-decoder';
 import { ValidationError } from '../utils/validation-error';
 import { getNftMetadataFromCollection } from '../helpers/get-nft-metadatas-from-collection';
 import { NFTMetadata } from '../types/nft-metadata';
-
-export interface FileValidationResult {
-  isValid: boolean;
-  fileName?: string;
-  errors: string[];
-}
-
-interface DirectoryValidationResult {
-  isValid: boolean;
-  errors: MetadataError[];
-}
-
-interface MetadataError {
-  fileName?: string;
-  general: string[];
-}
-
-export interface MetadataOnChainObjects {
-  metadata?: MetadataObject;
-  serialNumber: number;
-  error?: string;
-}
+import {
+  FileValidationResult,
+  DetailedFileValidationResult,
+  ValidateArrayOfObjectsResult,
+  DirectoryValidationResult,
+  MetadataError,
+} from '../types/hip412-validator';
 
 export class Hip412Validator {
   static validateSingleMetadataObject(object: MetadataObject | NFTMetadata): FileValidationResult {
@@ -74,23 +58,35 @@ export class Hip412Validator {
     };
   }
 
-  static validateArrayOfObjects = (metadataObjects: MetadataObject[], filePath?: string): FileValidationResult => {
-    const errors: string[] = [];
+  static validateArrayOfObjects(metadataObjects: MetadataObject[]): ValidateArrayOfObjectsResult {
+    const results: { [index: number]: DetailedFileValidationResult } = {};
+    let allObjectsValid = true;
 
-    for (const [index, metadataObject] of metadataObjects.entries()) {
+    metadataObjects.forEach((metadataObject, index) => {
+      const errors: string[] = [];
       try {
         validateObjectWithSchema(Hip412MetadataCSVSchema, metadataObject, validationMetadataErrorOptions);
       } catch (e) {
-        errors.push(
-          dictionary.validation.arrayOfObjectsValidationError(
-            filePath || `object ${index + 1}`,
-            errorToMessage(errorToMessage(e) === REQUIRED ? dictionary.validation.requiredFieldMissing : e)
-          )
-        );
+        allObjectsValid = false;
+        const errorMessage = errorToMessage(e);
+        if (e instanceof ValidationError) {
+          errors.push(...e.errors);
+        } else {
+          errors.push(errorMessage);
+        }
       }
-    }
-    return { isValid: errors.length === 0, errors };
-  };
+      results[index] = {
+        isValid: errors.length === 0,
+        errorsCount: errors.length,
+        errors: errors.map((error) => error),
+      };
+    });
+
+    return {
+      allObjectsValid,
+      results,
+    };
+  }
 
   static validateLocalFile(filePath: string): FileValidationResult {
     try {

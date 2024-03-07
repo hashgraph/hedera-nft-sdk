@@ -19,6 +19,9 @@
  */
 export interface JsonMetadataFromCSVInterface {
   isValid: boolean;
-  errors: string[];
+  errors: Array<{
+    objectIndex: number;
+    errors: string[];
+  }>;
   savedJsonFilesLocation: string;
 }

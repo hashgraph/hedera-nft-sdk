@@ -26,6 +26,14 @@ import { Attribute, Localization, File, Instance, Error, Problem, ValidationResu
 import { NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, TraitOccurrence } from './types/rarity';
 import { WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelTypes, Metadata, RiskResult } from './types/risk';
 import type { CSVRow, MetadataObject } from './types/csv';
+import type {
+  FileValidationResult,
+  DetailedFileValidationResult,
+  ValidateArrayOfObjectsResult,
+  DirectoryValidationResult,
+  MetadataError,
+  MetadataOnChainObjects,
+} from './types/hip412-validator';
 
 import { HederaNFTSDK } from './nftSDKFunctions';
 import { FeeFactory } from './feeFactory';
@@ -35,7 +43,6 @@ import { PinataService } from './services/file-storages/pinata/pinata-service';
 import { AWSService } from './services/file-storages/aws/aws-service';
 import { MockStorageService } from './services/file-storages/mock-storage/mock-storage-service';
 import { UploadService } from './services/upload-service';
-import { FileValidationResult } from './hip412-validator';
 import { convertCSVToMetadataObjects } from './file-management/convert-csv-to-metadata-objects';
 import { convertMetadataObjectsToJsonFiles } from './file-management/convert-metadata-objects-to-json-files';
 import { prepareMetadataObjectsFromCSVRows } from './file-management/prepare-metadata-objects-from-csv-rows';
@@ -92,6 +99,11 @@ export {
   MetadataObject,
   CSVRow,
   FileValidationResult,
+  ValidateArrayOfObjectsResult,
+  DetailedFileValidationResult,
+  DirectoryValidationResult,
+  MetadataError,
+  MetadataOnChainObjects,
 
   // NFTSDK
   HederaNFTSDK,
