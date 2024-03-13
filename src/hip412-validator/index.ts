@@ -20,7 +20,7 @@
 import fs from 'fs';
 import path from 'path';
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
-import { Hip412MetadataCSVSchema, Hip412MetadataSchema } from '../utils/validation-schemas/hip412-metadata-schema';
+import { Hip412MetadataSchema } from '../utils/validation-schemas/hip412-metadata-schema';
 import { validateObjectWithSchema, validationMetadataErrorOptions } from '../helpers/validate-object-with-schema';
 import { errorToMessage } from '../helpers/error-to-message';
 import { MetadataObject } from '../types/csv';
@@ -65,7 +65,7 @@ export class Hip412Validator {
     metadataObjects.forEach((metadataObject, index) => {
       const errors: string[] = [];
       try {
-        validateObjectWithSchema(Hip412MetadataCSVSchema, metadataObject, validationMetadataErrorOptions);
+        validateObjectWithSchema(Hip412MetadataSchema, metadataObject, validationMetadataErrorOptions);
       } catch (e) {
         allObjectsValid = false;
         const errorMessage = errorToMessage(e);
@@ -152,7 +152,7 @@ export class Hip412Validator {
         });
       } else if (obj.metadata) {
         try {
-          validateObjectWithSchema(Hip412MetadataCSVSchema, obj.metadata, validationMetadataErrorOptions);
+          validateObjectWithSchema(Hip412MetadataSchema, obj.metadata, validationMetadataErrorOptions);
         } catch (e) {
           errors.push({
             serialNumber: obj.serialNumber,

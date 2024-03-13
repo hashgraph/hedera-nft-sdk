@@ -20,7 +20,6 @@
 import { isImageFile } from '../../helpers/is-image-file';
 import type { BufferFile } from '../../types/buffer-file';
 import isString from 'lodash/isString';
-import omit from 'lodash/omit';
 import { type ZodTypeAny, z } from 'zod';
 import { dictionary } from '../constants/dictionary';
 import { KNOWN_IMAGE_MIME_TYPES } from '../constants/mime-types-and-extensions';
@@ -93,10 +92,5 @@ function recursiveSchema(): ZodTypeAny {
 
 export const Hip412MetadataSchema = z.object({
   ...Hip412MetadataCommonSchema,
-  image: imageForHip412MetadataSchema,
-});
-
-export const Hip412MetadataCSVSchema = z.object({
-  ...omit(Hip412MetadataCommonSchema, ['format']),
   image: imageForHip412MetadataSchema,
 });
