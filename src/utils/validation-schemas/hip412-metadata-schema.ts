@@ -42,7 +42,7 @@ const FileSchema = z.object({
   type: z.string().refine((value) => KNOWN_IMAGE_MIME_TYPES.some((knownType) => value.startsWith(knownType)), {
     message: dictionary.validation.unsupportedImageMimeType,
   }),
-  metadata: recursiveSchema(),
+  metadata: recursiveSchema().optional(),
   checksum: z.string().optional(),
   is_default_file: z.boolean().optional(),
   metadata_uri: z.string().optional(),

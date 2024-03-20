@@ -38,6 +38,7 @@ import type {
 import { HederaNFTSDK } from './nftSDKFunctions';
 import { FeeFactory } from './feeFactory';
 import { Hip412Validator } from './hip412-validator';
+import { Hip412MetadataBuilder } from './hip412-metadata-builder';
 import { NftStorageService } from './services/file-storages/nft-storage/nft-storage-service';
 import { PinataService } from './services/file-storages/pinata/pinata-service';
 import { AWSService } from './services/file-storages/aws/aws-service';
@@ -109,6 +110,7 @@ export {
   HederaNFTSDK,
   FeeFactory,
   Hip412Validator,
+  Hip412MetadataBuilder,
 
   // Upload Service
   UploadService,

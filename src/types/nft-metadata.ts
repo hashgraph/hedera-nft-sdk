@@ -30,12 +30,12 @@ export interface Property {
   [k: string]: string | number | boolean | object;
 }
 
-export type DisplayType = 'text' | 'boolean' | 'percentage' | 'boost' | 'datetime' | 'date' | 'color';
+export type HIP412Format = 'HIP412@2.0.0';
 
 export interface Attribute {
   trait_type: string;
-  display_type?: DisplayType;
   value: string;
+  display_type?: string;
   max_value?: string | number;
 }
 
@@ -48,12 +48,13 @@ export interface Localization {
 export interface NFTMetadata {
   name: string;
   image: string;
+  type: string;
   description?: string;
   creator?: string;
   creatorDID?: string;
-  type: string;
+  checksum?: string;
   files?: FileMetadata[];
-  format?: 'HIP412@2.0.0';
+  format?: HIP412Format;
   properties?: Property;
   attributes?: Attribute[];
   localization?: Localization;

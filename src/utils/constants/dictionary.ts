@@ -62,6 +62,12 @@ export const dictionary = {
       defaultLocaleShouldNotAppear: "Default locale should not appear in 'localization.locales'",
       wrongUriFormat: 'URI should be of format <protocol>://<hash>/{locale}.json',
     },
+    metadataBuilder: {
+      fieldAlreadySet: (field: string) => `${field} can only be set once`,
+      uriAndTypeRequired: 'URI and Type are required for adding a file',
+      localizationAlreadySet: 'Localization can only be set once',
+      localizatonFieldsMissing: 'Localization uri, default locale, and locales array are required.',
+    },
   },
   createCollection: {
     myPrivateKeyRequired: 'myPrivateKey is required',
