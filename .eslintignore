@@ -5,4 +5,3 @@ examples
 .github
 jest.config.ts
 jest.config.e2e.ts
-coverage/

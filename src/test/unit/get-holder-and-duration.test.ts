@@ -1,7 +1,7 @@
+import { getHolderAndDuration } from '../../nftSDKFunctions/get-holder-and-duration';
 import axios from 'axios';
 import { dictionary } from '../../utils/constants/dictionary';
 import { MOCK_SERIAL, MOCK_TOKEN_ID, NETWORK } from '../__mocks__/consts';
-import { getHolderAndDuration } from '../../getHolderAndDuration';
 
 jest.mock('axios');
 

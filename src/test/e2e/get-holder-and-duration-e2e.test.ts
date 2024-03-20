@@ -21,7 +21,7 @@
 import { LONG_E2E_TIMEOUT, LONG_MIRROR_NODE_DELAY, MIRROR_NODE_DELAY } from '../__mocks__/consts';
 import { nftSDK, operatorAccountId, operatorPrivateKey, secondAccountId, secondPrivateKey } from './e2e-consts';
 import { AccountId, NftId, PrivateKey, TokenAssociateTransaction, TokenId, TransferTransaction } from '@hashgraph/sdk';
-import { getHolderAndDuration } from '../../getHolderAndDuration';
+import { parseISO } from 'date-fns';
 
 afterAll(async () => {
   nftSDK.client.close();
@@ -49,7 +49,7 @@ describe('getHolderAndDuration', () => {
   it(
     'should return holder and duration of an NFT that has been minted successfully',
     async () => {
-      const result = await getHolderAndDuration({ tokenId, serialNumber: baseNFT[0].serialNumber, network: 'testnet' });
+      const result = await nftSDK.getHolderAndDuration({ tokenId, serialNumber: baseNFT[0].serialNumber, network: 'testnet' });
       const holderSinceDate = new Date(result.holderSince);
       const today = new Date();
 
@@ -88,7 +88,7 @@ describe('getHolderAndDuration', () => {
 
       await new Promise((resolve) => setTimeout(resolve, LONG_MIRROR_NODE_DELAY));
 
-      const result = await getHolderAndDuration({ tokenId, serialNumber: nftSerial, network: 'testnet' });
+      const result = await nftSDK.getHolderAndDuration({ tokenId, serialNumber: nftSerial, network: 'testnet' });
       const holderSinceDate = new Date(result.holderSince);
       const today = new Date();
 

@@ -25,7 +25,7 @@ import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 export const getHolderAndDuration = async ({
   tokenId,
   serialNumber,
-  network = 'mainnet',
+  network,
 }: {
   tokenId: string;
   serialNumber: number;

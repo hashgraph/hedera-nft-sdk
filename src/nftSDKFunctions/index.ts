@@ -30,6 +30,8 @@ import { estimateNftMintingInHbar } from './estimate-nft-minting-in-hbar';
 import { estimateNftMintingInDollars } from './estimate-nft-minting-in-dollars';
 import { estimateCreateCollectionInDollars } from './estimate-create-collection-in-dollars';
 import { estimateCreateCollectionInHbar } from './estimate-create-collection-in-hbar';
+import { getHolderAndDuration } from './get-holder-and-duration';
+import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 import { getPrivateKeyFromString } from '../helpers/get-private-key-from-string';
 
 export class HederaNFTSDK {
@@ -231,5 +233,9 @@ export class HederaNFTSDK {
       supplyKey: supplyKey || getPrivateKeyFromString(this.privateKey),
       mirrorNodeUrl: this.mirrorNodeUrl,
     });
+  }
+
+  getHolderAndDuration({ tokenId, serialNumber, network = 'mainnet' }: { tokenId: string; serialNumber: number; network?: NetworkName }) {
+    return getHolderAndDuration({ tokenId, serialNumber, network });
   }
 }
