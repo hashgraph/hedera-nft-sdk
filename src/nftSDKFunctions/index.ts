@@ -178,7 +178,7 @@ export class HederaNFTSDK {
     amount: number;
     batchSize?: number;
     metaData: string;
-    supplyKey?: PrivateKey;
+    supplyKey?: string;
   }) {
     return mintSharedMetadataFunction({
       client: this.client,
@@ -186,7 +186,7 @@ export class HederaNFTSDK {
       amount,
       batchSize,
       metaData,
-      supplyKey: supplyKey || getPrivateKeyFromString(this.privateKey),
+      supplyKey: supplyKey ? getPrivateKeyFromString(supplyKey) : getPrivateKeyFromString(this.privateKey),
     });
   }
 
@@ -199,7 +199,7 @@ export class HederaNFTSDK {
   }: {
     tokenId: string;
     batchSize?: number;
-    supplyKey: PrivateKey;
+    supplyKey: string;
     pathToMetadataURIsFile?: string;
     metadata?: string[];
   }) {
@@ -207,30 +207,20 @@ export class HederaNFTSDK {
       client: this.client,
       tokenId,
       batchSize,
-      supplyKey,
+      supplyKey: getPrivateKeyFromString(supplyKey),
       pathToMetadataURIsFile,
       metadataArray: metadata,
     });
   }
 
-  increaseNFTSupply({
-    nftId,
-    amount,
-    batchSize = 5,
-    supplyKey,
-  }: {
-    nftId: NftId;
-    amount: number;
-    batchSize?: number;
-    supplyKey?: PrivateKey;
-  }) {
+  increaseNFTSupply({ nftId, amount, batchSize = 5, supplyKey }: { nftId: NftId; amount: number; batchSize?: number; supplyKey?: string }) {
     return increaseNFTSupply({
       client: this.client,
       network: this.network,
       nftId,
       amount,
       batchSize,
-      supplyKey: supplyKey || getPrivateKeyFromString(this.privateKey),
+      supplyKey: supplyKey ? getPrivateKeyFromString(supplyKey) : getPrivateKeyFromString(this.privateKey),
       mirrorNodeUrl: this.mirrorNodeUrl,
     });
   }

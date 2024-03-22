@@ -38,7 +38,7 @@ describe('mintSharedMetadata function e2e', () => {
           amount,
           batchSize: 2,
           metaData: 'www.youtube.com',
-          supplyKey: getPrivateKeyFromString(operatorPrivateKey),
+          supplyKey: operatorPrivateKey,
         });
 
         expect(tokenId).toBeDefined();

@@ -17,7 +17,7 @@ describe('calculateRiskScoreFromTokenIdE2E', () => {
         amount: 5,
         batchSize: 2,
         metaData: LINK_TO_JSON_OBJECT_WITHOUT_ERRORS,
-        supplyKey: PrivateKey.fromString(operatorPrivateKey),
+        supplyKey: operatorPrivateKey,
       });
       await new Promise((resolve) => setTimeout(resolve, MIRROR_NODE_DELAY));
 

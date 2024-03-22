@@ -37,7 +37,7 @@ describe('increaseNFTSupply function e2e', () => {
           tokenId,
           batchSize: 10,
           metadata: ['www.youtube.com'],
-          supplyKey: getPrivateKeyFromString(operatorPrivateKey),
+          supplyKey: operatorPrivateKey,
         });
         const nftInfo = await new TokenNftInfoQuery()
           .setNftId(new NftId(TokenId.fromString(tokenId), baseNFT[0].serialNumber))
@@ -50,7 +50,7 @@ describe('increaseNFTSupply function e2e', () => {
           nftId: nftInfo[0].nftId,
           amount,
           batchSize: 10,
-          supplyKey: getPrivateKeyFromString(operatorPrivateKey),
+          supplyKey: operatorPrivateKey,
         });
 
         for (const mintedNft of increaseSupplyResult) {

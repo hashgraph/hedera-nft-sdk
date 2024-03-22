@@ -27,7 +27,7 @@ describe('E2E test for validating single NFT Metadata Object Against HIP412 sche
       amount: AMOUNT_OF_NFTS_TO_MINT_SINGLE,
       batchSize: BATCH_SIZE_SINGLE,
       metaData: LINK_TO_JSON_OBJECT_WITHOUT_ERRORS,
-      supplyKey: getPrivateKeyFromString(operatorPrivateKey),
+      supplyKey: operatorPrivateKey,
     });
 
     await new Promise((resolve) => setTimeout(resolve, MIRROR_NODE_DELAY));

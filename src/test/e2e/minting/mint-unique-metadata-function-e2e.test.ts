@@ -34,7 +34,7 @@ describe('mintUniqueMetadata function e2e', () => {
       const mintedMetadata = await nftSDK.mintUniqueMetadata({
         tokenId,
         batchSize: 2,
-        supplyKey: getPrivateKeyFromString(operatorPrivateKey),
+        supplyKey: operatorPrivateKey,
         pathToMetadataURIsFile: pathToOneLineCSV,
       });
 
@@ -66,7 +66,7 @@ describe('mintUniqueMetadata function e2e', () => {
       const mintedMetadata = await nftSDK.mintUniqueMetadata({
         tokenId,
         batchSize: 2,
-        supplyKey: getPrivateKeyFromString(operatorPrivateKey),
+        supplyKey: operatorPrivateKey,
         pathToMetadataURIsFile: pathToRowCSV,
       });
 
@@ -97,7 +97,7 @@ describe('mintUniqueMetadata function e2e', () => {
       const mintedMetadata = await nftSDK.mintUniqueMetadata({
         tokenId,
         batchSize: 2,
-        supplyKey: getPrivateKeyFromString(operatorPrivateKey),
+        supplyKey: operatorPrivateKey,
         metadata: ['https://www.youtube.com1', 'https://www.youtube.com2'],
       });
 
@@ -125,7 +125,7 @@ describe('mintUniqueMetadata function e2e', () => {
       nftSDK.mintUniqueMetadata({
         tokenId: invalidTokenId,
         batchSize: 2,
-        supplyKey: getPrivateKeyFromString(operatorPrivateKey),
+        supplyKey: operatorPrivateKey,
         pathToMetadataURIsFile: pathToRowCSV,
       })
     ).rejects.toThrow(dictionary.hederaActions.cannotParseTokenId);
