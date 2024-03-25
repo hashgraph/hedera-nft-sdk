@@ -48,15 +48,23 @@ export interface RiskLevels {
 
 export type RiskLevelTypes = keyof RiskLevels;
 
-export interface Metadata {
-  [key: string]: string;
-  supply_type: string;
-  supply_key: string;
+export type RiskScoreFactors = {
+  [key in KeyTypes]?: number;
+} & {
+  supply_type_infinite_and_supply_key_defined?: number;
+  max_supply_equal_to_total_supply?: number;
+};
+
+export type Metadata = {
+  [key in KeyTypes]?: boolean | string;
+} & {
+  supply_type?: 'INFINITE' | 'FINITE';
   max_supply: string;
   total_supply: string;
-}
+};
 
 export interface RiskResult {
   riskScore: number;
-  riskLevel: string;
+  riskLevel: RiskLevel;
+  riskScoreFactors: RiskScoreFactors;
 }

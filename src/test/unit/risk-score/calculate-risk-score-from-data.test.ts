@@ -21,7 +21,7 @@ import { calculateRiskScoreFromData } from '../../../risk';
 import { Metadata, RiskLevels, Weights } from '../../../types/risk';
 
 const metadata: Metadata = {
-  supply_type: 'testSupply',
+  supply_type: 'FINITE',
   supply_key: 'testKey',
   max_supply: 'testMaxSupply',
   total_supply: 'testTotalSupply',
@@ -54,10 +54,11 @@ describe('CalculateRiskScoreFromData', () => {
     const metadataWithDifferentSupplyType: Metadata = {
       ...metadata,
     };
-    const { riskScore, riskLevel } = calculateRiskScoreFromData({ metadata: metadataWithDifferentSupplyType });
+    const { riskScore, riskLevel, riskScoreFactors } = calculateRiskScoreFromData({ metadata: metadataWithDifferentSupplyType });
 
     expect(riskScore).toBe(20);
     expect(riskLevel).toBe('LOW');
+    expect(riskScoreFactors).toEqual({ supply_key: 20 });
   });
 
   it('should calculate risk score when fee_schedule_key is extra provided', () => {
@@ -65,10 +66,11 @@ describe('CalculateRiskScoreFromData', () => {
       ...metadata,
       fee_schedule_key: 'fee_schedule_key',
     };
-    const { riskScore, riskLevel } = calculateRiskScoreFromData({ metadata: metadataWithDifferentSupplyKey });
+    const { riskScore, riskLevel, riskScoreFactors } = calculateRiskScoreFromData({ metadata: metadataWithDifferentSupplyKey });
 
     expect(riskScore).toBe(60);
     expect(riskLevel).toBe('MEDIUM');
+    expect(riskScoreFactors).toEqual({ supply_key: 20, fee_schedule_key: 40 });
   });
 
   it('should calculate risk score when pause_key is extra provided', () => {
@@ -76,10 +78,11 @@ describe('CalculateRiskScoreFromData', () => {
       ...metadata,
       pause_key: 'pause_key',
     };
-    const { riskScore, riskLevel } = calculateRiskScoreFromData({ metadata: metadataWithDifferentSupplyKey });
+    const { riskScore, riskLevel, riskScoreFactors } = calculateRiskScoreFromData({ metadata: metadataWithDifferentSupplyKey });
 
     expect(riskScore).toBe(70);
     expect(riskLevel).toBe('MEDIUM');
+    expect(riskScoreFactors).toEqual({ supply_key: 20, pause_key: 50 });
   });
 
   it('should calculate risk score when admin_key is extra provided', () => {
@@ -87,10 +90,11 @@ describe('CalculateRiskScoreFromData', () => {
       ...metadata,
       admin_key: 'admin_key',
     };
-    const { riskScore, riskLevel } = calculateRiskScoreFromData({ metadata: metadataWithDifferentSupplyKey });
+    const { riskScore, riskLevel, riskScoreFactors } = calculateRiskScoreFromData({ metadata: metadataWithDifferentSupplyKey });
 
     expect(riskScore).toBe(220);
     expect(riskLevel).toBe('HIGH');
+    expect(riskScoreFactors).toEqual({ supply_key: 20, admin_key: 200 });
   });
 
   it('should calculate risk score with custom weights and custom risk levels', () => {
@@ -98,7 +102,7 @@ describe('CalculateRiskScoreFromData', () => {
       ...metadata,
       kyc_key: 'kyc_key',
     };
-    const { riskScore, riskLevel } = calculateRiskScoreFromData({
+    const { riskScore, riskLevel, riskScoreFactors } = calculateRiskScoreFromData({
       metadata: metadataWithDifferentSupplyKey,
       customWeights,
       customRiskLevels,
@@ -106,6 +110,7 @@ describe('CalculateRiskScoreFromData', () => {
 
     expect(riskScore).toBe(400);
     expect(riskLevel).toBe('MEDIUM');
+    expect(riskScoreFactors).toEqual({ supply_key: 200, kyc_key: 200 });
   });
 
   it('should calculate risk score with custom weights ', () => {
@@ -113,13 +118,14 @@ describe('CalculateRiskScoreFromData', () => {
       ...metadata,
       kyc_key: 'kyc_key',
     };
-    const { riskScore, riskLevel } = calculateRiskScoreFromData({
+    const { riskScore, riskLevel, riskScoreFactors } = calculateRiskScoreFromData({
       metadata: metadataWithDifferentSupplyKey,
       customWeights,
     });
 
     expect(riskScore).toBe(400);
     expect(riskLevel).toBe('HIGH');
+    expect(riskScoreFactors).toEqual({ supply_key: 200, kyc_key: 200 });
   });
 
   it('should calculate risk score with custom risk levels ', () => {
@@ -127,12 +133,13 @@ describe('CalculateRiskScoreFromData', () => {
       ...metadata,
       kyc_key: 'kyc_key',
     };
-    const { riskScore, riskLevel } = calculateRiskScoreFromData({
+    const { riskScore, riskLevel, riskScoreFactors } = calculateRiskScoreFromData({
       metadata: metadataWithDifferentSupplyKey,
       customRiskLevels,
     });
 
     expect(riskScore).toBe(70);
     expect(riskLevel).toBe('MEDIUM');
+    expect(riskScoreFactors).toEqual({ supply_key: 20, kyc_key: 50 });
   });
 });
