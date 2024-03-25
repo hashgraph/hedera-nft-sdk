@@ -69,36 +69,36 @@ describe('Validator function tests', () => {
       // Arrange
       const validator = new Validator();
       const version = defaultSchemaVersion;
-  
+
       // Act
       const schema = validator.getSchema(version);
-  
+
       // Assert
       expect(typeof schema).toBe('object');
       expect(schema.version).toBe(defaultSchemaVersion);
     });
-  
+
     test('it should return the default schema object for an unsupported version in the schema map', () => {
       // Arrange
       const validator = new Validator();
       const version = '2.5.10'; // Unsupported version
-  
+
       // Act
       const schema = validator.getSchema(version);
-  
+
       // Assert
       expect(typeof schema).toBe('object');
       expect(schema.version).toBe(defaultSchemaVersion);
     });
-  
+
     test('it should return the default schema object for an unsupported value as version', () => {
       // Arrange
       const validator = new Validator();
       const version = 'notaschema'; // Unsupported version
-  
+
       // Act
       const schema = validator.getSchema(version);
-  
+
       // Assert
       expect(typeof schema).toBe('object');
       expect(schema.version).toBe(defaultSchemaVersion);
@@ -110,10 +110,10 @@ describe('Validator function tests', () => {
       // Arrange
       const validator = new Validator();
       const metadataCopy = JSON.parse(JSON.stringify(validMetadata));
-      const metadata = { 
+      const metadata = {
         // missing name, image, and type for HIP412@1.0.0
         description: metadataCopy.description,
-        attributes: metadataCopy.attributes, 
+        attributes: metadataCopy.attributes,
         localization: {
           uri: 'ipfs://QmWS1VAdMD353A6SDk9wNyvkT14kyCiZrNDYAad4w1tKqT/{locale}.json',
           default: 'en',
@@ -140,7 +140,7 @@ describe('Validator function tests', () => {
         image: 'ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2344.png',
         type: 'image/png',
         description: metadataCopy.description,
-        attributes: metadataCopy.attributes, 
+        attributes: metadataCopy.attributes,
         localization: {
           uri: 'ipfs://QmWS1VAdMD353A6SDk9wNyvkT14kyCiZrNDYAad4w1tKqT/{locale}.json',
           default: 'en',
@@ -165,7 +165,7 @@ describe('Validator function tests', () => {
         image: 'ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2344.png',
         type: 'image/png',
         description: metadataCopy.description,
-        attributes: [{ checksum: 'randomvalue', trait_type: 'Fur', value: 'Gold' }], 
+        attributes: [{ checksum: 'randomvalue', trait_type: 'Fur', value: 'Gold' }],
         localization: {
           uri: 'ipfs://QmWS1VAdMD353A6SDk9wNyvkT14kyCiZrNDYAad4w1tKqT/{locale}.json',
           default: 'en',

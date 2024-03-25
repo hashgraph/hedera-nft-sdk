@@ -28,7 +28,7 @@ const localization = {
 
 describe('Localization validator tests', () => {
   test('it should not return an error if the `localization` is property is not present', () => {
-    // Arrange 
+    // Arrange
     // Metatadata with attribute error
     const metadata = validMetadata;
 
@@ -65,9 +65,7 @@ describe('Localization validator tests', () => {
     // Assert
     expect(Array.isArray(errors)).toBe(true);
     expect(errors.length).toBe(1);
-    expect(errors[0].msg).toBe(
-      'Default locale should be two-letter language code, got: eng'
-    );
+    expect(errors[0].msg).toBe('Default locale should be two-letter language code, got: eng');
     expect(errors[0].type).toBe('localization');
   });
 
@@ -83,9 +81,7 @@ describe('Localization validator tests', () => {
     // Assert
     expect(Array.isArray(errors)).toBe(true);
     expect(errors.length).toBe(1);
-    expect(errors[0].msg).toBe(
-      'Locale should be two-letter language code, got: ger'
-    );
+    expect(errors[0].msg).toBe('Locale should be two-letter language code, got: ger');
     expect(errors[0].type).toBe('localization');
   });
 
@@ -102,9 +98,7 @@ describe('Localization validator tests', () => {
     // Assert
     expect(Array.isArray(errors)).toBe(true);
     expect(errors.length).toBe(1);
-    expect(errors[0].msg).toBe(
-      "Default locale should not appear in 'localization.locales'"
-    );
+    expect(errors[0].msg).toBe("Default locale should not appear in 'localization.locales'");
     expect(errors[0].type).toBe('localization');
   });
 
@@ -120,9 +114,7 @@ describe('Localization validator tests', () => {
     // Assert
     expect(Array.isArray(errors)).toBe(true);
     expect(errors.length).toBe(1);
-    expect(errors[0].msg).toBe(
-      'URI should be of format <protocol>://<hash>/{locale}.json'
-    );
+    expect(errors[0].msg).toBe('URI should be of format <protocol>://<hash>/{locale}.json');
     expect(errors[0].type).toBe('localization');
   });
 });

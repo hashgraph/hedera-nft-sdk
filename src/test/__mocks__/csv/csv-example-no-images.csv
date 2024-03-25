@@ -1,0 +1,13 @@
+name,creator,creatorDID,description,image,type,properties,,attributes,,
+--,--,--,--,--,--,external_url,url,color,hasPipe,stamina
+Example NFT 1,Hedera,,This is an example NFT 1,,,https://nft.com/mycollection/1,https://nft.com/mycollection/1,"rgb(0,255,0)",false,65
+Example NFT 2,Hedera,,This is an example NFT 2,,,https://nft.com/mycollection/2,https://nft.com/mycollection/2,"rgb(255,0,0)",true,83
+Example NFT 3,Hedera,,This is an example NFT 3,,,https://nft.com/mycollection/3,https://nft.com/mycollection/3,"rgb(0,0,255)",true,75
+Example NFT 4,Hedera,,This is an example NFT 4,,,https://nft.com/mycollection/4,https://nft.com/mycollection/4,"rgb(255,255,0)",false,70
+Example NFT 5,Hedera,,This is an example NFT 5,,,https://nft.com/mycollection/5,https://nft.com/mycollection/5,"rgb(255,0,255)",true,80
+Example NFT 6,Hedera,,This is an example NFT 6,,,https://nft.com/mycollection/6,https://nft.com/mycollection/6,"rgb(0,255,255)",false,60
+Example NFT 7,Hedera,,This is an example NFT 7,,,https://nft.com/mycollection/7,https://nft.com/mycollection/7,"rgb(128,128,128)",true,90
+Example NFT 8,Hedera,,This is an example NFT 8,,,https://nft.com/mycollection/8,https://nft.com/mycollection/8,"rgb(192,192,192)",false,95
+Example NFT 9,Hedera,,This is an example NFT 9,,,https://nft.com/mycollection/9,https://nft.com/mycollection/9,"rgb(64,64,64)",true,75
+Example NFT 10,Hedera,,This is an example NFT 10,,,https://nft.com/mycollection/10,https://nft.com/mycollection/10,"rgb(128,0,0)",false,80
+Example NFT 11,Hedera,,This is an example NFT 11,,,https://nft.com/mycollection/11,https://nft.com/mycollection/11,"rgb(0,128,0)",true,90
