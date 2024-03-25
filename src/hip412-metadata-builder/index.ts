@@ -24,7 +24,7 @@ import { dictionary } from '../utils/constants/dictionary';
 
 interface Hip412MetadataBuilderResult {
   metadata: NFTMetadata;
-  validationResponse: FileValidationResult;
+  validationResult: FileValidationResult;
 }
 
 export class Hip412MetadataBuilder {
@@ -138,7 +138,7 @@ export class Hip412MetadataBuilder {
   }
 
   build(): Hip412MetadataBuilderResult {
-    const validationResponse = Hip412Validator.validateSingleMetadataObject(this.metadataObject);
-    return { validationResponse, metadata: this.metadataObject };
+    const validationResult = Hip412Validator.validateSingleMetadataObject(this.metadataObject);
+    return { validationResult, metadata: this.metadataObject };
   }
 }

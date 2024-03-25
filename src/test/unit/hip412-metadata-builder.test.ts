@@ -72,8 +72,8 @@ describe('Hip412MetadataBuilder', () => {
     expect(result.metadata.name).toEqual(MOCKED_NAME);
     expect(result.metadata.image).toEqual(MOCKED_IMAGE);
     expect(result.metadata.type).toEqual(MOCKED_TYPE);
-    expect(result.validationResponse.isValid).toBe(true);
-    expect(result.validationResponse.errors.length).toEqual(0);
+    expect(result.validationResult.isValid).toBe(true);
+    expect(result.validationResult.errors.length).toEqual(0);
   });
 
   it('should return one validation error when there is no name field provided for metadata object', () => {
@@ -83,8 +83,8 @@ describe('Hip412MetadataBuilder', () => {
     expect(result.metadata.name).toEqual('');
     expect(result.metadata.image).toEqual(MOCKED_IMAGE);
     expect(result.metadata.type).toEqual(MOCKED_TYPE);
-    expect(result.validationResponse.isValid).toBe(false);
-    expect(result.validationResponse.errors.length).toEqual(1);
+    expect(result.validationResult.isValid).toBe(false);
+    expect(result.validationResult.errors.length).toEqual(1);
   });
 
   it('should return three validation errors when none of the required fields are provided', () => {
@@ -94,8 +94,8 @@ describe('Hip412MetadataBuilder', () => {
     expect(result.metadata.name).toEqual('');
     expect(result.metadata.image).toEqual('');
     expect(result.metadata.type).toEqual('');
-    expect(result.validationResponse.isValid).toBe(false);
-    expect(result.validationResponse.errors.length).toEqual(3);
+    expect(result.validationResult.isValid).toBe(false);
+    expect(result.validationResult.errors.length).toEqual(3);
   });
 
   it('should return a full metadata object with all fields filled', () => {
@@ -138,7 +138,7 @@ describe('Hip412MetadataBuilder', () => {
     expect(result.metadata.properties?.[MOCKED_PROPERTY_2.key]).toEqual(MOCKED_PROPERTY_2.value);
     expect(result.metadata.properties?.[MOCKED_PROPERTY_3.key]).toEqual(MOCKED_PROPERTY_3.value);
     expect(result.metadata.localization).toEqual(MOCKED_LOCALIZATION);
-    expect(result.validationResponse.isValid).toBe(true);
-    expect(result.validationResponse.errors.length).toEqual(0);
+    expect(result.validationResult.isValid).toBe(true);
+    expect(result.validationResult.errors.length).toEqual(0);
   });
 });
