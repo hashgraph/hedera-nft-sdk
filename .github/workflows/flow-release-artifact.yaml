@@ -37,10 +37,10 @@ jobs:
           RELEASE_VERSION=$(echo $GITHUB_REF_NAME | sed 's/v\.\|v//')
           [[ "$PACKAGE_VERSION" == "$RELEASE_VERSION" ]] && echo "Versions match $RELEASE_VERSION" || (echo "Package version is: $PACKAGE_VERSION and Release tag is: $RELEASE_VERSION"; exit 1)
 
-      - name: Setup Node 16
+      - name: Setup Node 20
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # pin@v3
         with:
-          node-version: 16
+          node-version: 20
           registry-url: https://registry.npmjs.org
 
       - name: Install packages
