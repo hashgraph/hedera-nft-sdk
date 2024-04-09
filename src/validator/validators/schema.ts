@@ -20,26 +20,29 @@
 import { Validator, ValidationError } from 'jsonschema';
 const validator = new Validator();
 
-import { Instance, ValidationResult } from '../../types/validator.module';
+import { Instance, ValidationResult } from '../../types/validator';
 
 const additionalPropertyMsg = 'is not allowed to have the additional property';
 
 /**
- * Distil an errors array from JSON schema into errors and warnings. 
+ * Distil an errors array from JSON schema into errors and warnings.
  * We want to separate "additional property" errors into warnings because they don't influence the further validatin of the JSON object.
- * 
+ *
  * @param {ValidationError[]} problems - Errors array from jsonschema
  */
 const distilProblems = (problems: ValidationError[]) => {
-  const {warnings, errors} = problems.reduce<{warnings: ValidationError[]; errors: ValidationError[]}>((acc, problem) => {
-    if (problem.message.includes(additionalPropertyMsg)) {
-      acc.warnings.push(problem);
-    } else {
-      acc.errors.push(problem);
-    }
-    return acc;
-  }, {warnings: [], errors: []});
-  
+  const { warnings, errors } = problems.reduce<{ warnings: ValidationError[]; errors: ValidationError[] }>(
+    (acc, problem) => {
+      if (problem.message.includes(additionalPropertyMsg)) {
+        acc.warnings.push(problem);
+      } else {
+        acc.errors.push(problem);
+      }
+      return acc;
+    },
+    { warnings: [], errors: [] }
+  );
+
   return {
     warnings,
     errors,
@@ -48,9 +51,9 @@ const distilProblems = (problems: ValidationError[]) => {
 
 /**
  * The schema validator validates the {instance} against a specific version of the HIP412 metadata standard using jsonschema
- * 
+ *
  * @see https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md#default-schema-collectibe-hedera-nfts-format-hip412100
- * 
+ *
  * @param {Object} instance - The JSON object to validate against a schema
  * @param {Object} schema - The schema to validate the {instance} against
  * @returns {ValidationResult} - Contains no, one, or multiple error objects that describe errors for the validated {instance}
@@ -77,6 +80,4 @@ const schemaValidator = (instance: Instance, schema: Object): ValidationResult =
   };
 };
 
-export {
-  schemaValidator,
-};
+export { schemaValidator };

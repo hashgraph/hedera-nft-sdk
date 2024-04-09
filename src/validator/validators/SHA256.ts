@@ -18,7 +18,7 @@
  *
  */
 
-import type { Instance } from '../../types/validator.module';
+import type { Instance } from '../../types/validator';
 
 /**
  * The SHA256 validator applies specific rules for SHA256 hashes,

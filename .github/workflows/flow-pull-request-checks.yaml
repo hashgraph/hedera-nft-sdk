@@ -21,7 +21,7 @@ jobs:
     runs-on: [self-hosted, Linux, medium, ephemeral]
     strategy:
       matrix:
-        node-version: [16, 18]
+        node-version: [18, 20]
     steps:
       - name: Checkout repository
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # pin@v3
@@ -35,7 +35,7 @@ jobs:
         run: npm ci
 
       - name: Run Jest Tests
-        run: npm run test-output
+        run: npm run test
 
       - name: Publish Test Report
         uses: actionite/publish-unit-test-result-action@1e01e49081c6c4073913aa4b7980fa83e709f322 # pin@v2

@@ -20,7 +20,7 @@
 import { Validator } from '../validator/index';
 import { readFiles, getJSONFilesForDir } from '../helpers/files';
 
-import { ValidationResult, Instance } from '../types/validator.module';
+import { ValidationResult, Instance } from '../types/validator';
 
 interface File {
   filename: string;
@@ -34,18 +34,18 @@ interface ValidationResults {
 const validateFiles = (files: File[]): ValidationResults => {
   const validationResults: ValidationResults = {};
   const validator = new Validator();
-  
-  files.forEach(file => {
+
+  files.forEach((file) => {
     const result = validator.validate(file.filedata);
     validationResults[file.filename] = result;
   });
-  
+
   return validationResults;
 };
 
 /**
  * Validate files locally
- * 
+ *
  * @param {string} path Absolute path to folder containing files
  * @returns {Object<filename<string>, validationResults<Object>>}
  */

@@ -19,18 +19,34 @@
  */
 import { Validator, defaultSchemaVersion } from './validator';
 import localValidation from './local-validation';
-import {
-  defaultWeights,
-  defaultRiskLevels,
-  calculateRiskScoreFromData,
-  calculateRiskScoreFromTokenId,
-  calculateRiskLevel,
-} from './risk';
-import { calculateRarity, calculateRarityFromData, calculateTraitOccurrenceFromData } from './rarity';
+import { defaultWeights, defaultRiskLevels, calculateRiskScoreFromData, calculateRiskScoreFromTokenId, calculateRiskLevel } from './risk';
+import { calculateRarity, calculateRarityFromData, calculateTraitOccurrenceFromData, calculateRarityFromOnChainData } from './rarity';
 
-import { Attribute, Localization, File, Instance, Error, Problem, ValidationResult, Schema } from './types/validator.module';
-import { NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, TraitOccurrence } from './types/rarity.module';
-import { WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelTypes, Metadata, RiskResult } from './types/risk.module';
+import { Attribute, Localization, File, Instance, Error, Problem, ValidationResult, Schema } from './types/validator';
+import { NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, TraitOccurrence } from './types/rarity';
+import { WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelTypes, Metadata, RiskResult } from './types/risk';
+import type { CSVRow, MetadataObject } from './types/csv';
+import type {
+  FileValidationResult,
+  DetailedFileValidationResult,
+  ValidateArrayOfObjectsResult,
+  DirectoryValidationResult,
+  MetadataError,
+  MetadataOnChainObjects,
+} from './types/hip412-validator';
+
+import { HederaNFTSDK } from './nftSDKFunctions';
+import { FeeFactory } from './feeFactory';
+import { Hip412Validator } from './hip412-validator';
+import { Hip412MetadataBuilder } from './hip412-metadata-builder';
+import { NftStorageService } from './services/file-storages/nft-storage/nft-storage-service';
+import { PinataService } from './services/file-storages/pinata/pinata-service';
+import { AWSService } from './services/file-storages/aws/aws-service';
+import { MockStorageService } from './services/file-storages/mock-storage/mock-storage-service';
+import { UploadService } from './services/upload-service';
+import { convertCSVToMetadataObjects } from './file-management/convert-csv-to-metadata-objects';
+import { convertMetadataObjectsToJsonFiles } from './file-management/convert-metadata-objects-to-json-files';
+import { prepareMetadataObjectsFromCSVRows } from './file-management/prepare-metadata-objects-from-csv-rows';
 
 export {
   // validation
@@ -51,7 +67,57 @@ export {
   calculateRarity,
   calculateRarityFromData,
   calculateTraitOccurrenceFromData,
+  calculateRarityFromOnChainData,
+
+  // file management
+  convertCSVToMetadataObjects,
+  convertMetadataObjectsToJsonFiles,
+  prepareMetadataObjectsFromCSVRows,
 
   // interfaces
-  Attribute, Localization, File, Instance, Error, Problem, ValidationResult, Schema, NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelTypes, Metadata, RiskResult, TraitOccurrence,
+  Attribute,
+  Localization,
+  File,
+  Instance,
+  Error,
+  Problem,
+  ValidationResult,
+  Schema,
+  NFTFile,
+  NFTAttribute,
+  ValueObject,
+  AttributeConfig,
+  RarityResult,
+  WeightKeys,
+  WeightProperties,
+  Weights,
+  KeyTypes,
+  RiskLevels,
+  RiskLevelTypes,
+  Metadata,
+  RiskResult,
+  TraitOccurrence,
+  MetadataObject,
+  CSVRow,
+  FileValidationResult,
+  ValidateArrayOfObjectsResult,
+  DetailedFileValidationResult,
+  DirectoryValidationResult,
+  MetadataError,
+  MetadataOnChainObjects,
+
+  // NFTSDK
+  HederaNFTSDK,
+  FeeFactory,
+  Hip412Validator,
+  Hip412MetadataBuilder,
+
+  // Upload Service
+  UploadService,
+
+  // Storages
+  NftStorageService,
+  PinataService,
+  AWSService,
+  MockStorageService,
 };

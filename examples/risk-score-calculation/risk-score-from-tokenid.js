@@ -20,11 +20,11 @@
 const { calculateRiskScoreFromTokenId } = require('../..');
 
 async function main() {
-    // source: https://mainnet-public.mirrornode.hedera.com/api/v1/tokens/0.0.1270555/
-    const results = await calculateRiskScoreFromTokenId("0.0.1270555");
-    console.log(results);
+  // source: https://mainnet-public.mirrornode.hedera.com/api/v1/tokens/0.0.1270555/
+  const results = await calculateRiskScoreFromTokenId({ tokenId: '0.0.1270555' });
+  console.log(results);
 
-    /* Output:
+  /* Output:
         { riskScore: 20, riskLevel: 'LOW' }
     */
 }

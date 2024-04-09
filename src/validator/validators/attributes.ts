@@ -18,7 +18,7 @@
  *
  */
 
-import { Instance, Error } from '../../types/validator.module';
+import { Instance, Error } from '../../types/validator';
 
 /**
  * The attributes validator applies specific rules for attribute objects
@@ -39,15 +39,10 @@ const attributesValidator = (instance: Instance): Error[] => {
 
   attributes.map((attribute) => {
     // Boost must be number value
-    if (
-      attribute.display_type === 'boost' &&
-      typeof attribute.value !== 'number'
-    ) {
+    if (attribute.display_type === 'boost' && typeof attribute.value !== 'number') {
       errors.push({
         type: 'attribute',
-        msg: `Trait ${
-          attribute.trait_type
-        } of type 'boost' requires number, found ${typeof attribute.value}`,
+        msg: `Trait ${attribute.trait_type} of type 'boost' requires number, found ${typeof attribute.value}`,
       });
     }
 
@@ -56,9 +51,7 @@ const attributesValidator = (instance: Instance): Error[] => {
       if (typeof attribute.value !== 'number') {
         errors.push({
           type: 'attribute',
-          msg: `Trait ${
-            attribute.trait_type
-          } of type 'percentage' requires number, found ${typeof attribute.value}`,
+          msg: `Trait ${attribute.trait_type} of type 'percentage' requires number, found ${typeof attribute.value}`,
         });
       } else if (attribute.value < 0 || attribute.value > 100) {
         errors.push({
@@ -92,11 +85,7 @@ const attributesValidator = (instance: Instance): Error[] => {
     }
 
     // Check datetime format: should be integer e.g. 732844800
-    if (
-      (attribute.display_type === 'datetime' ||
-        attribute.display_type === 'date') &&
-      !Number.isInteger(attribute.value as number)
-    ) {
+    if ((attribute.display_type === 'datetime' || attribute.display_type === 'date') && !Number.isInteger(attribute.value as number)) {
       errors.push({
         type: 'attribute',
         msg: `Trait ${attribute.trait_type} of type '${

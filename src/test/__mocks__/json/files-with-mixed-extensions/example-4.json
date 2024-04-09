@@ -1,0 +1,16 @@
+{
+  "name": "Example NFT 4",
+  "creator": "Hedera",
+  "description": "This is an example NFT 4",
+  "image": "https://nft.com/mycollection/4.jpg",
+  "type": "image/jpeg",
+  "properties": {
+    "external_url": "https://nft.com/mycollection/4",
+    "url": "https://nft.com/mycollection/4"
+  },
+  "attributes": [
+    { "trait_type": "color", "value": "rgb(0,255,0)" },
+    { "trait_type": "hasPipe", "value": "false" },
+    { "trait_type": "stamina", "value": "55" }
+  ]
+}
