@@ -138,7 +138,7 @@ const calculateRiskScore = (metadata: Metadata, customWeights?: Weights): { risk
 
   if (metadata.supply_type === 'FINITE' && Number(metadata.max_supply) == Number(metadata.total_supply)) {
     riskScore -= weights.keys.supply_key;
-    riskScoreFactors['max_supply_equal_to_total_supply'] = weights.keys.supply_key;
+    riskScoreFactors['max_supply_equal_to_total_supply'] = -weights.keys.supply_key;
   }
 
   return { riskScore, riskScoreFactors };

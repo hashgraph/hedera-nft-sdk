@@ -139,7 +139,7 @@ describe('calculateRiskScoreFromTokenId', () => {
 
     expect(riskScore).toBe(200);
     expect(riskLevel).toBe('HIGH');
-    expect(riskScoreFactors).toEqual({ supply_key: 20, admin_key: 200, max_supply_equal_to_total_supply: 20 });
+    expect(riskScoreFactors).toEqual({ supply_key: 20, admin_key: 200, max_supply_equal_to_total_supply: -20 });
   });
 
   it('should calculate risk score for a given token ID with all keys provided, customWeights & customRiskLevels parameters', async () => {
