@@ -1,6 +1,7 @@
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 import { calculateRarityFromOnChainData } from '../../rarity';
 import { getNftMetadataFromCollection } from '../../helpers/get-nft-metadatas-from-collection';
+import { dictionary } from '../../utils/constants/dictionary';
 
 const nftFromNode = [
   {
@@ -43,6 +44,13 @@ const nftFromNode = [
     },
     serialNumber: 4,
   },
+  {
+    isSuccessful: true,
+    metadata: {
+      creator: 'Hedera3',
+      attributes: [{ trait_type: 'color', value: 'rgb(0,255,0)' }],
+    },
+  },
 ];
 
 jest.mock('../../helpers/get-nft-metadatas-from-collection', () => ({
@@ -79,6 +87,37 @@ describe('calculateRarityFromOnChainData', () => {
         totalRarity: '3.00',
         NFT: 2,
       },
+      {
+        NFT: 3,
+        attributeContributions: [
+          {
+            contribution: '100.00',
+            trait: 'color',
+            value: 'rgb(0,255,0)',
+          },
+        ],
+        totalRarity: '1.00',
+      },
     ]);
+  });
+
+  it('should thrown error if metadata not contain attributes', async () => {
+    const network: NetworkName = 'mainnet';
+    const tokenId: string = '0.0.1270555';
+    const ipfsGateway: string = 'https://ipfs.io/ipfs/';
+    const limit: number = 100;
+
+    (getNftMetadataFromCollection as jest.Mock).mockResolvedValue([
+      {
+        isSuccessful: true,
+        metadata: {
+          creator: 'Hedera4',
+        },
+      },
+    ]);
+
+    await expect(calculateRarityFromOnChainData(network, tokenId, ipfsGateway, limit)).rejects.toThrowError(
+      dictionary.errors.rarity.attributeNotFoundInObject(JSON.stringify({ creator: 'Hedera4' }))
+    );
   });
 });
