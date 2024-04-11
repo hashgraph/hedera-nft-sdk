@@ -3,3 +3,5 @@ node_modules
 .vscode
 examples
 .github
+jest.config.e2e.ts
+jest.config.ts
