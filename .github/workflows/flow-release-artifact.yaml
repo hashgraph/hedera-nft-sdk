@@ -13,7 +13,7 @@ jobs:
     runs-on: [self-hosted, Linux, medium, ephemeral]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # pin@v3
+        uses: actions/checkout@v3 # pin@v3
 
       - name: Install JQ and SED
         run: |
@@ -38,7 +38,7 @@ jobs:
           [[ "$PACKAGE_VERSION" == "$RELEASE_VERSION" ]] && echo "Versions match $RELEASE_VERSION" || (echo "Package version is: $PACKAGE_VERSION and Release tag is: $RELEASE_VERSION"; exit 1)
 
       - name: Setup Node 20
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # pin@v3
+        uses: actions/setup-node@v4 # pin@v4
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org
