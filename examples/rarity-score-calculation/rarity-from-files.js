@@ -1,6 +1,6 @@
 /*-
  *
- * Hedera NFT Utilities
+ * Hedera NFT SDK
  *
  * Copyright (C) 2023 Hedera Hashgraph, LLC
  *
@@ -17,14 +17,13 @@
  * limitations under the License.
  *
  */
-const { calculateRarity } = require("../../dist");
-const { Parser } = require("json2csv");
-const fs = require("fs");
+const { calculateRarity } = require('../../dist');
+const { Parser } = require('json2csv');
+const fs = require('fs');
 
 function main() {
   // Replace with absolute path to files folder
-  const absolutePathToFiles =
-    "/Users/myUser/hedera-nft-utilities/examples/rarity-score-calculation/files";
+  const absolutePathToFiles = '/Users/myUser/hedera-nft-sdk/examples/rarity-score-calculation/files';
   const results = calculateRarity(absolutePathToFiles);
   console.log(JSON.stringify(results, null, 4));
 
@@ -43,30 +42,23 @@ function main() {
     return arr;
   }, []);
 
-  const fields = [
-    "NFT",
-    "filename",
-    "totalRarity",
-    "trait",
-    "value",
-    "contribution",
-  ];
+  const fields = ['NFT', 'filename', 'totalRarity', 'trait', 'value', 'contribution'];
   const opts = { fields };
 
   try {
     const parser = new Parser(opts);
     const csv = parser.parse(flatData);
 
-    fs.writeFile("output.csv", csv, function (err) {
+    fs.writeFile('output.csv', csv, function (err) {
       if (err) throw err;
-      console.log("\nFile saved as output.csv");
+      console.log('\nFile saved as output.csv');
     });
   } catch (err) {
     console.error(err);
   }
 
   /* Output:
-        Found 6 for directory: /Users/myUser/hedera-nft-utilities/examples/rarity-score-calculation/files
+        Found 6 for directory: /Users/myUser/hedera-nft-sdk/examples/rarity-score-calculation/files
         Found 5 files with the .json extension
         [
           {

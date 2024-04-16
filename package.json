@@ -1,16 +1,16 @@
 {
-  "name": "@hashgraph/nft-utilities",
+  "name": "@hashgraph/hedera-nft-sdk",
   "version": "3.0.2",
-  "description": "NFT Utilities for Hedera Hashgraph",
+  "description": "NFT SDK for Hedera Hashgraph",
   "author": "Michiel Mulders",
   "license": "Apache License",
   "bugs": {
-    "url": "https://github.com/hashgraph/hedera-nft-utilities/issues"
+    "url": "https://github.com/hashgraph/hedera-nft-sdk/issues"
   },
-  "homepage": "https://github.com/hashgraph/hedera-nft-utilities#readme",
+  "homepage": "https://github.com/hashgraph/hedera-nft-sdk#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hashgraph/hedera-nft-utilities.git"
+    "url": "https://github.com/hashgraph/hedera-nft-sdk.git"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/index.js",

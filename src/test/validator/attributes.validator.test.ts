@@ -1,6 +1,6 @@
 /*-
  *
- * Hedera NFT Utilities
+ * Hedera NFT SDK
  *
  * Copyright (C) 2023 Hedera Hashgraph, LLC
  *
@@ -23,7 +23,7 @@ import validMetadata from './data/valid-HIP412';
 describe('Attributes validator tests', () => {
   test('it should return an empty array when passing a correct schema', () => {
     // Arrange
-    const metadata = JSON.parse(JSON.stringify(validMetadata));;
+    const metadata = JSON.parse(JSON.stringify(validMetadata));
 
     // Act
     const errors = attributesValidator(metadata);
@@ -37,9 +37,7 @@ describe('Attributes validator tests', () => {
     test('it should not return an error for a correct `display_type=boost`', () => {
       // Arrange
       const metadata = JSON.parse(JSON.stringify(validMetadata));
-      metadata.attributes = [
-        { trait_type: 'Background', display_type: 'boost', value: 100 },
-      ];
+      metadata.attributes = [{ trait_type: 'Background', display_type: 'boost', value: 100 }];
 
       // Act
       const errors = attributesValidator(metadata);
@@ -52,9 +50,7 @@ describe('Attributes validator tests', () => {
     test('it should return an error for wrong type for `display_type=boost`', () => {
       // Arrange
       const metadata = JSON.parse(JSON.stringify(validMetadata));
-      metadata.attributes = [
-        { trait_type: 'Background', display_type: 'boost', value: 'Yellow' },
-      ];
+      metadata.attributes = [{ trait_type: 'Background', display_type: 'boost', value: 'Yellow' }];
 
       // Act
       const errors = attributesValidator(metadata);
@@ -62,9 +58,7 @@ describe('Attributes validator tests', () => {
       // Assert
       expect(Array.isArray(errors)).toBe(true);
       expect(errors.length).toBe(1);
-      expect(errors[0].msg).toBe(
-        "Trait Background of type 'boost' requires number, found string"
-      );
+      expect(errors[0].msg).toBe("Trait Background of type 'boost' requires number, found string");
       expect(errors[0].type).toBe('attribute');
     });
   });
@@ -73,9 +67,7 @@ describe('Attributes validator tests', () => {
     test('it should not return an error for a correct `display_type=percentage`', () => {
       // Arrange
       const metadata = JSON.parse(JSON.stringify(validMetadata));
-      metadata.attributes = [
-        { trait_type: 'Background', display_type: 'percentage', value: 100 },
-      ];
+      metadata.attributes = [{ trait_type: 'Background', display_type: 'percentage', value: 100 }];
 
       // Act
       const errors = attributesValidator(metadata);
@@ -88,9 +80,7 @@ describe('Attributes validator tests', () => {
     test('it should return an error for wrong type for `display_type=percentage`', () => {
       // Arrange
       const metadata = JSON.parse(JSON.stringify(validMetadata));
-      metadata.attributes = [
-        { trait_type: 'Background', display_type: 'percentage', value: '101' },
-      ];
+      metadata.attributes = [{ trait_type: 'Background', display_type: 'percentage', value: '101' }];
 
       // Act
       const errors = attributesValidator(metadata);
@@ -98,9 +88,7 @@ describe('Attributes validator tests', () => {
       // Assert
       expect(Array.isArray(errors)).toBe(true);
       expect(errors.length).toBe(1);
-      expect(errors[0].msg).toBe(
-        "Trait Background of type 'percentage' requires number, found string"
-      );
+      expect(errors[0].msg).toBe("Trait Background of type 'percentage' requires number, found string");
       expect(errors[0].type).toBe('attribute');
     });
 
@@ -108,9 +96,7 @@ describe('Attributes validator tests', () => {
       // Arrange
       // Metatadata with percentage being higher than 100
       const metadata = JSON.parse(JSON.stringify(validMetadata));
-      metadata.attributes = [
-        { trait_type: 'Background', display_type: 'percentage', value: 101 },
-      ];
+      metadata.attributes = [{ trait_type: 'Background', display_type: 'percentage', value: 101 }];
 
       // Act
       const errors = attributesValidator(metadata);
@@ -118,9 +104,7 @@ describe('Attributes validator tests', () => {
       // Assert
       expect(Array.isArray(errors)).toBe(true);
       expect(errors.length).toBe(1);
-      expect(errors[0].msg).toBe(
-        "Trait Background of type 'percentage' must be between [0-100], found 101"
-      );
+      expect(errors[0].msg).toBe("Trait Background of type 'percentage' must be between [0-100], found 101");
       expect(errors[0].type).toBe('attribute');
     });
   });
@@ -163,9 +147,7 @@ describe('Attributes validator tests', () => {
       // Assert
       expect(Array.isArray(errors)).toBe(true);
       expect(errors.length).toBe(1);
-      expect(errors[0].msg).toBe(
-        "Trait Background of type 'color' requires format 'rgb(number,number,number)'"
-      );
+      expect(errors[0].msg).toBe("Trait Background of type 'color' requires format 'rgb(number,number,number)'");
       expect(errors[0].type).toBe('attribute');
     });
 
@@ -186,9 +168,7 @@ describe('Attributes validator tests', () => {
       // Assert
       expect(Array.isArray(errors)).toBe(true);
       expect(errors.length).toBe(1);
-      expect(errors[0].msg).toBe(
-        "Trait Background of type 'color' requires RGB values between [0-255], got value: 256"
-      );
+      expect(errors[0].msg).toBe("Trait Background of type 'color' requires RGB values between [0-255], got value: 256");
       expect(errors[0].type).toBe('attribute');
     });
   });
@@ -233,13 +213,9 @@ describe('Attributes validator tests', () => {
       // Assert
       expect(Array.isArray(errors)).toBe(true);
       expect(errors.length).toBe(2);
-      expect(errors[0].msg).toBe(
-        "Trait Background of type 'datetime' requires integer value, got type: string"
-      );
+      expect(errors[0].msg).toBe("Trait Background of type 'datetime' requires integer value, got type: string");
       expect(errors[0].type).toBe('attribute');
-      expect(errors[1].msg).toBe(
-        "Trait Background of type 'date' requires integer value, got type: string"
-      );
+      expect(errors[1].msg).toBe("Trait Background of type 'date' requires integer value, got type: string");
       expect(errors[1].type).toBe('attribute');
     });
   });
