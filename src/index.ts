@@ -24,7 +24,7 @@ import { calculateRarity, calculateRarityFromData, calculateTraitOccurrenceFromD
 
 import { Attribute, Localization, File, Instance, Error, Problem, ValidationResult, Schema } from './types/validator';
 import { NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, TraitOccurrence } from './types/rarity';
-import { WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevelTypes, Metadata, RiskResult } from './types/risk';
+import { WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevel, Metadata, RiskResult } from './types/risk';
 import type { CSVRow, MetadataObject } from './types/csv';
 import type {
   FileValidationResult,
@@ -93,7 +93,7 @@ export {
   Weights,
   KeyTypes,
   RiskLevels,
-  RiskLevelTypes,
+  RiskLevel,
   Metadata,
   RiskResult,
   TraitOccurrence,
