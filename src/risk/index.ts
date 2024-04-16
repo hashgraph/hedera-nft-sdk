@@ -148,7 +148,7 @@ const calculateRiskLevel = ({ score, customRiskLevels }: { score: number; custom
   const riskLevels = customRiskLevels || defaultRiskLevels;
 
   if (score <= riskLevels.NORISK) {
-    return 'NORISK';
+    return 'NO RISK';
   } else if (score <= riskLevels.LOW) {
     return 'LOW';
   } else if (score <= riskLevels.MEDIUM) {

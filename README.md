@@ -402,7 +402,7 @@ The output interface for this function looks like this.
 ```json
 {
   "riskScore": "number representing total risk score",
-  "riskLevel": "<string: ENUM(NORISK, LOW, MEDIUM, HIGH)>"
+  "riskLevel": "<string: ENUM(NO RISK, LOW, MEDIUM, HIGH)>"
 }
 ```
 
