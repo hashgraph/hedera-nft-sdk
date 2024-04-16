@@ -1,6 +1,6 @@
 /*-
  *
- * Hedera NFT Utilities
+ * Hedera NFT SDK
  *
  * Copyright (C) 2023 Hedera Hashgraph, LLC
  *
@@ -22,9 +22,4 @@ import { attributesValidator } from './attributes';
 import { localizationValidator } from './localization';
 import { SHA256Validator } from './SHA256';
 
-export {
-  schemaValidator,
-  attributesValidator,
-  localizationValidator,
-  SHA256Validator,
-};
+export { schemaValidator, attributesValidator, localizationValidator, SHA256Validator };

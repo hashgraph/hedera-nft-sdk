@@ -1,6 +1,6 @@
 /*-
  *
- * Hedera NFT Utilities
+ * Hedera NFT SDK
  *
  * Copyright (C) 2023 Hedera Hashgraph, LLC
  *
@@ -20,42 +20,39 @@
 const { Validator } = require('../..');
 
 function main() {
-    // Define your JSON schema
-    const customSchema = {
-        "title": "Token Metadata",
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-            "version": {
-                "type": "string",
-                "description": "Semantic version for the metadata JSON format."
-            },
-            "name": {
-                "type": "string",
-                "description": "Identifies the asset to which this token represents."
-            }
-        },
-        "required": [
-            "version",
-            "name"
-        ]
-    }
+  // Define your JSON schema
+  const customSchema = {
+    title: 'Token Metadata',
+    type: 'object',
+    additionalProperties: false,
+    properties: {
+      version: {
+        type: 'string',
+        description: 'Semantic version for the metadata JSON format.',
+      },
+      name: {
+        type: 'string',
+        description: 'Identifies the asset to which this token represents.',
+      },
+    },
+    required: ['version', 'name'],
+  };
 
-    // Create Validator instance with custom schema
-    const validator = new Validator([{ schemaObject: customSchema, tag: "custom-v1" }]);
+  // Create Validator instance with custom schema
+  const validator = new Validator([{ schemaObject: customSchema, tag: 'custom-v1' }]);
 
-    // Define metadata
-    const metadataInstance = {
-        "version": "v3.0.0",
-        "name": "HANGRY BARBOON #2343",
-        "image": "ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png"
-    }
+  // Define metadata
+  const metadataInstance = {
+    version: 'v3.0.0',
+    name: 'HANGRY BARBOON #2343',
+    image: 'ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png',
+  };
 
-    // Verify metadata against custom schema
-    const results = validator.validate(metadataInstance, "custom-v1");
-    console.log(results);
+  // Verify metadata against custom schema
+  const results = validator.validate(metadataInstance, 'custom-v1');
+  console.log(results);
 
-    /* Output:
+  /* Output:
         {
             errors: [],
             warnings: [

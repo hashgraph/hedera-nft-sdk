@@ -1,6 +1,6 @@
 /*-
  *
- * Hedera NFT Utilities
+ * Hedera NFT SDK
  *
  * Copyright (C) 2023 Hedera Hashgraph, LLC
  *
@@ -20,15 +20,15 @@
 const { localValidation } = require('../../local-validation');
 
 function main() {
-    // Replace with absolute path to files folder
-    const absolutePathToFiles = "/Users/myUser/nft-utilities/examples/local-metadata-validator/files";
+  // Replace with absolute path to files folder
+  const absolutePathToFiles = '/Users/myUser/hedera-nft-sdk/examples/local-metadata-validator/files';
 
-    // Looks for JSON files and uses validator package to verify each metadata file (notjson.md file will be ignored)
-    // files/nft2.json has mistakes: no image and type properties
-    localValidation(absolutePathToFiles)
+  // Looks for JSON files and uses validator package to verify each metadata file (notjson.md file will be ignored)
+  // files/nft2.json has mistakes: no image and type properties
+  localValidation(absolutePathToFiles);
 
-    /* Output:
-        Found 6 for directory: /Users/myUser/nft-utilities/examples/local-metadata-validator/files
+  /* Output:
+        Found 6 for directory: /Users/myUser/hedera-nft-sdk/examples/local-metadata-validator/files
         Found 5 files with the .json extension
         { 
             "nft1.json": {"errors":[],"warnings":[]},
