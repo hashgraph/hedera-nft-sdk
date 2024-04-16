@@ -46,8 +46,6 @@ export interface RiskLevels {
   HIGH: number;
 }
 
-export type RiskLevelTypes = keyof RiskLevels;
-
 export type RiskScoreFactors = {
   [key in KeyTypes]?: number;
 } & {
