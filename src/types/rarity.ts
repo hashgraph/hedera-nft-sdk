@@ -1,6 +1,6 @@
 /*-
  *
- * Hedera NFT Utilities
+ * Hedera NFT SDK
  *
  * Copyright (C) 2023 Hedera Hashgraph, LLC
  *
@@ -41,7 +41,7 @@ export interface AttributeConfig {
 }
 
 export interface RarityResult {
-  attributeContributions: {trait: string; value: string | number; contribution: string}[];
+  attributeContributions: { trait: string; value: string | number; contribution: string }[];
   totalRarity: string;
   NFT: number;
   filename?: string;
@@ -53,4 +53,4 @@ export interface TraitOccurrence {
     value: string;
     occurence: string;
   }[];
-};
+}

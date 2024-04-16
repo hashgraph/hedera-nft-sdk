@@ -1,6 +1,6 @@
 /*-
  *
- * Hedera NFT Utilities
+ * Hedera NFT SDK
  *
  * Copyright (C) 2023 Hedera Hashgraph, LLC
  *
@@ -20,28 +20,29 @@
 const { Validator, defaultVersion } = require('../..');
 
 function main() {
-    const metadataInstance = {
-        "creator": "HANGRY BARBOONS",
-        "description": "HANGRY BARBOONS are 4,444 unique citizens from the United Hashgraph of Planet Earth. Designed and illustrated by President HANGRY.",
-        "format": "none",
-        "name": "HANGRY BARBOON #2343",
-        // removed image property which is required by HIP412@2.0.0
-        "type": "image/png",
-        "properties": { "edition": 2343 },
-        "attributes": [
-          { "trait_type": "Background", "value": "Yellow" },
-          { "trait_type": "Fur", "value": "Gold" },
-          { "trait_type": "Clothing", "value": "Floral Jacket" },
-          { "trait_type": "Mouth", "value": "Tongue" },
-          { "trait_type": "Sing", "value": "None" }
-        ]
-    }
+  const metadataInstance = {
+    creator: 'HANGRY BARBOONS',
+    description:
+      'HANGRY BARBOONS are 4,444 unique citizens from the United Hashgraph of Planet Earth. Designed and illustrated by President HANGRY.',
+    format: 'none',
+    name: 'HANGRY BARBOON #2343',
+    // removed image property which is required by HIP412@2.0.0
+    type: 'image/png',
+    properties: { edition: 2343 },
+    attributes: [
+      { trait_type: 'Background', value: 'Yellow' },
+      { trait_type: 'Fur', value: 'Gold' },
+      { trait_type: 'Clothing', value: 'Floral Jacket' },
+      { trait_type: 'Mouth', value: 'Tongue' },
+      { trait_type: 'Sing', value: 'None' },
+    ],
+  };
 
-    const validator = new Validator();
-    const results = validator.validate(metadataInstance, defaultVersion);
-    console.log(results);
+  const validator = new Validator();
+  const results = validator.validate(metadataInstance, defaultVersion);
+  console.log(results);
 
-    /* Output:
+  /* Output:
         {
             errors: [
                 {

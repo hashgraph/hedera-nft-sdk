@@ -1,6 +1,6 @@
 /*-
  *
- * Hedera NFT Utilities
+ * Hedera NFT SDK
  *
  * Copyright (C) 2023 Hedera Hashgraph, LLC
  *
@@ -17,76 +17,80 @@
  * limitations under the License.
  *
  */
-const { calculateTraitOccurrenceFromData } = require("../../dist");
+const { calculateTraitOccurrenceFromData } = require('../../dist');
 
 function main() {
   const NFTdata = [
     {
-        "creator": "HANGRY BARBOONS",
-        "description": "HANGRY BARBOONS are 4,444 unique citizens from the United Hashgraph of Planet Earth. Designed and illustrated by President HANGRY.",
-        "format": "none",
-        "name": "HANGRY BARBOON #2343",
-        "image": "ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png",
-        "type": "image/png",
-        "properties": { "edition": 2343 },
-        "attributes": [
-          { "trait_type": "Background", "value": "Yellow" },
-          { "trait_type": "Mouth", "value": "Nose" }
-        ]
+      creator: 'HANGRY BARBOONS',
+      description:
+        'HANGRY BARBOONS are 4,444 unique citizens from the United Hashgraph of Planet Earth. Designed and illustrated by President HANGRY.',
+      format: 'none',
+      name: 'HANGRY BARBOON #2343',
+      image: 'ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png',
+      type: 'image/png',
+      properties: { edition: 2343 },
+      attributes: [
+        { trait_type: 'Background', value: 'Yellow' },
+        { trait_type: 'Mouth', value: 'Nose' },
+      ],
     },
     {
-        "creator": "BOOBOO",
-        "description": "BOOBOO desc",
-        "format": "HIP412@1.0.0",
-        "name": "HANGRY BARBOON #2343",
-        "image": "ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png",
-        "type": "image/png",
-        "properties": { "edition": 2343 },
-        "attributes": [
-          { "trait_type": "Background", "value": "Green" },
-          { "trait_type": "Mouth", "value": "Tongue" }
-        ]
+      creator: 'BOOBOO',
+      description: 'BOOBOO desc',
+      format: 'HIP412@1.0.0',
+      name: 'HANGRY BARBOON #2343',
+      image: 'ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png',
+      type: 'image/png',
+      properties: { edition: 2343 },
+      attributes: [
+        { trait_type: 'Background', value: 'Green' },
+        { trait_type: 'Mouth', value: 'Tongue' },
+      ],
     },
     {
-        "creator": "HANGRY BARBOONS",
-        "description": "HANGRY BARBOONS are 4,444 unique citizens from the United Hashgraph of Planet Earth. Designed and illustrated by President HANGRY.",
-        "format": "none",
-        "name": "HANGRY BARBOON #2343",
-        "image": "ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png",
-        "type": "image/png",
-        "properties": { "edition": 2343 },
-        "attributes": [
-          { "trait_type": "Background", "value": "Yellow" },
-          { "trait_type": "Mouth", "value": "Smile" }
-        ]
+      creator: 'HANGRY BARBOONS',
+      description:
+        'HANGRY BARBOONS are 4,444 unique citizens from the United Hashgraph of Planet Earth. Designed and illustrated by President HANGRY.',
+      format: 'none',
+      name: 'HANGRY BARBOON #2343',
+      image: 'ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png',
+      type: 'image/png',
+      properties: { edition: 2343 },
+      attributes: [
+        { trait_type: 'Background', value: 'Yellow' },
+        { trait_type: 'Mouth', value: 'Smile' },
+      ],
     },
     {
-        "creator": "HANGRY BARBOONS",
-        "description": "HANGRY BARBOONS are 4,444 unique citizens from the United Hashgraph of Planet Earth. Designed and illustrated by President HANGRY.",
-        "format": "none",
-        "name": "HANGRY BARBOON #2343",
-        "image": "ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png",
-        "type": "image/png",
-        "properties": { "edition": 2343 },
-        "attributes": [
-          { "trait_type": "Background", "value": "Green" },
-          { "trait_type": "Mouth", "value": "Smile" }
-        ]
+      creator: 'HANGRY BARBOONS',
+      description:
+        'HANGRY BARBOONS are 4,444 unique citizens from the United Hashgraph of Planet Earth. Designed and illustrated by President HANGRY.',
+      format: 'none',
+      name: 'HANGRY BARBOON #2343',
+      image: 'ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png',
+      type: 'image/png',
+      properties: { edition: 2343 },
+      attributes: [
+        { trait_type: 'Background', value: 'Green' },
+        { trait_type: 'Mouth', value: 'Smile' },
+      ],
     },
     {
-        "creator": "HANGRY BARBOONS",
-        "description": "HANGRY BARBOONS are 4,444 unique citizens from the United Hashgraph of Planet Earth. Designed and illustrated by President HANGRY.",
-        "format": "none",
-        "name": "HANGRY BARBOON #2343",
-        "image": "ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png",
-        "type": "image/png",
-        "properties": { "edition": 2343 },
-        "attributes": [
-          { "trait_type": "Background", "value": "Yellow" },
-          { "trait_type": "Mouth", "value": "Smile" }
-        ]
-    }
-  ]
+      creator: 'HANGRY BARBOONS',
+      description:
+        'HANGRY BARBOONS are 4,444 unique citizens from the United Hashgraph of Planet Earth. Designed and illustrated by President HANGRY.',
+      format: 'none',
+      name: 'HANGRY BARBOON #2343',
+      image: 'ipfs://QmaHVnnp7qAmGADa3tQfWVNxxZDRmTL5r6jKrAo16mSd5y/2343.png',
+      type: 'image/png',
+      properties: { edition: 2343 },
+      attributes: [
+        { trait_type: 'Background', value: 'Yellow' },
+        { trait_type: 'Mouth', value: 'Smile' },
+      ],
+    },
+  ];
 
   const results = calculateTraitOccurrenceFromData(NFTdata);
   console.log(JSON.stringify(results, null, 4));
