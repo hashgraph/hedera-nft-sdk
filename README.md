@@ -1,6 +1,6 @@
 <div align="center">
 
-# Hedera NFT Utilities
+# Hedera NFT SDK
 
 [![License](https://img.shields.io/badge/license-apache2-blue.svg)](LICENSE)
 
@@ -20,6 +20,16 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 10. **Convert CSV To Metadata Objects:** Facilitates the conversion of CSV file data into structured metadata objects, streamlining the initial stages of NFT metadata preparation.
 11. **Convert Metadata Objects to JSON Files:** Transforms validated metadata objects into JSON files, ensuring that NFT metadata is properly formatted and stored for deployment.
 12. **Prepare Metadata Objects From CSV Rows:** Processes rows of CSV data into ready to validate metadata objects, bridging the gap between raw data collection and NFT metadata standardization.
+13. **Upload Service:** Provides tools for uploading files to your chosen file storage service, including:
+    - **uploadFilesFromPath:** Uploads all files from given directory paths or specific files to the configured storage service and returns URLs to the uploaded files.
+    - **uploadBlobFiles:** Handles the upload of blob files or buffer files and returns URLs to these files, ensuring that files are not empty before upload.
+    - **handleBlobUpload:** Specifically designed for uploading NFT metadata as JSON blobs, generating a URL where the metadata is stored.
+    - **uploadMetadataList:** Allows for batch uploading of NFT metadata, handling each metadata item individually and compiling the resulting URLs.
+14. **File Storage Services:** Implements various file storage services to handle the storage and retrieval of NFT-related files. This includes:
+    - **AWSService:** Uploads files to AWS S3 with public read access and content type handling. It supports multipart uploads and provides error handling for failed uploads.
+    - **PinataService:** Utilizes Pinata Cloud to pin files to IPFS, providing an `ipfs://` URL upon successful upload. Includes metadata and options customization.
+    - **NftStorageService:** Integrates with the NFT.storage API to upload files directly to IPFS and returns an `ipfs://` URL. It supports dynamic API key usage based on a provided list.
+    - **MockStorageService:** A mock storage service for testing purposes, returning predefined URLs.
 
 ## Table of Contents
 
@@ -36,6 +46,8 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 - **Package: [Convert CSV To Metadata Objects](#convert-csv-to-metadata-objects)**
 - **Package: [Convert Metadata Objects to JSON Files](#convert-metadata-objects-to-json-files)**
 - **Package: [Prepare Metadata Objects From CSV Rows](#prepare-metadata-objects-from-csv-rows)**
+- **Package: [Upload Service](#upload-service)**
+- **Package: [File Storage Services](#file-storage-services)**
 - **[Questions, contact us, or improvement proposals?](#questions-or-improvement-proposals)**
 - **[Support](#Support)**
 - **[Contributing](#Contributing)**
@@ -63,13 +75,13 @@ Verify your metadata against the [token metadata V2 standard](https://github.com
 Install the package:
 
 ```bash
-npm i -s @hashgraph/nft-utilities
+npm i -s @hashgraph/hedera-nft-sdk
 ```
 
 Import the package into your project. You can import the `Validator` class and the default schema version for token metadata with `defaultSchemaVersion`.
 
 ```js
-const { Validator, defaultSchemaVersion } = require('@hashgraph/nft-utilities');
+const { Validator, defaultSchemaVersion } = require('@hashgraph/hedera-nft-sdk');
 ```
 
 You can use the `Validator` like below.
@@ -134,7 +146,7 @@ Here's an example:
 
 ### Examples
 
-See: **[/examples/token-metadata-validator](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/token-metadata-validator)**
+See: **[/examples/token-metadata-validator](https://github.com/hashgraph/hedera-nft-sdk/tree/main/examples/token-metadata-validator)**
 
 ### Add custom schema versions
 
@@ -150,7 +162,7 @@ Therefore, each tag needs to be unqiue. The following tags can't be used as they
 You can add your custom schema like this:
 
 ```js
-const { Validator } = require('@hashgraph/nft-utilities');
+const { Validator } = require('@hashgraph/hedera-nft-sdk');
 
 // Define your schema
 const customSchema = {
@@ -174,7 +186,7 @@ const results = validator.validate(metadataInstance, 'custom-v1');
 console.log(results);
 ```
 
-**Examples:** See: [/examples/token-metadata-calculation](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/token-metadata-calculation/custom-schema-valid-metadata.js)
+**Examples:** See: [/examples/token-metadata-calculation](https://github.com/hashgraph/hedera-nft-sdk/tree/main/examples/token-metadata-calculation/custom-schema-valid-metadata.js)
 
 #### Method 2: Rebuilding package
 
@@ -242,13 +254,13 @@ Verify a local folder containing multiple JSON metadata files against the standa
 Install the package:
 
 ```bash
-npm i -s @hashgraph/nft-utilities
+npm i -s @hashgraph/hedera-nft-sdk
 ```
 
 Import the package into your project and get the `localValidation` function.
 
 ```js
-const { localValidation } = require('@hashgraph/nft-utilities');
+const { localValidation } = require('@hashgraph/hedera-nft-sdk');
 ```
 
 The `localValidation` expects an absolute path to your metadata files to verify them. The function prints the warnings and errors for all JSON files it finds in the provided folder path. It also returns the validation results as an object in case you want to use the results in your code.
@@ -287,7 +299,7 @@ The output interface for this function looks like this.
 
 ### Examples
 
-See: **[/examples/local-metadata-validator/index.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/local-metadata-validator)**
+See: **[/examples/local-metadata-validator/index.js](https://github.com/hashgraph/hedera-nft-sdk/tree/main/examples/local-metadata-validator)**
 
 ## Risk score calculation
 
@@ -330,13 +342,13 @@ const defaultRiskLevels = {
 Install the package:
 
 ```bash
-npm i -s @hashgraph/nft-utilities
+npm i -s @hashgraph/hedera-nft-sdk
 ```
 
 Import the package into your project and get the `calculateRiskScoreFromData` or `calculateRiskScoreFromTokenId` functions.
 
 ```js
-const { calculateRiskScoreFromData, calculateRiskScoreFromTokenId } = require('@hashgraph/nft-utilities');
+const { calculateRiskScoreFromData, calculateRiskScoreFromTokenId } = require('@hashgraph/hedera-nft-sdk');
 ```
 
 The `calculateRiskScoreFromData` expects a token information JSON object as returned by the [/api/v1/tokens/<token-id> endpoint](https://docs.hedera.com/hedera/docs/mirror-node-api/rest-api#response-details-6) (here's an [example of token data](https://mainnet-public.mirrornode.hedera.com/api/v1/tokens/0.0.1270555/)).
@@ -408,7 +420,7 @@ The output interface for this function looks like this.
 
 ### Examples
 
-See: **[/examples/risk-score-calculation](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/risk-score-calculation)**
+See: **[/examples/risk-score-calculation](https://github.com/hashgraph/hedera-nft-sdk/tree/main/examples/risk-score-calculation)**
 
 ---
 
@@ -428,15 +440,15 @@ This model outputs a score for each NFT. By sorting the NFTs, you'll get a ranki
 Install the package:
 
 ```bash
-npm i -s @hashgraph/nft-utilities
+npm i -s @hashgraph/hedera-nft-sdk
 ```
 
 Import the package into your project and get `calculateRarity` function. Next, you need to pass an absolute path to a folder containing metadata JSON files.
 
 ```js
-const { calculateRarity } = require('@hashgraph/nft-utilities');
+const { calculateRarity } = require('@hashgraph/hedera-nft-sdk');
 
-const absolutePathToFiles = '/Users/myUser/nft-utilities/examples/rarity-score-calculation/files';
+const absolutePathToFiles = '/Users/myUser/hedera-nft-sdk/examples/rarity-score-calculation/files';
 const results = calculateRarity(absolutePathToFiles);
 console.log(results);
 ```
@@ -529,8 +541,8 @@ Here's a sample output. The total sum of the individual attributes is always 100
 
 See:
 
-- **[/examples/rarity-score-calculation/rarity-from-files.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/rarity-score-calculation)**
-- **[/examples/rarity-score-calculation/rarity-from-data.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/rarity-score-calculation)**
+- **[/examples/rarity-score-calculation/rarity-from-files.js](https://github.com/hashgraph/hedera-nft-sdk/tree/main/examples/rarity-score-calculation)**
+- **[/examples/rarity-score-calculation/rarity-from-data.js](https://github.com/hashgraph/hedera-nft-sdk/tree/main/examples/rarity-score-calculation)**
 
 ## Trait occurrence calculation
 
@@ -541,7 +553,7 @@ Calculate how often different values for a given trait occur in a collection, pe
 Install the package:
 
 ```bash
-npm i -s @hashgraph/nft-utilities
+npm i -s @hashgraph/hedera-nft-sdk
 ```
 
 Import the package into your project and get `calculateTraitOccurrenceFromData` function. Next, you need to pass a JSON array containing NFT collection metadata to the function.
@@ -628,7 +640,7 @@ Here's a sample output that shows the percentage of each value's occurrence for 
 
 See:
 
-- **[/examples/rarity-score-calculation/trait-occurrence-from-data.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/rarity-score-calculation)**
+- **[/examples/rarity-score-calculation/trait-occurrence-from-data.js](https://github.com/hashgraph/hedera-nft-sdk/tree/main/examples/rarity-score-calculation)**
 
 ---
 
@@ -641,7 +653,7 @@ Each of HederaNFTSDK function are methods in class `HederaNFTSDK` which is a wra
 Install the package:
 
 ```bash
-npm i -s @hashgraph/nft-utilities
+npm i -s @hashgraph/hedera-nft-sdk
 ```
 
 Create new instance of `HederaNFTSDK` class by passing the operator account ID, operator private key, and network to the constructor.
@@ -733,7 +745,7 @@ Method return string which is the token ID of the newly created NFT collection.
 
 ### Examples
 
-See: **[/examples/local-metadata-validator/index.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/local-metadata-validator)**
+See: **[/examples/local-metadata-validator/index.js](https://github.com/hashgraph/hedera-nft-sdk/tree/main/examples/local-metadata-validator)**
 
 ---
 
@@ -782,7 +794,7 @@ Method return number which is the estimated cost of creating a new NFT collectio
 
 ### Examples
 
-See: **[/examples/local-metadata-validator/index.js](https://github.com/hashgraph/hedera-nft-utilities/tree/main/examples/local-metadata-validator)**
+See: **[/examples/local-metadata-validator/index.js](https://github.com/hashgraph/hedera-nft-sdk/tree/main/examples/local-metadata-validator)**
 
 ## NFT SDK Estimate create collection cost in Hbar
 
@@ -1094,7 +1106,7 @@ Initialize the class and use one of the methods to create a fee.
 Install the package:
 
 ```bash
-npm i -s @hashgraph/nft-utilities
+npm i -s @hashgraph/hedera-nft-sdk
 ```
 
 Create new instance of `FeeFactory`
@@ -1579,9 +1591,215 @@ The function relies on predefined headers for attributes (ATTRIBUTES) and proper
 
 ---
 
+## UPLOAD SERVICE
+
+The Upload Service class is a versatile component of the SDK that facilitates the upload of files and metadata across various storage solutions implemented in the SDK. This service is crucial for efficiently managing file uploads, ensuring that they are handled correctly according to the specified storage service's requirements.
+
+## Methods & Initialization
+
+The class methods offer diverse functionalities to upload files from paths, blob objects, buffer files, and NFT metadata, catering to different needs of the NFT ecosystem.
+
+1. `uploadFilesFromPath` - Uploads files from given directory paths or specific file paths to the configured storage service and returns URLs to the uploaded files.
+
+### Usage
+
+```ts
+const paths = ['path/to/your/directory', 'path/to/your/file'];
+const uploadResults = await uploadService.uploadFilesFromPath(paths);
+```
+
+### Output
+
+This method returns an array of objects, each containing the file content and the URL where the file was uploaded.
+
+### Example result
+
+```ts
+type UploadServiceReturn = {
+  content: Blob;
+  url: string;
+}[];
+```
+
+---
+
+2. `uploadBlobFiles` - Handles the upload of blob files or buffer files and returns URLs to these files, ensuring that files are not empty before upload.
+
+### Usage
+
+```ts
+const files = [new Blob(['data'], { type: 'text/plain' })];
+const blobUploadResults = await uploadService.uploadBlobFiles(files);
+```
+
+### Output
+
+This method returns an array of objects, each detailing the content of the uploaded file and the URL where it was uploaded.
+
+### Example Result
+
+```ts
+type UploadServiceReturn = {
+  content: Blob | BufferFile;
+  url: string;
+}[];
+```
+
+---
+
+3. `handleBlobUpload ` - Specifically designed for uploading NFT metadata as JSON blobs, generating a URL where the metadata is stored.
+
+### Usage
+
+```ts
+const metadata = { name: 'Example NFT', description: 'This is an NFT metadata example.' };
+const metadataUploadResult = await uploadService.handleBlobUpload(metadata);
+```
+
+### Output
+
+This method returns an object containing the metadata blob content and the URL where the metadata was uploaded.
+
+### Example result
+
+```ts
+type UploadServiceReturn = {
+  content: Blob;
+  url: string;
+};
+```
+
+---
+
+4. `uploadMetadataList ` - Allows for batch uploading of NFT metadata, handling each metadata item individually and compiling the resulting URLs.
+
+### Usage
+
+```ts
+const metadatas = [{ name: 'NFT 1' }, { name: 'NFT 2' }];
+const metadataListUploadResults = await uploadService.uploadMetadataList(metadatas);
+```
+
+### Output
+
+This method returns an array of objects, each containing a single metadata's blob content and the URL where it was uploaded.
+
+### Example result
+
+```ts
+type UploadServiceReturn = {
+  content: Blob;
+  url: string;
+}[];
+```
+
+---
+
+## FILE STORAGE SERVICES
+
+The File Storage Services module provides a variety of options for storing and retrieving files, crucial for managing the digital assets related to NFTs. This module integrates with multiple storage solutions, including AWS S3, IPFS through Pinata and NFT.storage, as well as a mock storage service for testing and development purposes.
+
+### Services & Initialization
+
+Each storage service implements the FileStorage interface, ensuring consistent API calls across different storage backends.
+
+## AWS Service
+
+The AWSService class facilitates the upload of files to AWS S3. It provides robust error handling and flexible configuration for file uploads, including setting access permissions and handling multipart uploads.
+
+### Usage
+
+```ts
+const awsService = new AWSService(accessKeyId, secretAccessKey, region, bucketName);
+const uploadUrl = await awsService.uploadFile(fileBlob);
+```
+
+### Output
+
+This method returns a string containing the URL to the uploaded file.
+
+### Example result
+
+```ts
+type UploadResult = {
+  url: string;
+};
+```
+
+## Pinata Service
+
+The PinataService class allows for the pinning of files to IPFS via the Pinata Cloud service. It supports metadata and pinning options, providing a direct ipfs:// URL upon successful upload.
+
+### Usage
+
+```ts
+const pinataService = new PinataService(jwtKey);
+const ipfsUrl = await pinataService.uploadFile(fileBlob);
+```
+
+### Output
+
+This method returns a string containing the IPFS URL of the pinned file.
+
+### Example result
+
+```ts
+type UploadResult = {
+  url: string;
+};
+```
+
+## NFT Storage Service
+
+The NftStorageService integrates with the NFT.storage platform to upload files directly to IPFS, simplifying the process of storing NFT assets. It allows for dynamic API key usage, ensuring flexibility and security.
+
+### Usage
+
+```ts
+const nftStorageService = new NftStorageService(apiKeys);
+const ipfsUrl = await nftStorageService.uploadFile(fileBlob);
+```
+
+### Output
+
+This method returns a string containing the IPFS URL of the uploaded file.
+
+### Example result
+
+```ts
+type UploadResult = {
+  url: string;
+};
+```
+
+## Mock Storage Service
+
+The MockStorageService is designed for development and testing purposes, providing a straightforward implementation that returns a predefined URL.
+
+### Usage
+
+```ts
+const mockService = new MockStorageService(serviceUrl);
+const mockUrl = await mockService.uploadFile();
+```
+
+### Output
+
+This method returns a string containing the predefined URL.
+
+### Example result
+
+```ts
+type UploadResult = {
+  url: string;
+};
+```
+
+---
+
 ## Questions or Improvement Proposals
 
-Please create an issue or PR on [this repository](https://github.com/hashgraph/hedera-nft-utilities). Make sure to join the [Hedera Discord server](https://hedera.com/discord) to ask questions or discuss improvement suggestions.
+Please create an issue or PR on [this repository](https://github.com/hashgraph/hedera-nft-sdk). Make sure to join the [Hedera Discord server](https://hedera.com/discord) to ask questions or discuss improvement suggestions.
 
 # Support
 
