@@ -8,15 +8,15 @@
 
 This package includes all sorts of tooling for the Hedera NFT ecosystem, including:
 
-1. **Token metadata validation:** Verify your metadata against the [token metadata JSON schema V2](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md) for NFTs, which returns errors and warnings against the standard. You can also define your own token metadata standard and add it to the package to use this schema for validation.
+1. **Local token metadata validator:** Verify your metadata locally against the [token metadata JSON schema V2](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2) for NFTs, which returns errors and warnings against the standard. You can also define your own token metadata standard and add it to the package to use this schema for validation.
 2. **Local metadata validator:** Verify a local folder containing multiple JSON metadata files against the standard before publishing the NFT collection on the Hedera network.
 3. **Risk score calculation:** Calculate a risk score for an NFT collection from the token information or by passing a token ID of an NFT on the Hedera testnet or mainnet.
 4. **Rarity score calculation:** Calculate the rarity scores for a local folder containing multiple JSON metadata files for an NFT collection.
 5. **Trait occurrence calculation:** Calculate how often different values for a given trait occur in a collection, percentage-based.
 6. **NFT SDK methods:** A wrapper around the Hedera NFT API to create a new NFT collection, mint NFTs, and transfer NFTs.
 7. **Fee Factory:** A factory to create the fees for the Hedera NFT API.
-8. **Hip 412 Validator:** A tool for validating metadata objects according to HIP-412, providing comprehensive verification of metadata compliance with the selected standard.
-9. **Hip 412 Metadata Builder:** Enables the creation and assembly of NFT metadata objects in a structured format and conducts instant validation within its build method, ensuring adherence to HIP-412 standards prior to deployment.
+8. **Metadata Validator:** A tool for validating metadata objects according to [token metadata JSON schema V2](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2), providing comprehensive verification of metadata compliance with the selected standard.
+9. **Metadata Builder:** Enables the creation and assembly of NFT metadata objects in a structured format and conducts instant validation within its build method, ensuring adherence to [token metadata JSON schema V2](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2) standard prior to deployment.
 10. **Convert CSV To Metadata Objects:** Facilitates the conversion of CSV file data into structured metadata objects, streamlining the initial stages of NFT metadata preparation.
 11. **Convert Metadata Objects to JSON Files:** Transforms validated metadata objects into JSON files, ensuring that NFT metadata is properly formatted and stored for deployment.
 12. **Prepare Metadata Objects From CSV Rows:** Processes rows of CSV data into ready to validate metadata objects, bridging the gap between raw data collection and NFT metadata standardization.
@@ -34,15 +34,15 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 ## Table of Contents
 
 - **How to build the package**
-- **Package: [Token metadata validator](#token-metadata-validator)**
+- **Package: [Local token metadata validator](#local-token-metadata-validator)**
 - **Package: [Local metadata validator](#local-validator)**
 - **Package: [Risk score calculation](#risk-score-calculation)**
 - **Package: [Rarity score calculation](#rarity-score-calculation)**
 - **Package: [Trait occurrence calculation](#trait-occurrence-calculation)**
 - **Package: [NFT SDK Methods](#nft-sdk-methods)**
 - **Package: [Fee Factory](#fee-factory)**
-- **Package: [Hip 412 Validator](#hip-412-validator)**
-- **Package: [Hip 412 Metadata Builder](#hip-412-metadata-builder)**
+- **Package: [Metadata Validator](#metadata-validator)**
+- **Package: [Metadata Builder](#metadata-builder)**
 - **Package: [Convert CSV To Metadata Objects](#convert-csv-to-metadata-objects)**
 - **Package: [Convert Metadata Objects to JSON Files](#convert-metadata-objects-to-json-files)**
 - **Package: [Prepare Metadata Objects From CSV Rows](#prepare-metadata-objects-from-csv-rows)**
@@ -66,9 +66,9 @@ This command will produce a `dist` folder containing the outputted JavaScript fi
 
 ---
 
-## Token metadata validator
+## Local token metadata validator
 
-Verify your metadata against the [token metadata V2 standard](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md) for NFTs which returns errors and warnings against the standard.
+Verify your metadata against the [token metadata V2 standard](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2) for NFTs which returns errors and warnings against the standard.
 
 ### Usage
 
@@ -1096,7 +1096,7 @@ Method returns an object containing the holder and duration of the NFT.
 type HolderAndDurationType = { holder: string; duration: number };
 ```
 
-## FeeFactory
+## Fee Factory
 
 The `FeeFactory` class is used to create custom fees for NFT collections. The class is used to create fixedFee or royaltyFee.
 Initialize the class and use one of the methods to create a fee.
@@ -1201,15 +1201,15 @@ type RoyaltyFeeType = {
 
 <br>
 
-## HIP 412 VALIDATOR
+## Metadata Validator
 
-The `Hip412Validator` class is a comprehensive tool designed to facilitate the validation of NFT metadata against the standards outlined in the Hedera Improvement Proposal (HIP) 412. This class provides developers with a suite of methods to validate individual NFT metadata objects, arrays of metadata, local files, and directories containing NFT metadata, ensuring compliance with the HIP-412 schema. Additionally, it offers functionalities to validate metadata directly from the Hedera network, providing a robust solution for ensuring the integrity and compliance of NFT metadata within the Hedera ecosystem.
+The `Hip412Validator` class is a comprehensive tool designed to facilitate the validation of NFT metadata against the standards outlined in the [token metadata JSON schema V2](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2). This class provides developers with a suite of methods to validate individual NFT metadata objects, arrays of metadata, local files, and directories containing NFT metadata, ensuring compliance with the Token Metadata JSON schema V2. Additionally, it offers functionalities to validate metadata directly from the Hedera network, providing a robust solution for ensuring the integrity and compliance of NFT metadata within the Hedera ecosystem.
 
 ### Methods & Initialization
 
 The class methods can be directly invoked to perform metadata validation.
 
-1. `validateSingleMetadataObject` - Validates a single NFT metadata object against the HIP-412 schema.
+1. `validateSingleMetadataObject` - Validates a single NFT metadata object against the Token Metadata JSON V2 schema.
 
 ### Usage
 
@@ -1235,7 +1235,7 @@ type validationResult = {
 
 ---
 
-2. `validateArrayOfObjects` - Takes an array of metadata objects and validates each one against the HIP-412 schema, providing detailed results for each object.
+2. `validateArrayOfObjects` - Takes an array of metadata objects and validates each one against the Token Metadata JSON Schema V2, providing detailed results for each object.
 
 ```js
 const validationResults = Hip412Validator.validateArrayOfObjects(arrayOfMetadataObjects);
@@ -1267,7 +1267,7 @@ type validationResult = {
 
 ---
 
-3. `validateLocalFile` - This method allows for the validation of metadata within a local file. It reads the file content, parses the JSON, and validates it against the HIP-412 schema.
+3. `validateLocalFile` - This method allows for the validation of metadata within a local file. It reads the file content, parses the JSON, and validates it against the Token Metadata JSON Schema V2.
 
 ```js
 const pathToFile = 'path/to/your/file';
@@ -1391,13 +1391,13 @@ type validationResult = {
 
 ---
 
-## HIP 412 METADATA BUILDER
+## Metadata builder
 
-The Hip412MetadataBuilder class streamlines the creation of NFT metadata objects in alignment with the Hedera Improvement Proposal (HIP) 412 standards. It provides a fluent interface to incrementally build up a metadata object with validation at each step, ensuring that the resulting metadata conforms to the required specifications. This builder class is essential for developers seeking to craft compliant NFT metadata for deployment on the Hedera network.
+The `Hip412MetadataBuilder` class streamlines the creation of NFT metadata objects in alignment with the [Token Metadata JSON Schema V2 standard](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2). It provides a fluent interface to incrementally build up a metadata object with validation at each step, ensuring that the resulting metadata conforms to the required specifications. This builder class is essential for developers seeking to craft compliant NFT metadata for deployment on the Hedera network.
 
-### Methods & Initialization
+### Methods and Initialization
 
-Upon instantiation, the Hip412MetadataBuilder initializes a metadata object with `name`, `image` and `type` empty fields. Users can then sequentially apply various setters and adders to populate this metadata object with the necessary details.
+Upon instantiation, the `Hip412MetadataBuilder` initializes a metadata object with `name`, `image` and `type` empty fields. Users can then sequentially apply various setters and adders to populate this metadata object with the necessary details.
 
 ## Initialization
 
@@ -1447,11 +1447,11 @@ const { metadata, validationResult } = new Hip412MetadataBuilder()
 
 The `build` method returns an object containing:
 
-- `metadata`: This property holds the constructed metadata object that has been assembled using the builder methods. The metadata object follows the structure required by HIP-412, including attributes such as name, image, type, and any additional attributes or files that were added. This object is ready to be used for NFT creation or further processing.
+- `metadata`: This property holds the constructed metadata object that has been assembled using the builder methods. The metadata object follows the structure required by Token Metadata JSON Schema V2, including attributes such as name, image, type, and any additional attributes or files that were added. This object is ready to be used for NFT creation or further processing.
 
-- `validationResult`: This property contains the results of validating the constructed metadata object against the HIP-412 standard. It provides feedback on the compliance of the metadata, including a boolean flag indicating validity (isValid) and detailed error information (as array of strings) for each metadata element that was evaluated.
+- `validationResult`: This property contains the results of validating the constructed metadata object against the Token Metadata JSON Schema V2 standard. It provides feedback on the compliance of the metadata, including a boolean flag indicating validity (isValid) and detailed error information (as array of strings) for each metadata element that was evaluated.
 
-### example metadata result
+### Example metadata result
 
 ```json
 {
@@ -1475,7 +1475,7 @@ The `build` method returns an object containing:
 }
 ```
 
-### example validation result
+### Example validation result
 
 ```ts
 type validationResult = {
@@ -1488,7 +1488,7 @@ type validationResult = {
 
 ## Convert CSV To Metadata Objects
 
-The `convertCSVToMetadataObjects` function is designed to transform CSV files into an array of metadata objects compliant with the NFT metadata structure defined in the Hedera Improvement Proposal (HIP) 412. This utility function facilitates the conversion of bulk NFT data stored in CSV format into a structured JSON format that can be directly utilized for NFT minting or further processing within the NFT ecosystem.
+The `convertCSVToMetadataObjects` function is designed to transform CSV files into an array of metadata objects compliant with the NFT metadata structure defined in the Token Metadata JSON Schema V2 standard. This utility function facilitates the conversion of bulk NFT data stored in CSV format into a structured JSON format that can be directly utilized for NFT minting or further processing within the NFT ecosystem.
 
 ### Usage
 
@@ -1508,7 +1508,7 @@ const metadataObjects = await convertCSVToMetadataObjects(csvFilePath, 100);
 
 ### Output
 
-This function returns a promise that resolves to an array of MetadataObjects. Each `MetadataObject` in the array represents an individual NFT's metadata, structured according to the requirements of the HIP-412 schema.
+This function returns a promise that resolves to an array of MetadataObjects. Each `MetadataObject` in the array represents an individual NFT's metadata, structured according to the requirements of the Token Metadata JSON Schema V2.
 
 ### Error Handling
 
@@ -1518,7 +1518,7 @@ If the CSV file contains fewer data rows than the headers (after omitting specif
 
 ## Convert Metadata Objects to JSON Files
 
-The `convertMetadataObjectsToJsonFiles` function streamlines the process of converting an array of NFT metadata objects into individual JSON files. This utility is particularly useful for batch processing and storage of NFT metadata, facilitating easy upload and management of NFT collections. Before conversion, it validates each metadata object against the HIP-412 standard to ensure compliance.
+The `convertMetadataObjectsToJsonFiles` function streamlines the process of converting an array of NFT metadata objects into individual JSON files. This utility is particularly useful for batch processing and storage of NFT metadata, facilitating easy upload and management of NFT collections. Before conversion, it validates each metadata object against the Token Metadata JSON Schema V2 standard to ensure compliance.
 
 ### Usage
 
@@ -1550,19 +1550,19 @@ const conversionResult = await convertMetadataObjectsToJsonFiles({
 
 This function returns a promise that resolves to an object with the following properties:
 
-- `isValid`: A boolean flag indicating whether all provided metadata objects are valid according to the HIP-412 validation process,
+- `isValid`: A boolean flag indicating whether all provided metadata objects are valid according to the token metadata validation process,
 - `errors`: An array containing detailed error information for each metadata object that failed validation. Each error object includes the index of the metadata object (objectIndex) and an array of error messages (errors),
 - `savedJsonFilesLocation`: The location where the JSON files have been saved.
 
 ### Error Handling
 
-The `convertMetadataObjectsToJsonFiles` function strictly requires all metadata objects to pass HIP-412 validation before proceeding with the conversion to JSON files. The validation is performed upfront, and only if every metadata object is deemed valid, will the function save the JSON files to the specified location. If any of the metadata objects fail validation, no files will be saved, and the function will return detailed information about the errors encountered. This ensures the integrity and compliance of all NFT metadata before it is serialized into JSON format, allowing developers to rectify any issues in a single batch process.
+The `convertMetadataObjectsToJsonFiles` function strictly requires all metadata objects to pass token metadata validation before proceeding with the conversion to JSON files. The validation is performed upfront, and only if every metadata object is deemed valid, will the function save the JSON files to the specified location. If any of the metadata objects fail validation, no files will be saved, and the function will return detailed information about the errors encountered. This ensures the integrity and compliance of all NFT metadata before it is serialized into JSON format, allowing developers to rectify any issues in a single batch process.
 
 ---
 
 ## Prepare Metadata Objects From CSV Rows
 
-The `prepareMetadataObjectsFromCSVRows` function serves as an intermediary step in the conversion of CSV data into structured NFT metadata objects. It processes rows of CSV data, applying a predefined schema to transform them into an array of metadata objects suitable for NFT creation or further validation against the HIP-412 standard.
+The `prepareMetadataObjectsFromCSVRows` function serves as an intermediary step in the conversion of CSV data into structured NFT metadata objects. It processes rows of CSV data, applying a predefined schema to transform them into an array of metadata objects suitable for NFT creation or further validation against the token metadata standard.
 
 ### Usage
 
