@@ -14,7 +14,7 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 4. **Rarity score calculation:** Calculate the rarity scores for a local folder containing multiple JSON metadata files for an NFT collection.
 5. **Trait occurrence calculation:** Calculate how often different values for a given trait occur in a collection, percentage-based.
 6. **NFT SDK methods:** A wrapper around the Hedera NFT API to create a new NFT collection, mint NFTs, and transfer NFTs.
-7. **Fee Factory:** A factory to create the fees for the Hedera NFT API.
+7. **Royalty Fee Creator:** A factory to define the fees for the Hedera NFT API when creating an NFT collection.
 8. **Metadata Validator:** A tool for validating metadata objects according to [token metadata JSON schema V2](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2), providing comprehensive verification of metadata compliance with the selected standard.
 9. **Metadata Builder:** Enables the creation and assembly of NFT metadata objects in a structured format and conducts instant validation within its build method, ensuring adherence to [token metadata JSON schema V2](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2) standard prior to deployment.
 10. **Convert CSV To Metadata Objects:** Facilitates the conversion of CSV file data into structured metadata objects, streamlining the initial stages of NFT metadata preparation.
@@ -40,7 +40,7 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 - **Package: [Rarity score calculation](#rarity-score-calculation)**
 - **Package: [Trait occurrence calculation](#trait-occurrence-calculation)**
 - **Package: [NFT SDK Methods](#nft-sdk-methods)**
-- **Package: [Fee Factory](#fee-factory)**
+- **Package: [Royalty Fee Creator](#royalty-fee-creator)**
 - **Package: [Metadata Validator](#metadata-validator)**
 - **Package: [Metadata Builder](#metadata-builder)**
 - **Package: [Convert CSV To Metadata Objects](#convert-csv-to-metadata-objects)**
@@ -1096,7 +1096,7 @@ Method returns an object containing the holder and duration of the NFT.
 type HolderAndDurationType = { holder: string; duration: number };
 ```
 
-## Fee Factory
+## Royalty Fee Creator
 
 The `FeeFactory` class is used to create custom fees for NFT collections. The class is used to create fixedFee or royaltyFee.
 Initialize the class and use one of the methods to create a fee.
@@ -1115,7 +1115,7 @@ Create new instance of `FeeFactory`
 feeFactoryInstance = new FeeFactory();
 ```
 
-## FeeFactory fixedFee
+## Royalty Fee Creator: fixedFee
 
 The `fixedFee` method is used to create a fixed fee for NFT collections.
 
@@ -1157,7 +1157,7 @@ type FixedFeeType = {
 - `denominatingTokenId`: The token ID to use for the fee.
 - `allCollectorsAreExempt`: Whether all collectors are exempt from the fee.
 
-## FeeFactory royaltyFee
+## Royalty Fee Creator: royaltyFee
 
 The `royaltyFee` method is used to create a royalty fee for NFT collections.
 
