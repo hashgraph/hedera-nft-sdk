@@ -1303,7 +1303,7 @@ const directoryValidationResult = Hip412Validator.validateLocalDirectory(directo
 
 This method returns an object contains:
 
-- `isValid`: A boolean flag indicating whether all files within the specified directory passed validation. It is true if all files are valid according to the HIP-412 schema, and false otherwise.
+- `isValid`: A boolean flag indicating whether all files within the specified directory passed validation. It is true if all files are valid according to the token metadata JSON schema V2, and false otherwise.
 - `errors`: An array of objects, each corresponding to a file that failed validation. Each object include:
   - `fileName`: The name of the file that encountered validation errors, helping to identify the source of the issue.
   - `general`: An array of strings, with each string describing a specific validation error encountered in the file.
