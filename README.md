@@ -1209,7 +1209,7 @@ The `Hip412Validator` class is a comprehensive tool designed to facilitate the v
 
 The class methods can be directly invoked to perform metadata validation.
 
-1. `validateSingleMetadataObject` - Validates a single NFT metadata object against the Token Metadata JSON V2 schema.
+1. `validateSingleMetadataObject` - Validates a single NFT metadata object against the token metadata schema.
 
 ### Usage
 
