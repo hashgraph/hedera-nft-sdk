@@ -843,7 +843,9 @@ Method return number which is the estimated cost of creating a new NFT collectio
 
 ## NFT SDK Mint Shared Metadata
 
-The `mintSharedMetadata` method is used to mint NFTs with shared metadata. This method takes in a tokenId, supplyKey, and an array of NFT metadata objects and returns a promise that resolves when the NFTs are successfully minted.
+The `mintSharedMetadata` method is used to mint NFTs with shared metadata. This method takes in a tokenId, supplyKey, amount, and metadata object, and returns a promise that resolves when the NFTs are successfully minted.
+
+This function supports bulk minting. The number of NFTs minted is determined by the amount parameter.
 
 ### Usage
 
@@ -855,7 +857,7 @@ const HederaNFTSDK = new HederaNFTSDK(operatorAccountId, operatorPrivateKey, 'te
 const mintedMetadata = await HederaNFTSDK.mintSharedMetadata({
   tokenId,
   amount,
-  metaData: 'www.youtube.com',
+  metaData: 'ipfs://bafkreiaghprbybrlrpvjvzqurwmjgfgxp6beo6jhwfarte76qra2xcei3u',
   batchSize: 2,
   supplyKey,
 });
@@ -895,6 +897,8 @@ type MintedNFTType = { serialNumber: number; content: string };
 
 The `mintUniqueMetadata` method is used to mint NFTs with unique metadata. This method takes in a tokenId, supplyKey, and an array of NFT metadata or path to metadata object file and returns a promise that resolves when the NFTs are successfully minted.
 
+This function supports bulk minting. The number of NFTs minted is determined by the length of metadata array, just as in regular SDK, but it's not limited to 10 elements.
+
 ### Usage
 
 Create instance of `HederaNFTSDK` class and call `mintUniqueMetadata` method by passing the proper parameters.
@@ -907,7 +911,7 @@ const mintedMetadata = await HederaNFTSDK.mintUniqueMetadata({
   tokenId,
   supplyKey,
   batchSize: 2,
-  metadata: ['https://www.youtube.com1', 'https://www.youtube.com2'],
+  metadata: ['ipfs://bafkreiaghprbybrlrpvjvzqurwmjgfgxp6beo6jhwfarte76qra2xcei3u', 'ipfs://bafkreibqfchoan4gt4qz34ztfmrzo7lksf465ihb6czofz4t2z4dmbxnc4'],
 });
 
 // Pass the path to the metadata file
