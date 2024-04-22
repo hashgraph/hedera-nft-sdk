@@ -47,6 +47,7 @@ import { UploadService } from './services/upload-service';
 import { convertCSVToMetadataObjects } from './file-management/convert-csv-to-metadata-objects';
 import { convertMetadataObjectsToJsonFiles } from './file-management/convert-metadata-objects-to-json-files';
 import { prepareMetadataObjectsFromCSVRows } from './file-management/prepare-metadata-objects-from-csv-rows';
+import { getHolderAndDuration } from './get-holder-and-duration';
 
 export {
   // validation
@@ -73,6 +74,9 @@ export {
   convertCSVToMetadataObjects,
   convertMetadataObjectsToJsonFiles,
   prepareMetadataObjectsFromCSVRows,
+
+  // getHolderAndDuration
+  getHolderAndDuration,
 
   // interfaces
   Attribute,

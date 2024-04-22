@@ -911,7 +911,10 @@ const mintedMetadata = await HederaNFTSDK.mintUniqueMetadata({
   tokenId,
   supplyKey,
   batchSize: 2,
-  metadata: ['ipfs://bafkreiaghprbybrlrpvjvzqurwmjgfgxp6beo6jhwfarte76qra2xcei3u', 'ipfs://bafkreibqfchoan4gt4qz34ztfmrzo7lksf465ihb6czofz4t2z4dmbxnc4'],
+  metadata: [
+    'ipfs://bafkreiaghprbybrlrpvjvzqurwmjgfgxp6beo6jhwfarte76qra2xcei3u',
+    'ipfs://bafkreibqfchoan4gt4qz34ztfmrzo7lksf465ihb6czofz4t2z4dmbxnc4',
+  ],
 });
 
 // Pass the path to the metadata file
@@ -1073,7 +1076,7 @@ The `getHolderAndDuration` method is used to get the holder and duration of an N
 Call `getHolderAndDuration` method by passing the proper parameters.
 
 ```js
-const result = await HederaNFTSDK.getHolderAndDuration({ tokenId, serialNumber: nftSerial, network: 'testnet' });
+const result = await getHolderAndDuration({ tokenId, serialNumber: nftSerial, network: 'testnet' });
 ```
 
 ### Parameters
