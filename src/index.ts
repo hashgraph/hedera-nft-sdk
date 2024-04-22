@@ -24,7 +24,17 @@ import { calculateRarity, calculateRarityFromData, calculateTraitOccurrenceFromD
 
 import { Attribute, Localization, File, Instance, Error, Problem, ValidationResult, Schema } from './types/validator';
 import { NFTFile, NFTAttribute, ValueObject, AttributeConfig, RarityResult, TraitOccurrence } from './types/rarity';
-import { WeightKeys, WeightProperties, Weights, KeyTypes, RiskLevels, RiskLevel, Metadata, RiskResult } from './types/risk';
+import {
+  WeightKeys,
+  WeightProperties,
+  Weights,
+  KeyTypes,
+  RiskLevels,
+  RiskLevel,
+  Metadata,
+  RiskResult,
+  RiskScoreFactors,
+} from './types/risk';
 import type { CSVRow, MetadataObject } from './types/csv';
 import type {
   FileValidationResult,
@@ -47,6 +57,7 @@ import { UploadService } from './services/upload-service';
 import { convertCSVToMetadataObjects } from './file-management/convert-csv-to-metadata-objects';
 import { convertMetadataObjectsToJsonFiles } from './file-management/convert-metadata-objects-to-json-files';
 import { prepareMetadataObjectsFromCSVRows } from './file-management/prepare-metadata-objects-from-csv-rows';
+import { getHolderAndDuration } from './get-holder-and-duration';
 
 export {
   // validation
@@ -74,6 +85,9 @@ export {
   convertMetadataObjectsToJsonFiles,
   prepareMetadataObjectsFromCSVRows,
 
+  // getHolderAndDuration
+  getHolderAndDuration,
+
   // interfaces
   Attribute,
   Localization,
@@ -94,6 +108,7 @@ export {
   KeyTypes,
   RiskLevels,
   RiskLevel,
+  RiskScoreFactors,
   Metadata,
   RiskResult,
   TraitOccurrence,
