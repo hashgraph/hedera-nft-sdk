@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import { PrivateKey, TokenCreateTransaction, TokenSupplyType, TokenType } from '@hashgraph/sdk';
+import { AccountId, PrivateKey, TokenCreateTransaction, TokenSupplyType, TokenType } from '@hashgraph/sdk';
 import { dictionary } from '../utils/constants/dictionary';
 import { CreateCollectionType } from '../types/create-collection';
 import { validatePropsForCreateCollection } from '../utils/validate-props';
@@ -99,7 +99,7 @@ export const createCollectionFunction = async ({
   }
 
   if (autoRenewAccount) {
-    transaction = transaction.setAutoRenewAccountId(autoRenewAccount);
+    transaction = transaction.setAutoRenewAccountId(AccountId.fromString(autoRenewAccount));
   }
 
   if (autoRenewPeriod) {
