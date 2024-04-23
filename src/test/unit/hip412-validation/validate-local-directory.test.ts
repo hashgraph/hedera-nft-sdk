@@ -19,14 +19,14 @@
  */
 import fs from 'fs';
 import path from 'path';
-import { Hip412Validator } from '../../../hip412-validator';
+import { TokenMetadataValidator } from '../../../token-metadata-validator';
 import { dictionary } from '../../../utils/constants/dictionary';
 
 jest.mock('fs');
 const mockReadDirSync = fs.readdirSync as jest.Mock;
 const mockReadFileSync = fs.readFileSync as jest.Mock;
 
-describe('Hip412Validator.validateLocalDirectory', () => {
+describe('TokenMetadataValidator.validateLocalDirectory', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -34,7 +34,7 @@ describe('Hip412Validator.validateLocalDirectory', () => {
   it('should return an error if the directory is empty', () => {
     mockReadDirSync.mockReturnValue([]);
 
-    const validationResult = Hip412Validator.validateLocalDirectory('mock/empty/directory');
+    const validationResult = TokenMetadataValidator.validateLocalDirectory('mock/empty/directory');
     expect(validationResult.isValid).toBe(false);
     expect(validationResult.errors[0].general).toContain(dictionary.validation.directoryIsEmpty);
   });
@@ -57,7 +57,7 @@ describe('Hip412Validator.validateLocalDirectory', () => {
     });
 
     const directoryPath = 'mock/directory';
-    const validationResult = Hip412Validator.validateLocalDirectory(directoryPath);
+    const validationResult = TokenMetadataValidator.validateLocalDirectory(directoryPath);
 
     expect(mockReadFileSync).toHaveBeenCalledTimes(2);
     mockFiles.forEach((file) => {

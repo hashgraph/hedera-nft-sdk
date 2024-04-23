@@ -19,9 +19,8 @@
  */
 import { Client, PrivateKey } from '@hashgraph/sdk';
 import { createCollectionFunction } from '../../../nftSDKFunctions/create-collection';
-import { myPrivateKey } from '../../__mocks__/consts';
+import { myPrivateKey, treasuryAccountPrivateKey } from '../../__mocks__/consts';
 import { dictionary } from '../../../utils/constants/dictionary';
-import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
 
 jest.mock('@hashgraph/sdk', () => {
   return {
@@ -123,7 +122,7 @@ describe('createCollectionFunction', () => {
         myPrivateKey,
         collectionName,
         collectionSymbol,
-        treasuryAccountPrivateKey: '0.0.4321',
+        treasuryAccountPrivateKey,
       })
     ).rejects.toThrow(dictionary.createCollection.treasuryAccountPrivateKeySignRequired);
   });
@@ -147,11 +146,10 @@ describe('createCollectionFunction', () => {
     const client = Client.forTestnet();
     const collectionSymbol = 'test2';
     const keys = {
-      admin: getPrivateKeyFromString(myPrivateKey),
-      supply: getPrivateKeyFromString(myPrivateKey),
+      admin: myPrivateKey,
+      supply: myPrivateKey,
     };
     const treasuryAccount = '0.0.4321';
-    const treasuryAccountPrivateKey = '0.0.4321';
 
     await expect(
       createCollectionFunction({
@@ -169,11 +167,10 @@ describe('createCollectionFunction', () => {
   it('should throw an error if collectionSymbol is not provided', async () => {
     const client = Client.forTestnet();
     const keys = {
-      admin: getPrivateKeyFromString(myPrivateKey),
-      supply: getPrivateKeyFromString(myPrivateKey),
+      admin: myPrivateKey,
+      supply: myPrivateKey,
     };
     const treasuryAccount = '0.0.4321';
-    const treasuryAccountPrivateKey = '0.0.4321';
 
     await expect(
       createCollectionFunction({
@@ -194,7 +191,7 @@ describe('createCollectionFunction', () => {
     const collectionSymbol = 'test2';
     const keys = {
       admin: PrivateKey.generateED25519(),
-      supply: getPrivateKeyFromString(myPrivateKey),
+      supply: myPrivateKey,
     };
 
     const tokenId = await createCollectionFunction({

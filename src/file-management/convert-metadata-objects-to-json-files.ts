@@ -18,7 +18,7 @@
  *
  */
 import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv';
-import { Hip412Validator } from '../hip412-validator';
+import { TokenMetadataValidator } from '../token-metadata-validator';
 import { MetadataObject } from '../types/csv';
 import { saveMetadataObjectsAsJsonFiles } from '../helpers/save-metadata-object-as-json-files';
 
@@ -31,7 +31,7 @@ export const convertMetadataObjectsToJsonFiles = async ({
   savedJsonFilesLocation: string;
   limit?: number;
 }): Promise<JsonMetadataFromCSVInterface> => {
-  const { allObjectsValid, results } = Hip412Validator.validateArrayOfObjects(metadataObjects);
+  const { allObjectsValid, results } = TokenMetadataValidator.validateArrayOfObjects(metadataObjects);
 
   if (allObjectsValid) {
     const objectsToProcess = limit !== undefined && limit < metadataObjects.length ? metadataObjects.slice(0, limit) : metadataObjects;

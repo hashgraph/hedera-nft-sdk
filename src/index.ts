@@ -44,10 +44,11 @@ import type {
   MetadataError,
   MetadataOnChainObjects,
 } from './types/hip412-validator';
+import { PrivateKey } from '@hashgraph/sdk';
 
 import { HederaNFTSDK } from './nftSDKFunctions';
 import { FeeFactory } from './feeFactory';
-import { Hip412Validator } from './hip412-validator';
+import { TokenMetadataValidator } from './token-metadata-validator';
 import { Hip412MetadataBuilder } from './hip412-metadata-builder';
 import { NftStorageService } from './services/file-storages/nft-storage/nft-storage-service';
 import { PinataService } from './services/file-storages/pinata/pinata-service';
@@ -124,7 +125,7 @@ export {
   // NFTSDK
   HederaNFTSDK,
   FeeFactory,
-  Hip412Validator,
+  TokenMetadataValidator,
   Hip412MetadataBuilder,
 
   // Upload Service
@@ -135,4 +136,7 @@ export {
   PinataService,
   AWSService,
   MockStorageService,
+
+  // hashgraph/sdk
+  PrivateKey,
 };

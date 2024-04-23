@@ -17,10 +17,9 @@
  * limitations under the License.
  *
  */
-import { NftId, PrivateKey, TokenId, TokenNftInfoQuery } from '@hashgraph/sdk';
+import { NftId, TokenId, TokenNftInfoQuery } from '@hashgraph/sdk';
 import { nftSDK, operatorPrivateKey } from '../e2e-consts';
 import { LONG_E2E_TIMEOUT } from '../../__mocks__/consts';
-import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
 
 describe('mintSharedMetadata function e2e', () => {
   const testCases = [{ amount: 1 }, { amount: 3 }, { amount: 10 }];

@@ -18,7 +18,7 @@
  *
  */
 import { dictionary } from '../../../utils/constants/dictionary';
-import { Hip412Validator } from '../../../hip412-validator';
+import { TokenMetadataValidator } from '../../../token-metadata-validator';
 import { MetadataObject } from '../../../types/csv';
 
 const METADATA_OBJECT_WITH_ONLY_REQUIRED_FIELDS = {
@@ -73,10 +73,10 @@ const METADATA_OBJECT_WITH_INVALID_ATTRIBUTES_STRUCTURE = {
 };
 
 const validate = (metadataObject: MetadataObject) => {
-  return Hip412Validator.validateSingleMetadataObject(metadataObject);
+  return TokenMetadataValidator.validateSingleMetadataObject(metadataObject);
 };
 
-describe('Hip412Validator.validateSingleObject', () => {
+describe('TokenMetadataValidator.validateSingleObject', () => {
   it('should not return any errors for an object with all fields filled properly', () => {
     const validationResult = validate(METADATA_OBECT_WITH_ALL_FIELDS);
     expect(validationResult.isValid).toBe(true);
