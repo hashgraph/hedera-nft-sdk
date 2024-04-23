@@ -20,12 +20,13 @@
 import 'dotenv/config';
 import { FeeFactory } from '../../feeFactory';
 import { HederaNFTSDK } from '../../nftSDKFunctions';
+import { PrivateKey } from '@hashgraph/sdk';
 
 export const operatorAccountId = process.env.FIRST_ACCOUNT_ID!;
-export const operatorPrivateKey = process.env.FIRST_PRIVATE_KEY!;
+export const operatorPrivateKey = PrivateKey.fromStringDer(process.env.FIRST_PRIVATE_KEY!);
 
 export const secondAccountId = process.env.SECOND_ACCOUNT_ID!;
-export const secondPrivateKey = process.env.SECOND_PRIVATE_KEY!;
+export const secondPrivateKey = PrivateKey.fromStringDer(process.env.SECOND_PRIVATE_KEY!);
 
 export const nftStorageApiKey = process.env.NFTSTORAGE_API_KEY!;
 export const pinataApiKey = process.env.PINATA_API_KEY!;

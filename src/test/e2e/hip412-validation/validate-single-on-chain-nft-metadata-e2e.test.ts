@@ -1,4 +1,3 @@
-import { PrivateKey } from '@hashgraph/sdk';
 import { Hip412Validator } from '../../../hip412-validator';
 import {
   nftSDK,
@@ -11,7 +10,6 @@ import {
   METADATA_TO_VALIDATE_OBJECT_SERIAL,
 } from '../e2e-consts';
 import { LONG_E2E_TIMEOUT, MIRROR_NODE_DELAY } from '../../__mocks__/consts';
-import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
 
 describe('E2E test for validating single NFT Metadata Object Against HIP412 schema', () => {
   let tokenId: string;

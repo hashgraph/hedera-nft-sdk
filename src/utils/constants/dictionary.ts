@@ -26,23 +26,14 @@ export const dictionary = {
     privateKeyRequired: 'Private key is required',
     privateKeyInvalid: 'Invalid private key string. Please provide a valid private key string.',
     unhandledError: 'Unknown error.',
-    // file storages
-    // pinata
     pinataError: 'Cannot create Pinata provider. Please pass pinataJwtKey OR (pinataApiKey AND pinataSecretApiKey).',
-
     awsUploadIssue: 'Error encountered using AWS SDK. Please restart the app and try again.',
     awsUploadingError: (message: string) => `Failed to upload file to AWS S3: ${message}`,
-
-    // NFT storage
     noApiKeys: 'Please provide at least one API key to use "NFT.storage".',
-
-    // upload service errors
     uploadService: {
       noFiles: 'No files to upload.',
       noMetadata: 'No metadata to upload.',
     },
-
-    // Rarity
     rarity: {
       attributeTypeNotFound: (trait_type: string) => `Attribute ${trait_type} not found in attributes map`,
       attributeNotFoundInFile: (fileName: string) =>
@@ -50,7 +41,6 @@ export const dictionary = {
       attributeNotFoundInObject: (object: string) =>
         `Attributes not found in object ${object}. Please ensure that your metadata file is valid.`,
     },
-
     cannotFetchHbarExchangeRate: 'Can not fetch Hbar exchange rate.',
     ipfsGatewayRequired: 'IPFS gateway is required when metadata contains IPFS links.',
     ipfsFailedToFetch: 'Failed to fetch metadata using IPFS gateway',

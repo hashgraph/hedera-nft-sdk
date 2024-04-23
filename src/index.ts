@@ -34,6 +34,7 @@ import type {
   MetadataError,
   MetadataOnChainObjects,
 } from './types/hip412-validator';
+import { PrivateKey } from '@hashgraph/sdk';
 
 import { HederaNFTSDK } from './nftSDKFunctions';
 import { FeeFactory } from './feeFactory';
@@ -120,4 +121,7 @@ export {
   PinataService,
   AWSService,
   MockStorageService,
+
+  // hashgraph/sdk
+  PrivateKey,
 };

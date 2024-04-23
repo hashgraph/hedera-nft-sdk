@@ -671,7 +671,7 @@ Create new instance of `HederaNFTSDK` in the following parameters:
 ```typescript
 type HederaNFTSDKType = {
   accountId: string;
-  privateKey: string;
+  privateKey: PrivateKey;
   network: Network;
   localNode?: LocalNode;
   localMirrorNode?: string;
@@ -713,14 +713,14 @@ Create collection method takes in the following parameters:
 type CreateCollectionType = {
   collectionName: string;
   collectionSymbol: string;
-  treasuryAccountPrivateKey?: string;
+  treasuryAccountPrivateKey?: PrivateKey;
   treasuryAccount?: string;
   keys?: CreateCollectionKeysType;
   maxSupply?: number;
   customFees?: CustomFeeType[];
   expirationTime?: Date;
   autoRenewAccount?: string;
-  autoRenewAccountPrivateKey?: string;
+  autoRenewAccountPrivateKey?: PrivateKey;
   autoRenewPeriod?: number;
   memo?: string;
 };
@@ -774,7 +774,7 @@ Estimate create collection in dollars method takes in the following parameters:
 type EstimateCreateCollectionInDollarsType = {
   collectionName: string;
   collectionSymbol: string;
-  treasuryAccountPrivateKey?: string;
+  treasuryAccountPrivateKey?: PrivateKey;
   treasuryAccount?: string;
   keys?: CreateCollectionKeysType;
   customFees?: CustomFeeType[];
@@ -821,7 +821,7 @@ Estimate create collection in hbar method takes in the following parameters:
 type EstimateCreateCollectionInDollarsType = {
   collectionName: string;
   collectionSymbol: string;
-  treasuryAccountPrivateKey?: string;
+  treasuryAccountPrivateKey?: PrivateKey;
   treasuryAccount?: string;
   keys?: CreateCollectionKeysType;
   customFees?: CustomFeeType[];
@@ -911,7 +911,10 @@ const mintedMetadata = await HederaNFTSDK.mintUniqueMetadata({
   tokenId,
   supplyKey,
   batchSize: 2,
-  metadata: ['ipfs://bafkreiaghprbybrlrpvjvzqurwmjgfgxp6beo6jhwfarte76qra2xcei3u', 'ipfs://bafkreibqfchoan4gt4qz34ztfmrzo7lksf465ihb6czofz4t2z4dmbxnc4'],
+  metadata: [
+    'ipfs://bafkreiaghprbybrlrpvjvzqurwmjgfgxp6beo6jhwfarte76qra2xcei3u',
+    'ipfs://bafkreibqfchoan4gt4qz34ztfmrzo7lksf465ihb6czofz4t2z4dmbxnc4',
+  ],
 });
 
 // Pass the path to the metadata file

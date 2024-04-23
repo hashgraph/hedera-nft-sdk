@@ -17,6 +17,7 @@
  * limitations under the License.
  *
  */
+import { PrivateKey } from '@hashgraph/sdk';
 import { CreateCollectionKeysType, CustomFeeType } from './create-collection';
 
 export type UsageComponents = 'node' | 'network' | 'service';
@@ -29,7 +30,7 @@ export type EstimateCreateCollectionType = {
   collectionSymbol: string;
   keys?: CreateCollectionKeysType;
   treasuryAccount?: string;
-  treasuryAccountPrivateKey?: string;
+  treasuryAccountPrivateKey?: PrivateKey;
   customFees?: CustomFeeType[];
 };
 

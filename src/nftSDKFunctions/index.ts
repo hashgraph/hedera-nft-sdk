@@ -32,18 +32,17 @@ import { estimateCreateCollectionInDollars } from './estimate-create-collection-
 import { estimateCreateCollectionInHbar } from './estimate-create-collection-in-hbar';
 import { getHolderAndDuration } from './get-holder-and-duration';
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
-import { getPrivateKeyFromString } from '../helpers/get-private-key-from-string';
 
 export class HederaNFTSDK {
   accountId: string;
-  privateKey: string;
+  privateKey: PrivateKey;
   client: Client;
   network: Network;
   mirrorNodeUrl?: string;
 
   constructor(
     accountId: string,
-    privateKey: string,
+    privateKey: PrivateKey,
     network: Network,
     localNode?: LocalNode,
     localMirrorNode?: string,
@@ -78,14 +77,14 @@ export class HederaNFTSDK {
   }: {
     collectionName: string;
     collectionSymbol: string;
-    treasuryAccountPrivateKey?: string;
+    treasuryAccountPrivateKey?: PrivateKey;
     treasuryAccount?: string;
     keys?: CreateCollectionKeysType;
     maxSupply?: number;
     customFees?: CustomFeeType[];
     expirationTime?: Date;
     autoRenewAccount?: string;
-    autoRenewAccountPrivateKey?: string;
+    autoRenewAccountPrivateKey?: PrivateKey;
     autoRenewPeriod?: number;
     memo?: string;
   }) {
@@ -117,7 +116,7 @@ export class HederaNFTSDK {
   }: {
     collectionName: string;
     collectionSymbol: string;
-    treasuryAccountPrivateKey?: string;
+    treasuryAccountPrivateKey?: PrivateKey;
     treasuryAccount?: string;
     keys?: CreateCollectionKeysType;
     customFees?: CustomFeeType[];
@@ -142,7 +141,7 @@ export class HederaNFTSDK {
   }: {
     collectionName: string;
     collectionSymbol: string;
-    treasuryAccountPrivateKey?: string;
+    treasuryAccountPrivateKey?: PrivateKey;
     treasuryAccount?: string;
     keys?: CreateCollectionKeysType;
     customFees?: CustomFeeType[];
@@ -178,7 +177,7 @@ export class HederaNFTSDK {
     amount: number;
     batchSize?: number;
     metaData: string;
-    supplyKey?: string;
+    supplyKey?: PrivateKey;
   }) {
     return mintSharedMetadataFunction({
       client: this.client,
@@ -186,7 +185,7 @@ export class HederaNFTSDK {
       amount,
       batchSize,
       metaData,
-      supplyKey: supplyKey ? getPrivateKeyFromString(supplyKey) : getPrivateKeyFromString(this.privateKey),
+      supplyKey: supplyKey ? supplyKey : this.privateKey,
     });
   }
 
@@ -199,7 +198,7 @@ export class HederaNFTSDK {
   }: {
     tokenId: string;
     batchSize?: number;
-    supplyKey: string;
+    supplyKey: PrivateKey;
     pathToMetadataURIsFile?: string;
     metadata?: string[];
   }) {
@@ -207,20 +206,30 @@ export class HederaNFTSDK {
       client: this.client,
       tokenId,
       batchSize,
-      supplyKey: getPrivateKeyFromString(supplyKey),
+      supplyKey: supplyKey,
       pathToMetadataURIsFile,
       metadataArray: metadata,
     });
   }
 
-  increaseNFTSupply({ nftId, amount, batchSize = 5, supplyKey }: { nftId: NftId; amount: number; batchSize?: number; supplyKey?: string }) {
+  increaseNFTSupply({
+    nftId,
+    amount,
+    batchSize = 5,
+    supplyKey,
+  }: {
+    nftId: NftId;
+    amount: number;
+    batchSize?: number;
+    supplyKey?: PrivateKey;
+  }) {
     return increaseNFTSupply({
       client: this.client,
       network: this.network,
       nftId,
       amount,
       batchSize,
-      supplyKey: supplyKey ? getPrivateKeyFromString(supplyKey) : getPrivateKeyFromString(this.privateKey),
+      supplyKey: supplyKey ? supplyKey : this.privateKey,
       mirrorNodeUrl: this.mirrorNodeUrl,
     });
   }

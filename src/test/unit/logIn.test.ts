@@ -23,6 +23,8 @@ import { myAccountId, myPrivateKey } from '../__mocks__/consts';
 import { dictionary } from '../../utils/constants/dictionary';
 
 jest.mock('@hashgraph/sdk', () => {
+  const mockedSDK = jest.requireActual('@hashgraph/sdk');
+
   return {
     Client: {
       forName: jest.fn().mockReturnThis(),
@@ -32,6 +34,12 @@ jest.mock('@hashgraph/sdk', () => {
       setOperator: jest.fn(),
     },
     AccountId: jest.fn().mockReturnThis(),
+    PrivateKey: {
+      ...mockedSDK.PrivateKey,
+      generateED25519: jest.fn(() => ({
+        toString: () => 'fake-private-key',
+      })),
+    },
   };
 });
 
@@ -47,11 +55,7 @@ describe('logIn', () => {
     expect(() => logIn({ myAccountId: '', myPrivateKey, network: 'testnet' })).toThrow(dictionary.createCollection.myAccountIdRequired);
   });
 
-  it('should throw an error if myPrivateKey is not provided', () => {
-    expect(() => logIn({ myAccountId, myPrivateKey: '', network: 'testnet' })).toThrow(dictionary.createCollection.myPrivateKeyRequired);
-  });
-
-  it('should create a client for local netowrk', () => {
+  it('should create a client for local network', () => {
     logIn({ myAccountId, myPrivateKey, network: 'localnode' });
 
     expect(Client.forLocalNode).toHaveBeenCalled();
