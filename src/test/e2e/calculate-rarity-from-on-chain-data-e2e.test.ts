@@ -1,7 +1,6 @@
 import { LONG_E2E_TIMEOUT, MIRROR_NODE_DELAY } from '../__mocks__/consts';
 import { calculateRarityFromOnChainData } from '../../rarity';
 import { LINK_TO_JSON_OBJECT_WITHOUT_ERRORS, nftSDK, operatorPrivateKey } from './e2e-consts';
-import { PrivateKey } from '@hashgraph/sdk';
 import { LINK_TO_JSON_OBJECT_WITHOUT_ERRORS_ATTRIBUTES } from '../__mocks__/linkToJsonObjectWithoutErrorsAttributes';
 
 describe('calculateRiskScoreFromTokenIdE2E', () => {

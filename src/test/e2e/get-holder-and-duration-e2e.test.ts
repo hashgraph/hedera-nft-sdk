@@ -20,7 +20,7 @@
 
 import { LONG_E2E_TIMEOUT, LONG_MIRROR_NODE_DELAY, MIRROR_NODE_DELAY } from '../__mocks__/consts';
 import { nftSDK, operatorAccountId, operatorPrivateKey, secondAccountId, secondPrivateKey } from './e2e-consts';
-import { AccountId, NftId, PrivateKey, TokenAssociateTransaction, TokenId, TransferTransaction } from '@hashgraph/sdk';
+import { AccountId, NftId, TokenAssociateTransaction, TokenId, TransferTransaction } from '@hashgraph/sdk';
 import { getHolderAndDuration } from '../../get-holder-and-duration';
 
 afterAll(async () => {
@@ -76,14 +76,14 @@ describe('getHolderAndDuration', () => {
         .setTokenIds([TokenId.fromString(tokenId)])
         .freezeWith(nftSDK.client);
 
-      const associateSignTx = await associateTransaction.sign(PrivateKey.fromString(secondPrivateKey));
+      const associateSignTx = await associateTransaction.sign(secondPrivateKey);
       await associateSignTx.execute(nftSDK.client);
 
       // Transfer created NFT from first acc to second acc
       const transaction = new TransferTransaction()
         .addNftTransfer(nftId, AccountId.fromString(operatorAccountId), AccountId.fromString(secondAccountId))
         .freezeWith(nftSDK.client);
-      const signTx = await transaction.sign(PrivateKey.fromString(operatorPrivateKey));
+      const signTx = await transaction.sign(operatorPrivateKey);
       await signTx.execute(nftSDK.client);
 
       await new Promise((resolve) => setTimeout(resolve, LONG_MIRROR_NODE_DELAY));
