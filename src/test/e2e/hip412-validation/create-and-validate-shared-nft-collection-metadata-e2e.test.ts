@@ -1,4 +1,4 @@
-import { Hip412Validator } from '../../../hip412-validator';
+import { TokenMetadataValidator } from '../../../token-metadata-validator';
 import {
   nftSDK,
   operatorPrivateKey,
@@ -34,7 +34,7 @@ describe('E2E test for validating shared NFT Collection Metadata Against HIP412 
   it(
     'should successfully validate the previously created NFT collection metadata against the HIP412 schema',
     async () => {
-      const validationResponse = await Hip412Validator.validateMetadataFromOnChainCollection(NETWORK, tokenId, IPFS_GATEWAY);
+      const validationResponse = await TokenMetadataValidator.validateMetadataFromOnChainCollection(NETWORK, tokenId, IPFS_GATEWAY);
 
       expect(validationResponse.isValid).toBe(true);
       expect(validationResponse.errors).toHaveLength(0);

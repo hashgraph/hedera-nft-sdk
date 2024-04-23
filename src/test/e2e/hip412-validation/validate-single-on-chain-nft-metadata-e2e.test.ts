@@ -1,5 +1,4 @@
-import { PrivateKey } from '@hashgraph/sdk';
-import { Hip412Validator } from '../../../hip412-validator';
+import { TokenMetadataValidator } from '../../../token-metadata-validator';
 import {
   nftSDK,
   operatorPrivateKey,
@@ -11,7 +10,6 @@ import {
   METADATA_TO_VALIDATE_OBJECT_SERIAL,
 } from '../e2e-consts';
 import { LONG_E2E_TIMEOUT, MIRROR_NODE_DELAY } from '../../__mocks__/consts';
-import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
 
 describe('E2E test for validating single NFT Metadata Object Against HIP412 schema', () => {
   let tokenId: string;
@@ -36,7 +34,7 @@ describe('E2E test for validating single NFT Metadata Object Against HIP412 sche
   it(
     'should successfully validate single metadata object with particular serial number from previously created NFT collection against the HIP412 schema',
     async () => {
-      const validationResponse = await Hip412Validator.validateSingleOnChainNFTMetadata(
+      const validationResponse = await TokenMetadataValidator.validateSingleOnChainNFTMetadata(
         NETWORK,
         tokenId,
         METADATA_TO_VALIDATE_OBJECT_SERIAL,

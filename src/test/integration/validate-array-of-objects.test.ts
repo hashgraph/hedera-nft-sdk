@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import { Hip412Validator } from '../../hip412-validator';
+import { TokenMetadataValidator } from '../../token-metadata-validator';
 import { MetadataObject } from '../../types/csv';
 
 const VALID_METADATA_OBJECTS: MetadataObject[] = [
@@ -92,7 +92,7 @@ const MIXED_METADATA_OBJECTS: MetadataObject[] = [
 
 describe('validateArrayOfObjects', () => {
   it('validates an array of valid metadata objects successfully', async () => {
-    const validationResult = Hip412Validator.validateArrayOfObjects(VALID_METADATA_OBJECTS);
+    const validationResult = TokenMetadataValidator.validateArrayOfObjects(VALID_METADATA_OBJECTS);
     Object.values(validationResult.results).forEach((result) => {
       expect(result.isValid).toBe(true);
       expect(result.errorsCount).toBe(0);
@@ -101,7 +101,7 @@ describe('validateArrayOfObjects', () => {
   });
 
   it('identifies errors in an array with invalid metadata objects', async () => {
-    const validationResult = Hip412Validator.validateArrayOfObjects(MIXED_METADATA_OBJECTS);
+    const validationResult = TokenMetadataValidator.validateArrayOfObjects(MIXED_METADATA_OBJECTS);
 
     expect(validationResult.allObjectsValid).toBe(false);
 

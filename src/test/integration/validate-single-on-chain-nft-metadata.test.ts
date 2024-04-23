@@ -19,7 +19,7 @@
  */
 import axios from 'axios';
 import { NFTDetails } from '../../types/nfts';
-import { Hip412Validator } from '../../hip412-validator';
+import { TokenMetadataValidator } from '../../token-metadata-validator';
 import { EXAMPLE_IPFS_GATEWAY } from '../__mocks__/consts';
 import { NETWORK } from '../__mocks__/consts';
 
@@ -79,7 +79,7 @@ describe('validateSingleOnChainNFTMetadata', () => {
   it('validates single NFT metadata successfully', async () => {
     mockedAxios.get.mockResolvedValueOnce({ data: MOCKED_NFT_RESPONSE }).mockResolvedValueOnce({ data: VALID_NFT_METADATA });
 
-    const validationResult = await Hip412Validator.validateSingleOnChainNFTMetadata(NETWORK, '0.0.3573355', 1, EXAMPLE_IPFS_GATEWAY);
+    const validationResult = await TokenMetadataValidator.validateSingleOnChainNFTMetadata(NETWORK, '0.0.3573355', 1, EXAMPLE_IPFS_GATEWAY);
 
     expect(validationResult.isValid).toBe(true);
     expect(validationResult.errors).toHaveLength(0);
@@ -90,7 +90,7 @@ describe('validateSingleOnChainNFTMetadata', () => {
       .mockResolvedValueOnce({ data: MOCKED_NFT_RESPONSE })
       .mockResolvedValueOnce({ data: NFT_METADATA_WITH_MISSING_REQUIRED_FIELDS });
 
-    const validationResult = await Hip412Validator.validateSingleOnChainNFTMetadata(NETWORK, '0.0.3573355', 1, EXAMPLE_IPFS_GATEWAY);
+    const validationResult = await TokenMetadataValidator.validateSingleOnChainNFTMetadata(NETWORK, '0.0.3573355', 1, EXAMPLE_IPFS_GATEWAY);
 
     expect(validationResult.isValid).toBe(false);
     expect(validationResult.errors).toHaveLength(3);
