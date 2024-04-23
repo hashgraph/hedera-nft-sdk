@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import { Client, NftId, PrivateKey } from '@hashgraph/sdk';
+import { PrivateKey } from '@hashgraph/sdk';
 import { CustomFeeType } from './create-collection';
 
 export type sharedMintingValidationProps = {
@@ -44,12 +44,12 @@ export type increaseNFTSupplyValidationProps = {
 export type validateCreateCollectionProps = {
   collectionName: string;
   collectionSymbol: string;
-  treasuryAccountPrivateKey?: string;
+  treasuryAccountPrivateKey?: PrivateKey;
   treasuryAccount?: string;
   customFees?: CustomFeeType[];
   expirationTime?: Date;
   autoRenewAccount?: string;
-  autoRenewAccountPrivateKey?: string;
+  autoRenewAccountPrivateKey?: PrivateKey;
   autoRenewPeriod?: number;
   memo?: string;
 };

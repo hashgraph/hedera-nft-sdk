@@ -671,7 +671,7 @@ Create new instance of `HederaNFTSDK` in the following parameters:
 ```typescript
 type HederaNFTSDKType = {
   accountId: string;
-  privateKey: string;
+  privateKey: PrivateKey;
   network: Network;
   localNode?: LocalNode;
   localMirrorNode?: string;
@@ -713,14 +713,14 @@ Create collection method takes in the following parameters:
 type CreateCollectionType = {
   collectionName: string;
   collectionSymbol: string;
-  treasuryAccountPrivateKey?: string;
+  treasuryAccountPrivateKey?: PrivateKey;
   treasuryAccount?: string;
   keys?: CreateCollectionKeysType;
   maxSupply?: number;
   customFees?: CustomFeeType[];
   expirationTime?: Date;
   autoRenewAccount?: string;
-  autoRenewAccountPrivateKey?: string;
+  autoRenewAccountPrivateKey?: PrivateKey;
   autoRenewPeriod?: number;
   memo?: string;
 };
@@ -774,7 +774,7 @@ Estimate create collection in dollars method takes in the following parameters:
 type EstimateCreateCollectionInDollarsType = {
   collectionName: string;
   collectionSymbol: string;
-  treasuryAccountPrivateKey?: string;
+  treasuryAccountPrivateKey?: PrivateKey;
   treasuryAccount?: string;
   keys?: CreateCollectionKeysType;
   customFees?: CustomFeeType[];
@@ -821,7 +821,7 @@ Estimate create collection in hbar method takes in the following parameters:
 type EstimateCreateCollectionInDollarsType = {
   collectionName: string;
   collectionSymbol: string;
-  treasuryAccountPrivateKey?: string;
+  treasuryAccountPrivateKey?: PrivateKey;
   treasuryAccount?: string;
   keys?: CreateCollectionKeysType;
   customFees?: CustomFeeType[];

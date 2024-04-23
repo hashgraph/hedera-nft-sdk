@@ -22,7 +22,6 @@ import { estimateCreateCollectionInHbar } from '../../../nftSDKFunctions/estimat
 import { Hbar, TokenCreateTransaction, TokenType } from '@hashgraph/sdk';
 import { roundToPrecision } from '../../helpers/round-to-precision';
 import { isWithinAcceptableDifference } from '../../helpers/is-within-acceptable-difference';
-import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
 
 describe('estimateCreateCollectionInHbarE2E', () => {
   it('should work properly with default values', async () => {
@@ -41,7 +40,7 @@ describe('estimateCreateCollectionInHbarE2E', () => {
       .setTokenName(name)
       .setTokenSymbol(symbol)
       .setTokenType(TokenType.NonFungibleUnique)
-      .setSupplyKey(getPrivateKeyFromString(operatorPrivateKey))
+      .setSupplyKey(operatorPrivateKey)
       .setTreasuryAccountId(operatorAccountId);
     const txResponse = await createToken.execute(nftSDK.client);
     const record = await txResponse.getRecord(nftSDK.client);

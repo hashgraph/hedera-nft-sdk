@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import { AccountId, PrivateKey, TokenId } from '@hashgraph/sdk';
+import { AccountId, TokenId } from '@hashgraph/sdk';
 import {
   validateCreateCollectionProps,
   uniqueMintingValidationProps,
@@ -49,11 +49,11 @@ export const validatePropsForUniqueNFTMinting = (props: uniqueMintingValidationP
 export const validatePropsForCreateCollection = (props: validateCreateCollectionProps) => {
   validateAccountAndPrivateKey(props);
   if (props.treasuryAccount) validAccountId(props.treasuryAccount);
-  if (props.treasuryAccountPrivateKey) validPrivateKey(props.treasuryAccountPrivateKey);
+  if (props.treasuryAccountPrivateKey) props.treasuryAccountPrivateKey;
 
   validateAutoRenewAccount(props);
   if (props.autoRenewAccount) validAccountId(props.autoRenewAccount);
-  if (props.autoRenewAccountPrivateKey) validPrivateKey(props.autoRenewAccountPrivateKey);
+  if (props.autoRenewAccountPrivateKey) props.autoRenewAccountPrivateKey;
 
   validateCollectionSymbol(props);
   validateCollectionName(props);
@@ -86,14 +86,6 @@ const hbarAmountOrAmountAndDenominatingToken = (props: fixedFeeValidationProps) 
 const validateCustomFees = (props: validateCreateCollectionProps) => {
   if (Object.prototype.hasOwnProperty.call(props, 'collectionSymbol')) {
     if (props.customFees && props.customFees.length > MAX_CUSTOM_FEES_NUMBER) throw new Error(dictionary.hederaActions.tooManyCustomFees);
-  }
-};
-
-const validPrivateKey = (privateKey: string) => {
-  try {
-    PrivateKey.fromString(privateKey);
-  } catch (error) {
-    throw new Error(dictionary.hederaActions.cannotParsePrivateKey);
   }
 };
 

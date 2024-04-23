@@ -94,7 +94,6 @@ describe('estimateCreateCollectionInHbars', () => {
         collectionName: '',
         collectionSymbol: '',
         treasuryAccount: '',
-        treasuryAccountPrivateKey: '',
         network: 'testnet',
         customFees: [],
       })

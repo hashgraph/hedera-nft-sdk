@@ -33,17 +33,17 @@ export type CreateCollectionKeysType = {
 
 export type CreateCollectionType = {
   client: Client;
-  myPrivateKey: string;
+  myPrivateKey: PrivateKey;
   collectionName: string;
   collectionSymbol: string;
   keys?: CreateCollectionKeysType;
   treasuryAccount?: string;
-  treasuryAccountPrivateKey?: string;
+  treasuryAccountPrivateKey?: PrivateKey;
   maxSupply?: number;
   customFees?: CustomFeeType[];
   expirationTime?: Date;
   autoRenewAccount?: string;
-  autoRenewAccountPrivateKey?: string;
+  autoRenewAccountPrivateKey?: PrivateKey;
   autoRenewPeriod?: number;
   memo?: string;
 };

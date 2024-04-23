@@ -18,45 +18,54 @@
  *
  */
 import { mintToken } from '../../../nftSDKFunctions/mint-token';
-import { Client, PrivateKey, Status } from '@hashgraph/sdk';
+import { Client, Status } from '@hashgraph/sdk';
 import { myPrivateKey } from '../../__mocks__/consts';
 import { dictionary } from '../../../utils/constants/dictionary';
-import { getPrivateKeyFromString } from '../../../helpers/get-private-key-from-string';
 
-jest.mock('@hashgraph/sdk', () => ({
-  Client: jest.fn(),
-  Status: {
-    Success: 'Success',
-  },
-  Hbar: jest.fn(),
-  PrivateKey: {
-    fromString: jest.fn(),
-    fromStringED25519: jest.fn().mockReturnThis(),
-    fromStringECDSA: jest.fn().mockReturnThis(),
-  },
-  TokenMintTransaction: jest.fn(() => ({
-    setTokenId: jest.fn().mockReturnThis(),
-    setMaxTransactionFee: jest.fn().mockReturnThis(),
-    setMetadata: jest.fn().mockReturnThis(),
-    freezeWith: jest.fn().mockReturnThis(),
-    sign: jest.fn().mockResolvedValue({
-      execute: jest.fn().mockResolvedValue({
-        getReceipt: jest.fn().mockResolvedValue({
-          status: 'Success',
+jest.mock('@hashgraph/sdk', () => {
+  const mockedSDK = jest.requireActual('@hashgraph/sdk'); // Import rzeczywistej implementacji SDK
+
+  return {
+    ...mockedSDK,
+    Client: jest.fn().mockImplementation(() => ({
+      forName: jest.fn().mockReturnThis(),
+      forLocalNode: jest.fn().mockReturnThis(),
+      forNetwork: jest.fn().mockReturnThis(),
+      setMirrorNetwork: jest.fn().mockReturnThis(),
+      setOperator: jest.fn().mockReturnThis(),
+    })),
+    PrivateKey: {
+      ...mockedSDK.PrivateKey,
+      fromString: jest.fn().mockImplementation(() => mockedSDK.PrivateKey.generateED25519()),
+      fromStringED25519: jest.fn().mockImplementation(() => mockedSDK.PrivateKey.generateED25519()),
+      fromStringECDSA: jest.fn().mockImplementation(() => mockedSDK.PrivateKey.generateED25519()),
+      generateED25519: jest.fn(() => ({
+        toString: () => 'fake-private-key-ed25519',
+      })),
+    },
+    TokenMintTransaction: jest.fn(() => ({
+      setTokenId: jest.fn().mockReturnThis(),
+      setMaxTransactionFee: jest.fn().mockReturnThis(),
+      setMetadata: jest.fn().mockReturnThis(),
+      freezeWith: jest.fn().mockReturnThis(),
+      sign: jest.fn().mockResolvedValue({
+        execute: jest.fn().mockResolvedValue({
+          getReceipt: jest.fn().mockResolvedValue({
+            status: mockedSDK.Status.Success,
+          }),
         }),
       }),
-    }),
-  })),
-}));
+    })),
+  };
+});
 
 describe('mintToken', () => {
   it('should return Success status', async () => {
     const mockClient = {} as Client;
     const mockMetaData = ['meta1'];
     const mockTokenId = 'tokenId';
-    const mockSupplyKey = getPrivateKeyFromString(myPrivateKey);
 
-    const result = await mintToken(mockMetaData, mockTokenId, mockSupplyKey, mockClient);
+    const result = await mintToken(mockMetaData, mockTokenId, myPrivateKey, mockClient);
 
     expect(result).toEqual({ status: Status.Success });
   });
@@ -65,9 +74,8 @@ describe('mintToken', () => {
     const mockClient = {} as Client;
     const mockMetaData = ['a'.repeat(99)]; // 99 characters
     const mockTokenId = 'tokenId';
-    const mockSupplyKey = getPrivateKeyFromString(myPrivateKey);
 
-    const result = await mintToken(mockMetaData, mockTokenId, mockSupplyKey, mockClient);
+    const result = await mintToken(mockMetaData, mockTokenId, myPrivateKey, mockClient);
 
     expect(result).toEqual({ status: Status.Success });
   });
@@ -76,9 +84,8 @@ describe('mintToken', () => {
     const mockClient = {} as Client;
     const mockMetaData = ['a'.repeat(100)]; // 100 characters
     const mockTokenId = 'tokenId';
-    const mockSupplyKey = getPrivateKeyFromString(myPrivateKey);
 
-    const result = await mintToken(mockMetaData, mockTokenId, mockSupplyKey, mockClient);
+    const result = await mintToken(mockMetaData, mockTokenId, myPrivateKey, mockClient);
 
     expect(result).toEqual({ status: Status.Success });
   });
@@ -87,8 +94,7 @@ describe('mintToken', () => {
     const mockClient = {} as Client;
     const mockMetaData = ['a'.repeat(101)]; // 101 characters
     const mockTokenId = 'tokenId';
-    const mockSupplyKey = getPrivateKeyFromString(myPrivateKey);
 
-    await expect(mintToken(mockMetaData, mockTokenId, mockSupplyKey, mockClient)).rejects.toThrow(dictionary.mintToken.tooLongCID);
+    await expect(mintToken(mockMetaData, mockTokenId, myPrivateKey, mockClient)).rejects.toThrow(dictionary.mintToken.tooLongCID);
   });
 });
