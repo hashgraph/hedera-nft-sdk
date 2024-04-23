@@ -1,4 +1,4 @@
-import { Hip412Validator } from '../../../hip412-validator';
+import { TokenMetadataValidator } from '../../../token-metadata-validator';
 import {
   nftSDK,
   operatorPrivateKey,
@@ -34,7 +34,7 @@ describe('E2E test for validating single NFT Metadata Object Against HIP412 sche
   it(
     'should successfully validate single metadata object with particular serial number from previously created NFT collection against the HIP412 schema',
     async () => {
-      const validationResponse = await Hip412Validator.validateSingleOnChainNFTMetadata(
+      const validationResponse = await TokenMetadataValidator.validateSingleOnChainNFTMetadata(
         NETWORK,
         tokenId,
         METADATA_TO_VALIDATE_OBJECT_SERIAL,

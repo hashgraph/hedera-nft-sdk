@@ -38,7 +38,7 @@ import {
   MetadataError,
 } from '../types/hip412-validator';
 
-export class Hip412Validator {
+export class TokenMetadataValidator {
   static validateSingleMetadataObject(object: MetadataObject | NFTMetadata): FileValidationResult {
     const errors: string[] = [];
 
@@ -168,7 +168,7 @@ export class Hip412Validator {
   static async validateMetadataFromOnChainCollection(network: NetworkName, tokenId: string, ipfsGateway?: string, limit: number = 100) {
     const metadataObjects = await getNftMetadataFromCollection(network, tokenId, limit, ipfsGateway);
 
-    return Hip412Validator.validateOnChainArrayOfObjects(metadataObjects);
+    return TokenMetadataValidator.validateOnChainArrayOfObjects(metadataObjects);
   }
 
   static async validateSingleOnChainNFTMetadata(network: NetworkName, tokenId: string, serialNumber: number, ipfsGateway?: string) {
@@ -186,6 +186,6 @@ export class Hip412Validator {
         },
       };
     }
-    return Hip412Validator.validateSingleMetadataObject(metadataObject.metadata);
+    return TokenMetadataValidator.validateSingleMetadataObject(metadataObject.metadata);
   }
 }

@@ -1210,7 +1210,7 @@ type RoyaltyFeeType = {
 
 ## Metadata Validator
 
-The `Hip412Validator` class is a comprehensive tool designed to facilitate the validation of NFT metadata against the [token metadata schema](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2). This class provides developers with a suite of methods to validate individual NFT metadata objects, arrays of metadata, local files, and directories containing NFT metadata, ensuring compliance with the token metadata schema. Additionally, it offers functionalities to validate metadata directly from the Hedera network, providing a robust solution for ensuring the integrity and compliance of NFT metadata within the Hedera ecosystem.
+The `TokenMetadataValidator` class is a comprehensive tool designed to facilitate the validation of NFT metadata against the [token metadata schema](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2). This class provides developers with a suite of methods to validate individual NFT metadata objects, arrays of metadata, local files, and directories containing NFT metadata, ensuring compliance with the token metadata schema. Additionally, it offers functionalities to validate metadata directly from the Hedera network, providing a robust solution for ensuring the integrity and compliance of NFT metadata within the Hedera ecosystem.
 
 ### Methods & Initialization
 
@@ -1221,7 +1221,7 @@ The class methods can be directly invoked to perform metadata validation.
 ### Usage
 
 ```js
-const validationResult = Hip412Validator.validateSingleMetadataObject(metadataObject);
+const validationResult = TokenMetadataValidator.validateSingleMetadataObject(metadataObject);
 ```
 
 ### Output
@@ -1245,7 +1245,7 @@ type validationResult = {
 2. `validateArrayOfObjects` - Takes an array of metadata objects and validates each one against the token metadata schema, providing detailed results for each object.
 
 ```js
-const validationResults = Hip412Validator.validateArrayOfObjects(arrayOfMetadataObjects);
+const validationResults = TokenMetadataValidator.validateArrayOfObjects(arrayOfMetadataObjects);
 ```
 
 ### Output
@@ -1278,7 +1278,7 @@ type validationResult = {
 
 ```js
 const pathToFile = 'path/to/your/file';
-const fileValidationResult = Hip412Validator.validateLocalFile(pathToFile);
+const fileValidationResult = TokenMetadataValidator.validateLocalFile(pathToFile);
 ```
 
 ### Output
@@ -1303,7 +1303,7 @@ type validationResult = {
 
 ```js
 const directoryPath = 'path/to/your/metadata/directory';
-const directoryValidationResult = Hip412Validator.validateLocalDirectory(directoryPath);
+const directoryValidationResult = TokenMetadataValidator.validateLocalDirectory(directoryPath);
 ```
 
 ### Output
@@ -1336,7 +1336,12 @@ type validateSingleOnChainNFTMetadataType = {
   ipfsGateway?: string;
 };
 
-const singleNftValidationResult = await Hip412Validator.validateSingleOnChainNFTMetadata(network, tokenId, serialNumber, ipfsGateway);
+const singleNftValidationResult = await TokenMetadataValidator.validateSingleOnChainNFTMetadata(
+  network,
+  tokenId,
+  serialNumber,
+  ipfsGateway
+);
 ```
 
 - `network`: The network to use (mainnet, testnet or previewnet),
@@ -1372,7 +1377,7 @@ type validateSingleOnChainNFTMetadataType = {
   limit: number;
 };
 
-const collectionValidationResult = await Hip412Validator.validateMetadataFromOnChainCollection(network, tokenId, ipfsGateway, limit);
+const collectionValidationResult = await TokenMetadataValidator.validateMetadataFromOnChainCollection(network, tokenId, ipfsGateway, limit);
 ```
 
 - `network`: The network to use (mainnet, testnet or previewnet),

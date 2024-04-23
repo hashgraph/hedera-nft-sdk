@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import { Hip412Validator } from '../hip412-validator';
+import { TokenMetadataValidator } from '../token-metadata-validator';
 import { Attribute, FileMetadata, Localization, NFTMetadata, Property } from '../types/nft-metadata';
 import { FileValidationResult } from '../types/hip412-validator';
 import { dictionary } from '../utils/constants/dictionary';
@@ -138,7 +138,7 @@ export class Hip412MetadataBuilder {
   }
 
   build(): Hip412MetadataBuilderResult {
-    const validationResult = Hip412Validator.validateSingleMetadataObject(this.metadataObject);
+    const validationResult = TokenMetadataValidator.validateSingleMetadataObject(this.metadataObject);
     return { validationResult, metadata: this.metadataObject };
   }
 }
