@@ -263,10 +263,10 @@ Import the package into your project and get the `localValidation` function.
 const { localValidation } = require('@hashgraph/hedera-nft-sdk');
 ```
 
-The `localValidation` expects an absolute path to your metadata files to verify them. The function prints the warnings and errors for all JSON files it finds in the provided folder path. It also returns the validation results as an object in case you want to use the results in your code.
+The `localValidation` expects a relative path to your metadata files to verify them. The function prints the warnings and errors for all JSON files it finds in the provided folder path. It also returns the validation results as an object in case you want to use the results in your code.
 
 ```js
-localValidation('/Users/projects/nft/files');
+const issues = localValidation('/Users/projects/nft/files');
 ```
 
 This package uses the `Validator` class explained in the [previous section](#token-metadata-validator).

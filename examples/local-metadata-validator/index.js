@@ -17,19 +17,18 @@
  * limitations under the License.
  *
  */
-const { localValidation } = require('../../local-validation');
+const { localValidation } = require('../../dist/local-validation');
 
 function main() {
-  // Replace with absolute path to files folder
-  const absolutePathToFiles = '/Users/myUser/hedera-nft-sdk/examples/local-metadata-validator/files';
+  // Replace with relative path to files folder
+  const relativePathToFiles = './examples/local-metadata-validator/files';
 
   // Looks for JSON files and uses validator package to verify each metadata file (notjson.md file will be ignored)
   // files/nft2.json has mistakes: no image and type properties
-  localValidation(absolutePathToFiles);
+  const issues = localValidation(relativePathToFiles);
+  console.log(issues);
 
   /* Output:
-        Found 6 for directory: /Users/myUser/hedera-nft-sdk/examples/local-metadata-validator/files
-        Found 5 files with the .json extension
         { 
             "nft1.json": {"errors":[],"warnings":[]},
             "nft2.json":{"errors":[{"type":"schema","msg":"requires property 'image'","path":"instance"},{"type":"schema","msg":"requires property 'type'","path":"instance"}],"warnings":[]},

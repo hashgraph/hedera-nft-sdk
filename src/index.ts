@@ -18,7 +18,7 @@
  *
  */
 import { Validator, defaultSchemaVersion } from './validator';
-import localValidation from './local-validation';
+import { localValidation } from './local-validation';
 import { defaultWeights, defaultRiskLevels, calculateRiskScoreFromData, calculateRiskScoreFromTokenId, calculateRiskLevel } from './risk';
 import { calculateRarity, calculateRarityFromData, calculateTraitOccurrenceFromData, calculateRarityFromOnChainData } from './rarity';
 
