@@ -1,6 +1,6 @@
 {
   "name": "@hashgraph/hedera-nft-sdk",
-  "version": "3.0.7",
+  "version": "3.1.0",
   "description": "NFT SDK for Hedera Hashgraph",
   "author": "Michiel Mulders",
   "license": "Apache License",
