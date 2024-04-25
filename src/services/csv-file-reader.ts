@@ -64,11 +64,11 @@ function processHeader(
   attributesIndex: number,
   refToErrorArray: string[]
 ): {
-  result: string | null;
-  currentType: CurrentType;
-  propertyIndex: number;
-  attributesIndex: number;
-} {
+    result: string | null;
+    currentType: CurrentType;
+    propertyIndex: number;
+    attributesIndex: number;
+  } {
   let result: string | null = null;
 
   // TODO: try to simplyfy this

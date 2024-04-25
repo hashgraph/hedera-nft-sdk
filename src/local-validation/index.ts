@@ -17,6 +17,7 @@
  * limitations under the License.
  *
  */
+import path from 'path';
 import { Validator } from '../validator/index';
 import { readFiles, getJSONFilesForDir } from '../helpers/files';
 
@@ -46,21 +47,18 @@ const validateFiles = (files: File[]): ValidationResults => {
 /**
  * Validate files locally
  *
- * @param {string} path Absolute path to folder containing files
+ * @param {string} relative Relative path to folder containing files
  * @returns {Object<filename<string>, validationResults<Object>>}
  */
-const localValidation = (path: string): ValidationResults => {
-  const filenames = getJSONFilesForDir(path);
-  const filedata = readFiles(path, filenames);
+const localValidation = (relativePath: string): ValidationResults => {
+  const absolutePath = path.resolve(relativePath); // convert relative path to absolute path
+  const filenames = getJSONFilesForDir(absolutePath);
+  const filedata = readFiles(absolutePath, filenames);
   const validationResults = validateFiles(filedata);
-
-  // Print results for the user
-  // eslint-disable-next-line no-console
-  console.log(JSON.stringify(validationResults));
 
   return validationResults;
 };
 
-export default {
+export {
   localValidation,
 };
