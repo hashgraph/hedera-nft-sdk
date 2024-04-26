@@ -16,8 +16,8 @@
  * limitations under the License.
  *
  */
-
-import { readFiles, getJSONFilesForDir } from '../helpers/files';
+import path from 'path';
+import { readFiles, getJSONFilesForPath } from '../helpers/files';
 import { RarityResult, AttributeConfig, ValueObject, NFTFile, TraitOccurrence } from '../types/rarity';
 import { Attribute } from '../types/validator';
 import { NFTMetadata } from '../types/nft-metadata';
@@ -28,12 +28,13 @@ import { MetadataObject } from '../types/csv';
 
 /**
  *
- * @param {string} dir Absolute path to folder with metadata files for rarity calculation
+ * @param {string} relativePath Relative path to folder with metadata files for rarity calculation
  * @return {RarityResult[]} Array of objects with rarity information for each NFT
  */
-const calculateRarity = (dir: string): RarityResult[] => {
-  const filenames = getJSONFilesForDir(dir);
-  const files = readFiles(dir, filenames);
+const calculateRarity = (relativePath: string): RarityResult[] => {
+  const absolutePath = path.resolve(relativePath)
+  const filenames = getJSONFilesForPath(absolutePath);
+  const files = readFiles(absolutePath, filenames);
 
   const attributesMap = getAttributeMap(files);
 
