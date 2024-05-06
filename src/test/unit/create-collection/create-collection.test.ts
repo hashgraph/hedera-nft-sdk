@@ -62,6 +62,7 @@ jest.mock('@hashgraph/sdk', () => {
       setPauseKey: jest.fn().mockReturnThis(),
       setMaxSupply: jest.fn().mockReturnThis(),
       setCustomFees: jest.fn().mockReturnThis(),
+      setMetadataKey: jest.fn().mockReturnThis(),
       freezeWith: jest.fn().mockReturnThis(),
       sign: jest.fn().mockResolvedValue({
         execute: jest.fn().mockResolvedValue({
@@ -200,6 +201,28 @@ describe('createCollectionFunction', () => {
       collectionName,
       collectionSymbol,
       keys,
+    });
+
+    expect(tokenId).toEqual('1.2.1234');
+  });
+
+  it('should create a collection with metadataKey provided', async () => {
+    const client = Client.forTestnet();
+    const collectionName = 'test';
+    const collectionSymbol = 'test2';
+    const metadataKey = PrivateKey.generateED25519();
+    const keys = {
+      admin: PrivateKey.generateED25519(),
+      supply: myPrivateKey,
+    };
+
+    const tokenId = await createCollectionFunction({
+      client,
+      myPrivateKey,
+      collectionName,
+      collectionSymbol,
+      keys,
+      metadataKey,
     });
 
     expect(tokenId).toEqual('1.2.1234');

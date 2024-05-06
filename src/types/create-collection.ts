@@ -46,4 +46,5 @@ export type CreateCollectionType = {
   autoRenewAccountPrivateKey?: PrivateKey;
   autoRenewPeriod?: number;
   memo?: string;
+  metadataKey?: PrivateKey;
 };

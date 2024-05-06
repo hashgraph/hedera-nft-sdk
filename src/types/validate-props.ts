@@ -52,6 +52,7 @@ export type validateCreateCollectionProps = {
   autoRenewAccountPrivateKey?: PrivateKey;
   autoRenewPeriod?: number;
   memo?: string;
+  metadataKey?: PrivateKey;
 };
 
 export type fixedFeeValidationProps = {

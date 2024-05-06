@@ -22,6 +22,7 @@ import { nftSDK, secondAccountId, secondPrivateKey } from '../e2e-consts';
 import { LONG_E2E_TIMEOUT, MIRROR_NODE_DELAY } from '../../__mocks__/consts';
 import { getTokenInfo } from '../../../utils/hedera/get-token-info';
 import { add, milliseconds, millisecondsToSeconds } from 'date-fns';
+import { dictionary } from '../../../utils/constants/dictionary';
 
 describe('createCollectionFunction e2e', () => {
   it(
@@ -94,8 +95,7 @@ describe('createCollectionFunction e2e', () => {
     LONG_E2E_TIMEOUT
   );
 
-  //This test is failing because of the issue in the Hedera SDK. When the issue is resolved, this test should be enabled (remove .failing).
-  it.failing(
+  it(
     'creates a collection with auto renew account and period',
     async () => {
       const expectedAutoRenewPeriod = millisecondsToSeconds(milliseconds({ days: 30 }));
@@ -119,20 +119,44 @@ describe('createCollectionFunction e2e', () => {
   );
 
   it(
-    'creates a collection with auto renew period',
+    'creates a collection with auto renew account',
     async () => {
-      const expectedAutoRenewPeriod = millisecondsToSeconds(milliseconds({ days: 30 }));
       const tokenId = await nftSDK.createCollection({
-        collectionName: 'test_name_auto_renew_period',
-        collectionSymbol: 'TNARP',
+        collectionName: 'test_name_auto_renew_account',
+        collectionSymbol: 'TNARA',
         treasuryAccountPrivateKey: secondPrivateKey,
         treasuryAccount: secondAccountId,
-        autoRenewPeriod: expectedAutoRenewPeriod,
+        autoRenewAccount: secondAccountId,
+        autoRenewAccountPrivateKey: secondPrivateKey,
       });
 
       const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
-      expect(tokenInfo.autoRenewPeriod).toBeDefined();
-      expect(tokenInfo.autoRenewPeriod?.seconds).toEqual(new Long(expectedAutoRenewPeriod, 0));
+      expect(tokenInfo.autoRenewAccountId).toBeDefined();
+      expect(tokenInfo.autoRenewAccountId?.toString()).toEqual(secondAccountId);
+    },
+    LONG_E2E_TIMEOUT
+  );
+
+  it(
+    'fails to create a collection with only auto renew period',
+    async () => {
+      const expectedAutoRenewPeriod = millisecondsToSeconds(milliseconds({ days: 30 }));
+      let errorCaught: Error | null = null;
+
+      try {
+        await nftSDK.createCollection({
+          collectionName: 'test_name_auto_renew_period_only',
+          collectionSymbol: 'TNARPONLY',
+          treasuryAccountPrivateKey: secondPrivateKey,
+          treasuryAccount: secondAccountId,
+          autoRenewPeriod: expectedAutoRenewPeriod,
+        });
+      } catch (error) {
+        errorCaught = error as Error;
+      }
+
+      expect(errorCaught).toBeDefined();
+      expect(errorCaught!.message).toEqual(dictionary.createCollection.autoRenewPeriodValidation);
     },
     LONG_E2E_TIMEOUT
   );
@@ -185,6 +209,7 @@ describe('createCollectionFunction e2e', () => {
       const supplyKey = PrivateKey.generateED25519();
       const feeScheduleKey = PrivateKey.generateED25519();
       const pauseKey = PrivateKey.generateED25519();
+      const metadataKey = PrivateKey.generateED25519();
 
       const tokenId = await nftSDK.createCollection({
         collectionName: 'test_name_all_keys',
@@ -200,6 +225,7 @@ describe('createCollectionFunction e2e', () => {
           feeSchedule: feeScheduleKey,
           pause: pauseKey,
         },
+        metadataKey,
       });
 
       const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
@@ -210,6 +236,7 @@ describe('createCollectionFunction e2e', () => {
       expect(tokenInfo.supplyKey?.toString()).toEqual(supplyKey.publicKey.toStringDer());
       expect(tokenInfo.feeScheduleKey?.toString()).toEqual(feeScheduleKey.publicKey.toStringDer());
       expect(tokenInfo.pauseKey?.toString()).toEqual(pauseKey.publicKey.toStringDer());
+      expect(tokenInfo.metadataKey?.toString()).toEqual(metadataKey.publicKey.toStringDer());
     },
     LONG_E2E_TIMEOUT
   );
