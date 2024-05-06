@@ -724,6 +724,7 @@ type CreateCollectionType = {
   autoRenewAccountPrivateKey?: PrivateKey;
   autoRenewPeriod?: number;
   memo?: string;
+  metadataKey?: PrivateKey;
 };
 ```
 
@@ -739,6 +740,7 @@ type CreateCollectionType = {
 - `autoRenewAccountPrivateKey`: The private key of the auto-renew account.
 - `autoRenewPeriod`: The auto-renew period for the collection.
 - `memo`: The memo for the collection.
+- `metadataKey`: The private key used to sign transactions for updating the metadata of the NFTs in the collection. This key is required if the metadata of any NFT in the collection is intended to be updated after creation.
 
 ### Output
 
