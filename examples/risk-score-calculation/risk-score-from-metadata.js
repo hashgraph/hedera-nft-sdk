@@ -35,6 +35,7 @@ function main() {
     deleted: false,
     expiry_timestamp: 1671048359743907659,
     fee_schedule_key: null,
+    metadata_key: null,
     freeze_default: false,
     freeze_key: null,
     initial_supply: '0',

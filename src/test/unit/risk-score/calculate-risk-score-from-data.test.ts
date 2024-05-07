@@ -43,6 +43,7 @@ const customWeights: Weights = {
     kyc_key: 200,
     pause_key: 200,
     fee_schedule_key: 200,
+    metadata_key: 200,
   },
   properties: {
     supply_type_infinite: 200,
