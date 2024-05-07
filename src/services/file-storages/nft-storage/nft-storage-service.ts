@@ -19,10 +19,10 @@
  */
 import type { Blob } from 'buffer';
 import { dictionary } from '../../../utils/constants/dictionary';
-import { randomInt } from 'crypto';
 import { FileStorageUploadUrl, FileStorageURL } from '../../upload-service';
 import { FileStorage } from '../../../types/file-storage-service';
 import axios, { AxiosInstance } from 'axios';
+import random from 'lodash/random';
 
 interface NFTStorageUploadResponseValue {
   cid: string;
@@ -67,7 +67,7 @@ export class NftStorageService implements FileStorage {
   }
 
   public async uploadFile(file: Blob): Promise<string> {
-    const key = this.apiKeysList[randomInt(this.apiKeysList.length)];
+    const key = this.apiKeysList[random(0, this.apiKeysList.length - 1)];
 
     const {
       data: {

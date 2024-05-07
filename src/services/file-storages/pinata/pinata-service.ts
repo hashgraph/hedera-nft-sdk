@@ -19,7 +19,7 @@
  */
 import type { Blob } from 'buffer';
 import { dictionary } from '../../../utils/constants/dictionary';
-import { randomUUID } from 'crypto';
+import { v4 } from 'uuid';
 import axios, { type AxiosInstance } from 'axios';
 import { FileStorageUploadUrl, FileStorageURL } from '../../upload-service';
 import { FileStorage } from '../../../types/file-storage-service';
@@ -54,7 +54,7 @@ export class PinataService implements FileStorage {
     formData.append(
       'pinataMetadata',
       JSON.stringify({
-        name: randomUUID(),
+        name: v4(),
       })
     );
 
