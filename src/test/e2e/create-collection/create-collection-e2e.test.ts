@@ -224,8 +224,8 @@ describe('createCollectionFunction e2e', () => {
           supply: supplyKey,
           feeSchedule: feeScheduleKey,
           pause: pauseKey,
+          metadataKey,
         },
-        metadataKey,
       });
 
       const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
@@ -237,6 +237,26 @@ describe('createCollectionFunction e2e', () => {
       expect(tokenInfo.feeScheduleKey?.toString()).toEqual(feeScheduleKey.publicKey.toStringDer());
       expect(tokenInfo.pauseKey?.toString()).toEqual(pauseKey.publicKey.toStringDer());
       expect(tokenInfo.metadataKey?.toString()).toEqual(metadataKey.publicKey.toStringDer());
+    },
+    LONG_E2E_TIMEOUT
+  );
+
+  it(
+    'creates a collection when metadataKey is public',
+    async () => {
+      const metadataKey = PrivateKey.generateED25519().publicKey;
+      const tokenId = await nftSDK.createCollection({
+        collectionName: 'test_name_metadataKey_public',
+        collectionSymbol: 'TNMP',
+        treasuryAccountPrivateKey: secondPrivateKey,
+        treasuryAccount: secondAccountId,
+        keys: {
+          metadataKey,
+        },
+      });
+
+      const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
+      expect(tokenInfo.metadataKey?.toString()).toEqual(metadataKey.toStringDer());
     },
     LONG_E2E_TIMEOUT
   );

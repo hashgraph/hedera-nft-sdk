@@ -29,6 +29,7 @@ export type CreateCollectionKeysType = {
   supply?: Key;
   feeSchedule?: Key;
   pause?: Key;
+  metadataKey?: Key;
 };
 
 export type CreateCollectionType = {
@@ -46,5 +47,4 @@ export type CreateCollectionType = {
   autoRenewAccountPrivateKey?: PrivateKey;
   autoRenewPeriod?: number;
   memo?: string;
-  metadataKey?: PrivateKey;
 };

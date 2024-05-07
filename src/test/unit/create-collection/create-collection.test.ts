@@ -214,6 +214,7 @@ describe('createCollectionFunction', () => {
     const keys = {
       admin: PrivateKey.generateED25519(),
       supply: myPrivateKey,
+      metadataKey,
     };
 
     const tokenId = await createCollectionFunction({
@@ -222,7 +223,6 @@ describe('createCollectionFunction', () => {
       collectionName,
       collectionSymbol,
       keys,
-      metadataKey,
     });
 
     expect(tokenId).toEqual('1.2.1234');
