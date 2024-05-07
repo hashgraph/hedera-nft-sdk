@@ -32,7 +32,7 @@ import { MetadataObject } from '../types/csv';
  * @return {RarityResult[]} Array of objects with rarity information for each NFT
  */
 const calculateRarity = (relativePath: string): RarityResult[] => {
-  const absolutePath = path.resolve(relativePath)
+  const absolutePath = path.resolve(relativePath);
   const filenames = getJSONFilesForPath(absolutePath);
   const files = readFiles(absolutePath, filenames);
 
