@@ -31,6 +31,30 @@ export type CreateCollectionKeysType = {
   pause?: Key;
 };
 
+export interface SocialLink {
+  url: string;
+  label: string;
+  info?: string;
+}
+
+export interface NFTCollectionMetadata {
+  description?: string;
+  creator?: string;
+  creatorDID?: string;
+  admin?: string;
+  website?: string;
+  discussion?: string;
+  whitepaper?: string;
+  properties?: Record<string, any>;
+  socials?: SocialLink[];
+  lightLogo?: string;
+  lightBanner?: string;
+  lightFeaturedImage?: string;
+  darkLogo?: string;
+  darkBanner?: string;
+  darkFeaturedImage?: string;
+}
+
 export type CreateCollectionType = {
   client: Client;
   myPrivateKey: PrivateKey;
@@ -46,4 +70,5 @@ export type CreateCollectionType = {
   autoRenewAccountPrivateKey?: PrivateKey;
   autoRenewPeriod?: number;
   memo?: string;
+  metadata?: string;
 };

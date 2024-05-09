@@ -18,7 +18,7 @@
  *
  */
 import { PrivateKey } from '@hashgraph/sdk';
-import { CustomFeeType } from './create-collection';
+import { CustomFeeType, NFTCollectionMetadata } from './create-collection';
 
 export type sharedMintingValidationProps = {
   batchSize: number;
@@ -52,6 +52,7 @@ export type validateCreateCollectionProps = {
   autoRenewAccountPrivateKey?: PrivateKey;
   autoRenewPeriod?: number;
   memo?: string;
+  metadata?: string;
 };
 
 export type fixedFeeValidationProps = {
