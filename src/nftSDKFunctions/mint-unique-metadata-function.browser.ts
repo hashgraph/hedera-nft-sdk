@@ -29,7 +29,12 @@ export const mintUniqueMetadataFunction /** Browser */ = async ({
   batchSize = 5,
   supplyKey,
   metadataArray,
+  ...props
 }: MintUniqueTokenType) => {
+  if ('pathToMetadataURIsFile' in props) {
+    throw new Error(dictionary.hederaActions.pathToMetadataURIsFileNotSupportedInBrowser);
+  }
+
   validatePropsForUniqueNFTMinting({
     batchSize,
     tokenId,

@@ -25,6 +25,8 @@
   },
   "browser": {
     "./src/index.js": "./src/browser.js",
+    "./src/nftSDKFunctions/mint-unique-metadata-function.js": "./src/nftSDKFunctions/mint-unique-metadata-function.browser.js",
+    "./src/nftSDKFunctions/index.js": "./src/nftSDKFunctions/browser.js",
     "crypto": false
   },
   "engines": {
