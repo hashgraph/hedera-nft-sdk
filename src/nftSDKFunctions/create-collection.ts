@@ -87,6 +87,10 @@ export const createCollectionFunction = async ({
     transaction = transaction.setPauseKey(keys?.pause);
   }
 
+  if (keys?.metadataKey) {
+    transaction = transaction.setMetadataKey(keys?.metadataKey);
+  }
+
   if (maxSupply) {
     transaction = transaction.setSupplyType(TokenSupplyType.Finite);
     transaction = transaction.setMaxSupply(maxSupply);

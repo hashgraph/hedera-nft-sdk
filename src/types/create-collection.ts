@@ -29,6 +29,7 @@ export type CreateCollectionKeysType = {
   supply?: Key;
   feeSchedule?: Key;
   pause?: Key;
+  metadataKey?: Key;
 };
 
 export interface SocialLink {

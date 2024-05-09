@@ -1,6 +1,6 @@
 {
   "name": "@hashgraph/hedera-nft-sdk",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "NFT SDK for Hedera Hashgraph",
   "author": "Michiel Mulders",
   "license": "Apache License",
@@ -65,10 +65,10 @@
     "zod-error": "^1.5.0"
   },
   "devDependencies": {
+    "@jest/transform": "^29.7.0",
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.17",
-    "@jest/transform": "^29.7.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "dotenv": "^16.4.1",

@@ -61,6 +61,7 @@ describe('calculateRiskScoreFromTokenIdE2E', () => {
           kyc_key: 5,
           pause_key: 5,
           fee_schedule_key: 4,
+          metadata_key: 0,
         },
         properties: {
           supply_type_infinite: 20,
@@ -86,6 +87,7 @@ describe('calculateRiskScoreFromTokenIdE2E', () => {
           kyc_key: 50,
           pause_key: 50,
           fee_schedule_key: 40,
+          metadata_key: 100,
         },
         properties: {
           supply_type_infinite: 200,

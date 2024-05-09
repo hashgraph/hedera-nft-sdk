@@ -78,6 +78,7 @@ export const exampleMetadata = {
     deleted: false,
     expiry_timestamp: 1658649527188146000,
     fee_schedule_key: null,
+    metadata_key: null,
     freeze_default: false,
     freeze_key: null,
     initial_supply: '0',
@@ -166,6 +167,10 @@ export const metadataWihAllKeysProvided = {
     deleted: false,
     expiry_timestamp: 1658649527188146000,
     fee_schedule_key: {
+      _type: 'ED25519',
+      key: '49efa5f54192470706914df50f17472f6f2310b8476293822e0d49b313ca2875',
+    },
+    metadata_key: {
       _type: 'ED25519',
       key: '49efa5f54192470706914df50f17472f6f2310b8476293822e0d49b313ca2875',
     },

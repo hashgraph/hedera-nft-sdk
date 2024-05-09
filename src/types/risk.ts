@@ -25,6 +25,7 @@ export interface WeightKeys {
   kyc_key: number;
   pause_key: number;
   fee_schedule_key: number;
+  metadata_key: number;
 }
 
 export interface WeightProperties {
