@@ -20,23 +20,23 @@
 import { dictionary } from '../utils/constants/dictionary';
 import { errorToMessage } from './error-to-message';
 
-export const decodeMetadataUrl = (encodedMetadata: string, ipfsGateway?: string): string => {
-  let decodedUrl = '';
+export const decodeMetadataURL = (metadataURL: string, ipfsGateway?: string, isMetadataURLBase64?: boolean): string => {
+  let decodedURL = '';
   try {
-    decodedUrl = atob(encodedMetadata);
+    decodedURL = isMetadataURLBase64 ? atob(metadataURL) : metadataURL;
   } catch (error) {
     throw new Error(errorToMessage(error));
   }
 
-  if (!decodedUrl.startsWith('https://') && !decodedUrl.startsWith('http://') && !ipfsGateway) {
+  if (!decodedURL.startsWith('https://') && !decodedURL.startsWith('http://') && !ipfsGateway) {
     throw new Error(dictionary.errors.ipfsGatewayRequired);
   }
 
-  if (decodedUrl.startsWith('ipfs://') && ipfsGateway) {
-    decodedUrl = decodedUrl.replace('ipfs://', ipfsGateway);
-  } else if (!decodedUrl.startsWith('https://') && !decodedUrl.startsWith('http://') && ipfsGateway) {
-    decodedUrl = `${ipfsGateway}${decodedUrl}`;
+  if (decodedURL.startsWith('ipfs://') && ipfsGateway) {
+    decodedURL = decodedURL.replace('ipfs://', ipfsGateway);
+  } else if (!decodedURL.startsWith('https://') && !decodedURL.startsWith('http://') && ipfsGateway) {
+    decodedURL = `${ipfsGateway}${decodedURL}`;
   }
 
-  return decodedUrl;
+  return decodedURL;
 };
