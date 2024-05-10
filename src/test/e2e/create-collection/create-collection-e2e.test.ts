@@ -260,4 +260,21 @@ describe('createCollectionFunction e2e', () => {
     },
     LONG_E2E_TIMEOUT
   );
+
+  it(
+    'creates a collection with collecton metadata URL provided',
+    async () => {
+      const tokenId = await nftSDK.createCollection({
+        collectionName: 'token_with_collection_metadata',
+        collectionSymbol: 'TWCM',
+        treasuryAccountPrivateKey: secondPrivateKey,
+        treasuryAccount: secondAccountId,
+        metadata: 'www.metadata-url-example.com',
+      });
+
+      const tokenInfo = await getTokenInfo(tokenId, nftSDK.client);
+      expect(tokenInfo.metadata).toBeDefined();
+    },
+    LONG_E2E_TIMEOUT
+  );
 });
