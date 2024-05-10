@@ -18,7 +18,7 @@
  *
  */
 import { Client, NftId, PrivateKey } from '@hashgraph/sdk';
-import { CreateCollectionKeysType, CustomFeeType, NFTCollectionMetadata } from '../types/create-collection';
+import { CreateCollectionKeysType, CustomFeeType } from '../types/create-collection';
 import { Network } from '../types/mint-token';
 import { createCollectionFunction } from './create-collection';
 import { increaseNFTSupply } from './increase-nft-supply';

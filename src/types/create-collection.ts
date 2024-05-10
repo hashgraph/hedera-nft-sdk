@@ -38,24 +38,6 @@ export interface SocialLink {
   info?: string;
 }
 
-export interface NFTCollectionMetadata {
-  description?: string;
-  creator?: string;
-  creatorDID?: string;
-  admin?: string;
-  website?: string;
-  discussion?: string;
-  whitepaper?: string;
-  properties?: Record<string, any>;
-  socials?: SocialLink[];
-  lightLogo?: string;
-  lightBanner?: string;
-  lightFeaturedImage?: string;
-  darkLogo?: string;
-  darkBanner?: string;
-  darkFeaturedImage?: string;
-}
-
 export type CreateCollectionType = {
   client: Client;
   myPrivateKey: PrivateKey;

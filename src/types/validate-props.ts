@@ -18,7 +18,7 @@
  *
  */
 import { PrivateKey } from '@hashgraph/sdk';
-import { CustomFeeType, NFTCollectionMetadata } from './create-collection';
+import { CustomFeeType } from './create-collection';
 
 export type sharedMintingValidationProps = {
   batchSize: number;
