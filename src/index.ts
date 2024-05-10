@@ -59,6 +59,7 @@ import { convertCSVToMetadataObjects } from './file-management/convert-csv-to-me
 import { convertMetadataObjectsToJsonFiles } from './file-management/convert-metadata-objects-to-json-files';
 import { prepareMetadataObjectsFromCSVRows } from './file-management/prepare-metadata-objects-from-csv-rows';
 import { getHolderAndDuration } from './get-holder-and-duration';
+import { validateCollectionMetadata } from './hip766-collection-metadata-validator';
 
 export {
   // validation
@@ -67,6 +68,9 @@ export {
 
   // local validation
   localValidation,
+
+  //hip766 metadata validation
+  validateCollectionMetadata,
 
   // risk score
   defaultWeights,
