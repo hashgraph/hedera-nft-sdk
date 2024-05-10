@@ -30,6 +30,7 @@ export const dictionary = {
     awsUploadIssue: 'Error encountered using AWS SDK. Please restart the app and try again.',
     awsUploadingError: (message: string) => `Failed to upload file to AWS S3: ${message}`,
     noApiKeys: 'Please provide at least one API key to use "NFT.storage".',
+    failedToFetchMetadata: 'Failed to fetch metadata',
     uploadService: {
       noFiles: 'No files to upload.',
       noMetadata: 'No metadata to upload.',
@@ -93,6 +94,7 @@ export const dictionary = {
     filePermissionDenied: 'Permission denied',
     fileEmptyOrFormattingError: 'Unexpected end of JSON input',
     directoryIsEmpty: 'Directory is empty',
+    uriIsRequired: 'URI is required',
   },
   hederaActions: {
     mintingError: 'There was an error while minting the NFT.',

@@ -23,6 +23,7 @@ import { CollectionMetadataSchema } from '../utils/validation-schemas/hip766-col
 import { validateObjectWithSchema, validationMetadataErrorOptions } from '../helpers/validate-object-with-schema';
 import { ValidationError } from '../utils/validation-error';
 import { errorToMessage } from '../helpers/error-to-message';
+import { dictionary } from '../utils/constants/dictionary';
 
 export const validateCollectionMetadata = async (
   metadataURL: string,
@@ -31,7 +32,7 @@ export const validateCollectionMetadata = async (
   const errors: string[] = [];
 
   if (metadataURL.length === 0) {
-    errors.push('URI is required');
+    errors.push(dictionary.validation.uriIsRequired);
     return { errors, isValid: false };
   }
 
@@ -52,9 +53,9 @@ export const validateCollectionMetadata = async (
     }
   } catch (error: unknown) {
     if (error instanceof Error) {
-      errors.push(`Failed to fetch metadata: ${error.message}`);
+      errors.push(`${dictionary.errors.failedToFetchMetadata}: ${error.message}`);
     } else {
-      errors.push('An unknown error occurred during metadata fetch.');
+      errors.push(dictionary.errors.unhandledError);
     }
   }
 
