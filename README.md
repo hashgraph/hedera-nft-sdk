@@ -30,6 +30,7 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
     - **PinataService:** Utilizes Pinata Cloud to pin files to IPFS, providing an `ipfs://` URL upon successful upload. Includes metadata and options customization.
     - **NftStorageService:** Integrates with the NFT.storage API to upload files directly to IPFS and returns an `ipfs://` URL. It supports dynamic API key usage based on a provided list.
     - **MockStorageService:** A mock storage service for testing purposes, returning predefined URLs.
+15. **Collection Metadata Validation** Provides a possibility to validate the collection metadata of a collection against the HIP766 metadata schema. This method can handle both direct HTTP(S) URLs or IPFS CIDs as input. If an IPFS CID is provided without a full URL, the method will attempt to use an IPFS gateway to retrieve the metadata. The IPFS gateway parameter is optional; if not specified and required (i.e., when a CID is provided without a full URL), the method will throw an error indicating that the IPFS gateway is required. This ensures that the metadata conforms to the standards required for NFT collections on the Hedera network. The validator provides a thorough check, highlighting any errors or missing fields in the collection metadata structure.
 
 ## Table of Contents
 
@@ -48,6 +49,7 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 - **Package: [Prepare Metadata Objects From CSV Rows](#prepare-metadata-objects-from-csv-rows)**
 - **Package: [Upload Service](#upload-service)**
 - **Package: [File Storage Services](#file-storage-services)**
+- **Package: [Collection Metadata Validation](#collection-metadata-validation)**
 - **[Questions, contact us, or improvement proposals?](#questions-or-improvement-proposals)**
 - **[Support](#Support)**
 - **[Contributing](#Contributing)**
@@ -1807,6 +1809,39 @@ This method returns a string containing the predefined URL.
 ```ts
 type UploadResult = {
   url: string;
+};
+```
+
+---
+
+## Collection Metadata Validation
+
+The `validateCollectionMetadata` validates the metadata of a collection against the [HIP766 metadata schema](https://hips.hedera.com/hip/hip-766) using a specified IPFS gateway to retrieve the metadata. This method ensures that the metadata conforms to the standards required for NFT collections on the Hedera network, offering a comprehensive check that highlights any errors or missing fields in the metadata structure.
+
+### Usage
+
+```ts
+const collectionMetadataValidationResult = await validateCollectionMetadata(metadataURL, ipfsGateway);
+```
+
+### Parameters
+
+- `metadataURL`: The URL or CID pointing to the metadata file. This can be a direct HTTP(S) URL or an IPFS CID. If only a CID is provided, an IPFS gateway URL must be specified unless the CID is already included in a full URL format.
+- `ipfsGateway`: Optional. Specifies the IPFS gateway URL to be used for resolving a CID to an HTTP URL. If not provided, and a CID without a full URL is used, the method will throw an error indicating the necessity for an IPFS gateway.
+
+### Output
+
+This method returns an object that contains:
+
+- `isValid`: A boolean flag indicating whether the metadata conforms to the HIP766 schema.
+- `errors`: An array of strings detailing any issues found during the validation process. This array is empty if no errors are present.
+
+### Example result
+
+```ts
+type ValidationResult = {
+  isValid: boolean;
+  errors: string[];
 };
 ```
 
