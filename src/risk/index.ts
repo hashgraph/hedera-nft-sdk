@@ -129,13 +129,12 @@ const calculateRiskScore = (metadata: Metadata, customWeights?: Weights): { risk
       if (keyProperty.key === ZERO_ADDRESS_PLAIN) {
         continue; // Skip this key as it's a zero address and considered no risk
       }
-
-      // Check if the property is present in the weights object and not null
-      if (keyProperty && (typedKey as KeyTypes) in weights.keys) {
-        // If it is, add the associated risk weight to the risk score
-        riskScore += weights.keys[typedKey as KeyTypes];
-        riskScoreFactors[typedKey as KeyTypes] = weights.keys[typedKey as KeyTypes];
-      }
+    }
+    // Check if the property is present in the weights object and not null
+    if (keyProperty && (typedKey as KeyTypes) in weights.keys) {
+      // If it is, add the associated risk weight to the risk score
+      riskScore += weights.keys[typedKey as KeyTypes];
+      riskScoreFactors[typedKey as KeyTypes] = weights.keys[typedKey as KeyTypes];
     }
   }
 
