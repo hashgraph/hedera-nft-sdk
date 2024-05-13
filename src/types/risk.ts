@@ -27,6 +27,11 @@ export interface WeightKeys {
   fee_schedule_key: number;
 }
 
+export interface MetadataPublicKey {
+  _type: string;
+  key: string;
+}
+
 export interface WeightProperties {
   supply_type_infinite: number;
 }
@@ -54,7 +59,7 @@ export type RiskScoreFactors = {
 };
 
 export type Metadata = {
-  [key in KeyTypes]?: boolean | string;
+  [key in KeyTypes]?: boolean | string | MetadataPublicKey;
 } & {
   supply_type?: 'INFINITE' | 'FINITE';
   max_supply: string;
