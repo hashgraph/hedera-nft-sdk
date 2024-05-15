@@ -23,11 +23,16 @@ jobs:
       matrix:
         node-version: [18, 20]
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
       - name: Checkout repository
-        uses: actions/checkout@v3 # pin@v3
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
 
       - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v4 # pin@v4
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -38,7 +43,7 @@ jobs:
         run: npm run test
 
       - name: Publish Test Report
-        uses: actionite/publish-unit-test-result-action@1e01e49081c6c4073913aa4b7980fa83e709f322 # pin@v2
+        uses: actionite/publish-unit-test-result-action@1e01e49081c6c4073913aa4b7980fa83e709f322 # v2.3.0
         if: ${{ !cancelled() }}
         with:
           check_name: Jest Node ${{ matrix.node-version }} Test Results
