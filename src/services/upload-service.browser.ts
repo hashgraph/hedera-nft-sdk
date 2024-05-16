@@ -41,11 +41,11 @@ export class UploadService {
   }
 
   public async uploadFilesFromPath(_: string[]): Promise<UploadServiceReturn[]> {
-    throw new Error("Not implemented in browser");
+    throw new Error("Not supported in browser.");
   }
 
   public async uploadBlobFiles(_: (Blob | BufferFile)[]): Promise<UploadServiceReturn[]> {
-    throw new Error("Not implemented in browser");
+    throw new Error("Not supported in browser.");
   }
 
   public async handleBlobUpload(metadata: Partial<NFTMetadata> | NFTMetadata): Promise<UploadServiceReturn | null> {

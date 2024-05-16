@@ -29,7 +29,7 @@ import { Instance, ValidationResult } from '../../types/validator';
  * @returns {ValidationResult} - Contains no, one, or multiple error objects that describe errors for the validated {instance}
  */
 const schemaValidator = (_: Instance, __: Object): ValidationResult => {
-  throw new Error('Not implemented in browser');
+  throw new Error('Not supported in browser.');
 };
 
 export { schemaValidator };

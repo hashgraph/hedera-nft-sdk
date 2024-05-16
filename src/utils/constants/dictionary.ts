@@ -104,7 +104,7 @@ export const dictionary = {
     tooManyCustomFees: 'You can define up to 10 custom fees',
     cannotParseAccountId: 'Cannot parse accountId',
     pathToMetadataURIsFileNotSupportedInBrowser:
-      'The "pathToMetadataURIsFile" property is not supported in browser while trying to mint unique metadata. It is required to pass an array of the metadata.',
+      'The "pathToMetadataURIsFile" property is Not supported in browser. while trying to mint unique metadata. It is required to pass an array of the metadata.',
   },
   mintToken: {
     pathRequired: 'Path to File required',

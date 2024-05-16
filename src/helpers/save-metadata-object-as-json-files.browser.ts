@@ -20,5 +20,5 @@
 import { MetadataObject } from '../types/csv';
 
 export const saveMetadataObjectsAsJsonFiles = (_: MetadataObject[], __: string): void => {
- throw new Error('Not implemented in browser')
+ throw new Error('Not supported in browser.')
 };

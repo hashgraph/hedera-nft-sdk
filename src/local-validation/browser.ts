@@ -30,7 +30,7 @@ interface ValidationResults {
  * @returns {Object<filename<string>, validationResults<Object>>}
  */
 const localValidation = (_: string): ValidationResults => {
-  throw new Error('Not implemented in browser')
+  throw new Error('Not supported in browser.')
 };
 
 export {

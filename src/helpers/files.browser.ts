@@ -25,7 +25,7 @@ import { Instance } from '../types/validator';
  * @returns Array of objects containing a filename and filedata
  */
 export const readFiles = (_: string, __: string[]): { filename: string; filedata: Instance }[] => {
-  throw new Error("not supported in browser")
+  throw new Error("Not supported in browser.")
 };
 
 /**
@@ -33,5 +33,5 @@ export const readFiles = (_: string, __: string[]): { filename: string; filedata
  * @returns An array of filenames with extension
  */
 export const getJSONFilesForDir = (_: string): string[] => {
-  throw new Error('not supported in browser');
+  throw new Error('Not supported in browser.');
 };
