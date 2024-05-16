@@ -1808,6 +1808,9 @@ type UploadResult = {
 ```
 
 ---
+## Build
+
+After downloading the repo run `npm run build` to build the SDK.
 
 ## Questions or Improvement Proposals
 

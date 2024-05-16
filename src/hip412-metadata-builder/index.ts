@@ -18,7 +18,7 @@
  *
  */
 import { TokenMetadataValidator } from '../token-metadata-validator';
-import { Attribute, FileMetadata, Localization, NFTMetadata, Property } from '../types/nft-metadata';
+import { Attribute, FileMetadata, Localization, NFTMetadata } from '../types/nft-metadata';
 import { FileValidationResult } from '../types/hip412-validator';
 import { dictionary } from '../utils/constants/dictionary';
 

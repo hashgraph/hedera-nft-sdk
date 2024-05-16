@@ -28,8 +28,6 @@ import { mintUniqueMetadataFunction } from './mint-unique-metadata-function.brow
 import { LocalNode } from '../types/login';
 import { estimateNftMintingInHbar } from './estimate-nft-minting-in-hbar';
 import { estimateNftMintingInDollars } from './estimate-nft-minting-in-dollars';
-import { estimateCreateCollectionInDollars } from './estimate-create-collection-in-dollars';
-import { estimateCreateCollectionInHbar } from './estimate-create-collection-in-hbar';
 
 export class HederaNFTSDK /** Browser */ {
   accountId: string;
@@ -104,14 +102,7 @@ export class HederaNFTSDK /** Browser */ {
     });
   }
 
-  estimateCreateCollectionInDollars({
-    collectionName,
-    collectionSymbol,
-    treasuryAccountPrivateKey,
-    treasuryAccount,
-    keys,
-    customFees,
-  }: {
+  estimateCreateCollectionInDollars(_: {
     collectionName: string;
     collectionSymbol: string;
     treasuryAccountPrivateKey?: PrivateKey;
@@ -119,24 +110,10 @@ export class HederaNFTSDK /** Browser */ {
     keys?: CreateCollectionKeysType;
     customFees?: CustomFeeType[];
   }) {
-    return estimateCreateCollectionInDollars({
-      collectionName,
-      collectionSymbol,
-      keys,
-      treasuryAccount,
-      treasuryAccountPrivateKey,
-      customFees,
-    });
+    throw new Error('No estimateCreateCollectionInDollars browser implementation');
   }
 
-  estimateCreateCollectionInHbar({
-    collectionName,
-    collectionSymbol,
-    treasuryAccountPrivateKey,
-    treasuryAccount,
-    keys,
-    customFees,
-  }: {
+  estimateCreateCollectionInHbar(_: {
     collectionName: string;
     collectionSymbol: string;
     treasuryAccountPrivateKey?: PrivateKey;
@@ -144,16 +121,7 @@ export class HederaNFTSDK /** Browser */ {
     keys?: CreateCollectionKeysType;
     customFees?: CustomFeeType[];
   }) {
-    return estimateCreateCollectionInHbar({
-      collectionName,
-      collectionSymbol,
-      keys,
-      treasuryAccount,
-      treasuryAccountPrivateKey,
-      customFees,
-      network: this.network,
-      mirrorNodeUrl: this.mirrorNodeUrl,
-    });
+    throw new Error('No estimateCreateCollectionInHbar browser implementation');
   }
 
   estimateNftMintingInHbar({ amountOfNfts }: { amountOfNfts: number }) {

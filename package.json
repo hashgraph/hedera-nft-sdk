@@ -1,10 +1,9 @@
 {
   "name": "@hashgraph/hedera-nft-sdk",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "NFT SDK for Hedera Hashgraph",
   "author": "Michiel Mulders",
   "license": "Apache License",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/hashgraph/hedera-nft-sdk/issues"
   },
@@ -13,20 +12,44 @@
     "type": "git",
     "url": "https://github.com/hashgraph/hedera-nft-sdk.git"
   },
-  "main": "./dist/cjs/index.js",
-  "module": "./src/index.js",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.js",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./src/index.js",
-      "require": "./dist/index.cjs"
+      "types": "./lib/types/index.d.ts",
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
     }
   },
   "browser": {
-    "./src/index.js": "./src/browser.js",
+    "./lib/types/index.d.ts": "./lib/types/browser.d.ts",
+    "./lib/esm/index.js": "./lib/esm/browser.js",
+    "./lib/cjs/index.js": "./lib/cjs/browser.js",
     "./src/nftSDKFunctions/mint-unique-metadata-function.js": "./src/nftSDKFunctions/mint-unique-metadata-function.browser.js",
+    "./lib/cjs/nftSDKFunctions/mint-unique-metadata-function.js": "./lib/cjs/nftSDKFunctions/mint-unique-metadata-function.browser.js",
+    "./lib/esm/nftSDKFunctions/mint-unique-metadata-function.js": "./lib/esm/nftSDKFunctions/mint-unique-metadata-function.browser.js",
+    "./src/helpers/files.js": "./src/helpers/files.browser.js",
+    "./lib/esm/helpers/files.js": "./lib/esm/helpers/files.browser.js",
+    "./lib/cjs/helpers/files.js": "./lib/cjs/helpers/files.browser.js",
+    "./src/helpers/save-metadata-object-as-json-files.js": "./src/helpers/save-metadata-object-as-json-files.browser.js",
+    "./lib/esm/helpers/save-metadata-object-as-json-files.js": "./lib/esm/helpers/save-metadata-object-as-json-files.browser.js",
+    "./lib/cjs/helpers/save-metadata-object-as-json-files.js": "./lib/cjs/helpers/save-metadata-object-as-json-files.browser.js",
+    "./src/token-metadata-validator/index.js": "./src/token-metadata-validator/browser.js",
+    "./lib/esm/token-metadata-validator/index.js": "./lib/esm/token-metadata-validator/browser.js",
+    "./lib/cjs/token-metadata-validator/index.js": "./lib/cjs/token-metadata-validator/browser.js",
+    "./src/local-validation/index.js": "./src/local-validation/browser.js",
+    "./lib/esm/local-validation/index.js": "./lib/esm/local-validation/browser.js",
+    "./lib/cjs/local-validation/index.js": "./lib/cjs/local-validation/browser.js",
+    "./src/validator/validators/schema.js": "./src/validator/validators/schema.browser.js",
+    "./lib/esm/validator/validators/schema.js": "./lib/esm/validator/validators/schema.browser.js",
+    "./lib/cjs/validator/validators/schema.js": "./lib/cjs/validator/validators/schema.browser.js",
+    "./src/services/upload-service.js": "./src/services/upload-service.browser.js",
+    "./lib/esm/services/upload-service.js": "./lib/esm/services/upload-service.browser.js",
+    "./lib/cjs/services/upload-service.js": "./lib/cjs/services/upload-service.browser.js",
     "./src/nftSDKFunctions/index.js": "./src/nftSDKFunctions/browser.js",
+    "./lib/esm/nftSDKFunctions/index.js": "./lib/esm/nftSDKFunctions/browser.js",
+    "./lib/cjs/nftSDKFunctions/index.js": "./lib/cjs/nftSDKFunctions/browser.js",
     "crypto": false
   },
   "engines": {
@@ -39,9 +62,10 @@
     "not op_mini all",
     "not ie > 0"
   ],
-  "types": "dist/index.d.ts",
+  "types": "lib/types/index.d.ts",
   "files": [
-    "dist",
+    "lib/",
+    "src/",
     "types",
     "LICENSE",
     "README.md",
@@ -55,7 +79,11 @@
     "test:single": "jest --config jest.config.ts --testPathPattern",
     "test:single-e2e": "jest --config jest.config.e2e.ts --testPathPattern",
     "test-output": "jest --ci --reporters=default --reporters=jest-junit",
-    "build": "npx babel src -d dist --extensions .ts --out-file-extension .cjs && cp -r src/types dist/types && cp -r src/types dist/cjs/types"
+    "clean": "rimraf lib",
+    "declarations": "tsc -p tsconfig.json",
+    "build:esm": "cross-env BABEL_ENV=esmUnbundled babel src --extensions '.ts' --out-dir 'lib/esm' --source-maps",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel src --extensions '.ts' --out-dir 'lib/cjs' --source-maps",
+    "build": "npm-run-all -l clean -p build:esm build:cjs declarations"
   },
   "prettier": {
     "printWidth": 140,
@@ -73,8 +101,18 @@
   "dependencies": {
     "@aws-sdk/client-s3": "3.515.0",
     "@aws-sdk/lib-storage": "3.515.0",
+    "@babel/cli": "^7.24.5",
+    "@babel/core": "^7.23.3",
+    "@babel/eslint-parser": "^7.23.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-export-namespace-from": "^7.24.1",
+    "@babel/plugin-transform-modules-commonjs": "^7.21.5",
+    "@babel/preset-env": "^7.22.15",
+    "@babel/preset-typescript": "^7.24.1",
+    "@babel/register": "^7.22.5",
     "@hashgraph/sdk": "^2.41.0",
     "axios": "^1.6.7",
+    "cross-env": "^7.0.3",
     "csv-parser": "^3.0.0",
     "date-fns": "^3.3.1",
     "file-type": "18.3.0",
@@ -84,19 +122,11 @@
     "lodash": "^4.17.21",
     "magic-bytes.js": "^1.8.0",
     "mathjs": "^12.3.2",
+    "npm-run-all": "^4.1.5",
     "zod": "^3.22.4",
     "zod-error": "^1.5.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.4",
-    "@babel/core": "^7.23.3",
-    "@babel/eslint-parser": "^7.23.3",
-    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/plugin-transform-export-namespace-from": "^7.24.1",
-    "@babel/plugin-transform-modules-commonjs": "^7.21.5",
-    "@babel/preset-env": "^7.22.15",
-    "@babel/preset-typescript": "^7.24.1",
-    "@babel/register": "^7.22.5",
     "@jest/transform": "^29.7.0",
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.14.202",

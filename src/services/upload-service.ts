@@ -68,6 +68,7 @@ export class UploadService {
               async (file) => {
                 const fileContent = fs.readFileSync(file);
                 const blob = new Blob([fileContent]);
+                // @ts-expect-error Argument of type 'Blob' is assignable to parameter of type 'import("buffer").Blob
                 const url = await this.service.uploadFile(blob);
 
                 return {
@@ -104,6 +105,7 @@ export class UploadService {
             fileToUpload = new Blob([fileContent]);
           }
 
+          // @ts-expect-error Argument of type 'Blob' is assignable to parameter of type 'import("buffer").Blob
           const url = await this.service.uploadFile(fileToUpload);
 
           return {
@@ -126,6 +128,7 @@ export class UploadService {
 
     try {
       const file = new Blob([JSON.stringify(metadata)], { type: 'application/json' });
+      // @ts-expect-error Argument of type 'Blob' is assignable to parameter of type 'import("buffer").Blob
       const url = await this.service.uploadFile(file);
 
       return {

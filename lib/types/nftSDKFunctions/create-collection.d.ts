@@ -1,0 +1,3 @@
+import { CreateCollectionType } from '../types/create-collection';
+export declare const createCollectionFunction: ({ client, myPrivateKey, collectionName, collectionSymbol, keys, treasuryAccount, treasuryAccountPrivateKey, maxSupply, customFees, expirationTime, autoRenewAccount, autoRenewAccountPrivateKey, autoRenewPeriod, memo, }: CreateCollectionType) => Promise<string>;
+//# sourceMappingURL=create-collection.d.ts.map

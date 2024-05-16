@@ -69,7 +69,7 @@ const calculateRarity = (dir: string): RarityResult[] => {
       const mostCommonTrait = attributeConfigObject.values.reduce((prev, current) => (prev.count > current.count ? prev : current));
       const traitRarity = 1 / (NFTsWithTrait?.count! / mostCommonTrait.count);
 
-      traitRarities.push({
+      return traitRarities.push({
         trait: NFTAttribute.trait_type,
         value: NFTAttribute.value,
         rarity: traitRarity,

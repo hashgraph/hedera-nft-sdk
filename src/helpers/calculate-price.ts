@@ -39,14 +39,6 @@ import {
 } from '../utils/constants/fee-tool';
 import { CREATE_TOKEN_NON_FUNGIBLE_UNIQUE, CREATE_TOKEN_NON_FUNGIBLE_UNIQUE_WITH_CUSTOM_FEES } from '../utils/constants/fee-tool-config';
 
-const model = {
-  NUM_NODES,
-  CONSTANT_TERM_WEIGHT,
-  PRICE_PRECISION,
-  FEE_SCHEDULE_MULTIPLIER,
-  USD_TO_TINYCENTS,
-};
-
 export class FeeTool {
   private config: FeeToolConfig;
   private static model = {
