@@ -1,1 +1,0 @@
-{"version":3,"file":"json-metadata-from-csv.d.ts","sourceRoot":"","sources":["../../../src/types/json-metadata-from-csv.ts"],"names":[],"mappings":"AAmBA,MAAM,WAAW,4BAA4B;IAC3C,OAAO,EAAE,OAAO,CAAC;IACjB,MAAM,EAAE,KAAK,CAAC;QACZ,WAAW,EAAE,MAAM,CAAC;QACpB,MAAM,EAAE,MAAM,EAAE,CAAC;KAClB,CAAC,CAAC;IACH,sBAAsB,EAAE,MAAM,CAAC;CAChC"}

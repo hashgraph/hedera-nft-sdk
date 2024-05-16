@@ -1,1 +1,0 @@
-{"version":3,"file":"estimate-nft-minting-in-hbar.d.ts","sourceRoot":"","sources":["../../../src/nftSDKFunctions/estimate-nft-minting-in-hbar.ts"],"names":[],"mappings":"AAsBA,eAAO,MAAM,wBAAwB,8CAIlC;IACD,YAAY,EAAE,MAAM,CAAC;IACrB,OAAO,EAAE,MAAM,CAAC;IAChB,aAAa,CAAC,EAAE,MAAM,CAAC;CACxB,oBAGA,CAAC"}

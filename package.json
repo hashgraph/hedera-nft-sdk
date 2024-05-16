@@ -83,7 +83,8 @@
     "declarations": "tsc -p tsconfig.json",
     "build:esm": "cross-env BABEL_ENV=esmUnbundled babel src --extensions '.ts' --out-dir 'lib/esm' --source-maps",
     "build:cjs": "cross-env BABEL_ENV=cjs babel src --extensions '.ts' --out-dir 'lib/cjs' --source-maps",
-    "build": "npm-run-all -l clean -p build:esm build:cjs declarations"
+    "build": "npm-run-all -l clean -p build:esm build:cjs declarations",
+    "prepare": "npm run build"
   },
   "prettier": {
     "printWidth": 140,
