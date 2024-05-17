@@ -21,7 +21,7 @@ import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import { Instance, ValidationResult } from '../../types/validator';
 
-const ajv = new Ajv({ allErrors: true });
+const ajv = new Ajv({ allErrors: true, strict: false });
 addFormats(ajv);
 
 const additionalPropertyMsg = 'must NOT have additional properties';
