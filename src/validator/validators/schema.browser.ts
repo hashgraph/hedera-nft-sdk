@@ -20,6 +20,10 @@
 import { Instance, ValidationResult } from '../../types/validator';
 
 /**
+ * Function below is not browser supported
+ * @browserUnsupported
+ */
+/**
  * The schema validator validates the {instance} against a specific version of the HIP412 metadata standard using jsonschema
  *
  * @see https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md#default-schema-collectibe-hedera-nfts-format-hip412100

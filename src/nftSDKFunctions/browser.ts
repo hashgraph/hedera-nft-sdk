@@ -24,6 +24,10 @@ import { createCollectionFunction } from './create-collection';
 import { increaseNFTSupply } from './increase-nft-supply';
 import { logIn } from './log-in';
 import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
+/**
+ * Function below is not fully browser supported
+ * @browserUnsupported
+ */
 import { mintUniqueMetadataFunction } from './mint-unique-metadata-function.browser';
 import { LocalNode } from '../types/login';
 import { estimateNftMintingInHbar } from './estimate-nft-minting-in-hbar';
@@ -102,6 +106,10 @@ export class HederaNFTSDK /** Browser */ {
     });
   }
 
+  /**
+   * Function below is not browser supported
+ * @browserUnsupported
+   */
   estimateCreateCollectionInDollars(_: {
     collectionName: string;
     collectionSymbol: string;
@@ -113,6 +121,10 @@ export class HederaNFTSDK /** Browser */ {
     throw new Error('No estimateCreateCollectionInDollars browser implementation');
   }
 
+  /**
+   * Function below is not browser supported
+ * @browserUnsupported
+   */
   estimateCreateCollectionInHbar(_: {
     collectionName: string;
     collectionSymbol: string;
@@ -155,6 +167,10 @@ export class HederaNFTSDK /** Browser */ {
     });
   }
 
+  /**
+   * Function below is not fully browser supported
+ * @browserUnsupported
+   */
   mintUniqueMetadata({
     tokenId,
     batchSize = 5,

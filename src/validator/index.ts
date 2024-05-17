@@ -47,6 +47,10 @@ class Validator {
     return this.schemaMap.get(defaultSchemaVersion);
   }
 
+  /**
+   * Function below is not browser supported
+   * @browserUnsupported
+   */
   validate(instance: Instance, schemaVersion: string = defaultSchemaVersion) {
     const schema = this.getSchema(schemaVersion);
     if (!schema) throw new Error('Invalid schema version');

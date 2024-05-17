@@ -22,7 +22,10 @@ import { ValidationResult } from '../types/validator';
 interface ValidationResults {
   [key: string]: ValidationResult;
 }
-
+/**
+ * Function below is not browser supported
+ * @browserUnsupported
+ */
 /**
  * Validate files locally
  *

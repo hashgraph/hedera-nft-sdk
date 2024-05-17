@@ -40,12 +40,20 @@ export class UploadService {
     this.service = service;
   }
 
+  /**
+   * Function below is not browser supported
+ * @browserUnsupported
+   */
   public async uploadFilesFromPath(_: string[]): Promise<UploadServiceReturn[]> {
-    throw new Error("Not supported in browser.");
+    throw new Error('Not supported in browser.');
   }
 
+  /**
+   * Function below is not browser supported
+ * @browserUnsupported
+   */
   public async uploadBlobFiles(_: (Blob | BufferFile)[]): Promise<UploadServiceReturn[]> {
-    throw new Error("Not supported in browser.");
+    throw new Error('Not supported in browser.');
   }
 
   public async handleBlobUpload(metadata: Partial<NFTMetadata> | NFTMetadata): Promise<UploadServiceReturn | null> {

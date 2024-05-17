@@ -17,6 +17,10 @@
  * limitations under the License.
  *
  */
+/**
+ * Package below is not browser supported
+ * @browserUnsupported
+ */
 import { Validator, ValidationError } from 'jsonschema';
 const validator = new Validator();
 
@@ -48,7 +52,10 @@ const distilProblems = (problems: ValidationError[]) => {
     errors,
   };
 };
-
+/**
+ * Function below is not browser supported
+ * @browserUnsupported
+ */
 /**
  * The schema validator validates the {instance} against a specific version of the HIP412 metadata standard using jsonschema
  *

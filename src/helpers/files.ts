@@ -17,11 +17,23 @@
  * limitations under the License.
  *
  */
+/**
+ * Package below is not browser supported
+ * @browserUnsupported
+ */
 import fs from 'fs';
+/**
+ * Package below is not browser supported
+ * @browserUnsupported
+ */
 import path from 'path';
 
 import { Instance } from '../types/validator';
 
+/**
+ * Function below is not browser supported
+ * @browserUnsupported
+ */
 /**
  * @param dir Absolute path to file you want to read contents for
  * @param filenames An array of filenames
@@ -41,6 +53,10 @@ export const readFiles = (dir: string, filenames: string[]): { filename: string;
   return JSONdata;
 };
 
+/**
+ * Function below is not browser supported
+ * @browserUnsupported
+ */
 /**
  * @param dir Absolute path to folder you want to validate
  * @returns An array of filenames with extension

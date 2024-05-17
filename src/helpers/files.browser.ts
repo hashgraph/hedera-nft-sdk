@@ -20,6 +20,10 @@
 import { Instance } from '../types/validator';
 
 /**
+ * Function below is not browser supported
+ * @browserUnsupported
+ */
+/**
  * @param dir Absolute path to file you want to read contents for
  * @param filenames An array of filenames
  * @returns Array of objects containing a filename and filedata
@@ -28,6 +32,10 @@ export const readFiles = (_: string, __: string[]): { filename: string; filedata
   throw new Error("Not supported in browser.")
 };
 
+/**
+ * Function below is not browser supported
+ * @browserUnsupported
+ */
 /**
  * @param dir Absolute path to folder you want to validate
  * @returns An array of filenames with extension

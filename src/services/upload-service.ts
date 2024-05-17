@@ -45,6 +45,10 @@ export class UploadService {
     this.service = service;
   }
 
+  /**
+   * Function below is not browser supported
+ * @browserUnsupported
+   */
   public async uploadFilesFromPath(paths: string[]): Promise<UploadServiceReturn[]> {
     const result = await Promise.all(
       paths.map(async (path) => {
@@ -87,6 +91,10 @@ export class UploadService {
     return result.flat();
   }
 
+  /**
+   * Function below is not browser supported
+ * @browserUnsupported
+   */
   public async uploadBlobFiles(files: (Blob | BufferFile)[]): Promise<UploadServiceReturn[]> {
     if (files.length < 0) {
       throw new Error(dictionary.errors.uploadService.noFiles);

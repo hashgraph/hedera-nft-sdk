@@ -48,6 +48,7 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 - **Package: [Prepare Metadata Objects From CSV Rows](#prepare-metadata-objects-from-csv-rows)**
 - **Package: [Upload Service](#upload-service)**
 - **Package: [File Storage Services](#file-storage-services)**
+- **[Changes in browser bundle](#changes-in-browser-bundle)**
 - **[Questions, contact us, or improvement proposals?](#questions-or-improvement-proposals)**
 - **[Support](#Support)**
 - **[Contributing](#Contributing)**
@@ -1808,6 +1809,30 @@ type UploadResult = {
 ```
 
 ---
+## Changes in browser bundle
+
+1. **Removal of [Convert CSV To Metadata Objects](#convert-csv-to-metadata-objects)**:
+   - Removed the `convertCSVToMetadataObjects` function. This function directly accesses files from the user's file system, which is not supported in a browser environment.
+
+2. **Updates in Package [NFT SDK Methods](#nft-sdk-methods)**:
+   - **Functions `estimateCreateCollectionInDollars` and `estimateCreateCollectionInHbar`:** Both functions use the `get-string-size` module, which relies on `Blob` (a factory for `Buffer` not accessible in browsers) to calculate byte string sizes.
+   - **Function: `mintUniqueMetadataFunction`**: This function allows passing a file path for metadata URIs, which is not feasible in a browser environment. Browsers cannot access the local file system.
+
+3. **Updates in Package [Upload Service](#upload-service)**:
+   - **Function: `uploadFilesFromPath`**: This method uses the `fs` library to upload files from the disk, which is not supported in a browser environment. Browsers cannot access the local file system.
+
+4. **Updates in Package [Convert Metadata Objects to JSON Files](#convert-metadata-objects-to-json-files)**:
+   - **Function: `convertMetadataObjectsToJsonFiles`**: This function attempts to save files to the file system, which is not possible in a browser environment. Browsers cannot access the local file system.
+
+5. **Updates in Package [Local metadata validator](#local-validator)**:
+   - **Local metadata validator**: The `Local metadata validator` method relies on the `fs` and `path` packages to read JSON files from the disk, which is unsupported in browsers.
+
+6. **Updates in Package [Rarity score calculation](#rarity-score-calculation)**:
+   - **Function: `calculateRarity`**: The `calculateRarity` (from JSON files) method relies on the `fs` and `path` packages to read JSON files from the disk, which is unsupported in browsers. This particular method is not supported in browser.
+
+7. **Updates in Package [Metadata Validator](#metadata-validator)**:
+   - **Method: ``Validator.validate()``**: The ``jsonschema`` is used for validation but relies on ``url`` package which is not browser compatible. 
+
 ## Build
 
 After downloading the repo run `npm run build` to build the SDK.

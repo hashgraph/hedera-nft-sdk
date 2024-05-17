@@ -20,6 +20,10 @@
 import { dictionary } from '../utils/constants/dictionary';
 import { MintedNFTType, MintUniqueTokenType } from '../types/mint-token';
 import { validatePropsForUniqueNFTMinting } from '../utils/validate-props';
+/**
+ * Package below is not browser supported
+ * @browserUnsupported
+ */
 import { getDataFromFile } from '../helpers/get-data-from-file';
 import { MintingError } from '../utils/minting-error';
 import { mintToken } from './mint-token';
@@ -41,6 +45,10 @@ export const mintUniqueMetadataFunction = async ({
   });
   const mintedNFTs: MintedNFTType[] = [];
 
+  /**
+   * Function 'getDataFromFile' below is not browser supported
+ * @browserUnsupported
+   */
   const metaData = pathToMetadataURIsFile ? await getDataFromFile(pathToMetadataURIsFile) : metadataArray || [];
   if (!metaData.length) throw new Error(dictionary.hederaActions.metadataRequired);
 

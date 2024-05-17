@@ -19,6 +19,10 @@
  */
 export type { Validator } from './validator';
 export { defaultSchemaVersion } from './validator';
+/**
+ * Function below is not browser supported
+ * @browserUnsupported
+ */
 export { localValidation } from './local-validation';
 export { defaultWeights, defaultRiskLevels, calculateRiskScoreFromData, calculateRiskScoreFromTokenId, calculateRiskLevel } from './risk';
 export { calculateRarity, calculateRarityFromData, calculateTraitOccurrenceFromData, calculateRarityFromOnChainData } from './rarity';
@@ -56,7 +60,16 @@ export { PinataService } from './services/file-storages/pinata/pinata-service';
 export { AWSService } from './services/file-storages/aws/aws-service';
 export { MockStorageService } from './services/file-storages/mock-storage/mock-storage-service';
 export { UploadService } from './services/upload-service';
-export { convertMetadataObjectsToJsonFiles } from './file-management/convert-metadata-objects-to-json-files';
+/**
+ * Function below is not browser supported
+ * @browserUnsupported
+ */
+// export { convertCSVToMetadataObjects } from './file-management/convert-csv-to-metadata-objects';
+/**
+ * Function below is not browser supported
+ * @browserUnsupported
+ */
+// export { convertMetadataObjectsToJsonFiles } from './file-management/convert-metadata-objects-to-json-files';
 export { prepareMetadataObjectsFromCSVRows } from './file-management/prepare-metadata-objects-from-csv-rows';
 export { getHolderAndDuration } from './get-holder-and-duration';
 

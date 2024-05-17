@@ -23,6 +23,10 @@ import { validatePropsForUniqueNFTMinting } from '../utils/validate-props';
 import { MintingError } from '../utils/minting-error';
 import { mintToken } from './mint-token';
 
+/**
+ * Function below is not fully browser supported
+ * @browserUnsupported
+ */
 export const mintUniqueMetadataFunction /** Browser */ = async ({
   client,
   tokenId,
@@ -43,6 +47,10 @@ export const mintUniqueMetadataFunction /** Browser */ = async ({
   });
   const mintedNFTs: MintedNFTType[] = [];
 
+  /**
+   * Function 'getDataFromFile' below is not browser supported
+ * @browserUnsupported
+   */
   const metaData = metadataArray || [];
   if (!metaData.length) throw new Error(dictionary.hederaActions.metadataRequired);
 
