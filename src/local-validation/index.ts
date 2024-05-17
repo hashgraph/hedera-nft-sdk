@@ -23,7 +23,7 @@
  */
 import path from 'path';
 import { Validator } from '../validator/index';
-import { readFiles, getJSONFilesForDir } from '../helpers/files';
+import { readFiles, getJSONFilesForPath } from '../helpers/files';
 
 import { ValidationResult, Instance } from '../types/validator';
 
@@ -55,12 +55,12 @@ const validateFiles = (files: File[]): ValidationResults => {
 /**
  * Validate files locally
  *
- * @param {string} relative Relative path to folder containing files
+ * @param {string} relativePath Relative path to folder containing files
  * @returns {Object<filename<string>, validationResults<Object>>}
  */
 const localValidation = (relativePath: string): ValidationResults => {
   const absolutePath = path.resolve(relativePath); // convert relative path to absolute path
-  const filenames = getJSONFilesForDir(absolutePath);
+  const filenames = getJSONFilesForPath(absolutePath);
   const filedata = readFiles(absolutePath, filenames);
   const validationResults = validateFiles(filedata);
 

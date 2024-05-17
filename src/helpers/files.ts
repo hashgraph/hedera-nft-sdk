@@ -61,10 +61,8 @@ export const readFiles = (dir: string, filenames: string[]): { filename: string;
  * @param dir Absolute path to folder you want to validate
  * @returns An array of filenames with extension
  */
-export const getJSONFilesForDir = (dir: string): string[] => {
-  const directoryPath = dir;
-
-  const files = fs.readdirSync(directoryPath, { withFileTypes: true });
+export const getJSONFilesForPath = (dir: string): string[] => {
+  const files = fs.readdirSync(dir, { withFileTypes: true });
 
   const JSONFiles: string[] = [];
   files.forEach((file) => {

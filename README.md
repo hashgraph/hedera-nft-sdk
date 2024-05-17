@@ -267,7 +267,8 @@ const { localValidation } = require('@hashgraph/hedera-nft-sdk');
 The `localValidation` expects a relative path to your metadata files to verify them. The function prints the warnings and errors for all JSON files it finds in the provided folder path. It also returns the validation results as an object in case you want to use the results in your code.
 
 ```js
-const issues = localValidation('/Users/projects/nft/files');
+const relativePathToFiles = './examples/local-metadata-validator/files';
+const issues = localValidation(relativePathToFiles);
 ```
 
 This package uses the `Validator` class explained in the [previous section](#token-metadata-validator).
@@ -444,13 +445,13 @@ Install the package:
 npm i -s @hashgraph/hedera-nft-sdk
 ```
 
-Import the package into your project and get `calculateRarity` function. Next, you need to pass an absolute path to a folder containing metadata JSON files.
+Import the package into your project and get `calculateRarity` function. Next, you need to pass a relative path to a folder containing metadata JSON files.
 
 ```js
 const { calculateRarity } = require('@hashgraph/hedera-nft-sdk');
 
-const absolutePathToFiles = '/Users/myUser/hedera-nft-sdk/examples/rarity-score-calculation/files';
-const results = calculateRarity(absolutePathToFiles);
+const relativePathToFiles = './examples/local-metadata-validator/files';
+const results = calculateRarity(relativePathToFiles);
 console.log(results);
 ```
 
