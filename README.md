@@ -1830,9 +1830,6 @@ type UploadResult = {
 6. **Updates in Package [Rarity score calculation](#rarity-score-calculation)**:
    - **Function: `calculateRarity`**: The `calculateRarity` (from JSON files) method relies on the `fs` and `path` packages to read JSON files from the disk, which is unsupported in browsers. This particular method is not supported in browser.
 
-7. **Updates in Package [Metadata Validator](#metadata-validator)**:
-   - **Method: ``Validator.validate()``**: The ``jsonschema`` is used for validation but relies on ``url`` package which is not browser compatible. 
-
 ## Build
 
 After downloading the repo run `npm run build` to build the SDK.
