@@ -23,7 +23,7 @@ import token_metadata_1_0_0 from './schemas/HIP10@1.0.0';
 import token_metadata_2_0_0 from './schemas/HIP412@2.0.0';
 const defaultSchemaVersion = '2.0.0';
 
-import { Schema, Instance, Error } from '../types/validator';
+import { Schema, Instance } from '../types/validator';
 
 class Validator {
   private schemaMap: Map<string, Object>;

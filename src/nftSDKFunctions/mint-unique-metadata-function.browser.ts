@@ -20,26 +20,28 @@
 import { dictionary } from '../utils/constants/dictionary';
 import { MintedNFTType, MintUniqueTokenType } from '../types/mint-token';
 import { validatePropsForUniqueNFTMinting } from '../utils/validate-props';
-/**
- * Package below is not browser supported
- * @browserUnsupported
- */
-import { getDataFromFile } from '../helpers/get-data-from-file';
 import { MintingError } from '../utils/minting-error';
 import { mintToken } from './mint-token';
 
-export const mintUniqueMetadataFunction = async ({
+/**
+ * Function below is not fully browser supported
+ * @browserUnsupported
+ */
+export const mintUniqueMetadataFunction /** Browser */ = async ({
   client,
   tokenId,
   batchSize = 5,
   supplyKey,
-  pathToMetadataURIsFile,
   metadataArray,
+  ...props
 }: MintUniqueTokenType) => {
+  if ('pathToMetadataURIsFile' in props) {
+    throw new Error(dictionary.hederaActions.pathToMetadataURIsFileNotSupportedInBrowser);
+  }
+
   validatePropsForUniqueNFTMinting({
     batchSize,
     tokenId,
-    pathToMetadataURIsFile,
     supplyKey,
     metadataArray,
   });
@@ -49,7 +51,7 @@ export const mintUniqueMetadataFunction = async ({
    * Function 'getDataFromFile' below is not browser supported
  * @browserUnsupported
    */
-  const metaData = pathToMetadataURIsFile ? await getDataFromFile(pathToMetadataURIsFile) : metadataArray || [];
+  const metaData = metadataArray || [];
   if (!metaData.length) throw new Error(dictionary.hederaActions.metadataRequired);
 
   try {

@@ -17,17 +17,6 @@
  * limitations under the License.
  *
  */
-/**
- * Package below is not browser supported
- * @browserUnsupported
- */
-import fs from 'fs';
-/**
- * Package below is not browser supported
- * @browserUnsupported
- */
-import path from 'path';
-
 import { Instance } from '../types/validator';
 
 /**
@@ -39,18 +28,8 @@ import { Instance } from '../types/validator';
  * @param filenames An array of filenames
  * @returns Array of objects containing a filename and filedata
  */
-export const readFiles = (dir: string, filenames: string[]): { filename: string; filedata: Instance }[] => {
-  const JSONdata: { filename: string; filedata: Instance }[] = [];
-
-  filenames.forEach((filename) => {
-    const data = fs.readFileSync(path.join(dir, filename), { encoding: 'utf8', flag: 'r' });
-    JSONdata.push({
-      filename,
-      filedata: JSON.parse(data),
-    });
-  });
-
-  return JSONdata;
+export const readFiles = (_: string, __: string[]): { filename: string; filedata: Instance }[] => {
+  throw new Error("Not supported in browser.")
 };
 
 /**
@@ -61,13 +40,6 @@ export const readFiles = (dir: string, filenames: string[]): { filename: string;
  * @param dir Absolute path to folder you want to validate
  * @returns An array of filenames with extension
  */
-export const getJSONFilesForPath = (dir: string): string[] => {
-  const files = fs.readdirSync(dir, { withFileTypes: true });
-
-  const JSONFiles: string[] = [];
-  files.forEach((file) => {
-    if (path.extname(file.name) === '.json') JSONFiles.push(file.name);
-  });
-
-  return JSONFiles;
+export const getJSONFilesForDir = (_: string): string[] => {
+  throw new Error('Not supported in browser.');
 };

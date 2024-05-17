@@ -17,7 +17,6 @@
  * limitations under the License.
  *
  */
-import fs from 'fs';
 import filter from 'lodash/filter';
 import isNull from 'lodash/isNull';
 import map from 'lodash/map';
@@ -34,10 +33,6 @@ type UploadServiceReturn = {
   url: string;
 };
 
-const nonEmptyFiles = (file: Blob | BufferFile): boolean => {
-  return file instanceof Blob ? file.size > 0 : !file.isFileEmpty;
-};
-
 export class UploadService {
   private service: FileStorage;
 
@@ -49,84 +44,16 @@ export class UploadService {
    * Function below is not browser supported
  * @browserUnsupported
    */
-  public async uploadFilesFromPath(paths: string[]): Promise<UploadServiceReturn[]> {
-    const result = await Promise.all(
-      paths.map(async (path) => {
-        const isDirectory = fs.lstatSync(path).isDirectory();
-        let files: string[] = [];
-
-        if (isDirectory) {
-          files = fs.readdirSync(path).map((file) => `${path}/${file}`);
-        } else {
-          files = [path];
-        }
-
-        if (files.length < 0) {
-          throw new Error(dictionary.errors.uploadService.noFiles);
-        }
-
-        try {
-          return await Promise.all(
-            map(
-              filter(files, (file) => fs.existsSync(file)),
-              async (file) => {
-                const fileContent = fs.readFileSync(file);
-                const blob = new Blob([fileContent]);
-                // @ts-expect-error Argument of type 'Blob' is assignable to parameter of type 'import("buffer").Blob
-                const url = await this.service.uploadFile(blob);
-
-                return {
-                  content: blob,
-                  url,
-                };
-              }
-            )
-          );
-        } catch (e) {
-          throw new Error(errorToMessage(e));
-        }
-      })
-    );
-
-    return result.flat();
+  public async uploadFilesFromPath(_: string[]): Promise<UploadServiceReturn[]> {
+    throw new Error('Not supported in browser.');
   }
 
   /**
    * Function below is not browser supported
  * @browserUnsupported
    */
-  public async uploadBlobFiles(files: (Blob | BufferFile)[]): Promise<UploadServiceReturn[]> {
-    if (files.length < 0) {
-      throw new Error(dictionary.errors.uploadService.noFiles);
-    }
-
-    try {
-      return await Promise.all(
-        map(filter(files, nonEmptyFiles), async (file) => {
-          let fileToUpload: Blob | null = null;
-
-          if (file instanceof Blob) {
-            fileToUpload = file;
-          } else {
-            const fileContent = fs.readFileSync(file.filePath);
-
-            fileToUpload = new Blob([fileContent]);
-          }
-
-          // @ts-expect-error Argument of type 'Blob' is assignable to parameter of type 'import("buffer").Blob
-          const url = await this.service.uploadFile(fileToUpload);
-
-          return {
-            content: file,
-            url,
-          };
-        })
-      );
-    } catch (e) {
-      const errorMessage = errorToMessage(e);
-
-      throw new Error(errorMessage);
-    }
+  public async uploadBlobFiles(_: (Blob | BufferFile)[]): Promise<UploadServiceReturn[]> {
+    throw new Error('Not supported in browser.');
   }
 
   public async handleBlobUpload(metadata: Partial<NFTMetadata> | NFTMetadata): Promise<UploadServiceReturn | null> {
