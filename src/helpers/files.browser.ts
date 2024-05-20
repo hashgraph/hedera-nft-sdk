@@ -40,6 +40,6 @@ export const readFiles = (_: string, __: string[]): { filename: string; filedata
  * @param dir Absolute path to folder you want to validate
  * @returns An array of filenames with extension
  */
-export const getJSONFilesForDir = (_: string): string[] => {
+export const getJSONFilesForPath = (_: string): string[] => {
   throw new Error('Not supported in browser.');
 };
