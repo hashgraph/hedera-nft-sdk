@@ -22,11 +22,11 @@ import { mintingMaxTransactionFee } from '../utils/const';
 import { dictionary } from '../utils/constants/dictionary';
 
 export async function mintToken(metaData: string[], tokenId: string, supplyKey: PrivateKey, client: Client) {
-  const CIDs = metaData.map((data) => new TextEncoder().encode(data));
-
-  if (CIDs.some((cid) => cid.toString().length > 100)) {
+  if (metaData.some((cid) => cid.length > 100)) {
     throw new Error(dictionary.mintToken.tooLongCID);
   }
+
+  const CIDs = metaData.map((data) => new TextEncoder().encode(data));
 
   const transaction = new TokenMintTransaction()
     .setTokenId(tokenId)
