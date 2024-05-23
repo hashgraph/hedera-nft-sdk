@@ -22,7 +22,7 @@ import { mintingMaxTransactionFee } from '../utils/const';
 import { dictionary } from '../utils/constants/dictionary';
 
 export async function mintToken(metaData: string[], tokenId: string, supplyKey: PrivateKey, client: Client) {
-  const CIDs = metaData.map((metaData) => Buffer.from(metaData));
+  const CIDs = metaData.map((data) => new TextEncoder().encode(data));
 
   if (CIDs.some((cid) => cid.toString().length > 100)) {
     throw new Error(dictionary.mintToken.tooLongCID);

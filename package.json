@@ -26,9 +26,6 @@
     "./lib/types/index.d.ts": "./lib/types/browser.d.ts",
     "./lib/esm/index.js": "./lib/esm/browser.js",
     "./lib/cjs/index.js": "./lib/cjs/browser.js",
-    "./src/nftSDKFunctions/mint-unique-metadata-function.js": "./src/nftSDKFunctions/mint-unique-metadata-function.browser.js",
-    "./lib/cjs/nftSDKFunctions/mint-unique-metadata-function.js": "./lib/cjs/nftSDKFunctions/mint-unique-metadata-function.browser.js",
-    "./lib/esm/nftSDKFunctions/mint-unique-metadata-function.js": "./lib/esm/nftSDKFunctions/mint-unique-metadata-function.browser.js",
     "./src/helpers/files.js": "./src/helpers/files.browser.js",
     "./lib/esm/helpers/files.js": "./lib/esm/helpers/files.browser.js",
     "./lib/cjs/helpers/files.js": "./lib/cjs/helpers/files.browser.js",
@@ -47,9 +44,6 @@
     "./src/services/upload-service.js": "./src/services/upload-service.browser.js",
     "./lib/esm/services/upload-service.js": "./lib/esm/services/upload-service.browser.js",
     "./lib/cjs/services/upload-service.js": "./lib/cjs/services/upload-service.browser.js",
-    "./src/nftSDKFunctions/index.js": "./src/nftSDKFunctions/browser.js",
-    "./lib/esm/nftSDKFunctions/index.js": "./lib/esm/nftSDKFunctions/browser.js",
-    "./lib/cjs/nftSDKFunctions/index.js": "./lib/cjs/nftSDKFunctions/browser.js",
     "crypto": false
   },
   "engines": {
