@@ -47,8 +47,6 @@
     "./src/services/upload-service.js": "./src/services/upload-service.browser.js",
     "./lib/esm/services/upload-service.js": "./lib/esm/services/upload-service.browser.js",
     "./lib/cjs/services/upload-service.js": "./lib/cjs/services/upload-service.browser.js",
-    "./lib/esm/services/read-csv-metadata-file.js": "./lib/esm/services/read-csv-metadata-file.browser.js",
-    "./lib/cjs/services/read-csv-metadata-file.js": "./lib/cjs/services/read-csv-metadata-file.browser.js",
     "./src/nftSDKFunctions/index.js": "./src/nftSDKFunctions/browser.js",
     "./lib/esm/nftSDKFunctions/index.js": "./lib/esm/nftSDKFunctions/browser.js",
     "./lib/cjs/nftSDKFunctions/index.js": "./lib/cjs/nftSDKFunctions/browser.js",
