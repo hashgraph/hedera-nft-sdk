@@ -21,28 +21,49 @@
  * Package below is not browser supported
  * @browserUnsupported
  */
-import path from 'path';
 import { Validator } from '../validator/index';
 import { readFiles, getJSONFilesForPath } from '../helpers/files';
-
 import { ValidationResult, Instance } from '../types/validator';
+import path from 'path';
+import { dictionary } from '../utils/constants/dictionary';
 
 interface File {
   filename: string;
   filedata: Instance;
 }
 
+interface BlobFileInput {
+  fileName: string;
+  file: Blob;
+}
+
 interface ValidationResults {
   [key: string]: ValidationResult;
 }
 
-const validateFiles = (files: File[]): ValidationResults => {
+export const validateFiles = async (files: BlobFileInput[]): Promise<ValidationResults> => {
+  const metadataFiles = await Promise.all(
+    files.map(async ({ file, fileName }) => {
+      if (!file.type.includes('application/json')) {
+        throw new Error(dictionary.errors.validateFiles.invalidFileType);
+      }
+      try {
+        const blobAsText = await file.text();
+        const metadataObject = JSON.parse(blobAsText) as Instance;
+
+        return { fileName, fileData: metadataObject };
+      } catch (error) {
+        throw new Error(dictionary.errors.validateFiles.invalidMetadataFile(fileName, JSON.parse(error)));
+      }
+    })
+  );
+
   const validationResults: ValidationResults = {};
   const validator = new Validator();
 
-  files.forEach((file) => {
-    const result = validator.validate(file.filedata);
-    validationResults[file.filename] = result;
+  metadataFiles.forEach((file) => {
+    const result = validator.validate(file.fileData);
+    validationResults[file.fileName] = result;
   });
 
   return validationResults;
@@ -58,15 +79,20 @@ const validateFiles = (files: File[]): ValidationResults => {
  * @param {string} relativePath Relative path to folder containing files
  * @returns {Object<filename<string>, validationResults<Object>>}
  */
-const localValidation = (relativePath: string): ValidationResults => {
+
+export const mapFileDataToBlobFiles = (files: File[]): BlobFileInput[] =>
+  files.map(({ filedata, filename }) => ({
+    fileName: filename,
+    file: new Blob([JSON.stringify(filedata)], { type: 'application/json ' }),
+  }));
+
+const localValidation = async (relativePath: string): Promise<ValidationResults> => {
   const absolutePath = path.resolve(relativePath); // convert relative path to absolute path
   const filenames = getJSONFilesForPath(absolutePath);
   const filedata = readFiles(absolutePath, filenames);
-  const validationResults = validateFiles(filedata);
+  const validationResults = validateFiles(mapFileDataToBlobFiles(filedata));
 
   return validationResults;
 };
 
-export {
-  localValidation,
-};
+export { localValidation };
