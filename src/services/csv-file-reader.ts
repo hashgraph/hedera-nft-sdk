@@ -17,13 +17,11 @@
  * limitations under the License.
  *
  */
-import fs from 'fs';
 import { NFTS_LIMIT_ERROR } from '../utils/constants/nfts-limit-error';
-import { dictionary } from '../utils/constants/dictionary';
 import type { CSVRow } from '../types/csv';
-import csvParser from 'csv-parser';
-import { selectSeparator } from '../helpers/select-separator';
 import { ATTRIBUTES, PROPERTIES, OMITTED_HEADER_COUNT } from '../utils/constants/csv-constants';
+import Papa from 'papaparse';
+import { dictionary } from '../utils/constants/dictionary';
 
 type CSVReaderErrorId = 'invalid-headers';
 
@@ -52,7 +50,7 @@ function checkForErrorsAndLimit({
   }
 
   const effectiveLimit = Number(limit) + OMITTED_HEADER_COUNT;
-  if (limit && currentRowCount >= effectiveLimit) {
+  if (limit && currentRowCount > effectiveLimit) {
     throw new Error(NFTS_LIMIT_ERROR);
   }
 }
@@ -64,11 +62,11 @@ function processHeader(
   attributesIndex: number,
   refToErrorArray: string[]
 ): {
-    result: string | null;
-    currentType: CurrentType;
-    propertyIndex: number;
-    attributesIndex: number;
-  } {
+  result: string;
+  currentType: CurrentType;
+  propertyIndex: number;
+  attributesIndex: number;
+} {
   let result: string | null = null;
 
   // TODO: try to simplyfy this
@@ -100,42 +98,46 @@ function processHeader(
     attributesIndex++;
   }
 
-  return { result, currentType, propertyIndex, attributesIndex };
+  return { result: result || header.header, currentType, propertyIndex, attributesIndex };
 }
 
-export async function readCSVFile(absolutePath: string, limit?: number): Promise<CSVRow[]> {
-  const separator = selectSeparator();
+export async function readCSVFile(fileAsBlob: Blob, limit?: number): Promise<CSVRow[]> {
+  if (!fileAsBlob.type.includes('text/csv')) {
+    throw new Error(dictionary.validation.invalidCsvFileType);
+  }
+  let rowsCount = 0;
   const rows: CSVRow[] = [];
-  const readStream = fs.createReadStream(absolutePath);
+  const fileAsText = await fileAsBlob.text();
   const headersErrors: string[] = [];
 
   try {
-    await new Promise((resolve, reject) => {
-      readStream
-        .pipe(
-          csvParser({
-            separator,
-            mapHeaders: mapHeadersForCSV(headersErrors),
-          })
-        )
-        .on('data', (row: CSVRow) => {
+    await new Promise<CSVRow[]>((resolve, reject) => {
+      Papa.parse<CSVRow>(fileAsText, {
+        header: true,
+        skipEmptyLines: true,
+        transformHeader: mapHeadersForCSV(headersErrors),
+        step: (data) => {
           try {
+            rowsCount++;
             checkForErrorsAndLimit({
               headersErrors,
               limit,
-              currentRowCount: rows.length,
+              currentRowCount: rowsCount,
             });
-
-            rows.push(row);
+            rows.push(data.data);
           } catch (e) {
             return reject(e);
           }
-        })
-        .on('end', () => resolve(readStream.read()))
-        .on('error', (e) => {
-          return reject(e);
-        });
+        },
+        complete: (result) => {
+          resolve(result.data);
+        },
+        error: (error: Error) => {
+          reject(new Error(error.message));
+        },
+      });
     });
+    return rows;
   } catch (e) {
     // We want to throw only error related to CSV headers. In this case we want to ignore errors like limit for example and return rows as it is so the whole process can continue.
     if (e instanceof CSVReaderError) {
@@ -146,18 +148,24 @@ export async function readCSVFile(absolutePath: string, limit?: number): Promise
   return rows;
 }
 
-function mapHeadersForCSV(refToErrorArray: string[]): (header: { header: string; index: number }) => string | null {
+function mapHeadersForCSV(refToErrorArray: string[]): (header: string, index: number) => string {
   let propertyIndex = 0;
   let attributesIndex = 0;
   let currentType: CurrentType = null;
 
-  return (header: { header: string; index: number }): string | null => {
+  return (header: string, index: number): string => {
+    if (index === 0) {
+      currentType = null;
+      propertyIndex = 0;
+      attributesIndex = 0;
+    }
+
     const {
       result,
       currentType: updatedType,
       propertyIndex: updatedPropertyIndex,
       attributesIndex: updatedAttributesIndex,
-    } = processHeader(header, currentType, propertyIndex, attributesIndex, refToErrorArray);
+    } = processHeader({ header, index: Number(index) }, currentType, propertyIndex, attributesIndex, refToErrorArray);
 
     currentType = updatedType;
     propertyIndex = updatedPropertyIndex;
