@@ -17,7 +17,6 @@
  * limitations under the License.
  *
  */
-import type { Blob } from 'buffer';
 
 export interface FileStorage {
   uploadFile(file: Blob): Promise<string>;
