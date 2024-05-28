@@ -26,8 +26,7 @@ export type MintUniqueTokenType = {
   tokenId: string;
   batchSize?: number;
   supplyKey: PrivateKey;
-  pathToMetadataURIsFile?: string;
-  metadataArray?: string[];
+  metadataArray: string[];
 };
 
 export type MintTokenType = {
