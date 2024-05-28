@@ -40,6 +40,8 @@ export const dictionary = {
         `Attributes not found in file ${fileName}. Please ensure that your metadata file is valid.`,
       attributeNotFoundInObject: (object: string) =>
         `Attributes not found in object ${object}. Please ensure that your metadata file is valid.`,
+      invalidMetadataFile: (fileName: string, error: string) => `Invalid JSON file '${fileName}'! Error: ${error}`,
+      invalidFileType: 'Invalid file type. Expected JSON file.'
     },
     cannotFetchHbarExchangeRate: 'Can not fetch Hbar exchange rate.',
     ipfsGatewayRequired: 'IPFS gateway is required when metadata contains IPFS links.',
@@ -58,6 +60,10 @@ export const dictionary = {
       localizationAlreadySet: 'Localization can only be set once',
       localizatonFieldsMissing: 'Localization uri, default locale, and locales array are required.',
     },
+    validateFiles: {
+      invalidMetadataFile: (fileName: string, error: string) => `Invalid JSON file '${fileName}'! Error: ${error}`,
+      invalidFileType: 'Invalid file type. Expected JSON file.'
+    }
   },
   createCollection: {
     myPrivateKeyRequired: 'myPrivateKey is required',

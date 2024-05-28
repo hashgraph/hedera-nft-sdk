@@ -51,7 +51,7 @@ export type {
 } from './types/hip412-validator';
 export { PrivateKey } from '@hashgraph/sdk';
 
-export { HederaNFTSDK } from './nftSDKFunctions/browser';
+export { HederaNFTSDK } from './nftSDKFunctions';
 export { FeeFactory } from './feeFactory';
 export { TokenMetadataValidator } from './token-metadata-validator';
 export { Hip412MetadataBuilder } from './hip412-metadata-builder';
@@ -64,8 +64,12 @@ export { convertCSVToMetadataObjects } from './file-management/convert-csv-to-me
 /**
  * Function below is not browser supported
  * @browserUnsupported
- */
-// export { convertMetadataObjectsToJsonFiles } from './file-management/convert-metadata-objects-to-json-files';
+*/
+// export { convertCSVToMetadataObjects } from './file-management/convert-csv-to-metadata-objects';
+/**
+ * Function below is not browser supported
+ * @browserUnsupported
+*/
 export { prepareMetadataObjectsFromCSVRows } from './file-management/prepare-metadata-objects-from-csv-rows';
 export { getHolderAndDuration } from './get-holder-and-duration';
 

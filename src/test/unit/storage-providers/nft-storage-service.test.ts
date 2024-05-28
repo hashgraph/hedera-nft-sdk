@@ -17,7 +17,6 @@
  * limitations under the License.
  *
  */
-import { Blob } from 'buffer';
 import axios from 'axios';
 import { NftStorageService } from '../../../services/file-storages/nft-storage/nft-storage-service';
 import { dictionary } from '../../../utils/constants/dictionary';
