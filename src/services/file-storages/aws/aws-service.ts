@@ -17,7 +17,6 @@
  * limitations under the License.
  *
  */
-import type { Blob } from 'buffer';
 import { dictionary } from '../../../utils/constants/dictionary';
 import { filetypename } from 'magic-bytes.js';
 import { errorToMessage } from '../../../helpers/error-to-message';
