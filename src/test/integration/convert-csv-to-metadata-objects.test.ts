@@ -18,7 +18,7 @@
  *
  */
 import fs from 'fs';
-import { CSV_EXAMPLE_WITH_ALL_FIELDS, CSV_EXAMPLE_EMPTY_FILE, CSV_EXAMPLE_WITH_HEADERS_ONLY } from '../__mocks__/consts';
+import { CSV_EXAMPLE_WITH_ALL_FIELDS, CSV_EXAMPLE_EMPTY_FILE } from '../__mocks__/consts';
 import { convertCSVToMetadataObjects } from '../../file-management/convert-csv-to-metadata-objects';
 import { AMOUNT_OF_HEADERS } from '../../utils/constants/csv-constants';
 
@@ -26,7 +26,9 @@ describe('convertCSVToMetadataObjects Integration Test', () => {
   it('should create correct number of metadata objects based on the CSV file', async () => {
     const csvContent = fs.readFileSync(CSV_EXAMPLE_WITH_ALL_FIELDS, 'utf-8');
     const csvRows = csvContent.trim().split('\n').length - AMOUNT_OF_HEADERS;
-    const metadataObjects = await convertCSVToMetadataObjects(CSV_EXAMPLE_WITH_ALL_FIELDS);
+    const bufferFile = fs.readFileSync(CSV_EXAMPLE_WITH_ALL_FIELDS, { encoding: 'utf8' });
+    const blob = new Blob([bufferFile], { type: 'text/csv' });
+    const metadataObjects = await convertCSVToMetadataObjects(blob);
 
     expect(metadataObjects.length).toBe(csvRows);
   });
@@ -49,7 +51,9 @@ describe('convertCSVToMetadataObjects Integration Test', () => {
       ],
     };
 
-    const metadataObjects = await convertCSVToMetadataObjects(CSV_EXAMPLE_WITH_ALL_FIELDS);
+    const bufferFile = fs.readFileSync(CSV_EXAMPLE_WITH_ALL_FIELDS, { encoding: 'utf8' });
+    const blob = new Blob([bufferFile], { type: 'text/csv' });
+    const metadataObjects = await convertCSVToMetadataObjects(blob);
 
     expect(metadataObjects.length).toBeGreaterThan(0);
     expect(metadataObjects[0]).toEqual(EXPECTED_FIRST_OBJECT);
@@ -57,13 +61,21 @@ describe('convertCSVToMetadataObjects Integration Test', () => {
 
   it('should return a number of metadataObjects no greater than specified limit', async () => {
     const limit = 5;
-    const metadataObjects = await convertCSVToMetadataObjects(CSV_EXAMPLE_WITH_ALL_FIELDS, limit);
+    const bufferFile = fs.readFileSync(CSV_EXAMPLE_WITH_ALL_FIELDS, { encoding: 'utf8' });
+    const blob = new Blob([bufferFile], { type: 'text/csv' });
+    const metadataObjects = await convertCSVToMetadataObjects(blob, limit);
 
     expect(metadataObjects.length).toBe(limit);
   });
 
   it('should throw an error if the CSV file is empty or contains only headers', async () => {
-    await expect(convertCSVToMetadataObjects(CSV_EXAMPLE_EMPTY_FILE)).rejects.toThrow();
-    await expect(convertCSVToMetadataObjects(CSV_EXAMPLE_WITH_HEADERS_ONLY)).rejects.toThrow();
+    const bufferEmptyFile = fs.readFileSync(CSV_EXAMPLE_EMPTY_FILE, { encoding: 'utf8' });
+    const blobEmptyFile = new Blob([bufferEmptyFile]);
+    
+    const bufferFileWithHeadersOnly = fs.readFileSync(CSV_EXAMPLE_EMPTY_FILE, { encoding: 'utf8' });
+    const blobFileWIthHeadersOnly = new Blob([bufferFileWithHeadersOnly]);
+
+    await expect(convertCSVToMetadataObjects(blobEmptyFile)).rejects.toThrow();
+    await expect(convertCSVToMetadataObjects(blobFileWIthHeadersOnly)).rejects.toThrow();
   });
 });
