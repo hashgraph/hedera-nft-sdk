@@ -1,8 +1,14 @@
 import { calculateRarity } from '../../rarity';
-import { EMPTY_JSON_DIRECTORY_PATH, FILES_WITH_MIXED_EXTENSION_PATH, NON_EMPTY_JSON_DIRECTORY_PATH } from '../__mocks__/consts';
+import { getJSONFilesForPath, readFiles } from '../../helpers/files';
+import { mapFileDataToBlobFiles } from '../../local-validation';
+
+import { FILES_WITH_MIXED_EXTENSION_PATH, NON_EMPTY_JSON_DIRECTORY_PATH } from '../__mocks__/consts';
+
 describe('calculateRarityFromData', () => {
   it('should return an array of RarityResult objects from NON_EMPTY_JSON_DIRECTORY_PATH', async () => {
-    const result = calculateRarity(NON_EMPTY_JSON_DIRECTORY_PATH);
+    const filenames = getJSONFilesForPath(NON_EMPTY_JSON_DIRECTORY_PATH);
+    const filedata = readFiles(NON_EMPTY_JSON_DIRECTORY_PATH, filenames);
+    const result = await calculateRarity(mapFileDataToBlobFiles(filedata));
 
     expect(result).toStrictEqual([
       {
@@ -29,7 +35,9 @@ describe('calculateRarityFromData', () => {
   });
 
   it('should return an array of RarityResult objects from FILES_WITH_MIXED_EXTENSION_PATH', async () => {
-    const result = calculateRarity(FILES_WITH_MIXED_EXTENSION_PATH);
+    const filenames = getJSONFilesForPath(FILES_WITH_MIXED_EXTENSION_PATH);
+    const filedata = readFiles(FILES_WITH_MIXED_EXTENSION_PATH, filenames);
+    const result = await calculateRarity(mapFileDataToBlobFiles(filedata));
 
     expect(result).toStrictEqual([
       {
@@ -46,7 +54,7 @@ describe('calculateRarityFromData', () => {
   });
 
   it('should return an array of RarityResult objects from EMPTY_JSON_DIRECTORY_PATH', async () => {
-    const result = calculateRarity(EMPTY_JSON_DIRECTORY_PATH);
+    const result = await calculateRarity([]);
     expect(result).toStrictEqual([]);
   });
 });
