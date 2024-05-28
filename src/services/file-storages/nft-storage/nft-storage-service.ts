@@ -17,7 +17,6 @@
  * limitations under the License.
  *
  */
-import type { Blob } from 'buffer';
 import { dictionary } from '../../../utils/constants/dictionary';
 import { FileStorageUploadUrl, FileStorageURL } from '../../upload-service';
 import { FileStorage } from '../../../types/file-storage-service';
