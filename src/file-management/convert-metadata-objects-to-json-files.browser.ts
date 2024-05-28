@@ -1,8 +1,8 @@
-/*
+/*-
  *
  * Hedera NFT SDK
  *
- * Copyright (C) 2023 Hedera Hashgraph, LLC
+ * Copyright (C) 2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,26 +17,14 @@
  * limitations under the License.
  *
  */
-import { ValidationResult } from '../types/validator';
+import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv';
+import { MetadataObject } from '../types/csv';
 import { dictionary } from '../utils/constants/dictionary';
 
-interface ValidationResults {
-  [key: string]: ValidationResult;
-}
-/**
- * Function below is not browser supported
- * @browserUnsupported
- */
-/**
- * Validate files locally
- *
- * @param {string} relative Relative path to folder containing files
- * @returns {Object<filename<string>, validationResults<Object>>}
- */
-const localValidation = (_: string): ValidationResults => {
+export const convertMetadataObjectsToJsonFiles = async (_: {
+  metadataObjects: MetadataObject[];
+  savedJsonFilesLocation: string;
+  limit?: number;
+}): Promise<JsonMetadataFromCSVInterface> => {
   throw new Error(dictionary.errors.nodeFeature)
-};
-
-export {
-  localValidation,
 };

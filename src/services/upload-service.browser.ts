@@ -46,7 +46,7 @@ export class UploadService {
  * @browserUnsupported
    */
   public async uploadFilesFromPath(_: string[]): Promise<UploadServiceReturn[]> {
-    throw new Error('Not supported in browser.');
+    throw new Error(dictionary.errors.nodeFeature);
   }
 
   public async uploadBlobFiles(files: Blob[]): Promise<UploadServiceReturn[]> {
