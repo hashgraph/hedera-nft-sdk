@@ -98,6 +98,7 @@ export const dictionary = {
     filePermissionDenied: 'Permission denied',
     fileEmptyOrFormattingError: 'Unexpected end of JSON input',
     directoryIsEmpty: 'Directory is empty',
+    invalidCsvFileType: 'Invalid file type. Expected type: "text/csv".'
   },
   hederaActions: {
     mintingError: 'There was an error while minting the NFT.',
