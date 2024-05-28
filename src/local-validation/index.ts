@@ -21,10 +21,10 @@
  * Package below is not browser supported
  * @browserUnsupported
  */
+import path from 'path';
 import { Validator } from '../validator/index';
 import { readFiles, getJSONFilesForPath } from '../helpers/files';
 import { ValidationResult, Instance } from '../types/validator';
-import path from 'path';
 import { dictionary } from '../utils/constants/dictionary';
 
 interface File {
