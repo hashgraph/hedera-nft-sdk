@@ -17,6 +17,10 @@
  * limitations under the License.
  *
  */
+/**
+ * Package below is not browser supported
+ * @browserUnsupported
+ */
 import path from 'path';
 import { Validator } from '../validator/index';
 import { readFiles, getJSONFilesForPath } from '../helpers/files';
@@ -44,6 +48,10 @@ const validateFiles = (files: File[]): ValidationResults => {
   return validationResults;
 };
 
+/**
+ * Function below is not browser supported
+ * @browserUnsupported
+ */
 /**
  * Validate files locally
  *

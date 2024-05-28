@@ -19,7 +19,7 @@
  */
 import type { Blob } from 'buffer';
 import { dictionary } from '../../../utils/constants/dictionary';
-import { randomUUID } from 'crypto';
+import { v4 } from 'uuid';
 import axios, { type AxiosInstance } from 'axios';
 import { FileStorageUploadUrl, FileStorageURL } from '../../upload-service';
 import { FileStorage } from '../../../types/file-storage-service';
@@ -48,13 +48,13 @@ export class PinataService implements FileStorage {
 
   public async uploadFile(file: Blob): Promise<string> {
     const formData = new FormData();
-
+    // @ts-expect-error Argument of type 'Blob' is assignable to parameter of type 'import("buffer").Blob
     formData.append('file', file);
 
     formData.append(
       'pinataMetadata',
       JSON.stringify({
-        name: randomUUID(),
+        name: v4(),
       })
     );
 
@@ -67,12 +67,12 @@ export class PinataService implements FileStorage {
 
     const authorization = this.pinataJwtKey
       ? {
-        Authorization: `Bearer ${this.pinataJwtKey}`,
-      }
+          Authorization: `Bearer ${this.pinataJwtKey}`,
+        }
       : {
-        pinata_api_key: this.pinataApiKey,
-        pinata_secret_api_key: this.pinataSecretApiKey,
-      };
+          pinata_api_key: this.pinataApiKey,
+          pinata_secret_api_key: this.pinataSecretApiKey,
+        };
 
     const res = await this.instance.post(this.uploadUrl, formData, {
       headers: {
