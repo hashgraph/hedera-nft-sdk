@@ -24,7 +24,6 @@ import { myPrivateKey } from '../../__mocks__/consts';
 import { mintToken } from '../../../nftSDKFunctions/mint-token';
 
 jest.mock('fs');
-jest.mock('csv-parser');
 jest.mock('../../../nftSDKFunctions/mint-token');
 
 describe('mintUniqueMetadataFunction', () => {
