@@ -21,6 +21,7 @@ import { getFullSystemPath } from '../../helpers/get-full-system-path';
 
 export const dictionary = {
   errors: {
+    nodeFeature: 'Feature available in Node.js',
     nftDeleted: 'NFT has been deleted.',
     nftNoTransactions: 'NFT has not any transactions yet',
     privateKeyRequired: 'Private key is required',
