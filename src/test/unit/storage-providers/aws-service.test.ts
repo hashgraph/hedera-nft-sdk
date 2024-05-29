@@ -21,7 +21,6 @@ import { AWSService } from '../../../services/file-storages/aws/aws-service';
 import { S3Client } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 import { AWS_RES_DONE } from '../../__mocks__/aws';
-import { Blob } from 'buffer';
 
 jest.mock('@aws-sdk/client-s3');
 jest.mock('@aws-sdk/lib-storage');

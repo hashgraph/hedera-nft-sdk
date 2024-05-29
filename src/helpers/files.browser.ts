@@ -18,6 +18,7 @@
  *
  */
 import { Instance } from '../types/validator';
+import { dictionary } from '../utils/constants/dictionary';
 
 /**
  * Function below is not browser supported
@@ -41,5 +42,5 @@ export const readFiles = (_: string, __: string[]): { filename: string; filedata
  * @returns An array of filenames with extension
  */
 export const getJSONFilesForPath = (_: string): string[] => {
-  throw new Error('Not supported in browser.');
+  throw new Error(dictionary.errors.nodeFeature);
 };
