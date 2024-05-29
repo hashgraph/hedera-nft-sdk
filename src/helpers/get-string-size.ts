@@ -17,7 +17,6 @@
  * limitations under the License.
  *
  */
-import { Blob } from 'buffer';
 
 export const getStringSize = (str?: string): number => {
   if (!str) return 0;

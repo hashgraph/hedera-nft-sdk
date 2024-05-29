@@ -18,6 +18,7 @@
  *
  */
 import { ValidationResult } from '../types/validator';
+import { dictionary } from '../utils/constants/dictionary';
 
 interface ValidationResults {
   [key: string]: ValidationResult;
@@ -33,7 +34,7 @@ interface ValidationResults {
  * @returns {Object<filename<string>, validationResults<Object>>}
  */
 const localValidation = (_: string): ValidationResults => {
-  throw new Error('Not supported in browser.')
+  throw new Error(dictionary.errors.nodeFeature)
 };
 
 export {

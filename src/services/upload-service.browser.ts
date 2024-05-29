@@ -20,7 +20,6 @@
 import filter from 'lodash/filter';
 import isNull from 'lodash/isNull';
 import map from 'lodash/map';
-import { BufferFile } from '../types/buffer-file';
 import { dictionary } from '../utils/constants/dictionary';
 import { errorToMessage } from '../helpers/error-to-message';
 import { NFTMetadata } from '../types/nft-metadata';
@@ -29,9 +28,11 @@ import { FileStorage } from '../types/file-storage-service';
 export type FileStorageURL = `https://${string}/`;
 export type FileStorageUploadUrl = string;
 type UploadServiceReturn = {
-  content: Blob | BufferFile;
+  content: Blob;
   url: string;
 };
+
+const nonEmptyFiles = (file: Blob) => file.size > 0;
 
 export class UploadService {
   private service: FileStorage;
@@ -45,15 +46,29 @@ export class UploadService {
  * @browserUnsupported
    */
   public async uploadFilesFromPath(_: string[]): Promise<UploadServiceReturn[]> {
-    throw new Error('Not supported in browser.');
+    throw new Error(dictionary.errors.nodeFeature);
   }
 
-  /**
-   * Function below is not browser supported
- * @browserUnsupported
-   */
-  public async uploadBlobFiles(_: (Blob | BufferFile)[]): Promise<UploadServiceReturn[]> {
-    throw new Error('Not supported in browser.');
+  public async uploadBlobFiles(files: Blob[]): Promise<UploadServiceReturn[]> {
+    if (files.length < 0) {
+      throw new Error(dictionary.errors.uploadService.noFiles);
+    }
+
+    try {
+      return await Promise.all(
+        map(filter(files, nonEmptyFiles), async (file) => {
+          const url = await this.service.uploadFile(file);
+          return {
+            content: file,
+            url,
+          };
+        })
+      );
+    } catch (e) {
+      const errorMessage = errorToMessage(e);
+
+      throw new Error(errorMessage);
+    }
   }
 
   public async handleBlobUpload(metadata: Partial<NFTMetadata> | NFTMetadata): Promise<UploadServiceReturn | null> {
@@ -63,7 +78,6 @@ export class UploadService {
 
     try {
       const file = new Blob([JSON.stringify(metadata)], { type: 'application/json' });
-      // @ts-expect-error Argument of type 'Blob' is assignable to parameter of type 'import("buffer").Blob
       const url = await this.service.uploadFile(file);
 
       return {

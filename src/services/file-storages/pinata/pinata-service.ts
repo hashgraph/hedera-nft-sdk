@@ -17,7 +17,6 @@
  * limitations under the License.
  *
  */
-import type { Blob } from 'buffer';
 import { dictionary } from '../../../utils/constants/dictionary';
 import { v4 } from 'uuid';
 import axios, { type AxiosInstance } from 'axios';
@@ -48,7 +47,6 @@ export class PinataService implements FileStorage {
 
   public async uploadFile(file: Blob): Promise<string> {
     const formData = new FormData();
-    // @ts-expect-error Argument of type 'Blob' is assignable to parameter of type 'import("buffer").Blob
     formData.append('file', file);
 
     formData.append(
