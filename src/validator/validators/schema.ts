@@ -17,21 +17,23 @@
  * limitations under the License.
  *
  */
-import { Validator, ValidationError } from 'jsonschema';
-const validator = new Validator();
-
+import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
 import { Instance, ValidationResult } from '../../types/validator';
 
-const additionalPropertyMsg = 'is not allowed to have the additional property';
+const ajv = new Ajv({ allErrors: true, strict: false });
+addFormats(ajv);
+
+const additionalPropertyMsg = 'must NOT have additional properties';
 
 /**
- * Distil an errors array from JSON schema into errors and warnings.
- * We want to separate "additional property" errors into warnings because they don't influence the further validatin of the JSON object.
+ * Distil an errors array from AJV into errors and warnings.
+ * We want to separate "additional property" errors into warnings because they don't influence the further validation of the JSON object.
  *
- * @param {ValidationError[]} problems - Errors array from jsonschema
+ * @param {Array} problems - Errors array from AJV
  */
-const distilProblems = (problems: ValidationError[]) => {
-  const { warnings, errors } = problems.reduce<{ warnings: ValidationError[]; errors: ValidationError[] }>(
+const distilProblems = (problems: any[]) => {
+  const { warnings, errors } = problems.reduce<{ warnings: any[]; errors: any[] }>(
     (acc, problem) => {
       if (problem.message.includes(additionalPropertyMsg)) {
         acc.warnings.push(problem);
@@ -50,7 +52,7 @@ const distilProblems = (problems: ValidationError[]) => {
 };
 
 /**
- * The schema validator validates the {instance} against a specific version of the HIP412 metadata standard using jsonschema
+ * The schema validator validates the {instance} against a specific version of the HIP412 metadata standard using jsonschema validation using AJV package
  *
  * @see https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md#default-schema-collectibe-hedera-nfts-format-hip412100
  *
@@ -59,19 +61,21 @@ const distilProblems = (problems: ValidationError[]) => {
  * @returns {ValidationResult} - Contains no, one, or multiple error objects that describe errors for the validated {instance}
  */
 const schemaValidator = (instance: Instance, schema: Object): ValidationResult => {
-  const result = validator.validate(instance, schema);
-  const distilledProblems = distilProblems(result.errors);
+  const validate = ajv.compile(schema);
+  validate(instance);
+
+  const distilledProblems = distilProblems(validate.errors || []);
 
   const errors = distilledProblems.errors.map((error) => ({
     type: 'schema',
     msg: error.message.replace(/\"/g, "'"),
-    path: error.property,
+    path: error.instancePath,
   }));
 
   const warnings = distilledProblems.warnings.map((warning) => ({
     type: 'schema',
     msg: warning.message.replace(/\"/g, "'"),
-    path: warning.property,
+    path: warning.instancePath,
   }));
 
   return {

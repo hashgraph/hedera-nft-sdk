@@ -64,8 +64,8 @@ export { convertCSVToMetadataObjects } from './file-management/convert-csv-to-me
 /**
  * Function below is not browser supported
  * @browserUnsupported
- */
-export { convertMetadataObjectsToJsonFiles } from './file-management/convert-metadata-objects-to-json-files';
+*/
+export { convertMetadataObjectsToJsonFiles } from './file-management/convert-metadata-objects-to-json-files.browser';
 export { prepareMetadataObjectsFromCSVRows } from './file-management/prepare-metadata-objects-from-csv-rows';
 export { getHolderAndDuration } from './get-holder-and-duration';
 

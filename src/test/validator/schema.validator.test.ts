@@ -57,8 +57,8 @@ describe('Schema validator tests', () => {
     expect(schemaProblems.warnings.length).toBe(2);
     expect(schemaProblems.errors.length).toBe(0);
     expect(schemaProblems.warnings[0].type).toBe('schema');
-    expect(schemaProblems.warnings[0].msg).toBe("is not allowed to have the additional property 'checksum'");
-    expect(schemaProblems.warnings[0].path).toBe('instance.attributes[0]');
+    expect(schemaProblems.warnings[0].msg).toBe('must NOT have additional properties');
+    expect(schemaProblems.warnings[0].path).toBe('/attributes/0');
   });
 
   test('it should return validation errors when not providing required properties for the attributes field', () => {
@@ -78,7 +78,7 @@ describe('Schema validator tests', () => {
     expect(schemaProblems.warnings.length).toBe(0);
     expect(schemaProblems.errors.length).toBe(1);
     expect(schemaProblems.errors[0].type).toBe('schema');
-    expect(schemaProblems.errors[0].msg).toBe("requires property 'value'");
-    expect(schemaProblems.errors[0].path).toBe('instance.attributes[0]');
+    expect(schemaProblems.errors[0].msg).toBe("must have required property 'value'");
+    expect(schemaProblems.errors[0].path).toBe('/attributes/0');
   });
 });
