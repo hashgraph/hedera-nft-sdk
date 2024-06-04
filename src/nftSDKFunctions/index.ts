@@ -24,11 +24,23 @@ import { createCollectionFunction } from './create-collection';
 import { increaseNFTSupply } from './increase-nft-supply';
 import { logIn } from './log-in';
 import { mintSharedMetadataFunction } from './mint-shared-metadata-function';
+/**
+ * Function below is not fully browser supported
+ * @browserUnsupported
+ */
 import { mintUniqueMetadataFunction } from './mint-unique-metadata-function';
 import { LocalNode } from '../types/login';
 import { estimateNftMintingInHbar } from './estimate-nft-minting-in-hbar';
 import { estimateNftMintingInDollars } from './estimate-nft-minting-in-dollars';
+/**
+ * Package below is not browser supported
+ * @browserUnsupported
+ */
 import { estimateCreateCollectionInDollars } from './estimate-create-collection-in-dollars';
+/**
+ * Package below is not browser supported
+ * @browserUnsupported
+ */
 import { estimateCreateCollectionInHbar } from './estimate-create-collection-in-hbar';
 
 export class HederaNFTSDK {
@@ -194,21 +206,18 @@ export class HederaNFTSDK {
     tokenId,
     batchSize = 5,
     supplyKey,
-    pathToMetadataURIsFile,
     metadata,
   }: {
     tokenId: string;
     batchSize?: number;
     supplyKey: PrivateKey;
-    pathToMetadataURIsFile?: string;
-    metadata?: string[];
+    metadata: string[];
   }) {
     return mintUniqueMetadataFunction({
       client: this.client,
       tokenId,
       batchSize,
       supplyKey: supplyKey,
-      pathToMetadataURIsFile,
       metadataArray: metadata,
     });
   }

@@ -17,11 +17,14 @@
  * limitations under the License.
  *
  */
-const SEMICOLON_SEPARATOR = ';';
-const COMMA_SEPARATOR = ',';
+import { JsonMetadataFromCSVInterface } from '../types/json-metadata-from-csv';
+import { MetadataObject } from '../types/csv';
+import { dictionary } from '../utils/constants/dictionary';
 
-type Separator = ';' | ',';
-
-export const selectSeparator = (): Separator => {
-  return !!process.env?.CSV_SEPARATOR && process.env?.CSV_SEPARATOR === 'semicolon' ? SEMICOLON_SEPARATOR : COMMA_SEPARATOR;
+export const convertMetadataObjectsToJsonFiles = async (_: {
+  metadataObjects: MetadataObject[];
+  savedJsonFilesLocation: string;
+  limit?: number;
+}): Promise<JsonMetadataFromCSVInterface> => {
+  throw new Error(dictionary.errors.nodeFeature)
 };

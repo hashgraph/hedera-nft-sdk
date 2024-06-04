@@ -17,11 +17,9 @@
  * limitations under the License.
  *
  */
-import fs from 'fs';
 import filter from 'lodash/filter';
 import isNull from 'lodash/isNull';
 import map from 'lodash/map';
-import { BufferFile } from '../types/buffer-file';
 import { dictionary } from '../utils/constants/dictionary';
 import { errorToMessage } from '../helpers/error-to-message';
 import { NFTMetadata } from '../types/nft-metadata';
@@ -30,7 +28,7 @@ import { FileStorage } from '../types/file-storage-service';
 export type FileStorageURL = `https://${string}/`;
 export type FileStorageUploadUrl = string;
 type UploadServiceReturn = {
-  content: Blob | BufferFile;
+  content: Blob;
   url: string;
 };
 
@@ -45,47 +43,10 @@ export class UploadService {
 
   /**
    * Function below is not browser supported
-   * @browserUnsupported
+ * @browserUnsupported
    */
-  public async uploadFilesFromPath(paths: string[]): Promise<UploadServiceReturn[]> {
-    const result = await Promise.all(
-      paths.map(async (path) => {
-        const isDirectory = fs.lstatSync(path).isDirectory();
-        let files: string[] = [];
-
-        if (isDirectory) {
-          files = fs.readdirSync(path).map((file) => `${path}/${file}`);
-        } else {
-          files = [path];
-        }
-
-        if (files.length < 0) {
-          throw new Error(dictionary.errors.uploadService.noFiles);
-        }
-
-        try {
-          return await Promise.all(
-            map(
-              filter(files, (file) => fs.existsSync(file)),
-              async (file) => {
-                const fileContent = fs.readFileSync(file);
-                const blob = new Blob([fileContent]);
-                const url = await this.service.uploadFile(blob);
-
-                return {
-                  content: blob,
-                  url,
-                };
-              }
-            )
-          );
-        } catch (e) {
-          throw new Error(errorToMessage(e));
-        }
-      })
-    );
-
-    return result.flat();
+  public async uploadFilesFromPath(_: string[]): Promise<UploadServiceReturn[]> {
+    throw new Error(dictionary.errors.nodeFeature);
   }
 
   public async uploadBlobFiles(files: Blob[]): Promise<UploadServiceReturn[]> {

@@ -23,14 +23,10 @@ import { AMOUNT_OF_HEADERS, OMITTED_HEADER_COUNT } from '../utils/constants/csv-
 import { dictionary } from '../utils/constants/dictionary';
 import { prepareMetadataObjectsFromCSVRows } from './prepare-metadata-objects-from-csv-rows';
 
-export const convertCSVToMetadataObjects = async (csvFilePath: string, limit?: number): Promise<MetadataObject[]> => {
-  const csvParsedRows = await readCSVFile(csvFilePath, limit);
-
+export const convertCSVToMetadataObjects = async (csvFile: Blob, limit?: number): Promise<MetadataObject[]> => {
+  const csvParsedRows = await readCSVFile(csvFile, limit);
   if (csvParsedRows.length <= AMOUNT_OF_HEADERS - OMITTED_HEADER_COUNT) {
-    throw new Error(dictionary.validation.csvFileIsEmpty(csvFilePath));
+    throw new Error(dictionary.validation.csvFileIsEmpty());
   }
-
-  const metadataObjects = prepareMetadataObjectsFromCSVRows({ csvParsedRows });
-
-  return metadataObjects;
+  return prepareMetadataObjectsFromCSVRows({ csvParsedRows });
 };

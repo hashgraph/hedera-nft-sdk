@@ -17,7 +17,9 @@
  * limitations under the License.
  *
  */
-export const mintingMaxTransactionFee = 20;
+import { MetadataObject } from '../types/csv';
+import { dictionary } from '../utils/constants/dictionary';
 
-export const ZERO_ADDRESS_HEX = '0x0000000000000000000000000000000000000000000000000000000000000000';
-export const ZERO_ADDRESS_PLAIN = '0000000000000000000000000000000000000000000000000000000000000000';
+export const saveMetadataObjectsAsJsonFiles = (_: MetadataObject[], __: string): void => {
+ throw new Error(dictionary.errors.nodeFeature)
+};

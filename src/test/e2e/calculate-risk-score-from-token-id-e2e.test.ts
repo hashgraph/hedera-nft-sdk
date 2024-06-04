@@ -18,10 +18,11 @@
  *
  */
 import { calculateRiskScoreFromTokenId } from '../../risk';
-import { PrivateKey } from '@hashgraph/sdk';
+import { PrivateKey, PublicKey } from '@hashgraph/sdk';
 import { nftSDK } from './e2e-consts';
 import { LONG_E2E_TIMEOUT, MIRROR_NODE_DELAY } from '../__mocks__/consts';
 import { RiskLevels, Weights } from '../../types/risk';
+import { ZERO_ADDRESS_HEX } from '../../utils/const';
 
 describe('calculateRiskScoreFromTokenIdE2E', () => {
   let supplyKey: PrivateKey;
@@ -33,6 +34,7 @@ describe('calculateRiskScoreFromTokenIdE2E', () => {
       collectionSymbol: 'test_symbol_admin',
       keys: {
         supply: supplyKey,
+        freeze: PublicKey.fromStringED25519(ZERO_ADDRESS_HEX),
       },
     });
 
@@ -104,6 +106,17 @@ describe('calculateRiskScoreFromTokenIdE2E', () => {
       const riskResults = await calculateRiskScoreFromTokenId({ tokenId, network: 'testnet', customWeights, customRiskLevels });
       expect(riskResults.riskScore).toBe(220);
       expect(riskResults.riskLevel).toBe('HIGH');
+    },
+    LONG_E2E_TIMEOUT
+  );
+
+  it(
+    'should not include zero address freeze key in risk score calculations',
+    async () => {
+      const riskResults = await calculateRiskScoreFromTokenId({ tokenId, network: 'testnet' });
+      expect(riskResults.riskScore).toBe(40);
+      expect(riskResults.riskLevel).toBe('LOW');
+      expect(riskResults.riskScoreFactors.freeze_key).toBeUndefined();
     },
     LONG_E2E_TIMEOUT
   );

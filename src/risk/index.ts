@@ -21,6 +21,7 @@
 import axios from 'axios';
 import { Metadata, RiskResult, Weights, KeyTypes, RiskLevels, RiskLevel, RiskScoreFactors } from '../types/risk';
 import { getMirrorNodeUrlForNetwork } from '../utils/hedera/get-mirror-node-url-for-network';
+import { ZERO_ADDRESS_PLAIN } from '../utils/const';
 
 type Network = 'mainnet' | 'testnet' | 'previewnet' | 'localNode';
 
@@ -123,9 +124,15 @@ const calculateRiskScore = (metadata: Metadata, customWeights?: Weights): { risk
   // Iterate through the properties of the object
   for (const key in metadata) {
     const typedKey = key as KeyTypes;
+    const keyProperty = metadata[typedKey];
 
+    if (keyProperty && typeof keyProperty === 'object' && 'key' in keyProperty) {
+      if (keyProperty.key === ZERO_ADDRESS_PLAIN) {
+        continue; // Skip this key as it's a zero address and considered no risk
+      }
+    }
     // Check if the property is present in the weights object and not null
-    if (metadata[typedKey] && (typedKey as KeyTypes) in weights.keys) {
+    if (keyProperty && (typedKey as KeyTypes) in weights.keys) {
       // If it is, add the associated risk weight to the risk score
       riskScore += weights.keys[typedKey as KeyTypes];
       riskScoreFactors[typedKey as KeyTypes] = weights.keys[typedKey as KeyTypes];

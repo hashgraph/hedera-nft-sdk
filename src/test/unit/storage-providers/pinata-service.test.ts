@@ -18,7 +18,6 @@
  *
  */
 import { PinataService } from '../../../services/file-storages/pinata/pinata-service';
-import { Blob } from 'buffer';
 import axios from 'axios';
 import { dictionary } from '../../../utils/constants/dictionary';
 

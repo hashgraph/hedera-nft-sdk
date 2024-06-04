@@ -21,6 +21,7 @@ import { getFullSystemPath } from '../../helpers/get-full-system-path';
 
 export const dictionary = {
   errors: {
+    nodeFeature: 'Feature available in Node.js',
     nftDeleted: 'NFT has been deleted.',
     nftNoTransactions: 'NFT has not any transactions yet',
     privateKeyRequired: 'Private key is required',
@@ -41,6 +42,8 @@ export const dictionary = {
         `Attributes not found in file ${fileName}. Please ensure that your metadata file is valid.`,
       attributeNotFoundInObject: (object: string) =>
         `Attributes not found in object ${object}. Please ensure that your metadata file is valid.`,
+      invalidMetadataFile: (fileName: string, error: string) => `Invalid JSON file '${fileName}'! Error: ${error}`,
+      invalidFileType: 'Invalid file type. Expected JSON file.'
     },
     cannotFetchHbarExchangeRate: 'Can not fetch Hbar exchange rate.',
     ipfsGatewayRequired: 'IPFS gateway is required when metadata contains IPFS links.',
@@ -59,6 +62,10 @@ export const dictionary = {
       localizationAlreadySet: 'Localization can only be set once',
       localizatonFieldsMissing: 'Localization uri, default locale, and locales array are required.',
     },
+    validateFiles: {
+      invalidMetadataFile: (fileName: string, error: string) => `Invalid JSON file '${fileName}'! Error: ${error}`,
+      invalidFileType: 'Invalid file type. Expected JSON file.'
+    }
   },
   createCollection: {
     myPrivateKeyRequired: 'myPrivateKey is required',
@@ -95,6 +102,7 @@ export const dictionary = {
     fileEmptyOrFormattingError: 'Unexpected end of JSON input',
     directoryIsEmpty: 'Directory is empty',
     uriIsRequired: 'URI is required',
+    invalidCsvFileType: 'Invalid file type. Expected type: "text/csv".'
   },
   hederaActions: {
     mintingError: 'There was an error while minting the NFT.',
@@ -106,6 +114,8 @@ export const dictionary = {
     metadataRequired: 'metadata is required',
     tooManyCustomFees: 'You can define up to 10 custom fees',
     cannotParseAccountId: 'Cannot parse accountId',
+    pathToMetadataURIsFileNotSupportedInBrowser:
+      'The "pathToMetadataURIsFile" property is Not supported in browser. while trying to mint unique metadata. It is required to pass an array of the metadata.',
   },
   mintToken: {
     pathRequired: 'Path to File required',

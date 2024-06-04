@@ -46,7 +46,9 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
   });
 
   it('convertMetadataObjectsToJsonFiles should complete without errors', async () => {
-    const csvParsedRows = await readCSVFile(CSV_EXAMPLE_WITH_ALL_FIELDS);
+    const bufferFile = fs.readFileSync(CSV_EXAMPLE_WITH_ALL_FIELDS, { encoding: 'utf8' });
+    const blob = new Blob([bufferFile], { type: 'text/csv' });
+    const csvParsedRows = await readCSVFile(blob);
     const metadataObjects = parseCSVRowsToMetadataObjects({
       csvParsedRows,
       headerAttributes: ATTRIBUTES,
@@ -64,7 +66,9 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
   it(
     'convertMetadataObjectsToJsonFiles should create correct number of JSON files based on the CSV file',
     async () => {
-      const csvParsedRows = await readCSVFile(CSV_EXAMPLE_WITH_ALL_FIELDS);
+      const bufferFile = fs.readFileSync(CSV_EXAMPLE_WITH_ALL_FIELDS, { encoding: 'utf8' });
+      const blob = new Blob([bufferFile], { type: 'text/csv' });
+      const csvParsedRows = await readCSVFile(blob);
       const metadataObjects = parseCSVRowsToMetadataObjects({
         csvParsedRows,
         headerAttributes: ATTRIBUTES,
@@ -87,7 +91,9 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
   );
 
   it('Each file should match Hip412MetadataSchema', async () => {
-    const csvParsedRows = await readCSVFile(CSV_EXAMPLE_WITH_ALL_FIELDS);
+    const bufferFile = fs.readFileSync(CSV_EXAMPLE_WITH_ALL_FIELDS, { encoding: 'utf8' });
+    const blob = new Blob([bufferFile], { type: 'text/csv' });
+    const csvParsedRows = await readCSVFile(blob);
     const metadataObjects = parseCSVRowsToMetadataObjects({
       csvParsedRows,
       headerAttributes: ATTRIBUTES,
@@ -112,7 +118,9 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
 
   it('convertMetadataObjectsToJsonFiles should create a limited number of JSON files when nftsLimit is set', async () => {
     const limit = 2;
-    const csvParsedRows = await readCSVFile(CSV_EXAMPLE_WITH_ALL_FIELDS);
+    const bufferFile = fs.readFileSync(CSV_EXAMPLE_WITH_ALL_FIELDS, { encoding: 'utf8' });
+    const blob = new Blob([bufferFile], { type: 'text/csv' });
+    const csvParsedRows = await readCSVFile(blob);
     const metadataObjects = parseCSVRowsToMetadataObjects({
       csvParsedRows,
       headerAttributes: ATTRIBUTES,
@@ -130,7 +138,9 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
   });
 
   it('convertMetadataObjectsToJsonFiles should complete without errors using CSV with only required fields filled', async () => {
-    const csvParsedRows = await readCSVFile(CSV_EXAMPLE_ONLY_REQUIRED_FIELDS);
+    const bufferFile = fs.readFileSync(CSV_EXAMPLE_ONLY_REQUIRED_FIELDS, { encoding: 'utf8' });
+    const blob = new Blob([bufferFile], { type: 'text/csv' });
+    const csvParsedRows = await readCSVFile(blob);
     const metadataObjects = parseCSVRowsToMetadataObjects({
       csvParsedRows,
       headerAttributes: ATTRIBUTES,
@@ -146,7 +156,9 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
   });
 
   it('convertMetadataObjectsToJsonFiles should complete without errors using CSV with only required fields and headers filled', async () => {
-    const csvParsedRows = await readCSVFile(CSV_EXAMPLE_ONLY_REQUIRED_FIELDS_AND_HEADERS);
+    const bufferFile = fs.readFileSync(CSV_EXAMPLE_ONLY_REQUIRED_FIELDS_AND_HEADERS, { encoding: 'utf8' });
+    const blob = new Blob([bufferFile], { type: 'text/csv' });
+    const csvParsedRows = await readCSVFile(blob);
     const metadataObjects = parseCSVRowsToMetadataObjects({
       csvParsedRows,
       headerAttributes: ATTRIBUTES,
@@ -162,7 +174,9 @@ describe('convertMetadataObjectsToJsonFiles Integration Test', () => {
   });
 
   it('convertMetadataObjectsToJsonFiles should return errors for missing required fields in CSV', async () => {
-    const csvParsedRows = await readCSVFile(CSV_EXAMPLE_WITH_MISSING_REQUIRED_FIELDS);
+    const bufferFile = fs.readFileSync(CSV_EXAMPLE_WITH_MISSING_REQUIRED_FIELDS, { encoding: 'utf8' });
+    const blob = new Blob([bufferFile], { type: 'text/csv' });
+    const csvParsedRows = await readCSVFile(blob);
     const metadataObjects = parseCSVRowsToMetadataObjects({
       csvParsedRows,
       headerAttributes: ATTRIBUTES,
