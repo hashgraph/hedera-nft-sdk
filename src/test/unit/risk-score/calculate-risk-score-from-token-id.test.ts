@@ -55,6 +55,7 @@ describe('calculateRiskScoreFromTokenId', () => {
         kyc_key: 5,
         pause_key: 5,
         fee_schedule_key: 4,
+        metadata_key: 20,
       },
       properties: {
         supply_type_infinite: 20,
@@ -83,6 +84,7 @@ describe('calculateRiskScoreFromTokenId', () => {
         kyc_key: 50,
         pause_key: 50,
         fee_schedule_key: 40,
+        metadata_key: 500,
       },
       properties: {
         supply_type_infinite: 200,
@@ -154,6 +156,7 @@ describe('calculateRiskScoreFromTokenId', () => {
         kyc_key: 50,
         pause_key: 50,
         fee_schedule_key: 50,
+        metadata_key: 500,
       },
       properties: {
         supply_type_infinite: 200,
@@ -173,7 +176,8 @@ describe('calculateRiskScoreFromTokenId', () => {
       customWeights,
       customRiskLevels,
     });
-    expect(riskScore).toBe(1500);
+
+    expect(riskScore).toBe(2000);
     expect(riskLevel).toBe('HIGH');
     expect(riskScoreFactors).toEqual({
       supply_key: 250,
@@ -183,6 +187,7 @@ describe('calculateRiskScoreFromTokenId', () => {
       freeze_key: 100,
       pause_key: 50,
       wipe_key: 500,
+      metadata_key: 500,
     });
   });
 });

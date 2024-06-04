@@ -125,6 +125,9 @@ const validateAutoRenewAccount = (props: validateCreateCollectionProps) => {
     if ((props.autoRenewAccount && !props.autoRenewAccountPrivateKey) || (!props.autoRenewAccount && props.autoRenewAccountPrivateKey)) {
       throw new Error(dictionary.createCollection.autoRenewAccountPrivateKeySignRequired);
     }
+    if (props.autoRenewPeriod && (!props.autoRenewAccount || !props.autoRenewAccountPrivateKey)) {
+      throw new Error(dictionary.createCollection.autoRenewPeriodValidation);
+    }
   }
 };
 

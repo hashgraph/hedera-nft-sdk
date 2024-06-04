@@ -110,6 +110,10 @@ export const createCollectionFunction = async ({
     transaction = transaction.setTokenMemo(memo);
   }
 
+  if (keys?.metadataKey) {
+    transaction = transaction.setMetadataKey(keys?.metadataKey);
+  }
+
   transaction = transaction.freezeWith(client);
 
   let signTx = await transaction.sign(<PrivateKey>treasuryAccountPrivateKeyId);
