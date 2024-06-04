@@ -117,7 +117,7 @@ export const createCollectionFunction = async ({
   }
 
   if (metadata) {
-    const encodedMetadata = Buffer.from(metadata);
+    const encodedMetadata = new TextEncoder().encode(metadata);
     transaction = transaction.setMetadata(encodedMetadata);
   }
 
