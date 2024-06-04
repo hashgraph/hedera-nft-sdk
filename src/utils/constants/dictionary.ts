@@ -76,6 +76,7 @@ export const dictionary = {
     collectionNotCreated: 'Something went wrong while creating the collection',
     autoRenewAccountPrivateKeySignRequired:
       'If you want to use autoRenewAccount to sign, you need to pass the autoRenewAccountPrivateKey also',
+    autoRenewPeriodValidation: 'Both autoRenewAccount and autoRenewAccountPrivateKey must be provided if autoRenewPeriod is specified',
     hbarAmountOrAmountAndDenominatingToken:
       'Either hbarAmount should be set and both amount and denominatingTokenId should not be set, or amount and denominatingTokenId should be set and hbarAmount should not be set.',
   },

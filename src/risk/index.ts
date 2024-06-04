@@ -35,6 +35,7 @@ const defaultWeights: Weights = {
     kyc_key: 50,
     pause_key: 50,
     fee_schedule_key: 40,
+    metadata_key: 200,
   },
   properties: {
     supply_type_infinite: 20,
