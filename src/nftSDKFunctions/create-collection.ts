@@ -120,6 +120,10 @@ export const createCollectionFunction = async ({
     const encodedMetadata = new TextEncoder().encode(metadata);
     transaction = transaction.setMetadata(encodedMetadata);
   }
+  
+  if (keys?.metadataKey) {
+    transaction = transaction.setMetadataKey(keys?.metadataKey);
+  }
 
   transaction = transaction.freezeWith(client);
 
