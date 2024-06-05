@@ -18,12 +18,12 @@
  *
  */
 import { NFTDetails, DecodedMetadata } from '../types/nfts';
-import { decodeMetadataUrl } from './decode-metadata-url';
+import { decodeMetadataURL } from './decode-metadata-url';
 
 export const uriDecoder = (nfts: NFTDetails | NFTDetails[], ipfsGateway?: string): DecodedMetadata[] => {
   const nftsArray = Array.isArray(nfts) ? nfts : [nfts];
   const decodedMetadataArray: DecodedMetadata[] = nftsArray.map((nft: NFTDetails) => {
-    const decodedNFTMetadata = decodeMetadataUrl(nft.metadata, ipfsGateway);
+    const decodedNFTMetadata = decodeMetadataURL(nft.metadata, ipfsGateway, true);
 
     return {
       metadata: decodedNFTMetadata,

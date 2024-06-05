@@ -34,9 +34,7 @@ type UploadServiceReturn = {
   url: string;
 };
 
-const nonEmptyFiles = (file: Blob | BufferFile): boolean => {
-  return file instanceof Blob ? file.size > 0 : !file.isFileEmpty;
-};
+const nonEmptyFiles = (file: Blob) => file.size > 0;
 
 export class UploadService {
   private service: FileStorage;
@@ -47,7 +45,7 @@ export class UploadService {
 
   /**
    * Function below is not browser supported
- * @browserUnsupported
+   * @browserUnsupported
    */
   public async uploadFilesFromPath(paths: string[]): Promise<UploadServiceReturn[]> {
     const result = await Promise.all(
@@ -72,7 +70,6 @@ export class UploadService {
               async (file) => {
                 const fileContent = fs.readFileSync(file);
                 const blob = new Blob([fileContent]);
-                // @ts-expect-error Argument of type 'Blob' is assignable to parameter of type 'import("buffer").Blob
                 const url = await this.service.uploadFile(blob);
 
                 return {
@@ -91,11 +88,7 @@ export class UploadService {
     return result.flat();
   }
 
-  /**
-   * Function below is not browser supported
- * @browserUnsupported
-   */
-  public async uploadBlobFiles(files: (Blob | BufferFile)[]): Promise<UploadServiceReturn[]> {
+  public async uploadBlobFiles(files: Blob[]): Promise<UploadServiceReturn[]> {
     if (files.length < 0) {
       throw new Error(dictionary.errors.uploadService.noFiles);
     }
@@ -103,19 +96,7 @@ export class UploadService {
     try {
       return await Promise.all(
         map(filter(files, nonEmptyFiles), async (file) => {
-          let fileToUpload: Blob | null = null;
-
-          if (file instanceof Blob) {
-            fileToUpload = file;
-          } else {
-            const fileContent = fs.readFileSync(file.filePath);
-
-            fileToUpload = new Blob([fileContent]);
-          }
-
-          // @ts-expect-error Argument of type 'Blob' is assignable to parameter of type 'import("buffer").Blob
-          const url = await this.service.uploadFile(fileToUpload);
-
+          const url = await this.service.uploadFile(file);
           return {
             content: file,
             url,
@@ -136,7 +117,6 @@ export class UploadService {
 
     try {
       const file = new Blob([JSON.stringify(metadata)], { type: 'application/json' });
-      // @ts-expect-error Argument of type 'Blob' is assignable to parameter of type 'import("buffer").Blob
       const url = await this.service.uploadFile(file);
 
       return {

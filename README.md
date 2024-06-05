@@ -6,10 +6,10 @@
 
 </div>
 
-This package includes all sorts of tooling for the Hedera NFT ecosystem, including:
+This package includes all sorts of tooling for the Hedera NFT ecosystem. Some additional features are available only in Node.js e.g: **Local token metadata validator**. 
 
-1. **Local token metadata validator:** Verify your metadata locally against the [token metadata schema](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2) for NFTs, which returns errors and warnings against the standard. You can also define your own token metadata standard and add it to the package to use this schema for validation.
-2. **Local metadata validator:** Verify a local folder containing multiple JSON metadata files against the token metadata schema before publishing the NFT collection on the Hedera network.
+1. **Token metadata validator** Verify your metadata against the [token metadata schema](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2) for NFTs, which returns errors and warnings against the standard. You can also define your own token metadata standard and add it to the package to use this schema for validation.
+2. **Local metadata validator - available in Node.js:** Verify a local folder containing multiple JSON metadata files against the token metadata schema before publishing the NFT collection on the Hedera network.
 3. **Risk score calculation:** Calculate a risk score for an NFT collection from the token information or by passing a token ID of an NFT on the Hedera testnet or mainnet.
 4. **Rarity score calculation:** Calculate the rarity scores for a local folder containing multiple JSON metadata files for an NFT collection.
 5. **Trait occurrence calculation:** Calculate how often different values for a given trait occur in a collection, percentage-based.
@@ -18,10 +18,10 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 8. **Metadata Validator:** A tool for validating metadata objects according to [token metadata schema](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2), providing comprehensive verification of metadata compliance with the selected standard.
 9. **Metadata Builder:** Enables the creation and assembly of NFT metadata objects in a structured format and conducts instant validation within its build method, ensuring adherence to [token metadata schema](https://docs.hedera.com/hedera/tutorials/token/structure-your-token-metadata-using-json-schema-v2) prior to deployment.
 10. **Convert CSV To Metadata Objects:** Facilitates the conversion of CSV file data into structured metadata objects, streamlining the initial stages of NFT metadata preparation.
-11. **Convert Metadata Objects to JSON Files:** Transforms validated metadata objects into JSON files, ensuring that NFT metadata is properly formatted and stored for deployment.
+11. **Convert Metadata Objects to JSON Files - available in Node.js:** Transforms validated metadata objects into JSON files, ensuring that NFT metadata is properly formatted and stored for deployment.
 12. **Prepare Metadata Objects From CSV Rows:** Processes rows of CSV data into ready to validate metadata objects, bridging the gap between raw data collection and NFT metadata standardization.
 13. **Upload Service:** Provides tools for uploading files to your chosen file storage service, including:
-    - **uploadFilesFromPath:** Uploads all files from given directory paths or specific files to the configured storage service and returns URLs to the uploaded files.
+    - **uploadFilesFromPath  - available in Node.js:** Uploads all files from given directory paths or specific files to the configured storage service and returns URLs to the uploaded files.
     - **uploadBlobFiles:** Handles the upload of blob files or buffer files and returns URLs to these files, ensuring that files are not empty before upload.
     - **handleBlobUpload:** Specifically designed for uploading NFT metadata as JSON blobs, generating a URL where the metadata is stored.
     - **uploadMetadataList:** Allows for batch uploading of NFT metadata, handling each metadata item individually and compiling the resulting URLs.
@@ -30,12 +30,13 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
     - **PinataService:** Utilizes Pinata Cloud to pin files to IPFS, providing an `ipfs://` URL upon successful upload. Includes metadata and options customization.
     - **NftStorageService:** Integrates with the NFT.storage API to upload files directly to IPFS and returns an `ipfs://` URL. It supports dynamic API key usage based on a provided list.
     - **MockStorageService:** A mock storage service for testing purposes, returning predefined URLs.
+15. **Collection Metadata Validation** Provides a possibility to validate the collection metadata of a collection against the [HIP-766 metadata schema](https://hips.hedera.com/hip/hip-766). This method can handle both direct HTTP(S) URLs or IPFS CIDs as input. If an IPFS CID is provided without a full URL, the method will attempt to use an IPFS gateway to retrieve the metadata. The IPFS gateway parameter is optional; if not specified and required (i.e., when a CID is provided without a full URL), the method will throw an error indicating that the IPFS gateway is required. This ensures that the metadata conforms to the standards required for NFT collections on the Hedera network. The validator provides a thorough check, highlighting any errors or missing fields in the collection metadata structure.
 
 ## Table of Contents
 
 - **How to build the package**
-- **Package: [Local token metadata validator](#local-token-metadata-validator)**
-- **Package: [Local metadata validator](#local-validator)**
+- **Package: [Token metadata validator](#local-token-metadata-validator)**
+- **Package: [Local metadata validator - available in Node.js](#local-validator)**
 - **Package: [Risk score calculation](#risk-score-calculation)**
 - **Package: [Rarity score calculation](#rarity-score-calculation)**
 - **Package: [Trait occurrence calculation](#trait-occurrence-calculation)**
@@ -44,11 +45,11 @@ This package includes all sorts of tooling for the Hedera NFT ecosystem, includi
 - **Package: [Metadata Validator](#metadata-validator)**
 - **Package: [Metadata Builder](#metadata-builder)**
 - **Package: [Convert CSV To Metadata Objects](#convert-csv-to-metadata-objects)**
-- **Package: [Convert Metadata Objects to JSON Files](#convert-metadata-objects-to-json-files)**
+- **Package: [Convert Metadata Objects to JSON Files - available in Node.js](#convert-metadata-objects-to-json-files)**
 - **Package: [Prepare Metadata Objects From CSV Rows](#prepare-metadata-objects-from-csv-rows)**
-- **Package: [Upload Service](#upload-service)**
+- **Package: [Upload Service - with Node.js features](#upload-service)**
 - **Package: [File Storage Services](#file-storage-services)**
-- **[Changes in browser bundle](#changes-in-browser-bundle)**
+- **Package: [Collection Metadata Validation](#collection-metadata-validation)**
 - **[Questions, contact us, or improvement proposals?](#questions-or-improvement-proposals)**
 - **[Support](#Support)**
 - **[Contributing](#Contributing)**
@@ -319,6 +320,7 @@ const defaultWeights = {
     kyc_key: 50,
     pause_key: 50,
     fee_schedule_key: 40,
+    metadata_key: 200,
   },
   properties: {
     supply_type_infinite: 20,
@@ -393,6 +395,7 @@ const customWeights: Weights = {
     kyc_key: 50,
     pause_key: 50,
     fee_schedule_key: 40,
+    metadata_key: 200,
   },
   properties: {
     supply_type_infinite: 20,
@@ -445,17 +448,32 @@ Install the package:
 npm i -s @hashgraph/hedera-nft-sdk
 ```
 
-Import the package into your project and get `calculateRarity` function. Next, you need to pass a relative path to a folder containing metadata JSON files.
+Import the package into your project and get `calculateRarity` function. Next, you need to pass an array of your metadata files: 
+
+```js
+  [
+    { 
+      fileName: '1.json', 
+      file: new Blob[JSON.stringify("{ name: 'Nft name', ...} "), { type: 'application/json'}]
+    }
+  ]
+```
 
 ```js
 const { calculateRarity } = require('@hashgraph/hedera-nft-sdk');
 
-const relativePathToFiles = './examples/local-metadata-validator/files';
-const results = calculateRarity(relativePathToFiles);
+const metadataFiles = [
+  { 
+    fileName: '1.json', 
+    file: new Blob[JSON.stringify("{ name: 'Nft name', ...}"), { type: 'application/json' }]
+  }
+]
+
+const results = await calculateRarity(metadataFiles);
 console.log(results);
 ```
 
-You can also avoid having to load data from files by using the `calculateRarityFromData` function.
+You can also avoid having to load data with Blob interface and instead use `calculateRarityFromData` function.
 
 ```js
 const NFTdata = [
@@ -543,7 +561,6 @@ Here's a sample output. The total sum of the individual attributes is always 100
 
 See:
 
-- **[/examples/rarity-score-calculation/rarity-from-files.js](https://github.com/hashgraph/hedera-nft-sdk/tree/main/examples/rarity-score-calculation)**
 - **[/examples/rarity-score-calculation/rarity-from-data.js](https://github.com/hashgraph/hedera-nft-sdk/tree/main/examples/rarity-score-calculation)**
 
 ## Trait occurrence calculation
@@ -1506,16 +1523,20 @@ The `convertCSVToMetadataObjects` function is designed to transform CSV files in
 
 ### Usage
 
-To convert a CSV file into an array of metadata objects, you need to provide the path to the CSV file. Optionally, you can also specify a limit to control the number of rows processed from the CSV file.
+To convert a CSV file into an array of metadata objects, you need to provide the CSV file. Optionally, you can also specify a limit to control the number of rows processed from the CSV file.
 
 ```ts
-const csvFilePath = 'path/to/your/csv-file.csv';
-const metadataObjects = await convertCSVToMetadataObjects(csvFilePath, 100);
+function convertCSV(csvFile: File) {
+  const metadataObjects = await convertCSVToMetadataObjects(csvFile, 100);
+}
+// or
+const csvBlob = new Blob(['csv string'], { type: 'text/csv' })
+const metadataObjects = await convertCSVToMetadataObjects(csvBlob, 100);
 ```
 
 ### Parameters
 
-- `csvFilePath`: A string that specifies the path to the CSV file containing the NFT metadata information,
+- `csvFile`: instance that fulfils Blob interface,
 - `limit`: An optional parameter that defines the maximum number of rows to be processed from the CSV file. If not provided, all rows in the file will be processed.
 
 <strong>Important!</strong> The first two lines in the csv file are headers and they are skipped. You can find a valid csv example at the path `src/test/__mocks__/csv/csv-example-with-all-fields`
@@ -1530,7 +1551,7 @@ If the CSV file contains fewer data rows than the headers (after omitting specif
 
 ---
 
-## Convert Metadata Objects to JSON Files
+## Convert Metadata Objects to JSON Files - available in Node.js
 
 The `convertMetadataObjectsToJsonFiles` function streamlines the process of converting an array of NFT metadata objects into individual JSON files. This utility is particularly useful for batch processing and storage of NFT metadata, facilitating easy upload and management of NFT collections. Before conversion, it validates each metadata object against the token metadata schema to ensure compliance.
 
@@ -1613,7 +1634,7 @@ The Upload Service class is a versatile component of the SDK that facilitates th
 
 The class methods offer diverse functionalities to upload files from paths, blob objects, buffer files, and NFT metadata, catering to different needs of the NFT ecosystem.
 
-1. `uploadFilesFromPath` - Uploads files from given directory paths or specific file paths to the configured storage service and returns URLs to the uploaded files.
+1. `uploadFilesFromPath` - available in Node.js - Uploads files from given directory paths or specific file paths to the configured storage service and returns URLs to the uploaded files.
 
 ### Usage
 
@@ -1654,7 +1675,7 @@ This method returns an array of objects, each detailing the content of the uploa
 
 ```ts
 type UploadServiceReturn = {
-  content: Blob | BufferFile;
+  content: Blob;
   url: string;
 }[];
 ```
@@ -1690,8 +1711,8 @@ type UploadServiceReturn = {
 ### Usage
 
 ```ts
-const metadatas = [{ name: 'NFT 1' }, { name: 'NFT 2' }];
-const metadataListUploadResults = await uploadService.uploadMetadataList(metadatas);
+const metadata = [{ name: 'NFT 1' }, { name: 'NFT 2' }];
+const metadataListUploadResults = await uploadService.uploadMetadataList(metadata);
 ```
 
 ### Output
@@ -1810,30 +1831,49 @@ type UploadResult = {
 ```
 
 ---
-## Changes in browser bundle
+## Node.js features in browser bundle:
+  - **Local metadata validator**
+  - **Convert Metadata Objects to JSON Files**
+  - **Upload Service - uploadFilesFromPath**
 
-1. **Removal of [Convert CSV To Metadata Objects](#convert-csv-to-metadata-objects)**:
-   - Removed the `convertCSVToMetadataObjects` function. This function directly accesses files from the user's file system, which is not supported in a browser environment.
-
-2. **Updates in Package [NFT SDK Methods](#nft-sdk-methods)**:
-   - **Functions `estimateCreateCollectionInDollars` and `estimateCreateCollectionInHbar`:** Both functions use the `get-string-size` module, which relies on `Blob` (a factory for `Buffer` not accessible in browsers) to calculate byte string sizes.
-   - **Function: `mintUniqueMetadataFunction`**: This function allows passing a file path for metadata URIs, which is not feasible in a browser environment. Browsers cannot access the local file system.
-
-3. **Updates in Package [Upload Service](#upload-service)**:
-   - **Function: `uploadFilesFromPath`**: This method uses the `fs` library to upload files from the disk, which is not supported in a browser environment. Browsers cannot access the local file system.
-
-4. **Updates in Package [Convert Metadata Objects to JSON Files](#convert-metadata-objects-to-json-files)**:
-   - **Function: `convertMetadataObjectsToJsonFiles`**: This function attempts to save files to the file system, which is not possible in a browser environment. Browsers cannot access the local file system.
-
-5. **Updates in Package [Local metadata validator](#local-validator)**:
-   - **Local metadata validator**: The `Local metadata validator` method relies on the `fs` and `path` packages to read JSON files from the disk, which is unsupported in browsers.
-
-6. **Updates in Package [Rarity score calculation](#rarity-score-calculation)**:
-   - **Function: `calculateRarity`**: The `calculateRarity` (from JSON files) method relies on the `fs` and `path` packages to read JSON files from the disk, which is unsupported in browsers. This particular method is not supported in browser.
+Listed features utilized in browser environment will throw an error.
 
 ## Build
 
 After downloading the repo run `npm run build` to build the SDK.
+
+## Collection Metadata Validation
+
+The `validateCollectionMetadata` validates the metadata of a collection against the [HIP-766 metadata schema](https://hips.hedera.com/hip/hip-766) using a specified IPFS gateway to retrieve the metadata. This method ensures that the metadata conforms to the standards required for NFT collections on the Hedera network, offering a comprehensive check that highlights any errors or missing fields in the metadata structure.
+
+### Usage
+
+```ts
+const collectionMetadataValidationResult = await validateCollectionMetadata(metadataURL, ipfsGateway);
+```
+
+### Parameters
+
+- `metadataURL`: The URL or CID pointing to the metadata file. This can be a direct HTTP(S) URL or an IPFS CID. If only a CID is provided, an IPFS gateway URL must be specified unless the CID is already included in a full URL format.
+- `ipfsGateway`: Optional. Specifies the IPFS gateway URL to be used for resolving a CID to an HTTP URL. If not provided, and a CID without a full URL is used, the method will throw an error indicating the necessity for an IPFS gateway.
+
+### Output
+
+This method returns an object that contains:
+
+- `isValid`: A boolean flag indicating whether the metadata conforms to the HIP-766 metadata schema.
+- `errors`: An array of strings detailing any issues found during the validation process. This array is empty if no errors are present.
+
+### Example result
+
+```ts
+type ValidationResult = {
+  isValid: boolean;
+  errors: string[];
+};
+```
+
+---
 
 ## Questions or Improvement Proposals
 

@@ -21,6 +21,7 @@ import { getFullSystemPath } from '../../helpers/get-full-system-path';
 
 export const dictionary = {
   errors: {
+    nodeFeature: 'Feature available in Node.js',
     nftDeleted: 'NFT has been deleted.',
     nftNoTransactions: 'NFT has not any transactions yet',
     privateKeyRequired: 'Private key is required',
@@ -30,6 +31,7 @@ export const dictionary = {
     awsUploadIssue: 'Error encountered using AWS SDK. Please restart the app and try again.',
     awsUploadingError: (message: string) => `Failed to upload file to AWS S3: ${message}`,
     noApiKeys: 'Please provide at least one API key to use "NFT.storage".',
+    failedToFetchMetadata: 'Failed to fetch metadata',
     uploadService: {
       noFiles: 'No files to upload.',
       noMetadata: 'No metadata to upload.',
@@ -40,6 +42,8 @@ export const dictionary = {
         `Attributes not found in file ${fileName}. Please ensure that your metadata file is valid.`,
       attributeNotFoundInObject: (object: string) =>
         `Attributes not found in object ${object}. Please ensure that your metadata file is valid.`,
+      invalidMetadataFile: (fileName: string, error: string) => `Invalid JSON file '${fileName}'! Error: ${error}`,
+      invalidFileType: 'Invalid file type. Expected JSON file.'
     },
     cannotFetchHbarExchangeRate: 'Can not fetch Hbar exchange rate.',
     ipfsGatewayRequired: 'IPFS gateway is required when metadata contains IPFS links.',
@@ -58,6 +62,10 @@ export const dictionary = {
       localizationAlreadySet: 'Localization can only be set once',
       localizatonFieldsMissing: 'Localization uri, default locale, and locales array are required.',
     },
+    validateFiles: {
+      invalidMetadataFile: (fileName: string, error: string) => `Invalid JSON file '${fileName}'! Error: ${error}`,
+      invalidFileType: 'Invalid file type. Expected JSON file.'
+    }
   },
   createCollection: {
     myPrivateKeyRequired: 'myPrivateKey is required',
@@ -69,6 +77,7 @@ export const dictionary = {
     collectionNotCreated: 'Something went wrong while creating the collection',
     autoRenewAccountPrivateKeySignRequired:
       'If you want to use autoRenewAccount to sign, you need to pass the autoRenewAccountPrivateKey also',
+    autoRenewPeriodValidation: 'Both autoRenewAccount and autoRenewAccountPrivateKey must be provided if autoRenewPeriod is specified',
     hbarAmountOrAmountAndDenominatingToken:
       'Either hbarAmount should be set and both amount and denominatingTokenId should not be set, or amount and denominatingTokenId should be set and hbarAmount should not be set.',
   },
@@ -92,6 +101,8 @@ export const dictionary = {
     filePermissionDenied: 'Permission denied',
     fileEmptyOrFormattingError: 'Unexpected end of JSON input',
     directoryIsEmpty: 'Directory is empty',
+    uriIsRequired: 'URI is required',
+    invalidCsvFileType: 'Invalid file type. Expected type: "text/csv".'
   },
   hederaActions: {
     mintingError: 'There was an error while minting the NFT.',

@@ -18,7 +18,8 @@
  *
  */
 import { MetadataObject } from '../types/csv';
+import { dictionary } from '../utils/constants/dictionary';
 
 export const saveMetadataObjectsAsJsonFiles = (_: MetadataObject[], __: string): void => {
- throw new Error('Not supported in browser.')
+ throw new Error(dictionary.errors.nodeFeature)
 };

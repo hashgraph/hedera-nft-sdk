@@ -16,10 +16,8 @@
  * limitations under the License.
  *
  */
-import path from 'path';
-import { readFiles, getJSONFilesForPath } from '../helpers/files';
-import { RarityResult, AttributeConfig, ValueObject, NFTFile, TraitOccurrence } from '../types/rarity';
-import { Attribute } from '../types/validator';
+import { RarityResult, AttributeConfig, ValueObject, TraitOccurrence, NFTFile } from '../types/rarity';
+import { Attribute, Instance } from '../types/validator';
 import { NFTMetadata } from '../types/nft-metadata';
 import { NetworkName } from '@hashgraph/sdk/lib/client/Client';
 import { getNftMetadataFromCollection } from '../helpers/get-nft-metadatas-from-collection';
@@ -31,16 +29,33 @@ import { MetadataObject } from '../types/csv';
  * @param {string} relativePath Relative path to folder with metadata files for rarity calculation
  * @return {RarityResult[]} Array of objects with rarity information for each NFT
  */
-const calculateRarity = (relativePath: string): RarityResult[] => {
-  const absolutePath = path.resolve(relativePath)
-  const filenames = getJSONFilesForPath(absolutePath);
-  const files = readFiles(absolutePath, filenames);
 
-  const attributesMap = getAttributeMap(files);
+interface BlobFileInput {
+  fileName: string;
+  file: Blob;
+}
+
+const calculateRarity = async (files: BlobFileInput[]): Promise<RarityResult[]> => {
+  const metadataFiles = await Promise.all(
+    files.map(async ({ file, fileName }) => {
+      if (!file.type.includes('application/json')) {
+        throw new Error(dictionary.errors.rarity.invalidFileType);
+      }
+      try {
+        const blobAsText = await file.text();
+        const metadataObject = JSON.parse(blobAsText) as Instance;
+        return { filename: fileName, filedata: metadataObject };
+      } catch (error) {
+        throw new Error(dictionary.errors.rarity.invalidMetadataFile(fileName, JSON.parse(error)));
+      }
+    })
+  );
+
+  const attributesMap = getAttributeMap(metadataFiles);
 
   const normalizedRarities: RarityResult[] = [];
   let normalizedCount = 1;
-  files.forEach((file) => {
+  metadataFiles.forEach((file) => {
     const traitRarities: { trait: string; value: string | number; rarity: number }[] = [];
 
     file.filedata.attributes.forEach((NFTAttribute: Attribute) => {

@@ -29,7 +29,14 @@ export type CreateCollectionKeysType = {
   supply?: Key;
   feeSchedule?: Key;
   pause?: Key;
+  metadataKey?: Key;
 };
+
+export interface SocialLink {
+  url: string;
+  label: string;
+  info?: string;
+}
 
 export type CreateCollectionType = {
   client: Client;
@@ -46,4 +53,5 @@ export type CreateCollectionType = {
   autoRenewAccountPrivateKey?: PrivateKey;
   autoRenewPeriod?: number;
   memo?: string;
+  metadata?: string;
 };

@@ -24,7 +24,6 @@ import { validatePropsForUniqueNFTMinting } from '../utils/validate-props';
  * Package below is not browser supported
  * @browserUnsupported
  */
-import { getDataFromFile } from '../helpers/get-data-from-file';
 import { MintingError } from '../utils/minting-error';
 import { mintToken } from './mint-token';
 
@@ -33,29 +32,22 @@ export const mintUniqueMetadataFunction = async ({
   tokenId,
   batchSize = 5,
   supplyKey,
-  pathToMetadataURIsFile,
   metadataArray,
 }: MintUniqueTokenType) => {
   validatePropsForUniqueNFTMinting({
     batchSize,
     tokenId,
-    pathToMetadataURIsFile,
     supplyKey,
     metadataArray,
   });
   const mintedNFTs: MintedNFTType[] = [];
 
-  /**
-   * Function 'getDataFromFile' below is not browser supported
- * @browserUnsupported
-   */
-  const metaData = pathToMetadataURIsFile ? await getDataFromFile(pathToMetadataURIsFile) : metadataArray || [];
-  if (!metaData.length) throw new Error(dictionary.hederaActions.metadataRequired);
+  if (!metadataArray.length) throw new Error(dictionary.hederaActions.metadataRequired);
 
   try {
-    const numberOfCalls = Math.ceil(metaData.length / batchSize);
+    const numberOfCalls = Math.ceil(metadataArray.length / batchSize);
     for (let i = 0; i < numberOfCalls; i++) {
-      const batch = metaData.slice(i * batchSize, (i + 1) * batchSize);
+      const batch = metadataArray.slice(i * batchSize, (i + 1) * batchSize);
       const mintTokenReceipt = await mintToken(batch, tokenId, supplyKey, client);
 
       const result: MintedNFTType[] = mintTokenReceipt?.serials.map((longValue, index) => {

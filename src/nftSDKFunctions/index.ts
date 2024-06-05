@@ -84,6 +84,7 @@ export class HederaNFTSDK {
     autoRenewAccountPrivateKey,
     autoRenewPeriod,
     memo,
+    metadata,
   }: {
     collectionName: string;
     collectionSymbol: string;
@@ -97,6 +98,7 @@ export class HederaNFTSDK {
     autoRenewAccountPrivateKey?: PrivateKey;
     autoRenewPeriod?: number;
     memo?: string;
+    metadata?: string;
   }) {
     return createCollectionFunction({
       client: this.client,
@@ -113,13 +115,10 @@ export class HederaNFTSDK {
       autoRenewAccountPrivateKey,
       autoRenewPeriod,
       memo,
+      metadata,
     });
   }
 
-  /**
-   * Function below is not browser supported
- * @browserUnsupported
-   */
   estimateCreateCollectionInDollars({
     collectionName,
     collectionSymbol,
@@ -145,10 +144,6 @@ export class HederaNFTSDK {
     });
   }
 
-  /**
-   * Function below is not fully browser supported
- * @browserUnsupported
-   */
   estimateCreateCollectionInHbar({
     collectionName,
     collectionSymbol,
@@ -211,21 +206,18 @@ export class HederaNFTSDK {
     tokenId,
     batchSize = 5,
     supplyKey,
-    pathToMetadataURIsFile,
     metadata,
   }: {
     tokenId: string;
     batchSize?: number;
     supplyKey: PrivateKey;
-    pathToMetadataURIsFile?: string;
-    metadata?: string[];
+    metadata: string[];
   }) {
     return mintUniqueMetadataFunction({
       client: this.client,
       tokenId,
       batchSize,
       supplyKey: supplyKey,
-      pathToMetadataURIsFile,
       metadataArray: metadata,
     });
   }

@@ -50,7 +50,6 @@ export type {
   MetadataOnChainObjects,
 } from './types/hip412-validator';
 export { PrivateKey } from '@hashgraph/sdk';
-
 export { HederaNFTSDK } from './nftSDKFunctions';
 export { FeeFactory } from './feeFactory';
 export { TokenMetadataValidator } from './token-metadata-validator';
@@ -60,10 +59,6 @@ export { PinataService } from './services/file-storages/pinata/pinata-service';
 export { AWSService } from './services/file-storages/aws/aws-service';
 export { MockStorageService } from './services/file-storages/mock-storage/mock-storage-service';
 export { UploadService } from './services/upload-service';
-/**
- * Function below is not browser supported
- * @browserUnsupported
- */
 export { convertCSVToMetadataObjects } from './file-management/convert-csv-to-metadata-objects';
 /**
  * Function below is not browser supported
