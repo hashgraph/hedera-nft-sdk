@@ -37,6 +37,7 @@ export const createCollectionFunction = async ({
   autoRenewAccountPrivateKey,
   autoRenewPeriod,
   memo,
+  metadata,
 }: CreateCollectionType): Promise<string> => {
   validatePropsForCreateCollection({
     collectionName,
@@ -49,6 +50,7 @@ export const createCollectionFunction = async ({
     autoRenewAccountPrivateKey,
     autoRenewPeriod,
     memo,
+    metadata,
   });
 
   const treasuryAccountId = treasuryAccount ? treasuryAccount : client.getOperator()!.accountId;
@@ -85,6 +87,10 @@ export const createCollectionFunction = async ({
     transaction = transaction.setPauseKey(keys?.pause);
   }
 
+  if (keys?.metadataKey) {
+    transaction = transaction.setMetadataKey(keys?.metadataKey);
+  }
+
   if (maxSupply) {
     transaction = transaction.setSupplyType(TokenSupplyType.Finite);
     transaction = transaction.setMaxSupply(maxSupply);
@@ -110,6 +116,11 @@ export const createCollectionFunction = async ({
     transaction = transaction.setTokenMemo(memo);
   }
 
+  if (metadata) {
+    const encodedMetadata = new TextEncoder().encode(metadata);
+    transaction = transaction.setMetadata(encodedMetadata);
+  }
+  
   if (keys?.metadataKey) {
     transaction = transaction.setMetadataKey(keys?.metadataKey);
   }

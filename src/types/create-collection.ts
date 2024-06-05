@@ -32,6 +32,12 @@ export type CreateCollectionKeysType = {
   metadataKey?: Key;
 };
 
+export interface SocialLink {
+  url: string;
+  label: string;
+  info?: string;
+}
+
 export type CreateCollectionType = {
   client: Client;
   myPrivateKey: PrivateKey;
@@ -47,4 +53,5 @@ export type CreateCollectionType = {
   autoRenewAccountPrivateKey?: PrivateKey;
   autoRenewPeriod?: number;
   memo?: string;
+  metadata?: string;
 };

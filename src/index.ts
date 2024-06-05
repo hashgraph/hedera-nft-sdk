@@ -50,7 +50,6 @@ export type {
   MetadataOnChainObjects,
 } from './types/hip412-validator';
 export { PrivateKey } from '@hashgraph/sdk';
-
 export { HederaNFTSDK } from './nftSDKFunctions';
 export { FeeFactory } from './feeFactory';
 export { TokenMetadataValidator } from './token-metadata-validator';

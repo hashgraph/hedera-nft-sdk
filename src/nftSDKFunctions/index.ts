@@ -84,6 +84,7 @@ export class HederaNFTSDK {
     autoRenewAccountPrivateKey,
     autoRenewPeriod,
     memo,
+    metadata,
   }: {
     collectionName: string;
     collectionSymbol: string;
@@ -97,6 +98,7 @@ export class HederaNFTSDK {
     autoRenewAccountPrivateKey?: PrivateKey;
     autoRenewPeriod?: number;
     memo?: string;
+    metadata?: string;
   }) {
     return createCollectionFunction({
       client: this.client,
@@ -113,6 +115,7 @@ export class HederaNFTSDK {
       autoRenewAccountPrivateKey,
       autoRenewPeriod,
       memo,
+      metadata,
     });
   }
 
