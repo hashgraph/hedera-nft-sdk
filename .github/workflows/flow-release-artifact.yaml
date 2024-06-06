@@ -12,8 +12,13 @@ jobs:
     name: Release
     runs-on: [self-hosted, Linux, medium, ephemeral]
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
       - name: Checkout repository
-        uses: actions/checkout@v3 # pin@v3
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
 
       - name: Install JQ and SED
         run: |
@@ -38,7 +43,7 @@ jobs:
           [[ "$PACKAGE_VERSION" == "$RELEASE_VERSION" ]] && echo "Versions match $RELEASE_VERSION" || (echo "Package version is: $PACKAGE_VERSION and Release tag is: $RELEASE_VERSION"; exit 1)
 
       - name: Setup Node 20
-        uses: actions/setup-node@v4 # pin@v4
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org
