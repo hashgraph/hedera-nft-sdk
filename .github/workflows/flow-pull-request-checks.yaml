@@ -18,7 +18,7 @@ permissions:
 jobs:
   test:
     name: Node v${{ matrix.node-version }} Tests
-    runs-on: [self-hosted, Linux, medium, ephemeral]
+    runs-on: nft-accelerators-linux-medium
     strategy:
       matrix:
         node-version: [18, 20]
@@ -49,4 +49,4 @@ jobs:
           check_name: Jest Node ${{ matrix.node-version }} Test Results
           check_run_disabled: true
           json_thousands_separator: ","
-          junit_files: "**/*.xml"
+          junit_files: "**/junit*.xml"

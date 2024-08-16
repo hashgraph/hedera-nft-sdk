@@ -14,6 +14,7 @@ const e2eConfig: JestConfigWithTsJest = {
   roots: ['<rootDir>/src'],
   testMatch: ['**/src/test/e2e/**/*.(spec|test).(ts|tsx)'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  reporters: ["default", ["jest-junit", {outputName: "junit-e2e.xml"}]]
 };
 
 export default e2eConfig;

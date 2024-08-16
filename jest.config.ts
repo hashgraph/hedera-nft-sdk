@@ -13,6 +13,7 @@ const config: JestConfigWithTsJest = {
   roots: ['<rootDir>/src'],
   testMatch: ['**/src/test/**/*.(spec|test).(ts|tsx)', '!**/src/test/e2e/**/*.(spec|test).(ts|tsx)'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  reporters: ["default", "jest-junit"]
 };
 
 export default config;
