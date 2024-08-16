@@ -18,7 +18,7 @@ permissions:
 jobs:
   test:
     name: Node v${{ matrix.node-version }} Tests
-    runs-on: [self-hosted, Linux, medium, ephemeral]
+    runs-on: nft-accelerators-linux-medium
     strategy:
       matrix:
         node-version: [18, 20]
