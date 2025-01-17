@@ -11,8 +11,9 @@
 # NOTE: Must be placed last to ensure enforcement over all other rules
 
 # Protection Rules for Github Configuration Files and Actions Workflows
-/.github/                                       @hashgraph/release-engineering @hashgraph/release-engineering-managers @hashgraph/developer-advocates
+/.github/                                       @hashgraph/release-engineering @hashgraph/release-engineering-manager
 /.github/workflows/                             @hashgraph/platform-ci @hashgraph/platform-ci-committers @hashgraph/release-engineering-managers
+/.github/depandabot.yml                         @hashgraph/release-engineering @hashgraph/release-engineering-managers @hashgraph/developer-advocates
 
 
 # Self-protection for root CODEOWNERS files (this file should not exist and should definitely require approval)
