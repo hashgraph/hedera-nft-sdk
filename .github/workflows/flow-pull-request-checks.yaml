@@ -47,6 +47,6 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           check_name: Jest Node ${{ matrix.node-version }} Test Results
-          check_run_disabled: true
+          check_run: false
           json_thousands_separator: ","
           junit_files: "**/junit*.xml"
