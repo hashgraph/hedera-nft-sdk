@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="196" failures="0" errors="0" time="5.354">
+  <testsuite name="Attributes validator tests" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:31" time="1.44" tests="11">
+    <testcase classname="Attributes validator tests it should return an empty array when passing a correct schema" name="Attributes validator tests it should return an empty array when passing a correct schema" time="0.004">
+    </testcase>
+    <testcase classname="Attributes validator tests Boost display type tests it should not return an error for a correct `display_type=boost`" name="Attributes validator tests Boost display type tests it should not return an error for a correct `display_type=boost`" time="0">
+    </testcase>
+    <testcase classname="Attributes validator tests Boost display type tests it should return an error for wrong type for `display_type=boost`" name="Attributes validator tests Boost display type tests it should return an error for wrong type for `display_type=boost`" time="0">
+    </testcase>
+    <testcase classname="Attributes validator tests Percentage display type tests it should not return an error for a correct `display_type=percentage`" name="Attributes validator tests Percentage display type tests it should not return an error for a correct `display_type=percentage`" time="0">
+    </testcase>
+    <testcase classname="Attributes validator tests Percentage display type tests it should return an error for wrong type for `display_type=percentage`" name="Attributes validator tests Percentage display type tests it should return an error for wrong type for `display_type=percentage`" time="0.001">
+    </testcase>
+    <testcase classname="Attributes validator tests Percentage display type tests it should return an error for wrong value for `display_type=percentage`" name="Attributes validator tests Percentage display type tests it should return an error for wrong value for `display_type=percentage`" time="0">
+    </testcase>
+    <testcase classname="Attributes validator tests Color display type tests it should not return an error for a correct `display_type=color`" name="Attributes validator tests Color display type tests it should not return an error for a correct `display_type=color`" time="0">
+    </testcase>
+    <testcase classname="Attributes validator tests Color display type tests it should return an error for wrong format RGB values of `display_type=color`" name="Attributes validator tests Color display type tests it should return an error for wrong format RGB values of `display_type=color`" time="0.001">
+    </testcase>
+    <testcase classname="Attributes validator tests Color display type tests it should return an error for wrong RGB number for `display_type=color`" name="Attributes validator tests Color display type tests it should return an error for wrong RGB number for `display_type=color`" time="0">
+    </testcase>
+    <testcase classname="Attributes validator tests Datetime and date display type tests it should not return an error for a correct `display_type=datetime` or `display_type=date`" name="Attributes validator tests Datetime and date display type tests it should not return an error for a correct `display_type=datetime` or `display_type=date`" time="0">
+    </testcase>
+    <testcase classname="Attributes validator tests Datetime and date display type tests it should return an error for wrong type for `display_type=datetime` or `display_type=date`" name="Attributes validator tests Datetime and date display type tests it should return an error for wrong type for `display_type=datetime` or `display_type=date`" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="validateProps_Value_Errors" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:31" time="2.248" tests="26">
+    <testcase classname="validateProps_Value_Errors should throw an error if batchSize is greater than 10" name="validateProps_Value_Errors should throw an error if batchSize is greater than 10" time="0.032">
+    </testcase>
+    <testcase classname="validateProps_Value_Errors should throw an error if batchSize is less than 1" name="validateProps_Value_Errors should throw an error if batchSize is less than 1" time="0.021">
+    </testcase>
+    <testcase classname="validateProps_Value_Errors should throw an error if tokenId is not provided" name="validateProps_Value_Errors should throw an error if tokenId is not provided" time="0.022">
+    </testcase>
+    <testcase classname="validateProps_Value_Errors should throw an error if metaData is not provided" name="validateProps_Value_Errors should throw an error if metaData is not provided" time="0.021">
+    </testcase>
+    <testcase classname="validateProps_Success should not throw an error if batchSize is a number between 1 and 10" name="validateProps_Success should not throw an error if batchSize is a number between 1 and 10" time="0.021">
+    </testcase>
+    <testcase classname="validateProps_Success should not throw an error if tokenId is valid" name="validateProps_Success should not throw an error if tokenId is valid" time="0.022">
+    </testcase>
+    <testcase classname="validateProps_Success should not throw an error if amount is a number greater than 0" name="validateProps_Success should not throw an error if amount is a number greater than 0" time="0.02">
+    </testcase>
+    <testcase classname="validateProps_Success should not throw an error if metaData is a string" name="validateProps_Success should not throw an error if metaData is a string" time="0.021">
+    </testcase>
+    <testcase classname="validateProps_Success should not throw an error if supplyKey is a PrivateKey" name="validateProps_Success should not throw an error if supplyKey is a PrivateKey" time="0.021">
+    </testcase>
+    <testcase classname="validateProps_For_Unique should not throw an error if validatePropsForUniqueNFTMinting and metadataArray is passed" name="validateProps_For_Unique should not throw an error if validatePropsForUniqueNFTMinting and metadataArray is passed" time="0.021">
+    </testcase>
+    <testcase classname="validateProps_For_Unique should not throw an error if validatePropsForUniqueNFTMinting and pathToMetadataURIsFile is passed" name="validateProps_For_Unique should not throw an error if validatePropsForUniqueNFTMinting and pathToMetadataURIsFile is passed" time="0.02">
+    </testcase>
+    <testcase classname="validateProps_For_Unique should throw an error if validatePropsForUniqueNFTMinting and metadataArray is undefined" name="validateProps_For_Unique should throw an error if validatePropsForUniqueNFTMinting and metadataArray is undefined" time="0.021">
+    </testcase>
+    <testcase classname="validateProps_For_Unique should throw an error if validatePropsForUniqueNFTMinting and metadataArray is undefined" name="validateProps_For_Unique should throw an error if validatePropsForUniqueNFTMinting and metadataArray is undefined" time="0.021">
+    </testcase>
+    <testcase classname="validateProps_For_Unique should not throw an error if validatePropsForUniqueNFTMinting and metadataArray is provided" name="validateProps_For_Unique should not throw an error if validatePropsForUniqueNFTMinting and metadataArray is provided" time="0.02">
+    </testcase>
+    <testcase classname="validateProps_For_Unique should not throw an error if validatePropsForUniqueNFTMinting and pathToMetadataURIsFile is provided" name="validateProps_For_Unique should not throw an error if validatePropsForUniqueNFTMinting and pathToMetadataURIsFile is provided" time="0.023">
+    </testcase>
+    <testcase classname="validateProps_For_Unique should throw an error if validatePropsForUniqueNFTMinting and both metadataArray and pathToMetadataURIsFile are undefined" name="validateProps_For_Unique should throw an error if validatePropsForUniqueNFTMinting and both metadataArray and pathToMetadataURIsFile are undefined" time="0.021">
+    </testcase>
+    <testcase classname="validatePropsForCreateCollection should throw an error if collectionName is not provided" name="validatePropsForCreateCollection should throw an error if collectionName is not provided" time="0">
+    </testcase>
+    <testcase classname="validatePropsForCreateCollection should throw an error if collectionSymbol is not provided" name="validatePropsForCreateCollection should throw an error if collectionSymbol is not provided" time="0.001">
+    </testcase>
+    <testcase classname="validatePropsForFixedFeeFunction should throw an error if hbarAmount, amount, and denominatingTokenId are not set" name="validatePropsForFixedFeeFunction should throw an error if hbarAmount, amount, and denominatingTokenId are not set" time="0">
+    </testcase>
+    <testcase classname="validatePropsForFixedFeeFunction should throw an error if only denominatingTokenId is set" name="validatePropsForFixedFeeFunction should throw an error if only denominatingTokenId is set" time="0">
+    </testcase>
+    <testcase classname="validatePropsForFixedFeeFunction should throw an error if only amount is set" name="validatePropsForFixedFeeFunction should throw an error if only amount is set" time="0">
+    </testcase>
+    <testcase classname="validatePropsForFixedFeeFunction should not throw an error if amount and denominatingTokenId are set" name="validatePropsForFixedFeeFunction should not throw an error if amount and denominatingTokenId are set" time="0.001">
+    </testcase>
+    <testcase classname="validatePropsForFixedFeeFunction should not throw an error if only hbarAmount is set" name="validatePropsForFixedFeeFunction should not throw an error if only hbarAmount is set" time="0">
+    </testcase>
+    <testcase classname="validatePropsForFixedFeeFunction should throw an error if hbarAmount and denominatingTokenId are set" name="validatePropsForFixedFeeFunction should throw an error if hbarAmount and denominatingTokenId are set" time="0">
+    </testcase>
+    <testcase classname="validatePropsForFixedFeeFunction should throw an error if hbarAmount and amount are set" name="validatePropsForFixedFeeFunction should throw an error if hbarAmount and amount are set" time="0">
+    </testcase>
+    <testcase classname="validatePropsForFixedFeeFunction should throw an error if hbarAmount, amount, and denominatingTokenId are set" name="validatePropsForFixedFeeFunction should throw an error if hbarAmount, amount, and denominatingTokenId are set" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="estimateCreateCollectionInHbars" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:32" time="1.007" tests="4">
+    <testcase classname="estimateCreateCollectionInHbars should work properly with default values" name="estimateCreateCollectionInHbars should work properly with default values" time="0.006">
+    </testcase>
+    <testcase classname="estimateCreateCollectionInHbars should work properly with royalty fee" name="estimateCreateCollectionInHbars should work properly with royalty fee" time="0.003">
+    </testcase>
+    <testcase classname="estimateCreateCollectionInHbars should work properly with fixed fees" name="estimateCreateCollectionInHbars should work properly with fixed fees" time="0.002">
+    </testcase>
+    <testcase classname="estimateCreateCollectionInHbars should throw an error when invalid parameters are passed" name="estimateCreateCollectionInHbars should throw an error when invalid parameters are passed" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="convertMetadataObjectsToJsonFiles Integration Test" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:33" time="0.315" tests="7">
+    <testcase classname="convertMetadataObjectsToJsonFiles Integration Test convertMetadataObjectsToJsonFiles should complete without errors" name="convertMetadataObjectsToJsonFiles Integration Test convertMetadataObjectsToJsonFiles should complete without errors" time="0.01">
+    </testcase>
+    <testcase classname="convertMetadataObjectsToJsonFiles Integration Test convertMetadataObjectsToJsonFiles should create correct number of JSON files based on the CSV file" name="convertMetadataObjectsToJsonFiles Integration Test convertMetadataObjectsToJsonFiles should create correct number of JSON files based on the CSV file" time="0.004">
+    </testcase>
+    <testcase classname="convertMetadataObjectsToJsonFiles Integration Test Each file should match Hip412MetadataSchema" name="convertMetadataObjectsToJsonFiles Integration Test Each file should match Hip412MetadataSchema" time="0.007">
+    </testcase>
+    <testcase classname="convertMetadataObjectsToJsonFiles Integration Test convertMetadataObjectsToJsonFiles should create a limited number of JSON files when nftsLimit is set" name="convertMetadataObjectsToJsonFiles Integration Test convertMetadataObjectsToJsonFiles should create a limited number of JSON files when nftsLimit is set" time="0.002">
+    </testcase>
+    <testcase classname="convertMetadataObjectsToJsonFiles Integration Test convertMetadataObjectsToJsonFiles should complete without errors using CSV with only required fields filled" name="convertMetadataObjectsToJsonFiles Integration Test convertMetadataObjectsToJsonFiles should complete without errors using CSV with only required fields filled" time="0.004">
+    </testcase>
+    <testcase classname="convertMetadataObjectsToJsonFiles Integration Test convertMetadataObjectsToJsonFiles should complete without errors using CSV with only required fields and headers filled" name="convertMetadataObjectsToJsonFiles Integration Test convertMetadataObjectsToJsonFiles should complete without errors using CSV with only required fields and headers filled" time="0.002">
+    </testcase>
+    <testcase classname="convertMetadataObjectsToJsonFiles Integration Test convertMetadataObjectsToJsonFiles should return errors for missing required fields in CSV" name="convertMetadataObjectsToJsonFiles Integration Test convertMetadataObjectsToJsonFiles should return errors for missing required fields in CSV" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="increaseNFTSupply" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:33" time="0.165" tests="6">
+    <testcase classname="increaseNFTSupply should validate props before increasing NFT supply" name="increaseNFTSupply should validate props before increasing NFT supply" time="0.001">
+    </testcase>
+    <testcase classname="increaseNFTSupply should increase supply when called with valid props" name="increaseNFTSupply should increase supply when called with valid props" time="0">
+    </testcase>
+    <testcase classname="increaseNFTSupply should call mintSharedMetadataFunction with the correct parameters" name="increaseNFTSupply should call mintSharedMetadataFunction with the correct parameters" time="0.001">
+    </testcase>
+    <testcase classname="increaseNFTSupply should call passed mirrorNodeUrl when provided" name="increaseNFTSupply should call passed mirrorNodeUrl when provided" time="0">
+    </testcase>
+    <testcase classname="increaseNFTSupply should get correct mirror node url for mainnet" name="increaseNFTSupply should get correct mirror node url for mainnet" time="0">
+    </testcase>
+    <testcase classname="increaseNFTSupply should get correct mirror node url for testnet" name="increaseNFTSupply should get correct mirror node url for testnet" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="estimateCreateCollectionInDollars" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:33" time="0.698" tests="3">
+    <testcase classname="estimateCreateCollectionInDollars should work properly" name="estimateCreateCollectionInDollars should work properly" time="0.006">
+    </testcase>
+    <testcase classname="estimateCreateCollectionInDollars should return a value when valid parameters are passed" name="estimateCreateCollectionInDollars should return a value when valid parameters are passed" time="0.001">
+    </testcase>
+    <testcase classname="estimateCreateCollectionInDollars should return a value when royalty fees are passed" name="estimateCreateCollectionInDollars should return a value when royalty fees are passed" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="calculateRarityFromData" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:34" time="0.254" tests="3">
+    <testcase classname="calculateRarityFromData should return an array of RarityResult objects from NON_EMPTY_JSON_DIRECTORY_PATH" name="calculateRarityFromData should return an array of RarityResult objects from NON_EMPTY_JSON_DIRECTORY_PATH" time="0.002">
+    </testcase>
+    <testcase classname="calculateRarityFromData should return an array of RarityResult objects from FILES_WITH_MIXED_EXTENSION_PATH" name="calculateRarityFromData should return an array of RarityResult objects from FILES_WITH_MIXED_EXTENSION_PATH" time="0">
+    </testcase>
+    <testcase classname="calculateRarityFromData should return an array of RarityResult objects from EMPTY_JSON_DIRECTORY_PATH" name="calculateRarityFromData should return an array of RarityResult objects from EMPTY_JSON_DIRECTORY_PATH" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="mintUniqueMetadataFunction" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:34" time="0.298" tests="1">
+    <testcase classname="mintUniqueMetadataFunction should return success metadata when given valid input from array" name="mintUniqueMetadataFunction should return success metadata when given valid input from array" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="calculateRiskScoreFromTokenId" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:34" time="0.194" tests="6">
+    <testcase classname="calculateRiskScoreFromTokenId should calculate risk score for a given token ID" name="calculateRiskScoreFromTokenId should calculate risk score for a given token ID" time="0.001">
+    </testcase>
+    <testcase classname="calculateRiskScoreFromTokenId should calculate risk score for a given token ID with customWeights parameter" name="calculateRiskScoreFromTokenId should calculate risk score for a given token ID with customWeights parameter" time="0.001">
+    </testcase>
+    <testcase classname="calculateRiskScoreFromTokenId should calculate risk score for a given token ID with customWeights and customRiskLevels parameters" name="calculateRiskScoreFromTokenId should calculate risk score for a given token ID with customWeights and customRiskLevels parameters" time="0.002">
+    </testcase>
+    <testcase classname="calculateRiskScoreFromTokenId should calculate risk score for a given token ID with admin_key provided" name="calculateRiskScoreFromTokenId should calculate risk score for a given token ID with admin_key provided" time="0.033">
+    </testcase>
+    <testcase classname="calculateRiskScoreFromTokenId should calculate risk score for a given token ID with max_supply and total_supply equal" name="calculateRiskScoreFromTokenId should calculate risk score for a given token ID with max_supply and total_supply equal" time="0.021">
+    </testcase>
+    <testcase classname="calculateRiskScoreFromTokenId should calculate risk score for a given token ID with all keys provided, customWeights &amp; customRiskLevels parameters" name="calculateRiskScoreFromTokenId should calculate risk score for a given token ID with all keys provided, customWeights &amp; customRiskLevels parameters" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="AWSService" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:34" time="0.157" tests="2">
+    <testcase classname="AWSService should upload a file successfully" name="AWSService should upload a file successfully" time="0.001">
+    </testcase>
+    <testcase classname="AWSService should throw an error when upload fails" name="AWSService should throw an error when upload fails" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="getHolderAndDuration" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:34" time="0.325" tests="3">
+    <testcase classname="getHolderAndDuration should return holder and duration" name="getHolderAndDuration should return holder and duration" time="0.001">
+    </testcase>
+    <testcase classname="getHolderAndDuration should throw an error when the NFT has been deleted" name="getHolderAndDuration should throw an error when the NFT has been deleted" time="0.002">
+    </testcase>
+    <testcase classname="getHolderAndDuration should throw an error when there are no transactions for the NFT" name="getHolderAndDuration should throw an error when there are no transactions for the NFT" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="TokenMetadataValidator.validateLocalFile integration tests" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:34" time="0.228" tests="2">
+    <testcase classname="TokenMetadataValidator.validateLocalFile integration tests should return an error if the file is empty" name="TokenMetadataValidator.validateLocalFile integration tests should return an error if the file is empty" time="0.001">
+    </testcase>
+    <testcase classname="TokenMetadataValidator.validateLocalFile integration tests should validate correctly structured JSON file" name="TokenMetadataValidator.validateLocalFile integration tests should validate correctly structured JSON file" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="getNFTsFromToken" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:34" time="0.223" tests="2">
+    <testcase classname="getNFTsFromToken fetches all pages of NFTs collection correctly" name="getNFTsFromToken fetches all pages of NFTs collection correctly" time="0.001">
+    </testcase>
+    <testcase classname="getNFTsFromToken properly handles HTTP errors" name="getNFTsFromToken properly handles HTTP errors" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="convertCSVToMetadataObjects Integration Test" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:34" time="0.208" tests="4">
+    <testcase classname="convertCSVToMetadataObjects Integration Test should create correct number of metadata objects based on the CSV file" name="convertCSVToMetadataObjects Integration Test should create correct number of metadata objects based on the CSV file" time="0.001">
+    </testcase>
+    <testcase classname="convertCSVToMetadataObjects Integration Test should accurately convert CSV data to metadata objects" name="convertCSVToMetadataObjects Integration Test should accurately convert CSV data to metadata objects" time="0.001">
+    </testcase>
+    <testcase classname="convertCSVToMetadataObjects Integration Test should return a number of metadataObjects no greater than specified limit" name="convertCSVToMetadataObjects Integration Test should return a number of metadataObjects no greater than specified limit" time="0">
+    </testcase>
+    <testcase classname="convertCSVToMetadataObjects Integration Test should throw an error if the CSV file is empty or contains only headers" name="convertCSVToMetadataObjects Integration Test should throw an error if the CSV file is empty or contains only headers" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="mintSharedMetadataFunction" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:34" time="0.207" tests="8">
+    <testcase classname="mintSharedMetadataFunction should return correct metadata" name="mintSharedMetadataFunction should return correct metadata" time="0.001">
+    </testcase>
+    <testcase classname="mintSharedMetadataFunction should handle amount less than batchSize correctly" name="mintSharedMetadataFunction should handle amount less than batchSize correctly" time="0.001">
+    </testcase>
+    <testcase classname="mintSharedMetadataFunction should handle batchSize of 1 correctly" name="mintSharedMetadataFunction should handle batchSize of 1 correctly" time="0">
+    </testcase>
+    <testcase classname="mintSharedMetadataFunction should handle batchSize of 10 correctly" name="mintSharedMetadataFunction should handle batchSize of 10 correctly" time="0">
+    </testcase>
+    <testcase classname="mintSharedMetadataFunction should handle error when batchSize is lower than 1" name="mintSharedMetadataFunction should handle error when batchSize is lower than 1" time="0.005">
+    </testcase>
+    <testcase classname="mintSharedMetadataFunction should handle error when batchSize is higher than 10" name="mintSharedMetadataFunction should handle error when batchSize is higher than 10" time="0">
+    </testcase>
+    <testcase classname="mintSharedMetadataFunction should handle error when metaData is not passed" name="mintSharedMetadataFunction should handle error when metaData is not passed" time="0.001">
+    </testcase>
+    <testcase classname="mintSharedMetadataFunction should handle error when tokenId is not passed" name="mintSharedMetadataFunction should handle error when tokenId is not passed" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="validateSingleOnChainNFTMetadata" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.212" tests="2">
+    <testcase classname="validateSingleOnChainNFTMetadata validates single NFT metadata successfully" name="validateSingleOnChainNFTMetadata validates single NFT metadata successfully" time="0.001">
+    </testcase>
+    <testcase classname="validateSingleOnChainNFTMetadata validates single NFT metadata and shows errors about missing fields in metadata object" name="validateSingleOnChainNFTMetadata validates single NFT metadata and shows errors about missing fields in metadata object" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="JsonMetadataFromCSVConverter" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.226" tests="3">
+    <testcase classname="JsonMetadataFromCSVConverter saveMetadataObjectsAsJsonFiles should save content of MetadataObject[] to json files" name="JsonMetadataFromCSVConverter saveMetadataObjectsAsJsonFiles should save content of MetadataObject[] to json files" time="0.003">
+    </testcase>
+    <testcase classname="JsonMetadataFromCSVConverter saveMetadataObjectsAsJsonFiles should create directory if path do not point to directory save content of MetadataObject[] to json files" name="JsonMetadataFromCSVConverter saveMetadataObjectsAsJsonFiles should create directory if path do not point to directory save content of MetadataObject[] to json files" time="0.002">
+    </testcase>
+    <testcase classname="JsonMetadataFromCSVConverter metadataObjectsFromRows should transform CSV rows into metadata objects" name="JsonMetadataFromCSVConverter metadataObjectsFromRows should transform CSV rows into metadata objects" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="TokenMetadataValidator.validateLocalDirectory integration tests" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.211" tests="3">
+    <testcase classname="TokenMetadataValidator.validateLocalDirectory integration tests should return an error if the directory is empty" name="TokenMetadataValidator.validateLocalDirectory integration tests should return an error if the directory is empty" time="0.001">
+    </testcase>
+    <testcase classname="TokenMetadataValidator.validateLocalDirectory integration tests should not return any errors if the directory contains valid JSON files" name="TokenMetadataValidator.validateLocalDirectory integration tests should not return any errors if the directory contains valid JSON files" time="0.001">
+    </testcase>
+    <testcase classname="TokenMetadataValidator.validateLocalDirectory integration tests should not return any errors if the directory contains valid text files with extensions other than JSON" name="TokenMetadataValidator.validateLocalDirectory integration tests should not return any errors if the directory contains valid text files with extensions other than JSON" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="createRoyaltyFeeFunction" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.192" tests="2">
+    <testcase classname="createRoyaltyFeeFunction should return the correct numerator and denominator" name="createRoyaltyFeeFunction should return the correct numerator and denominator" time="0">
+    </testcase>
+    <testcase classname="createRoyaltyFeeFunction should return the correct fallbackFee when provided" name="createRoyaltyFeeFunction should return the correct fallbackFee when provided" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="uriDecoder" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.208" tests="6">
+    <testcase classname="uriDecoder decodes IPFS metadata containing &quot;ipfs://&quot; prefix using provided ipfsGateway" name="uriDecoder decodes IPFS metadata containing &quot;ipfs://&quot; prefix using provided ipfsGateway" time="0.001">
+    </testcase>
+    <testcase classname="uriDecoder decodes IPFS metadata that does not contain &quot;ipfs://&quot; prefix using provided ipfsGateway" name="uriDecoder decodes IPFS metadata that does not contain &quot;ipfs://&quot; prefix using provided ipfsGateway" time="0">
+    </testcase>
+    <testcase classname="uriDecoder does not alter https:// prefixed metadata" name="uriDecoder does not alter https:// prefixed metadata" time="0">
+    </testcase>
+    <testcase classname="uriDecoder throws an error if ipfs metadata is provided without an ipfsGateway" name="uriDecoder throws an error if ipfs metadata is provided without an ipfsGateway" time="0.004">
+    </testcase>
+    <testcase classname="uriDecoder decodes various types of metadata correctly" name="uriDecoder decodes various types of metadata correctly" time="0">
+    </testcase>
+    <testcase classname="uriDecoder calls decoder correct number of times for multiple NFTs" name="uriDecoder calls decoder correct number of times for multiple NFTs" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="createFixedFeeFunction" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.202" tests="2">
+    <testcase classname="createFixedFeeFunction should create a CustomFixedFee with all properties" name="createFixedFeeFunction should create a CustomFixedFee with all properties" time="0.001">
+    </testcase>
+    <testcase classname="createFixedFeeFunction should throw an error when Collector account id is not provided" name="createFixedFeeFunction should throw an error when Collector account id is not provided" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="mintToken" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.129" tests="4">
+    <testcase classname="mintToken should return Success status" name="mintToken should return Success status" time="0.001">
+    </testcase>
+    <testcase classname="mintToken should return Success status when metadata is 99 characters long" name="mintToken should return Success status when metadata is 99 characters long" time="0">
+    </testcase>
+    <testcase classname="mintToken should return Success status when metadata is 100 characters long" name="mintToken should return Success status when metadata is 100 characters long" time="0.001">
+    </testcase>
+    <testcase classname="mintToken should throw error when metadata is 101 characters long" name="mintToken should throw error when metadata is 101 characters long" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="logIn" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.138" tests="5">
+    <testcase classname="logIn should call setOperator with correct parameters" name="logIn should call setOperator with correct parameters" time="0.001">
+    </testcase>
+    <testcase classname="logIn should throw an error if myAccountId is not provided" name="logIn should throw an error if myAccountId is not provided" time="0.002">
+    </testcase>
+    <testcase classname="logIn should create a client for local network" name="logIn should create a client for local network" time="0.001">
+    </testcase>
+    <testcase classname="logIn should create a client for local network with custom node" name="logIn should create a client for local network with custom node" time="0">
+    </testcase>
+    <testcase classname="logIn should create a client for local network with custom node and mirror network" name="logIn should create a client for local network with custom node and mirror network" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="validateCollectionMetadata" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.047" tests="4">
+    <testcase classname="validateCollectionMetadata validates a full metadata object with no errors expected" name="validateCollectionMetadata validates a full metadata object with no errors expected" time="0.001">
+    </testcase>
+    <testcase classname="validateCollectionMetadata validates a partially filled metadata object with no errors expected" name="validateCollectionMetadata validates a partially filled metadata object with no errors expected" time="0">
+    </testcase>
+    <testcase classname="validateCollectionMetadata validates a full metadata object with expected errors due to missing fields in socials array" name="validateCollectionMetadata validates a full metadata object with expected errors due to missing fields in socials array" time="0.001">
+    </testcase>
+    <testcase classname="validateCollectionMetadata validates a metadata object with expected error due to redundant keys" name="validateCollectionMetadata validates a metadata object with expected error due to redundant keys" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="NftStorageService" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.033" tests="2">
+    <testcase classname="NftStorageService should return the expected string when uploadFile is called" name="NftStorageService should return the expected string when uploadFile is called" time="0">
+    </testcase>
+    <testcase classname="NftStorageService should throw an error when no API keys are provided" name="NftStorageService should throw an error when no API keys are provided" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Hip412MetadataBuilder" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.077" tests="4">
+    <testcase classname="Hip412MetadataBuilder should create metadata with only required fields: name, image, and type" name="Hip412MetadataBuilder should create metadata with only required fields: name, image, and type" time="0.002">
+    </testcase>
+    <testcase classname="Hip412MetadataBuilder should return one validation error when there is no name field provided for metadata object" name="Hip412MetadataBuilder should return one validation error when there is no name field provided for metadata object" time="0.001">
+    </testcase>
+    <testcase classname="Hip412MetadataBuilder should return three validation errors when none of the required fields are provided" name="Hip412MetadataBuilder should return three validation errors when none of the required fields are provided" time="0">
+    </testcase>
+    <testcase classname="Hip412MetadataBuilder should return a full metadata object with all fields filled" name="Hip412MetadataBuilder should return a full metadata object with all fields filled" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="PinataService" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.033" tests="5">
+    <testcase classname="PinataService should return the expected string when uploadFile is called" name="PinataService should return the expected string when uploadFile is called" time="0.001">
+    </testcase>
+    <testcase classname="PinataService should return the expected string when only JWTToken is passed" name="PinataService should return the expected string when only JWTToken is passed" time="0">
+    </testcase>
+    <testcase classname="PinataService should return the expected string when only ApiKey and SecretKey is passed" name="PinataService should return the expected string when only ApiKey and SecretKey is passed" time="0">
+    </testcase>
+    <testcase classname="PinataService should throw an error when no JWT or ApiKey keys are provided" name="PinataService should throw an error when no JWT or ApiKey keys are provided" time="0.003">
+    </testcase>
+    <testcase classname="PinataService should throw an error when no JWT or SecretKey keys are provided" name="PinataService should throw an error when no JWT or SecretKey keys are provided" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="createCollectionFunction" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.029" tests="8">
+    <testcase classname="createCollectionFunction should create a collection and return a tokenId" name="createCollectionFunction should create a collection and return a tokenId" time="0">
+    </testcase>
+    <testcase classname="createCollectionFunction should throw an error when only treasuryAccount is passed" name="createCollectionFunction should throw an error when only treasuryAccount is passed" time="0.006">
+    </testcase>
+    <testcase classname="createCollectionFunction should throw an error when only treasuryAccountPrivateKey is passed" name="createCollectionFunction should throw an error when only treasuryAccountPrivateKey is passed" time="0">
+    </testcase>
+    <testcase classname="createCollectionFunction should create collection when treasuryAccount and treasuryAccountPrivateKey are passed" name="createCollectionFunction should create collection when treasuryAccount and treasuryAccountPrivateKey are passed" time="0">
+    </testcase>
+    <testcase classname="createCollectionFunction should throw an error if collectionName is not provided" name="createCollectionFunction should throw an error if collectionName is not provided" time="0.001">
+    </testcase>
+    <testcase classname="createCollectionFunction should throw an error if collectionSymbol is not provided" name="createCollectionFunction should throw an error if collectionSymbol is not provided" time="0">
+    </testcase>
+    <testcase classname="createCollectionFunction should create a collection with keys" name="createCollectionFunction should create a collection with keys" time="0">
+    </testcase>
+    <testcase classname="createCollectionFunction should create a collection with metadataKey provided" name="createCollectionFunction should create a collection with metadataKey provided" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="UploadService Integration Test" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.028" tests="1">
+    <testcase classname="UploadService Integration Test should upload files successfully using MockStorageService" name="UploadService Integration Test should upload files successfully using MockStorageService" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Validator function tests" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:35" time="0.051" tests="9">
+    <testcase classname="Validator function tests Schema version tests it should not return errors for a valid metadata JSON using default schema" name="Validator function tests Schema version tests it should not return errors for a valid metadata JSON using default schema" time="0.02">
+    </testcase>
+    <testcase classname="Validator function tests Schema version tests it should not return errors for a valid metadata JSON using schema version v1.0.0" name="Validator function tests Schema version tests it should not return errors for a valid metadata JSON using schema version v1.0.0" time="0.001">
+    </testcase>
+    <testcase classname="Validator function tests Schema version tests it should not return errors for a valid metadata JSON not passing a schema version (using default version)" name="Validator function tests Schema version tests it should not return errors for a valid metadata JSON not passing a schema version (using default version)" time="0.001">
+    </testcase>
+    <testcase classname="Validator function tests Schema package tests it should return a schema object for a valid version in the schema map" name="Validator function tests Schema package tests it should return a schema object for a valid version in the schema map" time="0">
+    </testcase>
+    <testcase classname="Validator function tests Schema package tests it should return the default schema object for an unsupported version in the schema map" name="Validator function tests Schema package tests it should return the default schema object for an unsupported version in the schema map" time="0.001">
+    </testcase>
+    <testcase classname="Validator function tests Schema package tests it should return the default schema object for an unsupported value as version" name="Validator function tests Schema package tests it should return the default schema object for an unsupported value as version" time="0">
+    </testcase>
+    <testcase classname="Validator function tests Validator errors it should only return schema errors when the metadata contains schema errors and also other types of errors like attribute and localization" name="Validator function tests Validator errors it should only return schema errors when the metadata contains schema errors and also other types of errors like attribute and localization" time="0">
+    </testcase>
+    <testcase classname="Validator function tests Validator errors it should return all types of errors when there are no schema errors" name="Validator function tests Validator errors it should return all types of errors when there are no schema errors" time="0">
+    </testcase>
+    <testcase classname="Validator function tests Validator errors it should return all types of errors even when there are additional property warnings and no schema errors" name="Validator function tests Validator errors it should return all types of errors even when there are additional property warnings and no schema errors" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="TokenMetadataValidator.validateLocalDirectory" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.039" tests="2">
+    <testcase classname="TokenMetadataValidator.validateLocalDirectory should return an error if the directory is empty" name="TokenMetadataValidator.validateLocalDirectory should return an error if the directory is empty" time="0.001">
+    </testcase>
+    <testcase classname="TokenMetadataValidator.validateLocalDirectory should validate only .txt and .json files" name="TokenMetadataValidator.validateLocalDirectory should validate only .txt and .json files" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="validateArrayOfObjects" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.036" tests="2">
+    <testcase classname="validateArrayOfObjects validates an array of valid metadata objects successfully" name="validateArrayOfObjects validates an array of valid metadata objects successfully" time="0.001">
+    </testcase>
+    <testcase classname="validateArrayOfObjects identifies errors in an array with invalid metadata objects" name="validateArrayOfObjects identifies errors in an array with invalid metadata objects" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="TokenMetadataValidator.validateLocalFile" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.037" tests="4">
+    <testcase classname="TokenMetadataValidator.validateLocalFile should throw errors during file reading without permissions" name="TokenMetadataValidator.validateLocalFile should throw errors during file reading without permissions" time="0.001">
+    </testcase>
+    <testcase classname="TokenMetadataValidator.validateLocalFile should handle JSON files with formatting errors" name="TokenMetadataValidator.validateLocalFile should handle JSON files with formatting errors" time="0">
+    </testcase>
+    <testcase classname="TokenMetadataValidator.validateLocalFile should handle empty or non-existent JSON files" name="TokenMetadataValidator.validateLocalFile should handle empty or non-existent JSON files" time="0">
+    </testcase>
+    <testcase classname="TokenMetadataValidator.validateLocalFile should validate correctly structured JSON file" name="TokenMetadataValidator.validateLocalFile should validate correctly structured JSON file" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Schema validator tests" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.039" tests="3">
+    <testcase classname="Schema validator tests it should not return errors or warnings for a correct JSON schema" name="Schema validator tests it should not return errors or warnings for a correct JSON schema" time="0.011">
+    </testcase>
+    <testcase classname="Schema validator tests it should return validation warnings when adding additional properties to the attribute field" name="Schema validator tests it should return validation warnings when adding additional properties to the attribute field" time="0">
+    </testcase>
+    <testcase classname="Schema validator tests it should return validation errors when not providing required properties for the attributes field" name="Schema validator tests it should return validation errors when not providing required properties for the attributes field" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="estimateNftMintingInHbar" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.028" tests="4">
+    <testcase classname="estimateNftMintingInHbar should correctly estimate the cost for minting NFTs" name="estimateNftMintingInHbar should correctly estimate the cost for minting NFTs" time="0.001">
+    </testcase>
+    <testcase classname="estimateNftMintingInHbar should correctly estimate the cost for minting a single NFT" name="estimateNftMintingInHbar should correctly estimate the cost for minting a single NFT" time="0">
+    </testcase>
+    <testcase classname="estimateNftMintingInHbar should correctly estimate the cost for minting multiple NFTs" name="estimateNftMintingInHbar should correctly estimate the cost for minting multiple NFTs" time="0">
+    </testcase>
+    <testcase classname="estimateNftMintingInHbar should handle errors from getHbarPriceInDollars" name="estimateNftMintingInHbar should handle errors from getHbarPriceInDollars" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="TokenMetadataValidator.validateSingleObject" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.036" tests="6">
+    <testcase classname="TokenMetadataValidator.validateSingleObject should not return any errors for an object with all fields filled properly" name="TokenMetadataValidator.validateSingleObject should not return any errors for an object with all fields filled properly" time="0">
+    </testcase>
+    <testcase classname="TokenMetadataValidator.validateSingleObject should not return any errors for an object with only required fields filled" name="TokenMetadataValidator.validateSingleObject should not return any errors for an object with only required fields filled" time="0.001">
+    </testcase>
+    <testcase classname="TokenMetadataValidator.validateSingleObject should return one error for an object missing the image field" name="TokenMetadataValidator.validateSingleObject should return one error for an object missing the image field" time="0">
+    </testcase>
+    <testcase classname="TokenMetadataValidator.validateSingleObject should return two errors for an object missing the image and type field" name="TokenMetadataValidator.validateSingleObject should return two errors for an object missing the image and type field" time="0">
+    </testcase>
+    <testcase classname="TokenMetadataValidator.validateSingleObject should return an error for an object with an invalid image MIME type" name="TokenMetadataValidator.validateSingleObject should return an error for an object with an invalid image MIME type" time="0">
+    </testcase>
+    <testcase classname="TokenMetadataValidator.validateSingleObject should return an error for an object with an invalid attributes structure" name="TokenMetadataValidator.validateSingleObject should return an error for an object with an invalid attributes structure" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="calculateRarityFromOnChainData" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.024" tests="2">
+    <testcase classname="calculateRarityFromOnChainData should return an array of RarityResult objects" name="calculateRarityFromOnChainData should return an array of RarityResult objects" time="0.001">
+    </testcase>
+    <testcase classname="calculateRarityFromOnChainData should thrown error if metadata not contain attributes" name="calculateRarityFromOnChainData should thrown error if metadata not contain attributes" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="CSVFileReader" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.028" tests="2">
+    <testcase classname="CSVFileReader should read a CSV file correctly" name="CSVFileReader should read a CSV file correctly" time="0.002">
+    </testcase>
+    <testcase classname="CSVFileReader should throw an error if invalid Blob type" name="CSVFileReader should throw an error if invalid Blob type" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="estimateNftMintingInDollars" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.022" tests="2">
+    <testcase classname="estimateNftMintingInDollars should return correct estimate for 1 NFT" name="estimateNftMintingInDollars should return correct estimate for 1 NFT" time="0">
+    </testcase>
+    <testcase classname="estimateNftMintingInDollars should return correct estimate for multiple NFTs" name="estimateNftMintingInDollars should return correct estimate for multiple NFTs" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="CalculateRiskScoreFromData" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.03" tests="7">
+    <testcase classname="CalculateRiskScoreFromData should calculate risk score with default metadata object" name="CalculateRiskScoreFromData should calculate risk score with default metadata object" time="0.001">
+    </testcase>
+    <testcase classname="CalculateRiskScoreFromData should calculate risk score when fee_schedule_key is extra provided" name="CalculateRiskScoreFromData should calculate risk score when fee_schedule_key is extra provided" time="0">
+    </testcase>
+    <testcase classname="CalculateRiskScoreFromData should calculate risk score when pause_key is extra provided" name="CalculateRiskScoreFromData should calculate risk score when pause_key is extra provided" time="0">
+    </testcase>
+    <testcase classname="CalculateRiskScoreFromData should calculate risk score when admin_key is extra provided" name="CalculateRiskScoreFromData should calculate risk score when admin_key is extra provided" time="0.001">
+    </testcase>
+    <testcase classname="CalculateRiskScoreFromData should calculate risk score with custom weights and custom risk levels" name="CalculateRiskScoreFromData should calculate risk score with custom weights and custom risk levels" time="0">
+    </testcase>
+    <testcase classname="CalculateRiskScoreFromData should calculate risk score with custom weights " name="CalculateRiskScoreFromData should calculate risk score with custom weights " time="0">
+    </testcase>
+    <testcase classname="CalculateRiskScoreFromData should calculate risk score with custom risk levels " name="CalculateRiskScoreFromData should calculate risk score with custom risk levels " time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="calculateRarityFromData" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.023" tests="1">
+    <testcase classname="calculateRarityFromData should return an array of RarityResult objects" name="calculateRarityFromData should return an array of RarityResult objects" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Localization validator tests" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.021" tests="6">
+    <testcase classname="Localization validator tests it should not return an error if the `localization` is property is not present" name="Localization validator tests it should not return an error if the `localization` is property is not present" time="0.001">
+    </testcase>
+    <testcase classname="Localization validator tests it should return an empty array when passing a correct schema" name="Localization validator tests it should return an empty array when passing a correct schema" time="0">
+    </testcase>
+    <testcase classname="Localization validator tests it should return an error for incorrect default language code" name="Localization validator tests it should return an error for incorrect default language code" time="0">
+    </testcase>
+    <testcase classname="Localization validator tests it should return an error for incorrect language code in `localization.locales`" name="Localization validator tests it should return an error for incorrect language code in `localization.locales`" time="0">
+    </testcase>
+    <testcase classname="Localization validator tests it should return an error if default locale appears in `localization.locales`" name="Localization validator tests it should return an error if default locale appears in `localization.locales`" time="0.001">
+    </testcase>
+    <testcase classname="Localization validator tests it should return an error for incorrect `localization.URI` format" name="Localization validator tests it should return an error for incorrect `localization.URI` format" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="calculateRarityFromData" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.023" tests="1">
+    <testcase classname="calculateRarityFromData should return an array of RarityResult objects" name="calculateRarityFromData should return an array of RarityResult objects" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="errorToMessage" errors="0" failures="0" skipped="0" timestamp="2025-03-05T10:22:36" time="0.018" tests="6">
+    <testcase classname="errorToMessage error is instance of Error" name="errorToMessage error is instance of Error" time="0">
+    </testcase>
+    <testcase classname="errorToMessage error is instance of string" name="errorToMessage error is instance of string" time="0">
+    </testcase>
+    <testcase classname="errorToMessage unhandled error" name="errorToMessage unhandled error" time="0">
+    </testcase>
+    <testcase classname="errorToMessage error is null" name="errorToMessage error is null" time="0.001">
+    </testcase>
+    <testcase classname="errorToMessage error is undefined" name="errorToMessage error is undefined" time="0">
+    </testcase>
+    <testcase classname="errorToMessage error is not instance of Error or string" name="errorToMessage error is not instance of Error or string" time="0">
+    </testcase>
+  </testsuite>
+</testsuites>
