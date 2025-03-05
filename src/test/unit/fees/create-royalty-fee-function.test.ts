@@ -32,8 +32,8 @@ describe('createRoyaltyFeeFunction', () => {
 
     const result = createRoyaltyFeeFunction(royaltyFeeType);
 
-    expect(result._numerator.toInt()).toEqual(royaltyFeeType.numerator);
-    expect(result._denominator.toInt()).toEqual(royaltyFeeType.denominator);
+    expect(result._numerator?.toInt()).toEqual(royaltyFeeType.numerator);
+    expect(result._denominator?.toInt()).toEqual(royaltyFeeType.denominator);
   });
 
   it('should return the correct fallbackFee when provided', () => {
@@ -52,6 +52,6 @@ describe('createRoyaltyFeeFunction', () => {
 
     const result = createRoyaltyFeeFunction(royaltyFeeType);
 
-    expect(result.fallbackFee?._amount.toInt()).toEqual(royaltyFeeType.fallbackFee?.amount);
+    expect(result.fallbackFee?._amount?.toInt()).toEqual(royaltyFeeType.fallbackFee?.amount);
   });
 });

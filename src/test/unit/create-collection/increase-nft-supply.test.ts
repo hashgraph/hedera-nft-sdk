@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import { Client, PrivateKey, TokenId } from '@hashgraph/sdk';
+import { Client, PrivateKey, TokenId, Long } from '@hashgraph/sdk';
 import axios from 'axios';
 import { increaseNFTSupply } from '../../../nftSDKFunctions/increase-nft-supply';
 import { IncreaseNFTSupplyType } from '../../../types/mint-token';
@@ -50,7 +50,7 @@ beforeEach(() => {
 describe('increaseNFTSupply', () => {
   const mockNftId = {
     tokenId: TokenId.fromString('0.0.453'),
-    serial: 1,
+    serial: Long.fromNumber(1),
     _toProtobuf: jest.fn(),
     toBytes: jest.fn(),
   };
