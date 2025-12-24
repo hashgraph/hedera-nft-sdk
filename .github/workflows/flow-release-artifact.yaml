@@ -114,8 +114,3 @@ jobs:
           echo "::group::Publishing package: ${package} with args: ${args}"
           npm publish ${package} ${args}
           echo "::endgroup::"
-
-      - name: Publish to NPM
-        run: npm publish --access=public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
