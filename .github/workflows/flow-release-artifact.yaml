@@ -72,7 +72,7 @@ jobs:
         id: npm-pack
         run: npm pack
 
-      - name: Upload Hedera Custodians Library Package Artifact
+      - name: Upload Hedera NFT SDK Package Artifact
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: npm-package
@@ -98,7 +98,7 @@ jobs:
       - name: Install NPM latest
         run: npm install -g npm@11.7.0
 
-      - name: Download Hedera Custodians Library NPM Package
+      - name: Download Hedera NFT SDK NPM Package
         uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: npm-package
