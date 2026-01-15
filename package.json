@@ -94,7 +94,7 @@
     "SDK"
   ],
   "dependencies": {
-    "@aws-sdk/client-s3": "3.515.0",
+    "@aws-sdk/client-s3": "3.632.0",
     "@aws-sdk/lib-storage": "3.515.0",
     "@babel/cli": "^7.24.5",
     "@babel/core": "^7.23.3",
